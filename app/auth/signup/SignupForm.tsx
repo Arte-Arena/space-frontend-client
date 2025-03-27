@@ -227,8 +227,10 @@ export default function SignupForm() {
         onBlur={() => handleBlur("name")}
         error={!!errors.name}
         helperText={errors.name}
-        InputProps={{
-          className: "rounded-md",
+        slotProps={{
+          input: {
+            className: "rounded-md",
+          },
         }}
       />
 
@@ -243,8 +245,10 @@ export default function SignupForm() {
         onBlur={() => handleBlur("email")}
         error={!!errors.email}
         helperText={errors.email}
-        InputProps={{
-          className: "rounded-md",
+        slotProps={{
+          input: {
+            className: "rounded-md",
+          },
         }}
       />
 
@@ -260,19 +264,21 @@ export default function SignupForm() {
           onBlur={() => handleBlur("password")}
           error={!!errors.password}
           helperText={errors.password}
-          InputProps={{
-            className: "rounded-md",
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton
-                  onClick={() => setShowPassword(!showPassword)}
-                  edge="end"
-                  aria-label="toggle password visibility"
-                >
-                  {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                </IconButton>
-              </InputAdornment>
-            ),
+          slotProps={{
+            input: {
+              className: "rounded-md",
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() => setShowPassword(!showPassword)}
+                    edge="end"
+                    aria-label="toggle password visibility"
+                  >
+                    {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            },
           }}
         />
         <TextField
@@ -286,23 +292,25 @@ export default function SignupForm() {
           onBlur={() => handleBlur("confirmPassword")}
           error={!!errors.confirmPassword}
           helperText={errors.confirmPassword}
-          InputProps={{
-            className: "rounded-md",
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  edge="end"
-                  aria-label="toggle confirm password visibility"
-                >
-                  {showConfirmPassword ? (
-                    <VisibilityOffIcon />
-                  ) : (
-                    <VisibilityIcon />
-                  )}
-                </IconButton>
-              </InputAdornment>
-            ),
+          slotProps={{
+            input: {
+              className: "rounded-md",
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    edge="end"
+                    aria-label="toggle confirm password visibility"
+                  >
+                    {showConfirmPassword ? (
+                      <VisibilityOffIcon />
+                    ) : (
+                      <VisibilityIcon />
+                    )}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            },
           }}
         />
       </Stack>

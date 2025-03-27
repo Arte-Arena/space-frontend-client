@@ -56,8 +56,10 @@ export default function EmailForm({
         onBlur={() => setTouched(true)}
         error={touched && !!emailError}
         helperText={touched && emailError ? emailError : ""}
-        InputProps={{
-          className: "rounded-md",
+        slotProps={{
+          input: {
+            className: "rounded-md",
+          },
         }}
       />
       <Button

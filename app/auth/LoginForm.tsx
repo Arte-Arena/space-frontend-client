@@ -99,8 +99,10 @@ export default function LoginForm() {
         onBlur={() => validateEmail(email)}
         error={!!emailError}
         helperText={emailError}
-        InputProps={{
-          className: "rounded-md",
+        slotProps={{
+          input: {
+            className: "rounded-md",
+          },
         }}
       />
 
@@ -114,19 +116,21 @@ export default function LoginForm() {
         onBlur={() => validatePassword(password)}
         error={!!passwordError}
         helperText={passwordError}
-        InputProps={{
-          className: "rounded-md",
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton
-                onClick={() => setShowPassword(!showPassword)}
-                edge="end"
-                aria-label="toggle password visibility"
-              >
-                {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-              </IconButton>
-            </InputAdornment>
-          ),
+        slotProps={{
+          input: {
+            className: "rounded-md",
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  onClick={() => setShowPassword(!showPassword)}
+                  edge="end"
+                  aria-label="toggle password visibility"
+                >
+                  {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          },
         }}
       />
 
