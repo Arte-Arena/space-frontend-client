@@ -143,7 +143,7 @@ export default function LoginForm() {
           label={<Typography variant="body2">Lembrar-me</Typography>}
         />
         <Link
-          href="#"
+          href="/auth/forgot-password"
           underline="hover"
           variant="body2"
           className="text-blue-600"
