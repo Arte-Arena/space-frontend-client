@@ -46,9 +46,6 @@ export default function LoginForm() {
     if (!password) {
       setPasswordError("Senha é obrigatória");
       return false;
-    } else if (password.length < 8) {
-      setPasswordError("Senha deve ter pelo menos 8 caracteres");
-      return false;
     } else {
       setPasswordError("");
       return true;
