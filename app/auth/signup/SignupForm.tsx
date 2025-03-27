@@ -38,6 +38,8 @@ export default function SignupForm() {
 
   const [agreeToTerms, setAgreeToTerms] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [passwordTouched, setPasswordTouched] = useState(false);
+  const [confirmPasswordTouched, setConfirmPasswordTouched] = useState(false);
 
   const validateName = (name: string) => {
     if (!name.trim()) {
@@ -96,6 +98,12 @@ export default function SignupForm() {
       ...errors,
       [name]: "",
     });
+
+    if (name === "password") {
+      setPasswordTouched(true);
+    } else if (name === "confirmPassword") {
+      setConfirmPasswordTouched(true);
+    }
   };
 
   const handleBlur = (field: keyof typeof formData) => {
@@ -169,6 +177,42 @@ export default function SignupForm() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const renderPasswordRequirements = () => {
+    if (!passwordTouched || !formData.password) return null;
+
+    const requirements = [
+      { met: formData.password.length >= 8, text: "Pelo menos 8 caracteres" },
+      {
+        met: /[a-z]/.test(formData.password),
+        text: "Pelo menos uma letra minúscula",
+      },
+      {
+        met: /[A-Z]/.test(formData.password),
+        text: "Pelo menos uma letra maiúscula",
+      },
+      { met: /[0-9]/.test(formData.password), text: "Pelo menos um número" },
+    ];
+
+    return (
+      <Box className="mt-1 text-xs space-y-1">
+        <Typography variant="caption" className="font-medium">
+          Requisitos de senha:
+        </Typography>
+        {requirements.map((req, index) => (
+          <Typography
+            key={index}
+            variant="caption"
+            display="block"
+            className={req.met ? "text-green-600" : "text-red-600"}
+          >
+            {req.met ? "✓ " : "✗ "}
+            {req.text}
+          </Typography>
+        ))}
+      </Box>
+    );
   };
 
   return (
@@ -262,6 +306,8 @@ export default function SignupForm() {
           }}
         />
       </Stack>
+
+      {renderPasswordRequirements()}
 
       <FormControlLabel
         control={
