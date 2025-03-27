@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, ChangeEvent } from "react";
+import React, { useState, ChangeEvent } from "react";
 import {
   TextField,
   Button,
@@ -28,10 +28,20 @@ export default function EmailForm({
 }: EmailFormProps) {
   const [touched, setTouched] = useState(false);
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setTouched(true);
+
+    if (!emailError) {
+      handleRequestCode(e);
+    }
+  };
+
   return (
     <form
-      onSubmit={handleRequestCode}
+      onSubmit={handleSubmit}
       className="flex flex-col gap-4 space-y-5"
+      noValidate
     >
       <TextField
         fullWidth

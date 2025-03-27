@@ -91,9 +91,7 @@ export default function ForgotPasswordForm() {
   ) => {
     const value = e.target.value;
     setEmail(value);
-    if (emailError) {
-      validateEmail(value);
-    }
+    validateEmail(value);
   };
 
   const handlePasswordChange = (value: string) => {
