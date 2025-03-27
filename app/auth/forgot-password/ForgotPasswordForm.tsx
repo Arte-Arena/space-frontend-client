@@ -135,14 +135,13 @@ export default function ForgotPasswordForm() {
   };
 
   const handleCodeChange = (index: number, value: string) => {
-    const filteredValue = value.replace(/[^A-Z0-9]/g, "");
-
+    const uppercaseValue = value.toUpperCase();
+    const filteredValue = uppercaseValue.replace(/[^A-Z0-9]/g, "");
     if (filteredValue.length <= 1) {
       const newVerificationCode = [...verificationCode];
       newVerificationCode[index] = filteredValue;
       setVerificationCode(newVerificationCode);
       setVerificationError("");
-
       if (filteredValue && index < 4) {
         const nextInput = document.getElementById(`code-${index + 1}`);
         if (nextInput) {

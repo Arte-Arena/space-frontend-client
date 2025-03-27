@@ -118,12 +118,14 @@ export default function VerificationForm({
             onChange={(e) => handleCodeChange(index, e.target.value)}
             onKeyDown={(e) => handleKeyDown(index, e)}
             variant="outlined"
-            inputProps={{
-              maxLength: 1,
-              style: {
-                textAlign: "center",
-                fontSize: "1.5rem",
-                textTransform: "uppercase",
+            slotProps={{
+              htmlInput: {
+                maxLength: 1,
+                style: {
+                  textAlign: "center",
+                  fontSize: "1.5rem",
+                  textTransform: "uppercase",
+                },
               },
             }}
             sx={{ width: "3rem", height: "3.5rem" }}
