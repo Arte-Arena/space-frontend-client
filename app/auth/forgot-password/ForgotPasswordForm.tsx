@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, ChangeEvent } from "react";
 import { logger } from "../../utils/logger";
 import EmailForm from "./EmailForm";
