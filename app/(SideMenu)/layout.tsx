@@ -25,7 +25,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <Box className="min-h-screen bg-gray-50">
+    <Box className="min-h-screen bg-white">
       <Header onMenuToggle={handleMenuToggle} />
       <SideMenu
         isOpen={isSideMenuOpen}
@@ -36,23 +36,23 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         component="main"
         sx={{
           flexGrow: 1,
-          transition: theme.transitions.create("margin", {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
+          transition: theme.transitions.create(["margin", "width"], {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.standard,
           }),
           marginLeft: isMobile ? 0 : isSideMenuOpen ? `${DRAWER_WIDTH}px` : 0,
           width: isMobile
             ? "100%"
             : `calc(100% - ${isSideMenuOpen ? DRAWER_WIDTH : 0}px)`,
+          marginTop: "55px",
+          background: "#ffffff",
           "& > *": {
-            borderRadius: "16px",
-            backgroundColor: "white",
+            backgroundColor: "rgb(250, 251, 252)",
+            minHeight: "100vh",
+            margin: 0,
             padding: theme.spacing(3),
-            margin: theme.spacing(2),
-            boxShadow: "0 1px 3px rgba(0,0,0,0.12)",
           },
         }}
-        className="pt-16 px-2 sm:px-6"
       >
         {children}
       </Box>

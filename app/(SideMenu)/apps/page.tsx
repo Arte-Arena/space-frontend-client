@@ -1,13 +1,17 @@
 "use client";
 
-import { Box, Typography } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import { Box } from "@mui/material";
 
 export default function AppsPage() {
   return (
-    <Box sx={{ width: "100%" }}>
-      <Typography variant="h4" gutterBottom>
-        Apps Dashboard
-      </Typography>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      height="100%"
+    >
+      <Typography variant="h4">TODO</Typography>
     </Box>
   );
 }
