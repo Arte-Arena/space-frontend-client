@@ -7,11 +7,7 @@ import { Grid, Tabs, Tab, Box, CardContent, Divider } from "@mui/material";
 
 // components
 import AccountTab from "@/app/components/pages/account-setting/AccountTab";
-import {
-  IconBell,
-  IconLock,
-  IconUserCircle,
-} from "@tabler/icons-react";
+import { IconBell, IconLock, IconUserCircle } from "@tabler/icons-react";
 import BlankCard from "@/app/components/shared/BlankCard";
 import NotificationTab from "@/app/components/pages/account-setting/NotificationTab";
 import SecurityTab from "@/app/components/pages/account-setting/SecurityTab";
@@ -74,7 +70,7 @@ const AccountSetting = () => {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <BlankCard>
-            <Box sx={{ width: '100%' }}>
+            <Box sx={{ width: "100%" }}>
               <Tabs
                 value={value}
                 onChange={handleChange}
