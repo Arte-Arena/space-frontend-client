@@ -42,7 +42,7 @@ const Menuitems: MenuitemsType[] = [
         id: uniqueId(),
         title: "Uniformes",
         icon: IconPoint,
-        href: "/apps/ecommerce/shop",
+        href: "/uniforms",
       },
     ],
   },
