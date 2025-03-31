@@ -38,6 +38,11 @@ import {
   bairroValidator,
   cidadeValidator,
   validateField,
+  formatCelular,
+  formatCPF,
+  formatCNPJ,
+  formatRG,
+  formatCEP,
 } from "../../../../utils/validators";
 
 const ufOptions = [
@@ -91,6 +96,16 @@ const AccountTab = () => {
     "success" | "error" | "info" | "warning"
   >("info");
   const [isSaving, setIsSaving] = useState(false);
+  
+  const [formValues, setFormValues] = useState({
+    celular: "",
+    cpf: "",
+    rg: "",
+    cnpj: "",
+    inscricaoEstadual: "",
+    cep: "",
+    cepCobranca: "",
+  });
 
   const handleTipoPessoaChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -115,6 +130,31 @@ const AccountTab = () => {
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setEnderecoCobrancaDiferente(event.target.checked);
+  };
+
+  const handleCelularChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatCelular(e.target.value);
+    setFormValues(prev => ({ ...prev, celular: formatted }));
+  };
+
+  const handleCpfChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatCPF(e.target.value);
+    setFormValues(prev => ({ ...prev, cpf: formatted }));
+  };
+
+  const handleCnpjChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatCNPJ(e.target.value);
+    setFormValues(prev => ({ ...prev, cnpj: formatted }));
+  };
+
+  const handleRgChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatRG(e.target.value);
+    setFormValues(prev => ({ ...prev, rg: formatted }));
+  };
+
+  const handleCepChange = (e: ChangeEvent<HTMLInputElement>, field: string) => {
+    const formatted = formatCEP(e.target.value);
+    setFormValues(prev => ({ ...prev, [field]: formatted }));
   };
 
   const handleBlur = async (field: string, value: string, validator: any) => {
@@ -319,6 +359,8 @@ const AccountTab = () => {
                     placeholder="(00) 00000-0000"
                     variant="outlined"
                     fullWidth
+                    value={formValues.celular}
+                    onChange={handleCelularChange}
                     onBlur={(e: FocusEvent<HTMLInputElement>) =>
                       handleBlur("celular", e.target.value, celularValidator)
                     }
@@ -342,6 +384,8 @@ const AccountTab = () => {
                         placeholder="000.000.000-00"
                         variant="outlined"
                         fullWidth
+                        value={formValues.cpf}
+                        onChange={handleCpfChange}
                         onBlur={(e: FocusEvent<HTMLInputElement>) =>
                           handleBlur("cpf", e.target.value, cpfValidator)
                         }
@@ -359,6 +403,8 @@ const AccountTab = () => {
                         placeholder="00.000.000-0"
                         variant="outlined"
                         fullWidth
+                        value={formValues.rg}
+                        onChange={handleRgChange}
                         onBlur={(e: FocusEvent<HTMLInputElement>) =>
                           handleBlur("rg", e.target.value, rgValidator)
                         }
@@ -409,6 +455,8 @@ const AccountTab = () => {
                         placeholder="00.000.000/0000-00"
                         variant="outlined"
                         fullWidth
+                        value={formValues.cnpj}
+                        onChange={handleCnpjChange}
                         onBlur={(e: FocusEvent<HTMLInputElement>) =>
                           handleBlur("cnpj", e.target.value, cnpjValidator)
                         }
@@ -481,6 +529,8 @@ const AccountTab = () => {
                     placeholder="00000-000"
                     variant="outlined"
                     fullWidth
+                    value={formValues.cep}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => handleCepChange(e, "cep")}
                     onBlur={(e: FocusEvent<HTMLInputElement>) =>
                       handleBlur("cep", e.target.value, cepValidator)
                     }
@@ -635,6 +685,13 @@ const AccountTab = () => {
                         placeholder="00000-000"
                         variant="outlined"
                         fullWidth
+                        value={formValues.cepCobranca}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => handleCepChange(e, "cepCobranca")}
+                        onBlur={(e: FocusEvent<HTMLInputElement>) =>
+                          handleBlur("cepCobranca", e.target.value, cepValidator)
+                        }
+                        error={Boolean(errors.cepCobranca)}
+                        helperText={errors.cepCobranca || ""}
                       />
                     </Grid>
 
