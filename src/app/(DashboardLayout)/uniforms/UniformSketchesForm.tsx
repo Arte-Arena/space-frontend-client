@@ -7,6 +7,11 @@ import {
   Snackbar,
   Typography,
   CircularProgress,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  DialogContentText,
 } from "@mui/material";
 import { IconDeviceFloppy } from "@tabler/icons-react";
 import { UniformWithSketches, Sketch } from "./types";
@@ -27,6 +32,7 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
 
   const handleSketchUpdate = (updatedSketch: Sketch) => {
     const updatedSketches = sketches.map((sketch) =>
@@ -35,30 +41,35 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
     setSketches(updatedSketches);
   };
 
-  const handleSaveAll = async () => {
-    setSaving(true);
-    try {
-      let hasError = false;
-      let errorMsg = "";
+  const handleOpenConfirmDialog = () => {
+    let hasError = false;
+    let errorMsg = "";
 
-      for (const sketch of sketches) {
-        for (const player of sketch.players) {
-          if (!player.name || !player.jerseySize || !player.shortsSize) {
-            hasError = true;
-            errorMsg = `Preencha todos os campos para o jogador ${player.id} no esboço ${sketch.id}`;
-            break;
-          }
+    for (const sketch of sketches) {
+      for (const player of sketch.players) {
+        if (!player.name || !player.jerseySize || !player.shortsSize) {
+          hasError = true;
+          errorMsg = `Preencha todos os campos para o jogador ${player.id} no esboço ${sketch.id}`;
+          break;
         }
-        if (hasError) break;
       }
+      if (hasError) break;
+    }
 
-      if (hasError) {
-        setErrorMessage(errorMsg);
-        setShowError(true);
-        setSaving(false);
-        return;
-      }
+    if (hasError) {
+      setErrorMessage(errorMsg);
+      setShowError(true);
+      return;
+    }
 
+    setConfirmDialogOpen(true);
+  };
+
+  const handleConfirmSave = async () => {
+    setConfirmDialogOpen(false);
+    setSaving(true);
+
+    try {
       const updatedUniform = await uniformService.updateUniformSketches(
         uniform.id,
         sketches,
@@ -111,12 +122,39 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
           color="primary"
           size="large"
           startIcon={!saving && <IconDeviceFloppy />}
-          onClick={handleSaveAll}
+          onClick={handleOpenConfirmDialog}
           disabled={saving}
         >
-          {saving ? <CircularProgress size={24} /> : "Salvar Alterações"}
+          {saving ? <CircularProgress size={24} /> : "Salvar alterações"}
         </Button>
       </Box>
+
+      <Dialog
+        open={confirmDialogOpen}
+        onClose={() => setConfirmDialogOpen(false)}
+      >
+        <DialogTitle>Confirmar tamanhos dos uniformes</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Por favor, confirme que você escolheu corretamente todos os tamanhos
+            de camisas e calções para os jogadores. Após a confirmação, os
+            uniformes serão enviados para produção com esses tamanhos.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setConfirmDialogOpen(false)} color="inherit">
+            Revisar novamente
+          </Button>
+          <Button
+            onClick={handleConfirmSave}
+            variant="contained"
+            color="primary"
+            autoFocus
+          >
+            Confirmar e salvar
+          </Button>
+        </DialogActions>
+      </Dialog>
 
       <Snackbar
         open={showSuccess}
