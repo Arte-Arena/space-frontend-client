@@ -1,12 +1,14 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Grid, Box } from "@mui/material";
+import { Grid, Box, Button, CircularProgress } from "@mui/material";
 import Breadcrumb from "@/app/(DashboardLayout)/layout/shared/breadcrumb/Breadcrumb";
 import PageContainer from "@/app/components/container/PageContainer";
 import BlankCard from "@/app/components/shared/BlankCard";
-import UniformDetail from "../UniformDetail";
+import { IconArrowLeft } from "@tabler/icons-react";
+import Link from "next/link";
 import { uniformService } from "../uniformService";
-import { UniformSet } from "../UniformList";
+import UniformSketchesForm from "../UniformSketchesForm";
+import { UniformWithSketches } from "../types";
 
 interface UniformDetailPageProps {
   params: {
@@ -17,7 +19,9 @@ interface UniformDetailPageProps {
 export default function UniformDetailPage({ params }: UniformDetailPageProps) {
   const { id } = params;
   const [loading, setLoading] = useState(true);
-  const [uniformData, setUniformData] = useState<UniformSet | null>(null);
+  const [uniformData, setUniformData] = useState<UniformWithSketches | null>(
+    null,
+  );
 
   const BCrumb = [
     {
@@ -36,7 +40,7 @@ export default function UniformDetailPage({ params }: UniformDetailPageProps) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await uniformService.getUniformById(id);
+        const data = await uniformService.getUniformWithSketches(id);
         setUniformData(data || null);
       } catch (error) {
         console.error("Erro ao carregar detalhes do uniforme:", error);
@@ -48,6 +52,10 @@ export default function UniformDetailPage({ params }: UniformDetailPageProps) {
     fetchData();
   }, [id]);
 
+  const handleSave = (savedUniform: UniformWithSketches) => {
+    setUniformData(savedUniform);
+  };
+
   return (
     <PageContainer
       title={`Uniforme - Orçamento ${id}`}
@@ -57,13 +65,43 @@ export default function UniformDetailPage({ params }: UniformDetailPageProps) {
 
       <Grid container spacing={3}>
         <Grid item xs={12}>
+          <Box mb={3}>
+            <Button
+              component={Link}
+              href="/uniforms"
+              startIcon={<IconArrowLeft />}
+              variant="text"
+            >
+              Voltar para lista
+            </Button>
+          </Box>
+
           <BlankCard>
             <Box p={3}>
-              <UniformDetail
-                loading={loading}
-                uniformData={uniformData}
-                id={id}
-              />
+              {loading ? (
+                <Box
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  py={5}
+                >
+                  <CircularProgress />
+                </Box>
+              ) : uniformData ? (
+                <UniformSketchesForm
+                  uniform={uniformData}
+                  onSave={handleSave}
+                />
+              ) : (
+                <Box
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  py={5}
+                >
+                  Uniforme não encontrado ou sem dados disponíveis.
+                </Box>
+              )}
             </Box>
           </BlankCard>
         </Grid>

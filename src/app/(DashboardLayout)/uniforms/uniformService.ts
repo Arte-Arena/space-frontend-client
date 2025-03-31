@@ -1,4 +1,5 @@
 import { UniformSet } from "./UniformList";
+import { UniformWithSketches, Sketch, createEmptyPlayer } from "./types";
 
 const mockUniformSets: UniformSet[] = [
   { id: 1, budgetNumber: "1", isFilled: true },
@@ -7,6 +8,45 @@ const mockUniformSets: UniformSet[] = [
   { id: 4, budgetNumber: "4", isFilled: true },
   { id: 5, budgetNumber: "5", isFilled: false },
 ];
+
+const generateMockSketches = (): Sketch[] => {
+  const letters = ["A", "B", "C"];
+  return letters.map((letter) => {
+    const playerCount = Math.floor(Math.random() * 10) + 5;
+    const players = Array.from({ length: playerCount }, (_, i) =>
+      createEmptyPlayer(i + 1),
+    );
+
+    return {
+      id: letter,
+      playerCount,
+      players,
+    };
+  });
+};
+
+const mockUniformsWithSketches: Record<number, UniformWithSketches> = {
+  1: {
+    ...mockUniformSets[0],
+    sketches: generateMockSketches(),
+  },
+  2: {
+    ...mockUniformSets[1],
+    sketches: generateMockSketches(),
+  },
+  3: {
+    ...mockUniformSets[2],
+    sketches: generateMockSketches(),
+  },
+  4: {
+    ...mockUniformSets[3],
+    sketches: generateMockSketches(),
+  },
+  5: {
+    ...mockUniformSets[4],
+    sketches: generateMockSketches(),
+  },
+};
 
 export const uniformService = {
   getUniformSets: async (): Promise<UniformSet[]> => {
@@ -28,14 +68,37 @@ export const uniformService = {
     });
   },
 
-  updateUniformData: async (id: number, data: any): Promise<UniformSet> => {
+  getUniformWithSketches: async (
+    id: string | number,
+  ): Promise<UniformWithSketches | undefined> => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        const updatedSet = {
-          ...mockUniformSets.find((u) => u.id === id)!,
-          ...data,
+        const uniformWithSketches = mockUniformsWithSketches[Number(id)];
+        resolve(uniformWithSketches);
+      }, 800);
+    });
+  },
+
+  updateUniformSketches: async (
+    id: number,
+    sketches: Sketch[],
+  ): Promise<UniformWithSketches> => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const updatedUniform = {
+          ...mockUniformsWithSketches[id],
+          sketches: sketches,
+          isFilled: true,
         };
-        resolve(updatedSet);
+
+        mockUniformsWithSketches[id] = updatedUniform;
+
+        const uniformSetIndex = mockUniformSets.findIndex((u) => u.id === id);
+        if (uniformSetIndex >= 0) {
+          mockUniformSets[uniformSetIndex].isFilled = true;
+        }
+
+        resolve(updatedUniform);
       }, 800);
     });
   },
