@@ -64,7 +64,7 @@ function CategoryTaskList({ id }: any) {
 
   //Updates the category name
   const handleUpdateCategory = async (
-    updatedName: SetStateAction<string | any>
+    updatedName: SetStateAction<string | any>,
   ) => {
     try {
       const response = await axios.post("/api/TodoData/updateCategory", {
@@ -117,7 +117,7 @@ function CategoryTaskList({ id }: any) {
   const handleDeleteTask = (taskId: number | any) => {
     deleteTodo(taskId);
     setAllTasks((prevTasks: any[]) =>
-      prevTasks.filter((task: { id: number }) => task.id !== taskId)
+      prevTasks.filter((task: { id: number }) => task.id !== taskId),
     );
   };
   //Handles the deletion of the current category.
@@ -130,12 +130,12 @@ function CategoryTaskList({ id }: any) {
     ? category.name === "Todo"
       ? "primary.light"
       : category.name === "Progress"
-      ? "secondary.light"
-      : category.name === "Pending"
-      ? "warning.light"
-      : category.name === "Done"
-      ? "success.light"
-      : "primary.light"
+        ? "secondary.light"
+        : category.name === "Pending"
+          ? "warning.light"
+          : category.name === "Done"
+            ? "success.light"
+            : "primary.light"
     : "primary.light";
 
   return (

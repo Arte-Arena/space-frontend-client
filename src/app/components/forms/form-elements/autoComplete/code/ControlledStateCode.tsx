@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const ControlledStateCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 "use client";
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
@@ -63,9 +63,9 @@ const [inputValue, setInputValue] = React.useState('');
     variant="subtitle2"
     >{'inputvalue: '{inputValue}''}
 </Typography>`}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default ControlledStateCode;

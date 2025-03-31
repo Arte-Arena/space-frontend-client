@@ -1,16 +1,16 @@
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
-import IconButton from '@mui/material/IconButton';
-import Stack from '@mui/material/Stack';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Typography from '@mui/material/Typography';
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import IconButton from "@mui/material/IconButton";
+import Stack from "@mui/material/Stack";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Typography from "@mui/material/Typography";
 import Link from "next/link";
 import { IconMinus, IconPlus, IconTrash } from "@tabler/icons-react";
 import { useSelector, useDispatch } from "@/store/hooks";
@@ -28,7 +28,7 @@ const AddToCart = () => {
 
   // Get Products
   const Cartproduct: ProductType[] = useSelector(
-    (state) => state.ecommerceReducer.cart
+    (state) => state.ecommerceReducer.cart,
   );
   console.log(Cartproduct);
   const Increase = (productId: number | string) => {

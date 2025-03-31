@@ -29,7 +29,7 @@ function createData(
   customer?: string,
   inventory?: boolean,
   price?: number,
-  items?: string
+  items?: string,
 ) {
   return {
     imgsrc,
@@ -160,7 +160,7 @@ function Row(props: { row: ReturnType<typeof createData> }) {
                       <TableCell>
                         <Typography fontWeight="600">
                           {Math.round(
-                            historyRow.amount * historyRow.price * 100
+                            historyRow.amount * historyRow.price * 100,
                           ) / 100}
                         </Typography>
                       </TableCell>
@@ -183,7 +183,7 @@ const rows = [
     "Sunil Joshi",
     true,
     250,
-    "2"
+    "2",
   ),
   createData(
     "/images/products/s2.jpg",
@@ -191,7 +191,7 @@ const rows = [
     "John Deo",
     false,
     450,
-    "1"
+    "1",
   ),
   createData(
     "/images/products/s3.jpg",
@@ -199,7 +199,7 @@ const rows = [
     "Andrew McDownland",
     false,
     150,
-    "2"
+    "2",
   ),
   createData(
     "/images/products/s4.jpg",
@@ -207,7 +207,7 @@ const rows = [
     "Christopher Jamil",
     true,
     550,
-    "6"
+    "6",
   ),
 ];
 

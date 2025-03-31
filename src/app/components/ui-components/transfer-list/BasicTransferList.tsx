@@ -1,16 +1,24 @@
-'use client'
-import React from 'react';
-import { useTheme } from '@mui/material/styles';
-import { Grid, List, ListItem, ListItemIcon, ListItemText, Button, Paper } from '@mui/material';
+"use client";
+import React from "react";
+import { useTheme } from "@mui/material/styles";
+import {
+  Grid,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Button,
+  Paper,
+} from "@mui/material";
 
 import {
   IconChevronRight,
   IconChevronLeft,
   IconChevronsLeft,
   IconChevronsRight,
-} from '@tabler/icons-react';
+} from "@tabler/icons-react";
 
-import CustomCheckbox from '../../forms/theme-elements/CustomCheckbox';
+import CustomCheckbox from "../../forms/theme-elements/CustomCheckbox";
 
 function not(a: readonly number[], b: readonly number[]) {
   return a.filter((value) => b.indexOf(value) === -1);
@@ -68,21 +76,31 @@ const BasicTransferList = () => {
   const customList = (items: readonly number[]) => (
     <Paper
       variant="outlined"
-      sx={{ width: 200, height: 230, overflow: 'auto', border: `1px solid ${borderColor}` }}
+      sx={{
+        width: 200,
+        height: 230,
+        overflow: "auto",
+        border: `1px solid ${borderColor}`,
+      }}
     >
       <List dense component="div" role="list">
         {items.map((value) => {
           const labelId = `transfer-list-item-${value}-label`;
 
           return (
-            <ListItem key={value} role="listitem" button onClick={handleToggle(value)}>
+            <ListItem
+              key={value}
+              role="listitem"
+              button
+              onClick={handleToggle(value)}
+            >
               <ListItemIcon>
                 <CustomCheckbox
                   tabIndex={-1}
                   disableRipple
                   checked={checked.indexOf(value) !== -1}
                   inputProps={{
-                    'aria-labelledby': labelId,
+                    "aria-labelledby": labelId,
                   }}
                 />
               </ListItemIcon>

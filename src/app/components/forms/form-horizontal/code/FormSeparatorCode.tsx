@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const FormSeparatorCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 "use client";
 import * as React from 'react';
 import {
@@ -212,9 +212,9 @@ const [country, setCountry] = React.useState('');
     </Grid>
 </div>
 `}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default FormSeparatorCode;

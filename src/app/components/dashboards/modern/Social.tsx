@@ -1,8 +1,7 @@
-import NextLink from 'next/link';
-import { Stack, Typography, Avatar, Box, AvatarGroup } from '@mui/material';
-import { IconMessage2 } from '@tabler/icons-react';
-import DashboardCard from '../../shared/DashboardCard';
-
+import NextLink from "next/link";
+import { Stack, Typography, Avatar, Box, AvatarGroup } from "@mui/material";
+import { IconMessage2 } from "@tabler/icons-react";
+import DashboardCard from "../../shared/DashboardCard";
 
 const Social = () => {
   return (
@@ -11,11 +10,13 @@ const Social = () => {
         <Stack direction="row" spacing={2}>
           <Avatar
             src={"/images/profile/user-3.jpg"}
-            alt={'ProfileImg'}
-            sx={{ borderRadius: '8px', width: 70, height: 70 }}
+            alt={"ProfileImg"}
+            sx={{ borderRadius: "8px", width: 70, height: 70 }}
           />
           <Box>
-            <Typography variant="h5">Super awesome, Vue coming soon!</Typography>
+            <Typography variant="h5">
+              Super awesome, Vue coming soon!
+            </Typography>
             <Typography variant="subtitle2" color="textSecondary">
               22 March, 2025
             </Typography>

@@ -81,7 +81,7 @@ const BigCalendar = () => {
   const editEvent = (event: any) => {
     setOpen(true);
     const newEditEvent = calevents.find(
-      (elem: EvType) => elem.title === event.title
+      (elem: EvType) => elem.title === event.title,
     );
     setColor(event.color);
     setTitle(newEditEvent.title);
@@ -100,7 +100,7 @@ const BigCalendar = () => {
         }
 
         return elem;
-      })
+      }),
     );
     setOpen(false);
     setTitle("");
@@ -131,7 +131,7 @@ const BigCalendar = () => {
   };
   const deleteHandler = (event: EvType) => {
     const updatecalEvents = calevents.filter(
-      (ind: EvType) => ind.title !== event.title
+      (ind: EvType) => ind.title !== event.title,
     );
     setCalEvents(updatecalEvents);
   };

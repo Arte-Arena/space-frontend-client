@@ -1,69 +1,69 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import CardContent from '@mui/material/CardContent';
-import Grid from '@mui/material/Grid';
-import MenuItem from '@mui/material/MenuItem';
-import Typography from '@mui/material/Typography';
+import React from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import CardContent from "@mui/material/CardContent";
+import Grid from "@mui/material/Grid";
+import MenuItem from "@mui/material/MenuItem";
+import Typography from "@mui/material/Typography";
 
 // components
-import BlankCard from '../../shared/BlankCard';
-import CustomTextField from '../../forms/theme-elements/CustomTextField';
-import CustomFormLabel from '../../forms/theme-elements/CustomFormLabel';
-import CustomSelect from '../../forms/theme-elements/CustomSelect';
+import BlankCard from "../../shared/BlankCard";
+import CustomTextField from "../../forms/theme-elements/CustomTextField";
+import CustomFormLabel from "../../forms/theme-elements/CustomFormLabel";
+import CustomSelect from "../../forms/theme-elements/CustomSelect";
 
 // images
-import { Stack } from '@mui/system';
+import { Stack } from "@mui/system";
 
 // locations
 const locations = [
   {
-    value: 'br',
-    label: 'Brasil',
+    value: "br",
+    label: "Brasil",
   },
   {
-    value: 'us',
-    label: 'Estados Unidos',
+    value: "us",
+    label: "Estados Unidos",
   },
   {
-    value: 'uk',
-    label: 'Reino Unido',
+    value: "uk",
+    label: "Reino Unido",
   },
   {
-    value: 'in',
-    label: 'Índia',
+    value: "in",
+    label: "Índia",
   },
 ];
 
 // currency
 const currencies = [
   {
-    value: 'br',
-    label: 'Real (R$)',
+    value: "br",
+    label: "Real (R$)",
   },
   {
-    value: 'us',
-    label: 'Dólar ($)',
+    value: "us",
+    label: "Dólar ($)",
   },
   {
-    value: 'uk',
-    label: 'Libra (£)',
+    value: "uk",
+    label: "Libra (£)",
   },
   {
-    value: 'eu',
-    label: 'Euro (€)',
+    value: "eu",
+    label: "Euro (€)",
   },
 ];
 
 const AccountTab = () => {
-  const [location, setLocation] = React.useState('br');
+  const [location, setLocation] = React.useState("br");
 
   const handleChange1 = (event: any) => {
     setLocation(event.target.value);
   };
 
   //   currency
-  const [currency, setCurrency] = React.useState('br');
+  const [currency, setCurrency] = React.useState("br");
 
   const handleChange2 = (event: any) => {
     setCurrency(event.target.value);
@@ -78,7 +78,9 @@ const AccountTab = () => {
             <Typography variant="h5" mb={1}>
               Alterar Senha
             </Typography>
-            <Typography color="textSecondary" mb={3}>Para alterar sua senha, confirme aqui</Typography>
+            <Typography color="textSecondary" mb={3}>
+              Para alterar sua senha, confirme aqui
+            </Typography>
             <form>
               <CustomFormLabel
                 sx={{
@@ -105,7 +107,9 @@ const AccountTab = () => {
                 type="password"
               />
               {/* 3 */}
-              <CustomFormLabel htmlFor="text-conpwd">Confirmar Senha</CustomFormLabel>
+              <CustomFormLabel htmlFor="text-conpwd">
+                Confirmar Senha
+              </CustomFormLabel>
               <CustomTextField
                 id="text-conpwd"
                 value="MathewAnderson"
@@ -124,7 +128,9 @@ const AccountTab = () => {
             <Typography variant="h5" mb={1}>
               Detalhes Pessoais
             </Typography>
-            <Typography color="textSecondary" mb={3}>Para alterar seus dados pessoais, edite e salve aqui</Typography>
+            <Typography color="textSecondary" mb={3}>
+              Para alterar seus dados pessoais, edite e salve aqui
+            </Typography>
             <form>
               <Grid container spacing={3}>
                 <Grid item xs={12} sm={6}>
@@ -263,7 +269,12 @@ const AccountTab = () => {
             </form>
           </CardContent>
         </BlankCard>
-        <Stack direction="row" spacing={2} sx={{ justifyContent: 'end' }} mt={3}>
+        <Stack
+          direction="row"
+          spacing={2}
+          sx={{ justifyContent: "end" }}
+          mt={3}
+        >
           <Button size="large" variant="contained" color="primary">
             Salvar
           </Button>

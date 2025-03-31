@@ -1,10 +1,10 @@
-'use client'
-import Button from '@mui/material/Button';
-import Fab from '@mui/material/Fab';
-import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
-import { IconPhoto, IconNotebook } from '@tabler/icons-react';
-import ChildCard from '../../../../components/shared/ChildCard';
+"use client";
+import Button from "@mui/material/Button";
+import Fab from "@mui/material/Fab";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+import { IconPhoto, IconNotebook } from "@tabler/icons-react";
+import ChildCard from "../../../../components/shared/ChildCard";
 
 export const PostTextBox = () => {
   return (
@@ -39,7 +39,7 @@ export const PostTextBox = () => {
           <input hidden accept="image/*" multiple type="file" />
         </Button>
 
-        <Button variant="contained" color="primary" sx={{ ml: 'auto' }}>
+        <Button variant="contained" color="primary" sx={{ ml: "auto" }}>
           Post
         </Button>
       </Stack>

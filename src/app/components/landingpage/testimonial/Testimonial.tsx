@@ -1,19 +1,19 @@
-import React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import CardContent from '@mui/material/CardContent';
-import Container from '@mui/material/Container';
-import Rating from '@mui/material/Rating';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import TestimonialTitle from './TestimonialTitle';
-import BlankCard from '../../shared/BlankCard';
-import AnimationFadeIn from '../animation/Animation';
+import React from "react";
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import CardContent from "@mui/material/CardContent";
+import Container from "@mui/material/Container";
+import Rating from "@mui/material/Rating";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import TestimonialTitle from "./TestimonialTitle";
+import BlankCard from "../../shared/BlankCard";
+import AnimationFadeIn from "../animation/Animation";
 
 //Carousel slider for product
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import './testimonial.css';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "./testimonial.css";
 
 interface SliderType {
   title: string;
@@ -24,46 +24,46 @@ interface SliderType {
 
 const SliderData: SliderType[] = [
   {
-    title: 'Jenny Wilson',
-    subtitle: 'Features avaibility',
-    avatar: '/images/profile/user-7.jpg',
+    title: "Jenny Wilson",
+    subtitle: "Features avaibility",
+    avatar: "/images/profile/user-7.jpg",
     subtext:
-      'The dashboard template from adminmart has helped me provide a clean and sleek look to my dashboard and made it look exactly the way I wanted it to, mainly without having.',
+      "The dashboard template from adminmart has helped me provide a clean and sleek look to my dashboard and made it look exactly the way I wanted it to, mainly without having.",
   },
   {
-    title: 'Minshan Cui',
-    subtitle: 'Features avaibility',
-    avatar: '/images/profile/user-2.jpg',
+    title: "Minshan Cui",
+    subtitle: "Features avaibility",
+    avatar: "/images/profile/user-2.jpg",
     subtext:
-      'The quality of design is excellent, customizability and flexibility much better than the other products available in the market.I strongly recommend the AdminMart to other.',
+      "The quality of design is excellent, customizability and flexibility much better than the other products available in the market.I strongly recommend the AdminMart to other.",
   },
   {
-    title: 'Eminson Mendoza',
-    subtitle: 'Features avaibility',
-    avatar: '/images/profile/user-3.jpg',
+    title: "Eminson Mendoza",
+    subtitle: "Features avaibility",
+    avatar: "/images/profile/user-3.jpg",
     subtext:
-      'This template is great, UI-rich and up-to-date. Although it is pretty much complete, I suggest to improve a bit of documentation. Thanks & Highly recomended!',
+      "This template is great, UI-rich and up-to-date. Although it is pretty much complete, I suggest to improve a bit of documentation. Thanks & Highly recomended!",
   },
   {
-    title: 'Jenny Wilson',
-    subtitle: 'Features avaibility',
-    avatar: '/images/profile/user-4.jpg',
+    title: "Jenny Wilson",
+    subtitle: "Features avaibility",
+    avatar: "/images/profile/user-4.jpg",
     subtext:
-      'The dashboard template from adminmart has helped me provide a clean and sleek look to my dashboard and made it look exactly the way I wanted it to, mainly without having.',
+      "The dashboard template from adminmart has helped me provide a clean and sleek look to my dashboard and made it look exactly the way I wanted it to, mainly without having.",
   },
   {
-    title: 'Minshan Cui',
-    subtitle: 'Features avaibility',
-    avatar: '/images/profile/user-5.jpg',
+    title: "Minshan Cui",
+    subtitle: "Features avaibility",
+    avatar: "/images/profile/user-5.jpg",
     subtext:
-      'The quality of design is excellent, customizability and flexibility much better than the other products available in the market.I strongly recommend the AdminMart to other.',
+      "The quality of design is excellent, customizability and flexibility much better than the other products available in the market.I strongly recommend the AdminMart to other.",
   },
   {
-    title: 'Eminson Mendoza',
-    subtitle: 'Features avaibility',
-    avatar: '/images/profile/user-6.jpg',
+    title: "Eminson Mendoza",
+    subtitle: "Features avaibility",
+    avatar: "/images/profile/user-6.jpg",
     subtext:
-      'This template is great, UI-rich and up-to-date. Although it is pretty much complete, I suggest to improve a bit of documentation. Thanks & Highly recomended!',
+      "This template is great, UI-rich and up-to-date. Although it is pretty much complete, I suggest to improve a bit of documentation. Thanks & Highly recomended!",
   },
 ];
 
@@ -71,7 +71,7 @@ const Testimonial = () => {
   const [value, setValue] = React.useState<number | null>(5);
 
   const settings = {
-    className: 'testimonial-slider',
+    className: "testimonial-slider",
     dots: true,
     arrows: false,
     infinite: true,
@@ -118,7 +118,11 @@ const Testimonial = () => {
                   <BlankCard>
                     <CardContent>
                       <Stack direction="row">
-                        <Avatar src={slider.avatar} alt="user" sx={{ width: 40, height: 40 }} />
+                        <Avatar
+                          src={slider.avatar}
+                          alt="user"
+                          sx={{ width: 40, height: 40 }}
+                        />
                         <Box ml={2}>
                           <Typography variant="h6">{slider.title}</Typography>
                           <Typography color="textSecondary" variant="subtitle1">

@@ -42,7 +42,7 @@ function InvoiceList() {
           invoice.billTo.toLowerCase().includes(searchTerm.toLowerCase())) &&
         (activeTab === "All" || invoice.status === activeTab)
       );
-    }
+    },
   );
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -50,9 +50,15 @@ function InvoiceList() {
   };
 
   // Calculate the counts for different statuses
-  const Shipped = invoices.filter((t: { status: string }) => t.status === "Shipped").length;
-  const Delivered = invoices.filter((t: { status: string }) => t.status === "Delivered").length;
-  const Pending = invoices.filter((t: { status: string }) => t.status === "Pending").length;
+  const Shipped = invoices.filter(
+    (t: { status: string }) => t.status === "Shipped",
+  ).length;
+  const Delivered = invoices.filter(
+    (t: { status: string }) => t.status === "Delivered",
+  ).length;
+  const Pending = invoices.filter(
+    (t: { status: string }) => t.status === "Pending",
+  ).length;
 
   // Toggle all checkboxes
   const toggleSelectAll = () => {
@@ -71,7 +77,9 @@ function InvoiceList() {
     if (index === -1) {
       setSelectedProducts([...selectedProducts, productId]);
     } else {
-      setSelectedProducts(selectedProducts.filter((id: any) => id !== productId));
+      setSelectedProducts(
+        selectedProducts.filter((id: any) => id !== productId),
+      );
     }
   };
 
@@ -97,9 +105,37 @@ function InvoiceList() {
 
   return (
     <div style={{ overflowX: "auto" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "2rem", borderBottom: "1px solid #ddd" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "1rem", border: `2px solid `, padding: "1rem", borderRadius: "8px", width: "100%", maxWidth: "250px" }}>
-          <div style={{ width: "56px", height: "56px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "50%", border: `2px solid` }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginBottom: "2rem",
+          borderBottom: "1px solid #ddd",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "1rem",
+            border: `2px solid `,
+            padding: "1rem",
+            borderRadius: "8px",
+            width: "100%",
+            maxWidth: "250px",
+          }}
+        >
+          <div
+            style={{
+              width: "56px",
+              height: "56px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: "50%",
+              border: `2px solid`,
+            }}
+          >
             <SearchIcon />
           </div>
           <div>
@@ -108,8 +144,29 @@ function InvoiceList() {
             <h6>$46,218.04</h6>
           </div>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "1rem", border: `2px solid `, padding: "1rem", borderRadius: "8px", width: "100%", maxWidth: "250px" }}>
-          <div style={{ width: "56px", height: "56px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "50%", border: `2px solid` }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "1rem",
+            border: `2px solid `,
+            padding: "1rem",
+            borderRadius: "8px",
+            width: "100%",
+            maxWidth: "250px",
+          }}
+        >
+          <div
+            style={{
+              width: "56px",
+              height: "56px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: "50%",
+              border: `2px solid`,
+            }}
+          >
             <VisibilityIcon />
           </div>
           <div>
@@ -118,8 +175,29 @@ function InvoiceList() {
             <h6>$23,110.23</h6>
           </div>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "1rem", border: `2px solid `, padding: "1rem", borderRadius: "8px", width: "100%", maxWidth: "250px" }}>
-          <div style={{ width: "56px", height: "56px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "50%", border: `2px solid` }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "1rem",
+            border: `2px solid `,
+            padding: "1rem",
+            borderRadius: "8px",
+            width: "100%",
+            maxWidth: "250px",
+          }}
+        >
+          <div
+            style={{
+              width: "56px",
+              height: "56px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: "50%",
+              border: `2px solid`,
+            }}
+          >
             <VisibilityIcon />
           </div>
           <div>
@@ -128,8 +206,29 @@ function InvoiceList() {
             <h6>$13,825.05</h6>
           </div>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "1rem", border: `2px solid `, padding: "1rem", borderRadius: "8px", width: "100%", maxWidth: "250px" }}>
-          <div style={{ width: "56px", height: "56px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "50%", border: `2px solid` }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "1rem",
+            border: `2px solid `,
+            padding: "1rem",
+            borderRadius: "8px",
+            width: "100%",
+            maxWidth: "250px",
+          }}
+        >
+          <div
+            style={{
+              width: "56px",
+              height: "56px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: "50%",
+              border: `2px solid`,
+            }}
+          >
             <SearchIcon />
           </div>
           <div>
@@ -139,7 +238,13 @@ function InvoiceList() {
           </div>
         </div>
       </div>
-      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "2rem" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginBottom: "2rem",
+        }}
+      >
         <TextField
           id="search"
           type="text"
@@ -149,30 +254,34 @@ function InvoiceList() {
           InputProps={{ startAdornment: <SearchIcon /> }}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <Button variant="contained" color="primary" component={Link} href="/apps/invoice/create">
+        <Button
+          variant="contained"
+          color="primary"
+          component={Link}
+          href="/apps/invoice/create"
+        >
           New Invoice
         </Button>
       </div>
       <div style={{ overflowX: "auto", marginBottom: "2rem" }}>
-        <Tabs value={activeTab} onChange={handleTabChange} aria-label="invoice status tabs">
+        <Tabs
+          value={activeTab}
+          onChange={handleTabChange}
+          aria-label="invoice status tabs"
+        >
           <Tab label={`All (${invoices.length})`} value="All" />
           <Tab label={`Shipped (${Shipped})`} value="Shipped" />
           <Tab label={`Delivered (${Delivered})`} value="Delivered" />
           <Tab label={`Pending (${Pending})`} value="Pending" />
         </Tabs>
-        {selectAll && (
-          <DeleteIcon onClick={handleDelete} />
-        )}
+        {selectAll && <DeleteIcon onClick={handleDelete} />}
       </div>
       <div style={{ overflowX: "auto" }}>
         <Table>
           <TableHead>
             <TableRow>
               <TableCell padding="checkbox">
-                <Checkbox
-                  checked={selectAll}
-                  onChange={toggleSelectAll}
-                />
+                <Checkbox checked={selectAll} onChange={toggleSelectAll} />
               </TableCell>
               <TableCell>ID</TableCell>
               <TableCell>BILL FROM</TableCell>
@@ -183,48 +292,70 @@ function InvoiceList() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredInvoices.map((invoice: { id: any; billFrom: any; billTo: any; totalCost: any; status: any }) => (
-              <TableRow key={invoice.id}>
-                <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={selectedProducts.includes(invoice.id)}
-                    onChange={() => toggleSelectProduct(invoice.id)}
-                  />
-                </TableCell>
-                <TableCell>{invoice.id}</TableCell>
-                <TableCell>{invoice.billFrom}</TableCell>
-                <TableCell>{invoice.billTo}</TableCell>
-                <TableCell>{invoice.totalCost}</TableCell>
-                <TableCell>
-                  <Badge color={invoice.status === "Shipped" ? "success" : invoice.status === "Delivered" ? "secondary" : "warning"}>
-                    {invoice.status}
-                  </Badge>
-                </TableCell>
-                <TableCell align="center">
-                  <Tooltip title="Edit Invoice">
-                    <IconButton component={Link} href={`/apps/invoice/edit/${invoice.billFrom}`}>
-                      <EditIcon />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="View Invoice">
-                    <IconButton component={Link} href={`/apps/invoice/detail/${invoice.billFrom}`}>
-                      <VisibilityIcon />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Delete Invoice">
-                    <IconButton
-                      color="error"
-                      onClick={() => {
-                        setSelectedProducts([invoice.id]);
-                        handleDelete();
-                      }}
+            {filteredInvoices.map(
+              (invoice: {
+                id: any;
+                billFrom: any;
+                billTo: any;
+                totalCost: any;
+                status: any;
+              }) => (
+                <TableRow key={invoice.id}>
+                  <TableCell padding="checkbox">
+                    <Checkbox
+                      checked={selectedProducts.includes(invoice.id)}
+                      onChange={() => toggleSelectProduct(invoice.id)}
+                    />
+                  </TableCell>
+                  <TableCell>{invoice.id}</TableCell>
+                  <TableCell>{invoice.billFrom}</TableCell>
+                  <TableCell>{invoice.billTo}</TableCell>
+                  <TableCell>{invoice.totalCost}</TableCell>
+                  <TableCell>
+                    <Badge
+                      color={
+                        invoice.status === "Shipped"
+                          ? "success"
+                          : invoice.status === "Delivered"
+                            ? "secondary"
+                            : "warning"
+                      }
                     >
-                      <DeleteIcon />
-                    </IconButton>
-                  </Tooltip>
-                </TableCell>
-              </TableRow>
-            ))}
+                      {invoice.status}
+                    </Badge>
+                  </TableCell>
+                  <TableCell align="center">
+                    <Tooltip title="Edit Invoice">
+                      <IconButton
+                        component={Link}
+                        href={`/apps/invoice/edit/${invoice.billFrom}`}
+                      >
+                        <EditIcon />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="View Invoice">
+                      <IconButton
+                        component={Link}
+                        href={`/apps/invoice/detail/${invoice.billFrom}`}
+                      >
+                        <VisibilityIcon />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Delete Invoice">
+                      <IconButton
+                        color="error"
+                        onClick={() => {
+                          setSelectedProducts([invoice.id]);
+                          handleDelete();
+                        }}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </Tooltip>
+                  </TableCell>
+                </TableRow>
+              ),
+            )}
           </TableBody>
         </Table>
       </div>
@@ -235,7 +366,9 @@ function InvoiceList() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDeleteDialog}>Cancel</Button>
-          <Button color="error" onClick={handleConfirmDelete}>Delete</Button>
+          <Button color="error" onClick={handleConfirmDelete}>
+            Delete
+          </Button>
         </DialogActions>
       </Dialog>
     </div>

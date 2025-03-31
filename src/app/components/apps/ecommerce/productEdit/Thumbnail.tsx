@@ -6,7 +6,7 @@ import { Typography } from "@mui/material";
 const Thumbnail = () => {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(
-    "/images/blog/blog-img1.jpg"
+    "/images/blog/blog-img1.jpg",
   );
   const fileInputRef = useRef<HTMLInputElement>(null);
 

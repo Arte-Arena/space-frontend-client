@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const InputVariantsCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 "use client";
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
@@ -85,9 +85,9 @@ const CustomFormLabel = styled((props: any) => (
     </FormControl>
 </form>
 `}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default InputVariantsCode;

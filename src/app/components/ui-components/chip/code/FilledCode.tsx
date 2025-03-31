@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const FilledCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 "use client";
 import * as React from 'react';
 import { 
@@ -31,9 +31,9 @@ import InlineItemCard from "@/app/components/shared/InlineItemCard";
     <Chip avatar={<Avatar alt="Natacha" src={"/images/profile/user-3.jpg"} />} label="Default Filled" color="error" />
     <Chip avatar={<Avatar alt="Natacha" src={"/images/profile/user-3.jpg"} />} label="Default Deletable" color="error" onDelete={handleDelete} />
 </InlineItemCard>`}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default FilledCode;

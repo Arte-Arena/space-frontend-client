@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const BasicHeaderFormCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 "use client";
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
@@ -195,9 +195,9 @@ const handleChange4 = (event: any) => {
     </FormControl>
 </form>
 `}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default BasicHeaderFormCode;

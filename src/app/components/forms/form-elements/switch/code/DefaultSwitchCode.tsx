@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const DefaultSwitchCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 "use client";
 import * as React from 'react';
 import { Box, Switch } from '@mui/material';
@@ -16,9 +16,9 @@ import { Box, Switch } from '@mui/material';
     <Switch disabled />
 </Box>
 `}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default DefaultSwitchCode;

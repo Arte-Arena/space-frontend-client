@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const PositionsTooltipCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 "use client";
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
@@ -50,9 +50,9 @@ import InlineItemCard from "@/app/components/shared/InlineItemCard";
         <Button variant="outlined" color="secondary">Bottom End</Button>
     </Tooltip>
 </InlineItemCard>`}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default PositionsTooltipCode;

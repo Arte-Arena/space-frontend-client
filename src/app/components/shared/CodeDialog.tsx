@@ -28,10 +28,7 @@ const CodeDialog = ({ children }: any) => {
           <IconCode size="18" />
         </IconButton>
       </Tooltip>
-      <Dialog
-        open={open}
-        onClose={handleClose} 
-      >
+      <Dialog open={open} onClose={handleClose}>
         <DialogTitle>
           <Box
             display="flex"

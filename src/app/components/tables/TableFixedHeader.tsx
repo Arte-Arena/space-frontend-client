@@ -139,12 +139,12 @@ const TableFixedHeader = () => {
                             row.review === "good"
                               ? "primary"
                               : row.review === "excellent"
-                              ? "success"
-                              : row.review === "average"
-                              ? "warning"
-                              : row.review === "poor"
-                              ? "error"
-                              : "secondary"
+                                ? "success"
+                                : row.review === "average"
+                                  ? "warning"
+                                  : row.review === "poor"
+                                    ? "error"
+                                    : "secondary"
                           }
                         />
                         <Typography

@@ -1,5 +1,5 @@
-'use client'
-import React from 'react';
+"use client";
+import React from "react";
 import {
   TableContainer,
   Table,
@@ -12,10 +12,10 @@ import {
   Chip,
   Box,
   AvatarGroup,
-} from '@mui/material';
-import BlankCard from '../shared/BlankCard';
-import { basicsTableData, TableType } from './tableData';
-import { Stack } from '@mui/system';
+} from "@mui/material";
+import BlankCard from "../shared/BlankCard";
+import { basicsTableData, TableType } from "./tableData";
+import { Stack } from "@mui/system";
 
 const basics: TableType[] = basicsTableData;
 
@@ -26,7 +26,7 @@ const Table5 = () => {
         <Table
           aria-label="simple table"
           sx={{
-            whiteSpace: 'nowrap',
+            whiteSpace: "nowrap",
           }}
         >
           <TableHead>
@@ -53,7 +53,11 @@ const Table5 = () => {
               <TableRow key={basic.id}>
                 <TableCell>
                   <Stack direction="row" spacing={2}>
-                    <Avatar src={basic.imgsrc} alt={basic.imgsrc} sx={{ width: 40, height: 40 }} />
+                    <Avatar
+                      src={basic.imgsrc}
+                      alt={basic.imgsrc}
+                      sx={{ width: 40, height: 40 }}
+                    />
                     <Box>
                       <Typography variant="h6" fontWeight="600">
                         {basic.name}
@@ -65,7 +69,11 @@ const Table5 = () => {
                   </Stack>
                 </TableCell>
                 <TableCell>
-                  <Typography color="textSecondary" variant="h6" fontWeight={400}>
+                  <Typography
+                    color="textSecondary"
+                    variant="h6"
+                    fontWeight={400}
+                  >
                     {basic.pname}
                   </Typography>
                 </TableCell>
@@ -91,26 +99,26 @@ const Table5 = () => {
                   <Chip
                     sx={{
                       bgcolor:
-                        basic.status === 'Active'
+                        basic.status === "Active"
                           ? (theme) => theme.palette.success.light
-                          : basic.status === 'Pending'
-                          ? (theme) => theme.palette.warning.light
-                          : basic.status === 'Completed'
-                          ? (theme) => theme.palette.primary.light
-                          : basic.status === 'Cancel'
-                          ? (theme) => theme.palette.error.light
-                          : (theme) => theme.palette.secondary.light,
+                          : basic.status === "Pending"
+                            ? (theme) => theme.palette.warning.light
+                            : basic.status === "Completed"
+                              ? (theme) => theme.palette.primary.light
+                              : basic.status === "Cancel"
+                                ? (theme) => theme.palette.error.light
+                                : (theme) => theme.palette.secondary.light,
                       color:
-                        basic.status === 'Active'
+                        basic.status === "Active"
                           ? (theme) => theme.palette.success.main
-                          : basic.status === 'Pending'
-                          ? (theme) => theme.palette.warning.main
-                          : basic.status === 'Completed'
-                          ? (theme) => theme.palette.primary.main
-                          : basic.status === 'Cancel'
-                          ? (theme) => theme.palette.error.main
-                          : (theme) => theme.palette.secondary.main,
-                      borderRadius: '8px',
+                          : basic.status === "Pending"
+                            ? (theme) => theme.palette.warning.main
+                            : basic.status === "Completed"
+                              ? (theme) => theme.palette.primary.main
+                              : basic.status === "Cancel"
+                                ? (theme) => theme.palette.error.main
+                                : (theme) => theme.palette.secondary.main,
+                      borderRadius: "8px",
                     }}
                     size="small"
                     label={basic.status}

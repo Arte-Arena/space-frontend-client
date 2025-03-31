@@ -1,11 +1,11 @@
-import React from 'react';
-import { useSelector, useDispatch } from '@/store/hooks';
-import Box from '@mui/material/Box';
-import Fab from '@mui/material/Fab';
-import InputAdornment from '@mui/material/InputAdornment';
-import TextField from '@mui/material/TextField';
-import { SearchEmail } from '@/store/apps/email/EmailSlice';
-import { IconMenu2, IconSearch } from '@tabler/icons-react';
+import React from "react";
+import { useSelector, useDispatch } from "@/store/hooks";
+import Box from "@mui/material/Box";
+import Fab from "@mui/material/Fab";
+import InputAdornment from "@mui/material/InputAdornment";
+import TextField from "@mui/material/TextField";
+import { SearchEmail } from "@/store/apps/email/EmailSlice";
+import { IconMenu2, IconSearch } from "@tabler/icons-react";
 
 interface Props {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
@@ -24,7 +24,11 @@ const EmailSearch = ({ onClick }: Props) => {
         onClick={onClick}
         color="primary"
         size="small"
-        sx={{ mr: 1, flexShrink: '0', display: { xs: 'block', lineHeight: '10px', lg: 'none' } }}
+        sx={{
+          mr: 1,
+          flexShrink: "0",
+          display: { xs: "block", lineHeight: "10px", lg: "none" },
+        }}
       >
         <IconMenu2 width="16" />
       </Fab>
@@ -36,7 +40,7 @@ const EmailSearch = ({ onClick }: Props) => {
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
-              <IconSearch size={'16'} />
+              <IconSearch size={"16"} />
             </InputAdornment>
           ),
         }}

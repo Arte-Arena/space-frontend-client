@@ -1,9 +1,9 @@
-'use client';
-import React from 'react';
-import { Box, Grid, Typography, Container } from '@mui/material';
-import Image from 'next/image';
-import ContentArea from './ContentArea';
-import ReviewCarousel from './ReviewCarousel';
+"use client";
+import React from "react";
+import { Box, Grid, Typography, Container } from "@mui/material";
+import Image from "next/image";
+import ContentArea from "./ContentArea";
+import ReviewCarousel from "./ReviewCarousel";
 
 const Reviews = () => {
   return (
@@ -17,7 +17,12 @@ const Reviews = () => {
         }}
       >
         <Container maxWidth="lg">
-          <Grid container spacing={3} alignItems="center" justifyContent="space-between">
+          <Grid
+            container
+            spacing={3}
+            alignItems="center"
+            justifyContent="space-between"
+          >
             <Grid item xs={12} lg={5} sm={8} pr={6}>
               <ContentArea />
             </Grid>

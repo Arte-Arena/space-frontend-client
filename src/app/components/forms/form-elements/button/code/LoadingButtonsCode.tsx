@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const LoadingButtonsCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 "use client";
 import * as React from 'react';
 import { Stack } from '@mui/material';
@@ -27,9 +27,9 @@ import LoadingButton from '@mui/lab/LoadingButton';
       Right Icon
     </LoadingButton >
 </Stack>`}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default LoadingButtonsCode;

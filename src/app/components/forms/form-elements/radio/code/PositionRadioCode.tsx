@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const PositionRadioCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 "use client";
 import * as React from 'react';
 import { Box, RadioGroup, FormControlLabel  } from '@mui/material';
@@ -88,9 +88,9 @@ function CustomRadio(props: RadioProps) {
     </RadioGroup>
 </Box>
 `}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default PositionRadioCode;

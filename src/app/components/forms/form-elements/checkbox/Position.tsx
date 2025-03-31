@@ -1,21 +1,21 @@
-'use client'
-import React from 'react';
-import { FormGroup, FormControlLabel, FormControl } from '@mui/material';
-import CustomCheckbox from '../../theme-elements/CustomCheckbox';
+"use client";
+import React from "react";
+import { FormGroup, FormControlLabel, FormControl } from "@mui/material";
+import CustomCheckbox from "../../theme-elements/CustomCheckbox";
 
 const PositionCheckbox = () => (
   <FormControl
     component="fieldset"
     sx={{
-      display: 'flex',
-      justifyContent: 'center',
+      display: "flex",
+      justifyContent: "center",
     }}
   >
     <FormGroup
       aria-label="position"
       row
       sx={{
-        justifyContent: 'center',
+        justifyContent: "center",
       }}
     >
       <FormControlLabel

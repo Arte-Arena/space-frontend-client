@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useSelector } from "@/store/hooks";
 import Link from "next/link";
 import { styled } from "@mui/material/styles";

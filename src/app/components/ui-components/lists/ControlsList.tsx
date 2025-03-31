@@ -1,18 +1,17 @@
-'use client'
-import React from 'react';
+"use client";
+import React from "react";
 import {
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  
   IconButton,
   Checkbox,
-} from '@mui/material';
+} from "@mui/material";
 
-import { IconMessage } from '@tabler/icons-react';
-import BlankCard from '../../shared/BlankCard';
+import { IconMessage } from "@tabler/icons-react";
+import BlankCard from "../../shared/BlankCard";
 
 const ControlsList = () => {
   const [checked, setChecked] = React.useState([0]);
@@ -47,17 +46,24 @@ const ControlsList = () => {
                 }
                 disablePadding
               >
-                <ListItemButton role={undefined} onClick={handleToggle(value)} dense>
+                <ListItemButton
+                  role={undefined}
+                  onClick={handleToggle(value)}
+                  dense
+                >
                   <ListItemIcon>
                     <Checkbox
                       checked={checked.indexOf(value) !== -1}
                       tabIndex={-1}
                       disableRipple
-                      inputProps={{ 'aria-labelledby': labelId }}
+                      inputProps={{ "aria-labelledby": labelId }}
                       edge="start"
                     />
                   </ListItemIcon>
-                  <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
+                  <ListItemText
+                    id={labelId}
+                    primary={`Line item ${value + 1}`}
+                  />
                 </ListItemButton>
               </ListItem>
             );

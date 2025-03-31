@@ -1,8 +1,8 @@
-'use client'
-import { useTheme } from '@mui/material/styles';
-import { Card, CardContent, Typography, Stack, Box } from '@mui/material';
-import { useSelector } from '@/store/hooks';
-import { AppState } from '@/store/store';
+"use client";
+import { useTheme } from "@mui/material/styles";
+import { Card, CardContent, Typography, Stack, Box } from "@mui/material";
+import { useSelector } from "@/store/hooks";
+import { AppState } from "@/store/store";
 
 type Props = {
   title?: string;
@@ -34,9 +34,12 @@ const DashboardCard = ({
 
   return (
     <Card
-      sx={{ padding: 0, border: !customizer.isCardShadow ?  `1px solid ${borderColor}` : 'none' }}
+      sx={{
+        padding: 0,
+        border: !customizer.isCardShadow ? `1px solid ${borderColor}` : "none",
+      }}
       elevation={customizer.isCardShadow ? 9 : 0}
-      variant={!customizer.isCardShadow ? 'outlined' : undefined}
+      variant={!customizer.isCardShadow ? "outlined" : undefined}
     >
       {cardheading ? (
         <CardContent>
@@ -46,24 +49,24 @@ const DashboardCard = ({
           </Typography>
         </CardContent>
       ) : (
-        <CardContent sx={{p: "30px"}}>
+        <CardContent sx={{ p: "30px" }}>
           {title ? (
             <Stack
               direction="row"
               spacing={2}
               justifyContent="space-between"
-              alignItems={'center'}
+              alignItems={"center"}
               mb={3}
             >
               <Box>
-                {title ? <Typography variant="h5">{title}</Typography> : ''}
+                {title ? <Typography variant="h5">{title}</Typography> : ""}
 
                 {subtitle ? (
                   <Typography variant="subtitle2" color="textSecondary">
                     {subtitle}
                   </Typography>
                 ) : (
-                  ''
+                  ""
                 )}
               </Box>
               {action}

@@ -12,7 +12,7 @@ const ProductAvgSales = () => {
   const successlight = theme.palette.success.light;
 
   // chart
-  const optionsPrdAvgSaleschart : any = {
+  const optionsPrdAvgSaleschart: any = {
     chart: {
       type: "bar",
       fontFamily: "'Plus Jakarta Sans', sans-serif;",

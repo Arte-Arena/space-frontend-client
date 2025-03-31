@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const SwitchListCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 "use client";
   import { 
   List, 
@@ -69,9 +69,9 @@ const handleToggle = (value: string) => () => {
         </ListItem>
     </List>
 </BlankCard>`}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default SwitchListCode;

@@ -1,17 +1,20 @@
-'use client'
-import React from 'react';
-import { Box, FormControlLabel } from '@mui/material';
-import CustomCheckbox from '../../theme-elements/CustomCheckbox';
+"use client";
+import React from "react";
+import { Box, FormControlLabel } from "@mui/material";
+import CustomCheckbox from "../../theme-elements/CustomCheckbox";
 
 const ColorsCheckbox = () => (
   <Box textAlign="center">
-    <FormControlLabel control={<CustomCheckbox defaultChecked />} label="Primary" />
+    <FormControlLabel
+      control={<CustomCheckbox defaultChecked />}
+      label="Primary"
+    />
     <FormControlLabel
       control={
         <CustomCheckbox
           defaultChecked
           color="secondary"
-          inputProps={{ 'aria-label': 'checkbox with default color' }}
+          inputProps={{ "aria-label": "checkbox with default color" }}
         />
       }
       label="Secondary"
@@ -21,7 +24,7 @@ const ColorsCheckbox = () => (
         <CustomCheckbox
           defaultChecked
           color="success"
-          inputProps={{ 'aria-label': 'checkbox with default color' }}
+          inputProps={{ "aria-label": "checkbox with default color" }}
         />
       }
       label="Success"
@@ -31,7 +34,7 @@ const ColorsCheckbox = () => (
         <CustomCheckbox
           defaultChecked
           color="warning"
-          inputProps={{ 'aria-label': 'checkbox with default color' }}
+          inputProps={{ "aria-label": "checkbox with default color" }}
         />
       }
       label="Warning"
@@ -41,7 +44,7 @@ const ColorsCheckbox = () => (
         <CustomCheckbox
           defaultChecked
           color="error"
-          inputProps={{ 'aria-label': 'checkbox with default color' }}
+          inputProps={{ "aria-label": "checkbox with default color" }}
         />
       }
       label="Error"

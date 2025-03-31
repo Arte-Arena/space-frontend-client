@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Grid } from "@mui/material";
 import {
   FbOrdinaryForm,
   FbDefaultForm,
@@ -8,17 +8,17 @@ import {
   FbLeftIconForm,
   FbRightIconForm,
   FbInputVariants,
-} from '@/app/components/forms/form-layouts/index';
-import PageContainer from '@/app/components/container/PageContainer';
-import Breadcrumb from '@/app/(DashboardLayout)/layout/shared/breadcrumb/Breadcrumb';
+} from "@/app/components/forms/form-layouts/index";
+import PageContainer from "@/app/components/container/PageContainer";
+import Breadcrumb from "@/app/(DashboardLayout)/layout/shared/breadcrumb/Breadcrumb";
 
 const BCrumb = [
   {
-    to: '/',
-    title: 'Home',
+    to: "/",
+    title: "Home",
   },
   {
-    title: 'Form Layouts',
+    title: "Form Layouts",
   },
 ];
 
@@ -27,7 +27,7 @@ const FormLayouts = () => (
     {/* breadcrumb */}
     <Breadcrumb title="Form Layouts" items={BCrumb} />
     {/* end breadcrumb */}
-    
+
     <Grid container spacing={3}>
       <Grid item lg={12} md={12} xs={12}>
         <FbOrdinaryForm />

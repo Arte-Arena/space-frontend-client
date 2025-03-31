@@ -1,16 +1,15 @@
-'use client'
+"use client";
 import dynamic from "next/dynamic";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
-import { useTheme } from '@mui/material/styles';
-import { Stack, Typography, Avatar, Box } from '@mui/material';
-import { IconArrowUpLeft } from '@tabler/icons-react';
+import { useTheme } from "@mui/material/styles";
+import { Stack, Typography, Avatar, Box } from "@mui/material";
+import { IconArrowUpLeft } from "@tabler/icons-react";
 
-import DashboardCard from '../../shared/DashboardCard';
+import DashboardCard from "../../shared/DashboardCard";
 import SkeletonProjectCard from "../skeleton/ProjectCard";
 
-
 interface ProjectCardProps {
-  isLoading ?: boolean;
+  isLoading?: boolean;
 }
 
 const Projects = ({ isLoading }: ProjectCardProps) => {
@@ -22,15 +21,15 @@ const Projects = ({ isLoading }: ProjectCardProps) => {
   // chart
   const optionscolumnchart: any = {
     chart: {
-      type: 'bar',
+      type: "bar",
       fontFamily: "'Plus Jakarta Sans', sans-serif;",
-      foreColor: '#adb0bb',
+      foreColor: "#adb0bb",
       toolbar: {
         show: false,
       },
       height: 80,
       resize: true,
-      barColor: '#fff',
+      barColor: "#fff",
       sparkline: {
         enabled: true,
       },
@@ -42,10 +41,10 @@ const Projects = ({ isLoading }: ProjectCardProps) => {
     plotOptions: {
       bar: {
         horizontal: false,
-        startingShape: 'flat',
-        endingShape: 'flat',
-        columnWidth: '60%',
-        barHeight: '20%',
+        startingShape: "flat",
+        endingShape: "flat",
+        columnWidth: "60%",
+        barHeight: "20%",
         borderRadius: 3,
       },
     },
@@ -55,7 +54,7 @@ const Projects = ({ isLoading }: ProjectCardProps) => {
     stroke: {
       show: true,
       width: 2.5,
-      colors: ['rgba(0,0,0,0.01)'],
+      colors: ["rgba(0,0,0,0.01)"],
     },
     xaxis: {
       axisBorder: {
@@ -80,7 +79,7 @@ const Projects = ({ isLoading }: ProjectCardProps) => {
       opacity: 1,
     },
     tooltip: {
-      theme: theme.palette.mode === 'dark' ? 'dark' : 'light',
+      theme: theme.palette.mode === "dark" ? "dark" : "light",
       x: {
         show: false,
       },
@@ -88,39 +87,43 @@ const Projects = ({ isLoading }: ProjectCardProps) => {
   };
   const seriescolumnchart = [
     {
-      name: '',
+      name: "",
       data: [4, 10, 9, 7, 9, 10, 11, 8, 10],
     },
   ];
 
   return (
     <>
-      {
-        isLoading ? (
-          <SkeletonProjectCard />
-        ) : (
-          <DashboardCard>
-            <>
-              <Typography variant="subtitle2" color="textSecondary">
-                Projects
+      {isLoading ? (
+        <SkeletonProjectCard />
+      ) : (
+        <DashboardCard>
+          <>
+            <Typography variant="subtitle2" color="textSecondary">
+              Projects
+            </Typography>
+            <Typography variant="h4">78,298</Typography>
+            <Stack direction="row" spacing={1} my={1} alignItems="center">
+              <Avatar sx={{ bgcolor: successlight, width: 24, height: 24 }}>
+                <IconArrowUpLeft width={18} color="#39B69A" />
+              </Avatar>
+              <Typography variant="subtitle2" fontWeight="600">
+                +9%
               </Typography>
-              <Typography variant="h4">78,298</Typography>
-              <Stack direction="row" spacing={1} my={1} alignItems="center">
-                <Avatar sx={{ bgcolor: successlight, width: 24, height: 24 }}>
-                  <IconArrowUpLeft width={18} color="#39B69A" />
-                </Avatar>
-                <Typography variant="subtitle2" fontWeight="600">
-                  +9%
-                </Typography>
-              </Stack>
-              <Box height="80px">
-                <Chart options={optionscolumnchart} series={seriescolumnchart} type="bar" height={80} width={"100%"} />
-              </Box>
-            </>
-          </DashboardCard>
-        )}
+            </Stack>
+            <Box height="80px">
+              <Chart
+                options={optionscolumnchart}
+                series={seriescolumnchart}
+                type="bar"
+                height={80}
+                width={"100%"}
+              />
+            </Box>
+          </>
+        </DashboardCard>
+      )}
     </>
-
   );
 };
 

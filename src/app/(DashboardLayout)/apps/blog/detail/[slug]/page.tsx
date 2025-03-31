@@ -1,10 +1,9 @@
 import BlogDetail from "@/app/components/apps/blog/detail";
-import PageContainer from '@/app/components/container/PageContainer';
+import PageContainer from "@/app/components/container/PageContainer";
 
 const BlogPost = () => {
   return (
     <PageContainer title="Blog Detail" description="this is Blog Detail">
-
       <BlogDetail />
     </PageContainer>
   );

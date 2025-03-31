@@ -51,28 +51,28 @@
 .slick-prev {
   left: -25px;
 }
-[dir='rtl'] .slick-prev {
+[dir="rtl"] .slick-prev {
   right: -25px;
   left: auto;
 }
 .slick-prev:before {
-  content: '←';
+  content: "←";
 }
-[dir='rtl'] .slick-prev:before {
-  content: '→';
+[dir="rtl"] .slick-prev:before {
+  content: "→";
 }
 .slick-next {
   right: -25px;
 }
-[dir='rtl'] .slick-next {
+[dir="rtl"] .slick-next {
   right: auto;
   left: -25px;
 }
 .slick-next:before {
-  content: '→';
+  content: "→";
 }
-[dir='rtl'] .slick-next:before {
-  content: '←';
+[dir="rtl"] .slick-next:before {
+  content: "←";
 }
 .slick-dotted.slick-slider {
   margin-bottom: 30px;
@@ -126,7 +126,7 @@
   left: 0;
   width: 20px;
   height: 20px;
-  content: '•';
+  content: "•";
   text-align: center;
   opacity: 0.25;
   color: #000;

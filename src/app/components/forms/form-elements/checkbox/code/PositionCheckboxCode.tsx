@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const PositionCheckboxCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 "use client";
 import * as React from 'react';
 import { FormGroup, FormControlLabel, FormControl } from '@mui/material';
@@ -114,9 +114,9 @@ function CustomCheckbox(props: CheckboxProps) {
     </FormGroup>
 </FormControl>
 `}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default PositionCheckboxCode;

@@ -31,19 +31,19 @@ import {
 
 const basics = basicsTableData;
 
-interface IndeterminateCheckboxProps extends Omit<CheckboxProps, 'ref'> {
+interface IndeterminateCheckboxProps extends Omit<CheckboxProps, "ref"> {
   indeterminate?: boolean;
 }
 
 const IndeterminateCheckbox: React.FC<IndeterminateCheckboxProps> = ({
   indeterminate,
-  className = '',
+  className = "",
   ...rest
 }) => {
   const ref = React.useRef<HTMLButtonElement>(null);
 
   React.useEffect(() => {
-    if (ref.current && typeof indeterminate === 'boolean') {
+    if (ref.current && typeof indeterminate === "boolean") {
       (ref.current as any).indeterminate = !rest.checked && indeterminate;
     }
   }, [indeterminate, rest.checked]);
@@ -51,7 +51,7 @@ const IndeterminateCheckbox: React.FC<IndeterminateCheckboxProps> = ({
   return (
     <CustomCheckbox
       ref={ref}
-      className={className + ' cursor-pointer'}
+      className={className + " cursor-pointer"}
       {...rest}
     />
   );
@@ -142,22 +142,22 @@ const columns = [
             info.getValue() === "Active"
               ? (theme) => theme.palette.success.light
               : info.getValue() === "Pending"
-              ? (theme) => theme.palette.warning.light
-              : info.getValue() === "Completed"
-              ? (theme) => theme.palette.primary.light
-              : info.getValue() === "Cancel"
-              ? (theme) => theme.palette.error.light
-              : (theme) => theme.palette.secondary.light,
+                ? (theme) => theme.palette.warning.light
+                : info.getValue() === "Completed"
+                  ? (theme) => theme.palette.primary.light
+                  : info.getValue() === "Cancel"
+                    ? (theme) => theme.palette.error.light
+                    : (theme) => theme.palette.secondary.light,
           color:
             info.getValue() === "Active"
               ? (theme) => theme.palette.success.main
               : info.getValue() === "Pending"
-              ? (theme) => theme.palette.warning.main
-              : info.getValue() === "Completed"
-              ? (theme) => theme.palette.primary.main
-              : info.getValue() === "Cancel"
-              ? (theme) => theme.palette.error.main
-              : (theme) => theme.palette.secondary.main,
+                ? (theme) => theme.palette.warning.main
+                : info.getValue() === "Completed"
+                  ? (theme) => theme.palette.primary.main
+                  : info.getValue() === "Cancel"
+                    ? (theme) => theme.palette.error.main
+                    : (theme) => theme.palette.secondary.main,
           borderRadius: "8px",
         }}
         size="small"
@@ -204,7 +204,7 @@ const TableRowSelection = () => {
         item.teams.map((team) => team.text).join(", "),
         item.status,
         item.budget,
-      ]
+      ],
     );
 
     const csvContent = [
@@ -244,7 +244,7 @@ const TableRowSelection = () => {
                               ? null
                               : flexRender(
                                   header.column.columnDef.header,
-                                  header.getContext()
+                                  header.getContext(),
                                 )}
                           </Typography>
                         </TableCell>
@@ -259,7 +259,7 @@ const TableRowSelection = () => {
                         <TableCell key={cell.id}>
                           {flexRender(
                             cell.column.columnDef.cell,
-                            cell.getContext()
+                            cell.getContext(),
                           )}
                         </TableCell>
                       ))}

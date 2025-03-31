@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const TransitionsCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 "use client";
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
@@ -28,9 +28,9 @@ import Zoom from '@mui/material/Zoom';
         <Button variant="outlined" color="warning">Zoom</Button>
     </Tooltip>
 </Stack>`}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default TransitionsCode;

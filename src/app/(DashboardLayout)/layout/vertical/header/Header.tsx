@@ -8,7 +8,8 @@ import { styled } from "@mui/material/styles";
 import { useSelector, useDispatch } from "@/store/hooks";
 import {
   toggleSidebar,
-  toggleMobileSidebar, setDarkMode
+  toggleMobileSidebar,
+  setDarkMode,
 } from "@/store/customizer/CustomizerSlice";
 import { IconMenu2, IconMoon, IconSun } from "@tabler/icons-react";
 import Notifications from "./Notification";

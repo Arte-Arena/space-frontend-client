@@ -1,5 +1,5 @@
-'use client'
-import React from 'react';
+"use client";
+import React from "react";
 import {
   Typography,
   Button,
@@ -10,11 +10,11 @@ import {
   ListItemAvatar,
   Avatar,
   ListItemText,
-} from '@mui/material';
+} from "@mui/material";
 
-import { IconUser, IconPlus } from '@tabler/icons-react';
+import { IconUser, IconPlus } from "@tabler/icons-react";
 
-const emails = ['JohnDeo@gmail.com', 'SmithRocky@gmail.com'];
+const emails = ["JohnDeo@gmail.com", "SmithRocky@gmail.com"];
 
 const SimpleDialog = () => {
   const [open, setOpen] = React.useState(false);
@@ -31,7 +31,12 @@ const SimpleDialog = () => {
 
   return (
     <>
-      <Button variant="contained" color="primary" fullWidth onClick={handleClickOpen}>
+      <Button
+        variant="contained"
+        color="primary"
+        fullWidth
+        onClick={handleClickOpen}
+      >
         Open Simple Dialog
       </Button>
       <Typography variant="subtitle1" component="div" mb={1} textAlign="center">
@@ -43,7 +48,9 @@ const SimpleDialog = () => {
           {emails.map((email) => (
             <ListItem button onClick={() => handleClose(email)} key={email}>
               <ListItemAvatar>
-                <Avatar sx={{ bgcolor: 'primary.light', color: 'primary.main' }}>
+                <Avatar
+                  sx={{ bgcolor: "primary.light", color: "primary.main" }}
+                >
                   <IconUser width={20} height={20} />
                 </Avatar>
               </ListItemAvatar>
@@ -51,7 +58,7 @@ const SimpleDialog = () => {
             </ListItem>
           ))}
 
-          <ListItem autoFocus button onClick={() => handleClose('addAccount')}>
+          <ListItem autoFocus button onClick={() => handleClose("addAccount")}>
             <ListItemAvatar>
               <Avatar>
                 <IconPlus width={20} height={20} />

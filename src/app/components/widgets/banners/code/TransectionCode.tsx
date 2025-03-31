@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const Transection = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 import { Card, CardContent, Typography, Button, Box, Grid } from '@mui/material';
 import Image from 'next/image';
 
@@ -52,9 +52,9 @@ const Banner1 = () => {
 
 export default Banner1;
 `}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default Transection;

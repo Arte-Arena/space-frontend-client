@@ -1,5 +1,5 @@
-'use client'
-import React from 'react';
+"use client";
+import React from "react";
 import {
   TableContainer,
   Table,
@@ -14,59 +14,71 @@ import {
   IconButton,
   ListItemIcon,
   TableHead,
-} from '@mui/material';
-import BlankCard from '../shared/BlankCard';
-import { Box, Stack } from '@mui/system';
-import { IconDots, IconEdit, IconPlus, IconTrash } from '@tabler/icons-react';
+} from "@mui/material";
+import BlankCard from "../shared/BlankCard";
+import { Box, Stack } from "@mui/system";
+import { IconDots, IconEdit, IconPlus, IconTrash } from "@tabler/icons-react";
 
 const rows = [
   {
-    status: 'active',
+    status: "active",
     avatar: "/images/blog/blog-img1.jpg",
-    users: '4300',
-    title: 'Top Authors',
-    subtitle: 'Successful Fellas',
+    users: "4300",
+    title: "Top Authors",
+    subtitle: "Successful Fellas",
     teams: [
-      { name: 'Angular', bgcolor: 'error.light', textcolor: 'error.main' },
-      { name: 'PHP', bgcolor: 'primary.light', textcolor: 'primary.main' },
+      { name: "Angular", bgcolor: "error.light", textcolor: "error.main" },
+      { name: "PHP", bgcolor: "primary.light", textcolor: "primary.main" },
     ],
   },
   {
-    status: 'offline',
+    status: "offline",
     avatar: "/images/blog/blog-img2.jpg",
-    users: '1200',
-    title: 'Popular Authors',
-    subtitle: 'Most Successful',
-    teams: [{ name: 'Bootstrap', bgcolor: 'primary.light', textcolor: 'primary.main' }],
-  },
-  {
-    status: 'active',
-    avatar: "/images/blog/blog-img3.jpg",
-    users: '2000',
-    title: 'New Users',
-    subtitle: 'Awesome Users',
+    users: "1200",
+    title: "Popular Authors",
+    subtitle: "Most Successful",
     teams: [
-      { name: 'Reactjs', bgcolor: 'success.light', textcolor: 'success.main' },
-      { name: 'Angular', bgcolor: 'error.light', textcolor: 'error.main' },
+      {
+        name: "Bootstrap",
+        bgcolor: "primary.light",
+        textcolor: "primary.main",
+      },
     ],
   },
   {
-    status: 'offline',
-    avatar: "/images/blog/blog-img4.jpg",
-    users: '1500',
-    title: 'Active Customers',
-    subtitle: 'Best Customers',
-    teams: [{ name: 'Bootstrap', bgcolor: 'primary.light', textcolor: 'primary.main' }],
+    status: "active",
+    avatar: "/images/blog/blog-img3.jpg",
+    users: "2000",
+    title: "New Users",
+    subtitle: "Awesome Users",
+    teams: [
+      { name: "Reactjs", bgcolor: "success.light", textcolor: "success.main" },
+      { name: "Angular", bgcolor: "error.light", textcolor: "error.main" },
+    ],
   },
   {
-    status: 'active',
-    avatar: "/images/blog/blog-img5.jpg",
-    users: '9500',
-    title: 'Bestseller Theme',
-    subtitle: 'Amazing Templates',
+    status: "offline",
+    avatar: "/images/blog/blog-img4.jpg",
+    users: "1500",
+    title: "Active Customers",
+    subtitle: "Best Customers",
     teams: [
-      { name: 'Angular', bgcolor: 'error.light', textcolor: 'error.main' },
-      { name: 'Reactjs', bgcolor: 'success.light', textcolor: 'success.main' },
+      {
+        name: "Bootstrap",
+        bgcolor: "primary.light",
+        textcolor: "primary.main",
+      },
+    ],
+  },
+  {
+    status: "active",
+    avatar: "/images/blog/blog-img5.jpg",
+    users: "9500",
+    title: "Bestseller Theme",
+    subtitle: "Amazing Templates",
+    teams: [
+      { name: "Angular", bgcolor: "error.light", textcolor: "error.main" },
+      { name: "Reactjs", bgcolor: "success.light", textcolor: "success.main" },
     ],
   },
 ];
@@ -101,7 +113,10 @@ const Table4 = () => {
           </TableHead>
           <TableBody>
             {rows.map((row) => (
-              <TableRow key={row.title} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+              <TableRow
+                key={row.title}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
                 <TableCell>
                   <Stack direction="row" spacing={2}>
                     <Avatar
@@ -128,7 +143,7 @@ const Table4 = () => {
                         sx={{
                           backgroundColor: team.bgcolor,
                           color: team.textcolor,
-                          fontSize: '11px',
+                          fontSize: "11px",
                         }}
                         key={i}
                         size="small"
@@ -144,9 +159,9 @@ const Table4 = () => {
                 <TableCell>
                   <IconButton
                     id="basic-button"
-                    aria-controls={open ? 'basic-menu' : undefined}
+                    aria-controls={open ? "basic-menu" : undefined}
                     aria-haspopup="true"
-                    aria-expanded={open ? 'true' : undefined}
+                    aria-expanded={open ? "true" : undefined}
                     onClick={handleClick}
                   >
                     <IconDots width={18} />
@@ -157,7 +172,7 @@ const Table4 = () => {
                     open={open}
                     onClose={handleClose}
                     MenuListProps={{
-                      'aria-labelledby': 'basic-button',
+                      "aria-labelledby": "basic-button",
                     }}
                   >
                     <MenuItem onClick={handleClose}>

@@ -1,15 +1,15 @@
-import * as React from 'react';
-import { addNote } from '@/store/apps/notes/NotesSlice';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import Fab from '@mui/material/Fab';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import { useSelector, useDispatch } from '@/store/hooks';
-import { IconCheck } from '@tabler/icons-react';
+import * as React from "react";
+import { addNote } from "@/store/apps/notes/NotesSlice";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import Fab from "@mui/material/Fab";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import { useSelector, useDispatch } from "@/store/hooks";
+import { IconCheck } from "@tabler/icons-react";
 
 interface Props {
   colors: any[];
@@ -18,9 +18,9 @@ interface Props {
 const AddNotes = ({ colors }: Props) => {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
-  const [scolor, setScolor] = React.useState<string>('primary');
+  const [scolor, setScolor] = React.useState<string>("primary");
   const id = useSelector((state) => state.notesReducer.notes.length + 1);
-  const [title, setTitle] = React.useState('');
+  const [title, setTitle] = React.useState("");
 
   const setColor = (e: string) => {
     setScolor(e);
@@ -36,7 +36,12 @@ const AddNotes = ({ colors }: Props) => {
 
   return (
     <>
-      <Button variant="contained" disableElevation color="primary" onClick={handleClickOpen}>
+      <Button
+        variant="contained"
+        disableElevation
+        color="primary"
+        onClick={handleClickOpen}
+      >
         Add Note
       </Button>
       <Dialog open={open} onClose={handleClose}>
@@ -45,8 +50,8 @@ const AddNotes = ({ colors }: Props) => {
             Add New Note
           </Typography>
           <DialogContentText>
-            To add new notes please enter your description and choose note colors. and press the
-            submit button to add new note.
+            To add new notes please enter your description and choose note
+            colors. and press the submit button to add new note.
           </DialogContentText>
           <TextField
             multiline
@@ -68,27 +73,27 @@ const AddNotes = ({ colors }: Props) => {
             <Fab
               color={color.disp}
               sx={{
-                marginRight: '3px',
-                transition: '0.1s ease-in',
-                scale: scolor === color.disp ? '0.9' : '0.7',
+                marginRight: "3px",
+                transition: "0.1s ease-in",
+                scale: scolor === color.disp ? "0.9" : "0.7",
               }}
               size="small"
               key={color.disp}
               onClick={() => setColor(color.disp)}
             >
-              {scolor === color.disp ? <IconCheck /> : ''}
+              {scolor === color.disp ? <IconCheck /> : ""}
             </Fab>
           ))}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
           <Button
-            disabled={title === ''}
+            disabled={title === ""}
             onClick={(e) => {
               e.preventDefault();
               dispatch(addNote(id, title, scolor));
               setOpen(false);
-              setTitle('');
+              setTitle("");
             }}
             variant="contained"
           >

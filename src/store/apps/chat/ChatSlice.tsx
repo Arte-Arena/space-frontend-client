@@ -1,10 +1,10 @@
-import axios from '../../../utils/axios';
-import { createSlice } from '@reduxjs/toolkit';
-import { AppDispatch } from '../../store';
-import { uniqueId } from 'lodash';
-import { sub } from 'date-fns';
+import axios from "../../../utils/axios";
+import { createSlice } from "@reduxjs/toolkit";
+import { AppDispatch } from "../../store";
+import { uniqueId } from "lodash";
+import { sub } from "date-fns";
 
-const API_URL = '/api/data/chat/ChatData';
+const API_URL = "/api/data/chat/ChatData";
 
 interface StateType {
   chats: any[];
@@ -15,11 +15,11 @@ interface StateType {
 const initialState = {
   chats: [],
   chatContent: 1,
-  chatSearch: '',
+  chatSearch: "",
 };
 
 export const ChatSlice = createSlice({
-  name: 'chat',
+  name: "chat",
   initialState,
   reducers: {
     getChats: (state, action) => {
@@ -38,7 +38,7 @@ export const ChatSlice = createSlice({
       const newMessage = {
         id: id,
         msg: msg,
-        type: 'text',
+        type: "text",
         attachments: [],
         createdAt: sub(new Date(), { seconds: 1 }),
         senderId: uniqueId(),

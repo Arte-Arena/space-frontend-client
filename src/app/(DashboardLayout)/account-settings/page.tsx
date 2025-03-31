@@ -1,25 +1,30 @@
-'use client'
+"use client";
 
-import * as React from 'react';
-import PageContainer from '@/app/components/container/PageContainer';
-import Breadcrumb from '@/app/(DashboardLayout)/layout/shared/breadcrumb/Breadcrumb';
-import { Grid, Tabs, Tab, Box, CardContent, Divider } from '@mui/material';
+import * as React from "react";
+import PageContainer from "@/app/components/container/PageContainer";
+import Breadcrumb from "@/app/(DashboardLayout)/layout/shared/breadcrumb/Breadcrumb";
+import { Grid, Tabs, Tab, Box, CardContent, Divider } from "@mui/material";
 
 // components
-import AccountTab from '@/app/components/pages/account-setting/AccountTab';
-import { IconArticle, IconBell, IconLock, IconUserCircle } from '@tabler/icons-react';
-import BlankCard from '@/app/components/shared/BlankCard';
-import NotificationTab from '@/app/components/pages/account-setting/NotificationTab';
-import BillsTab from '@/app/components/pages/account-setting/BillsTab';
-import SecurityTab from '@/app/components/pages/account-setting/SecurityTab';
+import AccountTab from "@/app/components/pages/account-setting/AccountTab";
+import {
+  IconArticle,
+  IconBell,
+  IconLock,
+  IconUserCircle,
+} from "@tabler/icons-react";
+import BlankCard from "@/app/components/shared/BlankCard";
+import NotificationTab from "@/app/components/pages/account-setting/NotificationTab";
+import BillsTab from "@/app/components/pages/account-setting/BillsTab";
+import SecurityTab from "@/app/components/pages/account-setting/SecurityTab";
 
 const BCrumb = [
   {
-    to: '/',
-    title: 'Início',
+    to: "/",
+    title: "Início",
   },
   {
-    title: 'Configurações de Conta',
+    title: "Configurações de Conta",
   },
 ];
 
@@ -48,7 +53,7 @@ function TabPanel(props: TabPanelProps) {
 function a11yProps(index: number) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
@@ -60,7 +65,10 @@ const AccountSetting = () => {
   };
 
   return (
-    <PageContainer title="Configurações de Conta" description="Página de configurações de conta">
+    <PageContainer
+      title="Configurações de Conta"
+      description="Página de configurações de conta"
+    >
       {/* breadcrumb */}
       <Breadcrumb title="Configurações de Conta" items={BCrumb} />
       {/* end breadcrumb */}

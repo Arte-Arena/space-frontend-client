@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 
-import createCache from '@emotion/cache';
-import { CacheProvider } from '@emotion/react';
-import rtlPlugin from 'stylis-plugin-rtl';
+import createCache from "@emotion/cache";
+import { CacheProvider } from "@emotion/react";
+import rtlPlugin from "stylis-plugin-rtl";
 
 interface RTLType {
   children: React.ReactNode;
@@ -11,7 +11,7 @@ interface RTLType {
 
 const styleCache = () =>
   createCache({
-    key: 'rtl',
+    key: "rtl",
     prepend: true,
 
     // We have to temporary ignore this due to incorrect definitions
@@ -27,7 +27,7 @@ const RTL = (props: RTLType) => {
     document.dir = direction;
   }, [direction]);
 
-  if (direction === 'rtl') {
+  if (direction === "rtl") {
     return <CacheProvider value={styleCache()}>{children}</CacheProvider>;
   }
 

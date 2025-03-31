@@ -33,7 +33,7 @@ interface TablePaginationActionsProps {
   rowsPerPage: number;
   onPageChange: (
     event: React.MouseEvent<HTMLButtonElement>,
-    newPage: number
+    newPage: number,
   ) => void;
 }
 
@@ -237,7 +237,7 @@ const ExTablePagination = () => {
               {(rowsPerPage > 0
                 ? rows.slice(
                     page * rowsPerPage,
-                    page * rowsPerPage + rowsPerPage
+                    page * rowsPerPage + rowsPerPage,
                   )
                 : rows
               ).map((row) => (
@@ -282,10 +282,10 @@ const ExTablePagination = () => {
                         row.status === "Completed"
                           ? "success"
                           : row.status === "Pending"
-                          ? "warning"
-                          : row.status === "Cancel"
-                          ? "error"
-                          : "secondary"
+                            ? "warning"
+                            : row.status === "Cancel"
+                              ? "error"
+                              : "secondary"
                       }
                       sx={{
                         borderRadius: "6px",

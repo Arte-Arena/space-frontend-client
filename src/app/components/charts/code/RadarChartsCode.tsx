@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const RadarChartsCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 "use client"
 
 import dynamic from "next/dynamic";
@@ -64,9 +64,9 @@ const RadialbarChart = () => {
 
 export default RadialbarChart;
 `}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default RadarChartsCode;

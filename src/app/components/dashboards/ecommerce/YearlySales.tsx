@@ -1,16 +1,15 @@
-'use client'
-import React from 'react';
+"use client";
+import React from "react";
 import dynamic from "next/dynamic";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from "@mui/material/styles";
 
-import DashboardWidgetCard from '../../shared/DashboardWidgetCard';
-import SkeletonYearlySalesCard from '../skeleton/YearlySalesCard';
-import { Box } from '@mui/material';
-
+import DashboardWidgetCard from "../../shared/DashboardWidgetCard";
+import SkeletonYearlySalesCard from "../skeleton/YearlySalesCard";
+import { Box } from "@mui/material";
 
 interface YearlysalesCardProps {
-  isLoading ?: boolean;
+  isLoading?: boolean;
 }
 
 const YearlySales = ({ isLoading }: YearlysalesCardProps) => {
@@ -22,21 +21,28 @@ const YearlySales = ({ isLoading }: YearlysalesCardProps) => {
   // chart
   const optionscolumnchart: any = {
     chart: {
-      type: 'bar',
+      type: "bar",
       fontFamily: "'Plus Jakarta Sans', sans-serif;",
-      foreColor: '#adb0bb',
+      foreColor: "#adb0bb",
       toolbar: {
         show: false,
       },
       height: 295,
     },
-    colors: [primarylight, primarylight, primary, primarylight, primarylight, primarylight],
+    colors: [
+      primarylight,
+      primarylight,
+      primary,
+      primarylight,
+      primarylight,
+      primarylight,
+    ],
     plotOptions: {
       bar: {
         borderRadius: 4,
-        columnWidth: '45%',
+        columnWidth: "45%",
         distributed: true,
-        endingShape: 'rounded',
+        endingShape: "rounded",
       },
     },
     dataLabels: {
@@ -53,7 +59,7 @@ const YearlySales = ({ isLoading }: YearlysalesCardProps) => {
       },
     },
     xaxis: {
-      categories: [['Apr'], ['May'], ['June'], ['July'], ['Aug'], ['Sept']],
+      categories: [["Apr"], ["May"], ["June"], ["July"], ["Aug"], ["Sept"]],
       axisBorder: {
         show: false,
       },
@@ -64,39 +70,43 @@ const YearlySales = ({ isLoading }: YearlysalesCardProps) => {
       },
     },
     tooltip: {
-      theme: theme.palette.mode === 'dark' ? 'dark' : 'light',
+      theme: theme.palette.mode === "dark" ? "dark" : "light",
     },
   };
   const seriescolumnchart = [
     {
-      name: '',
+      name: "",
       data: [20, 15, 30, 25, 10, 15],
     },
   ];
 
   return (
     <>
-      {
-        isLoading ? (
-          <SkeletonYearlySalesCard />
-        ) : (
-          <DashboardWidgetCard
-            title="Yearly Sales"
-            subtitle="Total Sales"
-            dataLabel1="Salary"
-            dataItem1="$36,358"
-            dataLabel2="Expance"
-            dataItem2="$5,296"
-          >
-            <>
-              <Box height="310px">
-                <Chart options={optionscolumnchart} series={seriescolumnchart} type="bar" height="295px" width={"100%"} />
-              </Box>
-            </>
-          </DashboardWidgetCard>
-        )}
+      {isLoading ? (
+        <SkeletonYearlySalesCard />
+      ) : (
+        <DashboardWidgetCard
+          title="Yearly Sales"
+          subtitle="Total Sales"
+          dataLabel1="Salary"
+          dataItem1="$36,358"
+          dataLabel2="Expance"
+          dataItem2="$5,296"
+        >
+          <>
+            <Box height="310px">
+              <Chart
+                options={optionscolumnchart}
+                series={seriescolumnchart}
+                type="bar"
+                height="295px"
+                width={"100%"}
+              />
+            </Box>
+          </>
+        </DashboardWidgetCard>
+      )}
     </>
-
   );
 };
 

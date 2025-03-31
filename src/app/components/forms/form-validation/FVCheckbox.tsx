@@ -1,12 +1,12 @@
-'use client'
-import React from 'react';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-import { Box, Button, Stack, FormHelperText } from '@mui/material';
-import CustomCheckbox from '../theme-elements/CustomCheckbox';
+"use client";
+import React from "react";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { Box, Button, Stack, FormHelperText } from "@mui/material";
+import CustomCheckbox from "../theme-elements/CustomCheckbox";
 
 const validationSchema = yup.object({
-  color: yup.array().min(1, 'At least one color is required'),
+  color: yup.array().min(1, "At least one color is required"),
 });
 
 const FVCheckbox = () => {
@@ -36,11 +36,16 @@ const FVCheckbox = () => {
             color="secondary"
             onChange={formik.handleChange}
           />
-          <CustomCheckbox value="error" name="color" color="error" onChange={formik.handleChange} />
+          <CustomCheckbox
+            value="error"
+            name="color"
+            color="error"
+            onChange={formik.handleChange}
+          />
           {formik.errors.color && (
             <FormHelperText error id="standard-weight-helper-text-email-login">
-              {' '}
-              {formik.errors.color}{' '}
+              {" "}
+              {formik.errors.color}{" "}
             </FormHelperText>
           )}
         </Box>

@@ -1,5 +1,5 @@
-'use client'
-import React from 'react';
+"use client";
+import React from "react";
 import {
   Button,
   Dialog,
@@ -7,9 +7,9 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
-} from '@mui/material';
-import Slide from '@mui/material/Slide';
-import { TransitionProps } from '@mui/material/transitions';
+} from "@mui/material";
+import Slide from "@mui/material/Slide";
+import { TransitionProps } from "@mui/material/transitions";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -33,7 +33,12 @@ const TransitionDialog = () => {
 
   return (
     <>
-      <Button variant="contained" color="success" fullWidth onClick={handleClickOpen}>
+      <Button
+        variant="contained"
+        color="success"
+        fullWidth
+        onClick={handleClickOpen}
+      >
         Open Transition Dialog
       </Button>
       <Dialog
@@ -46,8 +51,8 @@ const TransitionDialog = () => {
         <DialogTitle>{"Use Google's location service?"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            Let Google help apps determine location. This means sending anonymous location data to
-            Google, even when no apps are running.
+            Let Google help apps determine location. This means sending
+            anonymous location data to Google, even when no apps are running.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

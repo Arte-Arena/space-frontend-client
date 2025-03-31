@@ -1,4 +1,3 @@
-
 import { Grid } from "@mui/material";
 import Breadcrumb from "@/app/(DashboardLayout)/layout/shared/breadcrumb/Breadcrumb";
 import PageContainer from "@/app/components/container/PageContainer";
@@ -28,7 +27,6 @@ const BCrumb = [
 ];
 
 const WidgetCharts = () => {
-
   return (
     <PageContainer title="Charts" description="this is Charts">
       {/* breadcrumb */}
@@ -45,7 +43,7 @@ const WidgetCharts = () => {
           <Earned />
         </Grid>
         <Grid item xs={12} sm={3}>
-          <SalesTwo  />
+          <SalesTwo />
         </Grid>
         <Grid item xs={12}>
           <CurrentValue />
@@ -53,10 +51,10 @@ const WidgetCharts = () => {
         <Grid item xs={12} lg={4}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <YearlyBreakup  />
+              <YearlyBreakup />
             </Grid>
             <Grid item xs={12}>
-              <MonthlyEarnings  />
+              <MonthlyEarnings />
             </Grid>
             <Grid item xs={12}>
               <MostVisited />
@@ -66,26 +64,26 @@ const WidgetCharts = () => {
         <Grid item xs={12} lg={4}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <YearlySales  />
+              <YearlySales />
             </Grid>
             <Grid item xs={12}>
               <PageImpressions />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <Customers  />
+              <Customers />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <Projects  />
+              <Projects />
             </Grid>
           </Grid>
         </Grid>
         <Grid item xs={12} lg={4}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <RevenueUpdates  />
+              <RevenueUpdates />
             </Grid>
             <Grid item xs={12}>
-              <SalesOverview  />
+              <SalesOverview />
             </Grid>
           </Grid>
         </Grid>

@@ -1,22 +1,22 @@
-'use client'
-import React from 'react';
-import { sum } from 'lodash';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import AddToCart from '../productCart/AddToCart';
-import { IconArrowBack } from '@tabler/icons-react';
-import { useSelector } from '@/store/hooks';
-import HorizontalStepper from './HorizontalStepper';
-import FirstStep from './FirstStep';
-import SecondStep from './SecondStep';
-import ThirdStep from './ThirdStep';
-import FinalStep from './FinalStep';
-import { ProductType } from '../../../../(DashboardLayout)/types/apps/eCommerce';
+"use client";
+import React from "react";
+import { sum } from "lodash";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import AddToCart from "../productCart/AddToCart";
+import { IconArrowBack } from "@tabler/icons-react";
+import { useSelector } from "@/store/hooks";
+import HorizontalStepper from "./HorizontalStepper";
+import FirstStep from "./FirstStep";
+import SecondStep from "./SecondStep";
+import ThirdStep from "./ThirdStep";
+import FinalStep from "./FinalStep";
+import { ProductType } from "../../../../(DashboardLayout)/types/apps/eCommerce";
 
 const ProductChecout = () => {
   const checkout = useSelector((state) => state.ecommerceReducer.cart);
-  const steps = ['Cart', 'Billing & address', 'Payment'];
+  const steps = ["Cart", "Billing & address", "Payment"];
   const [activeStep, setActiveStep] = React.useState(0);
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -29,7 +29,9 @@ const ProductChecout = () => {
     setActiveStep(0);
   };
 
-  const total = sum(checkout.map((product: ProductType) => product.price * product.qty));
+  const total = sum(
+    checkout.map((product: ProductType) => product.price * product.qty),
+  );
   const Discount = Math.round(total * (5 / 100));
 
   return (
@@ -54,7 +56,7 @@ const ProductChecout = () => {
                 {/* Cart Total */}
                 {/* ------------------------------------------- */}
                 <FirstStep total={total} Discount={Discount} />
-                <Stack direction={'row'} justifyContent="space-between">
+                <Stack direction={"row"} justifyContent="space-between">
                   <Button
                     color="secondary"
                     variant="contained"
@@ -69,7 +71,7 @@ const ProductChecout = () => {
                 </Stack>
               </>
             ) : (
-              ''
+              ""
             )}
           </>
         ) : activeStep === 1 ? (
@@ -79,8 +81,12 @@ const ProductChecout = () => {
             {/* ------------------------------------------- */}
             <SecondStep nexStep={handleNext} />
             <FirstStep total={total} Discount={Discount} />
-            <Stack direction={'row'} justifyContent="space-between">
-              <Button color="inherit" disabled={activeStep !== 1} onClick={handleBack}>
+            <Stack direction={"row"} justifyContent="space-between">
+              <Button
+                color="inherit"
+                disabled={activeStep !== 1}
+                onClick={handleBack}
+              >
                 Back
               </Button>
               <Button color="inherit" variant="outlined">
@@ -95,8 +101,12 @@ const ProductChecout = () => {
             {/* ------------------------------------------- */}
             <ThirdStep />
             <FirstStep total={total} Discount={Discount} />
-            <Stack direction={'row'} justifyContent="space-between">
-              <Button color="inherit" disabled={activeStep === 0} onClick={handleBack}>
+            <Stack direction={"row"} justifyContent="space-between">
+              <Button
+                color="inherit"
+                disabled={activeStep === 0}
+                onClick={handleBack}
+              >
                 <IconArrowBack /> Back
               </Button>
               <Button onClick={handleNext} size="large" variant="contained">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   IconApps,
   IconCalendarEvent,
@@ -7,7 +7,7 @@ import {
   IconGridDots,
   IconMail,
   IconMessages,
-} from '@tabler/icons-react';
+} from "@tabler/icons-react";
 import {
   Box,
   Typography,
@@ -18,11 +18,11 @@ import {
   ListItemIcon,
   ListItemText,
   Collapse,
-} from '@mui/material';
+} from "@mui/material";
 
-import Link from 'next/link';
-import AppLinks from './AppLinks';
-import QuickLinks from './QuickLinks';
+import Link from "next/link";
+import AppLinks from "./AppLinks";
+import QuickLinks from "./QuickLinks";
 
 const MobileRightSidebar = () => {
   const [showDrawer, setShowDrawer] = useState(false);
@@ -40,7 +40,7 @@ const MobileRightSidebar = () => {
       {/* ------------------------------------------- */}
       <Box px={1}>
         <List
-          sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+          sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
           component="nav"
           aria-labelledby="nested-list-subheader"
         >
@@ -111,7 +111,7 @@ const MobileRightSidebar = () => {
         onClick={() => setShowDrawer(true)}
         sx={{
           ...(showDrawer && {
-            color: 'primary.main',
+            color: "primary.main",
           }),
         }}
       >
@@ -124,7 +124,7 @@ const MobileRightSidebar = () => {
         anchor="right"
         open={showDrawer}
         onClose={() => setShowDrawer(false)}
-        PaperProps={{ sx: { width: '300px' } }}
+        PaperProps={{ sx: { width: "300px" } }}
       >
         <Box p={3} pb={0}>
           <Typography variant="h5" fontWeight={600}>

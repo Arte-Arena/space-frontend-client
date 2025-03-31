@@ -1,6 +1,6 @@
-'use client'
+"use client";
 
-import React from 'react';
+import React from "react";
 import {
   Box,
   Stepper,
@@ -10,23 +10,23 @@ import {
   Typography,
   FormControlLabel,
   Alert,
-} from '@mui/material';
+} from "@mui/material";
 
-import CustomTextField from '@/app/components/forms/theme-elements/CustomTextField';
-import CustomCheckbox from '@/app/components/forms/theme-elements/CustomCheckbox';
-import CustomFormLabel from '@/app/components/forms/theme-elements/CustomFormLabel';
-import ParentCard from '@/app/components/shared/ParentCard';
-import { Stack } from '@mui/system';
+import CustomTextField from "@/app/components/forms/theme-elements/CustomTextField";
+import CustomCheckbox from "@/app/components/forms/theme-elements/CustomCheckbox";
+import CustomFormLabel from "@/app/components/forms/theme-elements/CustomFormLabel";
+import ParentCard from "@/app/components/shared/ParentCard";
+import { Stack } from "@mui/system";
 
-const steps = ['Account', 'Profile', 'Finish'];
+const steps = ["Account", "Profile", "Finish"];
 
 const FormWizardSteps = () => {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
 
-  const isStepOptional = (step:any) => step === 1;
+  const isStepOptional = (step: any) => step === 1;
 
-  const isStepSkipped = (step:any) => skipped.has(step);
+  const isStepSkipped = (step: any) => skipped.has(step);
 
   const handleNext = () => {
     let newSkipped = skipped;
@@ -68,9 +68,19 @@ const FormWizardSteps = () => {
             <CustomFormLabel htmlFor="Name">Name</CustomFormLabel>
             <CustomTextField id="Name" variant="outlined" fullWidth />
             <CustomFormLabel htmlFor="Email">Email</CustomFormLabel>
-            <CustomTextField id="Email" type="email" variant="outlined" fullWidth />
+            <CustomTextField
+              id="Email"
+              type="email"
+              variant="outlined"
+              fullWidth
+            />
             <CustomFormLabel htmlFor="Password">Password</CustomFormLabel>
-            <CustomTextField id="Password" type="password" variant="outlined" fullWidth />
+            <CustomTextField
+              id="Password"
+              type="password"
+              variant="outlined"
+              fullWidth
+            />
           </Box>
         );
       case 1:
@@ -79,9 +89,20 @@ const FormWizardSteps = () => {
             <CustomFormLabel htmlFor="Fname">First Name</CustomFormLabel>
             <CustomTextField id="Fname" variant="outlined" fullWidth />
             <CustomFormLabel htmlFor="Lname">Last Name</CustomFormLabel>
-            <CustomTextField id="Lname" type="text" variant="outlined" fullWidth />
+            <CustomTextField
+              id="Lname"
+              type="text"
+              variant="outlined"
+              fullWidth
+            />
             <CustomFormLabel htmlFor="Address">Address</CustomFormLabel>
-            <CustomTextField id="Address" multiline rows={4} variant="outlined" fullWidth />
+            <CustomTextField
+              id="Address"
+              multiline
+              rows={4}
+              variant="outlined"
+              fullWidth
+            />
           </Box>
         );
       case 2:
@@ -89,9 +110,10 @@ const FormWizardSteps = () => {
           <Box pt={3}>
             <Typography variant="h5">Terms and condition</Typography>
             <Typography variant="body2" sx={{ mt: 1 }}>
-              Sard about this site or you have been to it, but you cannot figure out what it is or
-              what it can do. MTA web directory isSard about this site or you have been to it, but
-              you cannot figure out what it is or what it can do. MTA web directory is
+              Sard about this site or you have been to it, but you cannot figure
+              out what it is or what it can do. MTA web directory isSard about
+              this site or you have been to it, but you cannot figure out what
+              it is or what it can do. MTA web directory is
             </Typography>
             <FormControlLabel
               control={<CustomCheckbox defaultChecked />}
@@ -109,76 +131,79 @@ const FormWizardSteps = () => {
   };
 
   return (
-
-      <ParentCard title="Form Wizard">
-        <Box width="100%">
-          <Stepper activeStep={activeStep}>
-            {steps.map((label, index) => {
-              const stepProps: { completed?: boolean } = {};
-              const labelProps: {
-                optional?: React.ReactNode;
-              } = {};
-              if (isStepOptional(index)) {
-                labelProps.optional = <Typography variant="caption">Optional</Typography>;
-              }
-              if (isStepSkipped(index)) {
-                stepProps.completed = false;
-              }
-
-              return (
-                <Step key={label} {...stepProps}>
-                  <StepLabel {...labelProps}>{label}</StepLabel>
-                </Step>
+    <ParentCard title="Form Wizard">
+      <Box width="100%">
+        <Stepper activeStep={activeStep}>
+          {steps.map((label, index) => {
+            const stepProps: { completed?: boolean } = {};
+            const labelProps: {
+              optional?: React.ReactNode;
+            } = {};
+            if (isStepOptional(index)) {
+              labelProps.optional = (
+                <Typography variant="caption">Optional</Typography>
               );
-            })}
-          </Stepper>
-          {activeStep === steps.length ? (
-            <>
-              <Stack spacing={2} mt={3}>
-                <Alert severity="success">
-                  All steps completed - you&apos;re finished
-                </Alert>
+            }
+            if (isStepSkipped(index)) {
+              stepProps.completed = false;
+            }
 
-                <Box textAlign="right">
-                  <Button onClick={handleReset} variant="contained" color="error">
-                    Reset
-                  </Button>
-                </Box>
-              </Stack>
-            </>
-          ) : (
-            <>
-              <Box>{handleSteps(activeStep)}</Box>
+            return (
+              <Step key={label} {...stepProps}>
+                <StepLabel {...labelProps}>{label}</StepLabel>
+              </Step>
+            );
+          })}
+        </Stepper>
+        {activeStep === steps.length ? (
+          <>
+            <Stack spacing={2} mt={3}>
+              <Alert severity="success">
+                All steps completed - you&apos;re finished
+              </Alert>
 
-              <Box display="flex" flexDirection="row" mt={3}>
-                <Button
-                  color="inherit"
-                  variant="contained"
-                  disabled={activeStep === 0}
-                  onClick={handleBack}
-                  sx={{ mr: 1 }}
-                >
-                  Back
-                </Button>
-                <Box flex="1 1 auto" />
-                {isStepOptional(activeStep) && (
-                  <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                    Skip
-                  </Button>
-                )}
-
-                <Button
-                  onClick={handleNext}
-                  variant="contained"
-                  color={activeStep === steps.length - 1 ? 'success' : 'secondary'}
-                >
-                  {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+              <Box textAlign="right">
+                <Button onClick={handleReset} variant="contained" color="error">
+                  Reset
                 </Button>
               </Box>
-            </>
-          )}
-        </Box>
-      </ParentCard>
+            </Stack>
+          </>
+        ) : (
+          <>
+            <Box>{handleSteps(activeStep)}</Box>
+
+            <Box display="flex" flexDirection="row" mt={3}>
+              <Button
+                color="inherit"
+                variant="contained"
+                disabled={activeStep === 0}
+                onClick={handleBack}
+                sx={{ mr: 1 }}
+              >
+                Back
+              </Button>
+              <Box flex="1 1 auto" />
+              {isStepOptional(activeStep) && (
+                <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
+                  Skip
+                </Button>
+              )}
+
+              <Button
+                onClick={handleNext}
+                variant="contained"
+                color={
+                  activeStep === steps.length - 1 ? "success" : "secondary"
+                }
+              >
+                {activeStep === steps.length - 1 ? "Finish" : "Next"}
+              </Button>
+            </Box>
+          </>
+        )}
+      </Box>
+    </ParentCard>
   );
 };
 

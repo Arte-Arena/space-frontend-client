@@ -44,7 +44,7 @@ const InvoiceDetail = () => {
   useEffect(() => {
     if (getTitle) {
       const invoice = invoices.find(
-        (p: { billFrom: string }) => p.billFrom === getTitle
+        (p: { billFrom: string }) => p.billFrom === getTitle,
       );
       if (invoice) {
         setSelectedInvoice(invoice);
@@ -65,17 +65,19 @@ const InvoiceDetail = () => {
   return (
     <>
       <Stack
-        direction={{ xs: 'column', sm: 'row' }}
+        direction={{ xs: "column", sm: "row" }}
         alignItems="center"
         justifyContent="space-between"
         mb={2}
       >
-        <Box sx={{
-          textAlign: {
-            xs: "center",
-            sm: "left"
-          }
-        }}>
+        <Box
+          sx={{
+            textAlign: {
+              xs: "center",
+              sm: "left",
+            },
+          }}
+        >
           <Typography variant="h5"># {selectedInvoice.id}</Typography>
           <Box mt={1}>
             <Chip
@@ -181,7 +183,7 @@ const InvoiceDetail = () => {
                     units: number;
                     unitTotalPrice: string;
                   },
-                  index: React.Key | null | undefined
+                  index: React.Key | null | undefined,
                 ) => (
                   <TableRow key={index}>
                     <TableCell>
@@ -199,7 +201,7 @@ const InvoiceDetail = () => {
                       </Typography>
                     </TableCell>
                   </TableRow>
-                )
+                ),
               )}
             </TableBody>
           </Table>

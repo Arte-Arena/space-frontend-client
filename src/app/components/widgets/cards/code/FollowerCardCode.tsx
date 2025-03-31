@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const FollowerCardCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 import { CardContent, Typography, Grid, Button, Avatar, Box, Card } from '@mui/material';
 import { Stack } from '@mui/system';
 import { IconMapPin } from '@tabler/icons-react';
@@ -64,9 +64,9 @@ const FollowerCard = () => {
 
 export default FollowerCard;
 `}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default FollowerCardCode;

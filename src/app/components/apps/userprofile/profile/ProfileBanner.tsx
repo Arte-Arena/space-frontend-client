@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -30,7 +30,7 @@ const ProfileBanner = () => {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    margin: "0 auto"
+    margin: "0 auto",
   }));
 
   return (

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import List from '@mui/material/List';
+import List from "@mui/material/List";
 import { useSelector, useDispatch } from "@/store/hooks";
 import {
   SelectContact,
@@ -10,14 +10,13 @@ import {
 
 import Scrollbar from "../../../components/custom-scroll/Scrollbar";
 import ContactListItem from "./ContactListItem";
-import type { ContactType } from '../../../(DashboardLayout)/types/apps/contact';
+import type { ContactType } from "../../../(DashboardLayout)/types/apps/contact";
 
 type Props = {
   showrightSidebar: () => void;
 };
 
 const ContactList = ({ showrightSidebar }: Props) => {
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchContacts());
@@ -26,14 +25,14 @@ const ContactList = ({ showrightSidebar }: Props) => {
   const getVisibleContacts = (
     contacts: ContactType[],
     filter: string,
-    contactSearch: string
+    contactSearch: string,
   ) => {
     switch (filter) {
       case "show_all":
         return contacts.filter(
           (c) =>
             !c.deleted &&
-            c.firstname.toLocaleLowerCase().includes(contactSearch)
+            c.firstname.toLocaleLowerCase().includes(contactSearch),
         );
 
       case "frequent_contact":
@@ -41,7 +40,7 @@ const ContactList = ({ showrightSidebar }: Props) => {
           (c) =>
             !c.deleted &&
             c.frequentlycontacted &&
-            c.firstname.toLocaleLowerCase().includes(contactSearch)
+            c.firstname.toLocaleLowerCase().includes(contactSearch),
         );
 
       case "starred_contact":
@@ -49,7 +48,7 @@ const ContactList = ({ showrightSidebar }: Props) => {
           (c) =>
             !c.deleted &&
             c.starred &&
-            c.firstname.toLocaleLowerCase().includes(contactSearch)
+            c.firstname.toLocaleLowerCase().includes(contactSearch),
         );
 
       case "engineering_department":
@@ -57,7 +56,7 @@ const ContactList = ({ showrightSidebar }: Props) => {
           (c) =>
             !c.deleted &&
             c.department === "Engineering" &&
-            c.firstname.toLocaleLowerCase().includes(contactSearch)
+            c.firstname.toLocaleLowerCase().includes(contactSearch),
         );
 
       case "support_department":
@@ -65,7 +64,7 @@ const ContactList = ({ showrightSidebar }: Props) => {
           (c) =>
             !c.deleted &&
             c.department === "Support" &&
-            c.firstname.toLocaleLowerCase().includes(contactSearch)
+            c.firstname.toLocaleLowerCase().includes(contactSearch),
         );
 
       case "sales_department":
@@ -73,7 +72,7 @@ const ContactList = ({ showrightSidebar }: Props) => {
           (c) =>
             !c.deleted &&
             c.department === "Sales" &&
-            c.firstname.toLocaleLowerCase().includes(contactSearch)
+            c.firstname.toLocaleLowerCase().includes(contactSearch),
         );
 
       default:
@@ -84,8 +83,8 @@ const ContactList = ({ showrightSidebar }: Props) => {
     getVisibleContacts(
       state.contactsReducer.contacts,
       state.contactsReducer.currentFilter,
-      state.contactsReducer.contactSearch
-    )
+      state.contactsReducer.contactSearch,
+    ),
   );
 
   const active = useSelector((state) => state.contactsReducer.contactContent);

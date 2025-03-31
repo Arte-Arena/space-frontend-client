@@ -252,8 +252,8 @@ const TableDense = () => {
                               density === "sm"
                                 ? "4px"
                                 : density === "md"
-                                ? "8px"
-                                : "16px",
+                                  ? "8px"
+                                  : "16px",
                             transition: "padding 0.2s",
                           }}
                         >
@@ -262,7 +262,7 @@ const TableDense = () => {
                               ? null
                               : flexRender(
                                   header.column.columnDef.header,
-                                  header.getContext()
+                                  header.getContext(),
                                 )}
                           </Typography>
                         </TableCell>
@@ -281,14 +281,14 @@ const TableDense = () => {
                               density === "sm"
                                 ? "4px"
                                 : density === "md"
-                                ? "8px"
-                                : "16px",
+                                  ? "8px"
+                                  : "16px",
                             transition: "padding 0.2s",
                           }}
                         >
                           {flexRender(
                             cell.column.columnDef.cell,
-                            cell.getContext()
+                            cell.getContext(),
                           )}
                         </TableCell>
                       ))}

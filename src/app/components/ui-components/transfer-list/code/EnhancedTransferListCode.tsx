@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const EnhancedTransferListCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 "use client";
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
@@ -165,9 +165,9 @@ const EnhancedTransferList = () => {
     </Grid>
   );
 };`}
-            </CodeDialog >
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default EnhancedTransferListCode;

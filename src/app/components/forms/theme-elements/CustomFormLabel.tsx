@@ -1,7 +1,7 @@
-'use client'
-import React from 'react';
-import { styled } from '@mui/material/styles';
-import { Typography } from '@mui/material';
+"use client";
+import React from "react";
+import { styled } from "@mui/material/styles";
+import { Typography } from "@mui/material";
 
 const CustomFormLabel = styled((props: any) => (
   <Typography
@@ -12,9 +12,9 @@ const CustomFormLabel = styled((props: any) => (
     htmlFor={props.htmlFor}
   />
 ))(() => ({
-  marginBottom: '5px',
-  marginTop: '25px',
-  display: 'block',
+  marginBottom: "5px",
+  marginTop: "25px",
+  display: "block",
 }));
 
 export default CustomFormLabel;

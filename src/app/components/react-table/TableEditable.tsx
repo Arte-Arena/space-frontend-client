@@ -170,22 +170,22 @@ const columns = [
             info.getValue() === "active"
               ? (theme) => theme.palette.success.light
               : info.getValue() === "pending"
-              ? (theme) => theme.palette.warning.light
-              : info.getValue() === "completed"
-              ? (theme) => theme.palette.primary.light
-              : info.getValue() === "cancel"
-              ? (theme) => theme.palette.error.light
-              : (theme) => theme.palette.secondary.light,
+                ? (theme) => theme.palette.warning.light
+                : info.getValue() === "completed"
+                  ? (theme) => theme.palette.primary.light
+                  : info.getValue() === "cancel"
+                    ? (theme) => theme.palette.error.light
+                    : (theme) => theme.palette.secondary.light,
           color:
             info.getValue() === "active"
               ? (theme) => theme.palette.success.main
               : info.getValue() === "pending"
-              ? (theme) => theme.palette.warning.main
-              : info.getValue() === "completed"
-              ? (theme) => theme.palette.primary.main
-              : info.getValue() === "cancel"
-              ? (theme) => theme.palette.error.main
-              : (theme) => theme.palette.secondary.main,
+                ? (theme) => theme.palette.warning.main
+                : info.getValue() === "completed"
+                  ? (theme) => theme.palette.primary.main
+                  : info.getValue() === "cancel"
+                    ? (theme) => theme.palette.error.main
+                    : (theme) => theme.palette.secondary.main,
           borderRadius: "8px",
         }}
         label={info.getValue()}
@@ -224,7 +224,7 @@ const TableEditable = () => {
   const handleSave = () => {
     if (editedData) {
       _setData(
-        data.map((item) => (item.id === editedData.id ? editedData : item))
+        data.map((item) => (item.id === editedData.id ? editedData : item)),
       );
       setEditRowId(null);
       setEditedData(null);
@@ -235,7 +235,7 @@ const TableEditable = () => {
     e:
       | (Event & { target: { value: any; name: string } })
       | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    field: string
+    field: string,
   ) => {
     if (editedData) {
       setEditedData({
@@ -290,7 +290,7 @@ const TableEditable = () => {
                               ? null
                               : flexRender(
                                   header.column.columnDef.header,
-                                  header.getContext()
+                                  header.getContext(),
                                 )}
                           </Typography>
                         </TableCell>
@@ -357,7 +357,7 @@ const TableEditable = () => {
                           ) : (
                             flexRender(
                               cell.column.columnDef.cell,
-                              cell.getContext()
+                              cell.getContext(),
                             )
                           )}
                         </TableCell>

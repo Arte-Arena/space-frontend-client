@@ -1,27 +1,27 @@
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-import { IconDeviceMobile } from '@tabler/icons-react';
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import { IconDeviceMobile } from "@tabler/icons-react";
 
 const Myaddress = [
   {
     id: 1,
-    name: 'Johnathan Doe',
-    address: 'E601 Vrundavan Heights, godrej garden city - 382481',
-    mobile: '9999501050',
+    name: "Johnathan Doe",
+    address: "E601 Vrundavan Heights, godrej garden city - 382481",
+    mobile: "9999501050",
   },
   {
     id: 2,
-    name: 'ParleG Doe',
-    address: 'D201 Galexy Heights, godrej garden city - 382481',
-    mobile: '9999501050',
+    name: "ParleG Doe",
+    address: "D201 Galexy Heights, godrej garden city - 382481",
+    mobile: "9999501050",
   },
   {
     id: 3,
-    name: 'Guddu Bhaiya',
-    address: 'Mumbai khao gali, Behind shukan, godrej garden city - 382481',
-    mobile: '9999501050',
+    name: "Guddu Bhaiya",
+    address: "Mumbai khao gali, Behind shukan, godrej garden city - 382481",
+    mobile: "9999501050",
   },
 ];
 
@@ -42,7 +42,13 @@ const SecondStep = ({ nexStep }: Props) => {
               <Typography variant="body2" gutterBottom>
                 {address.address}
               </Typography>
-              <Typography variant="h6" my={3} alignItems="center" display="flex" gap={1}>
+              <Typography
+                variant="h6"
+                my={3}
+                alignItems="center"
+                display="flex"
+                gap={1}
+              >
                 <IconDeviceMobile /> {address.mobile}
               </Typography>
               <Button variant="outlined" onClick={nexStep}>

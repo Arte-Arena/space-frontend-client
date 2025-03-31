@@ -120,7 +120,6 @@ const TaskData: React.FC<TaskDataProps> = ({
                   aria-controls="long-menu"
                   aria-haspopup="true"
                   onClick={handleClick}
-
                 >
                   <IconDotsVertical size="1rem" />
                 </IconButton>

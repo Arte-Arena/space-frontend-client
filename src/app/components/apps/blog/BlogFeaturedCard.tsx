@@ -1,37 +1,37 @@
-import Link from 'next/link';
-import { useDispatch } from '@/store/hooks';
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import CardContent from '@mui/material/CardContent';
-import Chip from '@mui/material/Chip';
-import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-import Tooltip from '@mui/material/Tooltip';
-import Typography from '@mui/material/Typography';
-import { alpha } from '@mui/material/styles';
+import Link from "next/link";
+import { useDispatch } from "@/store/hooks";
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import CardContent from "@mui/material/CardContent";
+import Chip from "@mui/material/Chip";
+import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
+import { alpha } from "@mui/material/styles";
 // import alpha from '@mui/material/styles';
-import { styled } from '@mui/material/styles';
-import { IconEye, IconMessage2, IconPoint } from '@tabler/icons-react';
-import { format } from 'date-fns';
-import { fetchBlogPost } from '@/store/apps/blog/BlogSlice';
-import BlankCard from '../../shared/BlankCard';
-import { BlogPostType } from '../../../(DashboardLayout)/types/apps/blog';
+import { styled } from "@mui/material/styles";
+import { IconEye, IconMessage2, IconPoint } from "@tabler/icons-react";
+import { format } from "date-fns";
+import { fetchBlogPost } from "@/store/apps/blog/BlogSlice";
+import BlankCard from "../../shared/BlankCard";
+import { BlogPostType } from "../../../(DashboardLayout)/types/apps/blog";
 
 const CoverImgStyle = styled(CardContent)({
-  position: 'absolute',
-  top: '0',
-  left: '0',
+  position: "absolute",
+  top: "0",
+  left: "0",
   zIndex: 1,
-  width: '100%',
-  height: '100%',
-  color: 'white',
+  width: "100%",
+  height: "100%",
+  color: "white",
 });
 const CoverBox = styled(Box)({
   top: 0,
   content: "''",
-  width: '100%',
-  height: '100%',
-  position: 'absolute',
+  width: "100%",
+  height: "100%",
+  position: "absolute",
 });
 
 interface Btype {
@@ -41,19 +41,20 @@ interface Btype {
 
 const BlogFeaturedCard = ({ post, index }: Btype) => {
   const dispatch = useDispatch();
-  const { coverImg, title, view, comments, category, author, createdAt }: any = post;
+  const { coverImg, title, view, comments, category, author, createdAt }: any =
+    post;
   const linkTo = title
     .toLowerCase()
-    .replace(/ /g, '-')
-    .replace(/[^\w-]+/g, '');
+    .replace(/ /g, "-")
+    .replace(/[^\w-]+/g, "");
   const mainPost = index === 0;
 
   const CoverImgBg = styled(BlankCard)({
     p: 0,
-    height: '400px',
-    position: 'relative',
+    height: "400px",
+    position: "relative",
     background: `url(${coverImg}) no-repeat center`,
-    backgroundSize: 'cover',
+    backgroundSize: "cover",
   });
 
   return (
@@ -76,23 +77,29 @@ const BlogFeaturedCard = ({ post, index }: Btype) => {
                 onClick={() => dispatch(fetchBlogPost(linkTo))}
               >
                 <CoverBox
-                  sx={{ backgroundColor: (theme) => alpha(theme.palette.grey[900], 0.6) }}
+                  sx={{
+                    backgroundColor: (theme) =>
+                      alpha(theme.palette.grey[900], 0.6),
+                  }}
                 />
               </Typography>
               <CoverImgStyle>
                 <Box
-                  height={'100%'}
-                  display={'flex'}
+                  height={"100%"}
+                  display={"flex"}
                   justifyContent="space-between"
                   flexDirection="column"
                 >
                   <Box>
                     <Stack direction="row">
                       <Tooltip title={author?.name} placement="top">
-                        <Avatar aria-label="recipe" src={author?.avatar}></Avatar>
+                        <Avatar
+                          aria-label="recipe"
+                          src={author?.avatar}
+                        ></Avatar>
                       </Tooltip>
                       <Chip
-                        sx={{ marginLeft: 'auto' }}
+                        sx={{ marginLeft: "auto" }}
                         label={category}
                         size="small"
                         color="primary"
@@ -105,7 +112,7 @@ const BlogFeaturedCard = ({ post, index }: Btype) => {
                         gutterBottom
                         variant="h3"
                         color="inherit"
-                        sx={{ textDecoration: 'none' }}
+                        sx={{ textDecoration: "none" }}
                         component={Link}
                         href={`/apps/blog/detail/${linkTo}`}
                         onClick={() => dispatch(fetchBlogPost(linkTo))}
@@ -123,7 +130,7 @@ const BlogFeaturedCard = ({ post, index }: Btype) => {
 
                       <Stack direction="row" ml="auto" alignItems="center">
                         <IconPoint size="16" />
-                        <small>{format(new Date(createdAt), 'E, MMM d')}</small>
+                        <small>{format(new Date(createdAt), "E, MMM d")}</small>
                       </Stack>
                     </Stack>
                   </Box>
@@ -133,7 +140,7 @@ const BlogFeaturedCard = ({ post, index }: Btype) => {
           </CoverImgBg>
         </Grid>
       ) : (
-        ''
+        ""
       )}
     </>
   );

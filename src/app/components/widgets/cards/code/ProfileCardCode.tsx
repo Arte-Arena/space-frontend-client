@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const ProfileCardCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 import React from 'react';
 import { CardContent, Typography, Grid, IconButton, Divider, Avatar, Box, Card } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
@@ -92,9 +92,9 @@ const ProfileCard = () => {
 
 export default ProfileCard;
 `}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default ProfileCardCode;

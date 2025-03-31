@@ -1,11 +1,11 @@
-'use client'
+"use client";
 import dynamic from "next/dynamic";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
-import { useTheme } from '@mui/material/styles';
-import { CardContent, Typography, Avatar, Grid } from '@mui/material';
-import BlankCard from '../../shared/BlankCard';
-import { Stack } from '@mui/system';
-import { IconArrowDownRight } from '@tabler/icons-react';
+import { useTheme } from "@mui/material/styles";
+import { CardContent, Typography, Avatar, Grid } from "@mui/material";
+import BlankCard from "../../shared/BlankCard";
+import { Stack } from "@mui/system";
+import { IconArrowDownRight } from "@tabler/icons-react";
 
 const PageImpressions = () => {
   // chart color
@@ -16,9 +16,9 @@ const PageImpressions = () => {
   // chart
   const optionscolumnchart: any = {
     chart: {
-      type: 'bar',
+      type: "bar",
       fontFamily: "'Plus Jakarta Sans', sans-serif;",
-      foreColor: '#adb0bb',
+      foreColor: "#adb0bb",
       toolbar: {
         show: false,
       },
@@ -27,13 +27,20 @@ const PageImpressions = () => {
         enabled: true,
       },
     },
-    colors: [secondarylight, secondarylight, secondary, secondarylight, secondarylight, secondarylight],
+    colors: [
+      secondarylight,
+      secondarylight,
+      secondary,
+      secondarylight,
+      secondarylight,
+      secondarylight,
+    ],
     plotOptions: {
       bar: {
         borderRadius: 4,
-        columnWidth: '50%',
+        columnWidth: "50%",
         distributed: true,
-        endingShape: 'rounded',
+        endingShape: "rounded",
       },
     },
     dataLabels: {
@@ -66,30 +73,35 @@ const PageImpressions = () => {
       },
     },
     tooltip: {
-      theme: theme.palette.mode === 'dark' ? 'dark' : 'light',
+      theme: theme.palette.mode === "dark" ? "dark" : "light",
     },
   };
   const seriescolumnchart = [
     {
-      name: '',
+      name: "",
       data: [20, 15, 30, 25, 10],
     },
   ];
 
   return (
     <BlankCard>
-      <CardContent sx={{ p: '30px' }}>
+      <CardContent sx={{ p: "30px" }}>
         <Typography variant="h5">Page Impressions</Typography>
 
         <Grid container spacing={3}>
           <Grid item xs={5}>
-            
-            <Typography variant="h4" mt={3} fontWeight={600}>$456,120</Typography>
-            <Typography variant="subtitle2" fontSize="12px" color="textSecondary">
+            <Typography variant="h4" mt={3} fontWeight={600}>
+              $456,120
+            </Typography>
+            <Typography
+              variant="subtitle2"
+              fontSize="12px"
+              color="textSecondary"
+            >
               (Change Yesterday)
             </Typography>
             <Stack direction="row" spacing={1} mt={1} alignItems="center">
-              <Avatar sx={{ bgcolor: 'error.light', width: 20, height: 20 }}>
+              <Avatar sx={{ bgcolor: "error.light", width: 20, height: 20 }}>
                 <IconArrowDownRight width={16} color="#FA896B" />
               </Avatar>
               <Typography variant="subtitle2" color="textSecondary">

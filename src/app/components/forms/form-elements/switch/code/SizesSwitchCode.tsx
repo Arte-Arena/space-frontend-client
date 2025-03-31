@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const SizesSwitchCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 "use client";
 import * as React from 'react';
 import { Box, Switch } from '@mui/material';
@@ -14,9 +14,9 @@ import { Box, Switch } from '@mui/material';
     <Switch defaultChecked />
 </Box>
 `}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default SizesSwitchCode;

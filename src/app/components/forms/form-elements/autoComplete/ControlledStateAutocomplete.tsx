@@ -1,14 +1,14 @@
-'use client'
-import React from 'react';
-import { Typography } from '@mui/material';
-import Autocomplete from '@mui/material/Autocomplete';
+"use client";
+import React from "react";
+import { Typography } from "@mui/material";
+import Autocomplete from "@mui/material/Autocomplete";
 import CustomTextField from "../../theme-elements/CustomTextField";
 
-const options = ['Option 1', 'Option 2'];
+const options = ["Option 1", "Option 2"];
 
 const ControlledStateAutocomplete = () => {
   const [value, setValue] = React.useState<string | null>(options[0]);
-  const [inputValue, setInputValue] = React.useState('');
+  const [inputValue, setInputValue] = React.useState("");
 
   return (
     <>
@@ -38,7 +38,7 @@ const ControlledStateAutocomplete = () => {
         sx={{
           mt: 1,
         }}
-      >{`value: ${value !== null ? `'${value}'` : 'null'}`}</Typography>
+      >{`value: ${value !== null ? `'${value}'` : "null"}`}</Typography>
       <Typography
         color="textSecondary"
         variant="subtitle2"

@@ -1,10 +1,10 @@
-'use client'
-import React from 'react';
-import { FormControlLabel, Button } from '@mui/material';
-import CustomTextField from '../theme-elements/CustomTextField';
-import CustomCheckbox from '../theme-elements/CustomCheckbox';
-import CustomFormLabel from '../theme-elements/CustomFormLabel';
-import ParentCard from '../../shared/ParentCard';
+"use client";
+import React from "react";
+import { FormControlLabel, Button } from "@mui/material";
+import CustomTextField from "../theme-elements/CustomTextField";
+import CustomCheckbox from "../theme-elements/CustomCheckbox";
+import CustomFormLabel from "../theme-elements/CustomFormLabel";
+import ParentCard from "../../shared/ParentCard";
 
 const FbOrdinaryForm = () => {
   const [state, setState] = React.useState({
@@ -32,7 +32,9 @@ const FbOrdinaryForm = () => {
           variant="outlined"
           fullWidth
         />
-        <CustomFormLabel htmlFor="ordinary-outlined-password-input">Password</CustomFormLabel>
+        <CustomFormLabel htmlFor="ordinary-outlined-password-input">
+          Password
+        </CustomFormLabel>
 
         <CustomTextField
           id="ordinary-outlined-password-input"
@@ -41,7 +43,7 @@ const FbOrdinaryForm = () => {
           variant="outlined"
           fullWidth
           sx={{
-            mb: '10px',
+            mb: "10px",
           }}
         />
         <FormControlLabel

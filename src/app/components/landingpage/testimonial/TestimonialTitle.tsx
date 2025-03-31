@@ -1,7 +1,7 @@
-import React from 'react';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import AnimationFadeIn from '../animation/Animation';
+import React from "react";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import AnimationFadeIn from "../animation/Animation";
 
 const TestimonialTitle = () => {
   return (
@@ -14,16 +14,17 @@ const TestimonialTitle = () => {
             textAlign="center"
             sx={{
               fontSize: {
-                lg: '36px',
-                xs: '25px',
+                lg: "36px",
+                xs: "25px",
               },
               lineHeight: {
-                lg: '43px',
-                xs: '30px',
+                lg: "43px",
+                xs: "30px",
               },
             }}
           >
-            Don’t just take our words for it, See what developers like you are saying
+            Don’t just take our words for it, See what developers like you are
+            saying
           </Typography>
         </AnimationFadeIn>
       </Grid>

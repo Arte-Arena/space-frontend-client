@@ -1,5 +1,5 @@
-'use client'
-import React from 'react';
+"use client";
+import React from "react";
 import {
   TableContainer,
   Table,
@@ -14,71 +14,78 @@ import {
   MenuItem,
   IconButton,
   ListItemIcon,
-} from '@mui/material';
-import BlankCard from '../shared/BlankCard';
-import { Box, Stack } from '@mui/system';
-import { IconCircle, IconClock, IconDots, IconEdit, IconPlus, IconTrash } from '@tabler/icons-react';
+} from "@mui/material";
+import BlankCard from "../shared/BlankCard";
+import { Box, Stack } from "@mui/system";
+import {
+  IconCircle,
+  IconClock,
+  IconDots,
+  IconEdit,
+  IconPlus,
+  IconTrash,
+} from "@tabler/icons-react";
 
 const rows = [
   {
-    status: 'active',
+    status: "active",
     avatar: "/images/profile/user-2.jpg",
-    tag: 'rhye',
-    cname: 'Olivia Rhye',
-    email: 'olivia@ui.com',
+    tag: "rhye",
+    cname: "Olivia Rhye",
+    email: "olivia@ui.com",
     teams: [
-      { name: 'Design', bgcolor: 'primary.main' },
-      { name: 'Product', bgcolor: 'secondary.main' },
+      { name: "Design", bgcolor: "primary.main" },
+      { name: "Product", bgcolor: "secondary.main" },
     ],
   },
   {
-    status: 'offline',
+    status: "offline",
     avatar: "/images/profile/user-3.jpg",
-    tag: 'steele',
-    cname: 'Barbara Steele',
-    email: 'steele@ui.com',
+    tag: "steele",
+    cname: "Barbara Steele",
+    email: "steele@ui.com",
     teams: [
-      { name: 'Product', bgcolor: 'secondary.main' },
-      { name: 'Operations', bgcolor: 'error.main' },
+      { name: "Product", bgcolor: "secondary.main" },
+      { name: "Operations", bgcolor: "error.main" },
     ],
   },
   {
-    status: 'active',
+    status: "active",
     avatar: "/images/profile/user-4.jpg",
-    tag: 'gordon',
-    cname: 'Leonard Gordon',
-    email: 'olivia@ui.com',
+    tag: "gordon",
+    cname: "Leonard Gordon",
+    email: "olivia@ui.com",
     teams: [
-      { name: 'Finance', bgcolor: 'primary.main' },
-      { name: 'Customer Success', bgcolor: 'success.main' },
+      { name: "Finance", bgcolor: "primary.main" },
+      { name: "Customer Success", bgcolor: "success.main" },
     ],
   },
   {
-    status: 'offline',
+    status: "offline",
     avatar: "/images/profile/user-5.jpg",
-    tag: 'pope',
-    cname: 'Evelyn Pope',
-    email: 'steele@ui.com',
+    tag: "pope",
+    cname: "Evelyn Pope",
+    email: "steele@ui.com",
     teams: [
-      { name: 'Operations', bgcolor: 'error.main' },
-      { name: 'Design', bgcolor: 'primary.main' },
+      { name: "Operations", bgcolor: "error.main" },
+      { name: "Design", bgcolor: "primary.main" },
     ],
   },
   {
-    status: 'active',
+    status: "active",
     avatar: "/images/profile/user-7.jpg",
-    tag: 'garza',
-    cname: 'Tommy Garza',
-    email: 'olivia@ui.com',
-    teams: [{ name: 'Product', bgcolor: 'secondary.main' }],
+    tag: "garza",
+    cname: "Tommy Garza",
+    email: "olivia@ui.com",
+    teams: [{ name: "Product", bgcolor: "secondary.main" }],
   },
   {
-    status: 'active',
+    status: "active",
     avatar: "/images/profile/user-8.jpg",
-    tag: 'vasquez',
-    cname: 'Isabel Vasquez',
-    email: 'steele@ui.com',
-    teams: [{ name: 'Customer Success', bgcolor: 'success.main' }],
+    tag: "vasquez",
+    cname: "Isabel Vasquez",
+    email: "steele@ui.com",
+    teams: [{ name: "Customer Success", bgcolor: "success.main" }],
   },
 ];
 
@@ -116,11 +123,18 @@ const Table3 = () => {
           </TableHead>
           <TableBody>
             {rows.map((row) => (
-              <TableRow key={row.cname} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+              <TableRow
+                key={row.cname}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
                 <TableCell>
                   <Stack direction="row" spacing={2}>
-                    <Avatar src={row.avatar} alt={row.avatar} sx={{ width: 42, height: 42 }} />
-                    <Box> 
+                    <Avatar
+                      src={row.avatar}
+                      alt={row.avatar}
+                      sx={{ width: 42, height: 42 }}
+                    />
+                    <Box>
                       <Typography variant="h6">{row.cname}</Typography>
                       <Typography variant="subtitle1" color="textSecondary">
                         @{row.tag}
@@ -133,19 +147,23 @@ const Table3 = () => {
                     label={row.status}
                     size="small"
                     icon={
-                      row.status == 'active' ? <IconCircle width={14} /> : <IconClock width={14} />
+                      row.status == "active" ? (
+                        <IconCircle width={14} />
+                      ) : (
+                        <IconClock width={14} />
+                      )
                     }
                     sx={{
                       backgroundColor:
-                        row.status == 'active'
+                        row.status == "active"
                           ? (theme) => theme.palette.success.light
                           : (theme) => theme.palette.grey[100],
                       color:
-                        row.status == 'active'
+                        row.status == "active"
                           ? (theme) => theme.palette.success.main
                           : (theme) => theme.palette.grey[500],
-                      '.MuiChip-icon': {
-                        color: 'inherit !important',
+                      ".MuiChip-icon": {
+                        color: "inherit !important",
                       },
                     }}
                   />
@@ -160,7 +178,11 @@ const Table3 = () => {
                     {row.teams.map((team, i) => (
                       <Chip
                         label={team.name}
-                        sx={{ backgroundColor: team.bgcolor, color: 'white', fontSize: '11px' }}
+                        sx={{
+                          backgroundColor: team.bgcolor,
+                          color: "white",
+                          fontSize: "11px",
+                        }}
                         key={i}
                         size="small"
                       />
@@ -170,9 +192,9 @@ const Table3 = () => {
                 <TableCell>
                   <IconButton
                     id="basic-button"
-                    aria-controls={open ? 'basic-menu' : undefined}
+                    aria-controls={open ? "basic-menu" : undefined}
                     aria-haspopup="true"
-                    aria-expanded={open ? 'true' : undefined}
+                    aria-expanded={open ? "true" : undefined}
                     onClick={handleClick}
                   >
                     <IconDots width={18} />
@@ -183,7 +205,7 @@ const Table3 = () => {
                     open={open}
                     onClose={handleClose}
                     MenuListProps={{
-                      'aria-labelledby': 'basic-button',
+                      "aria-labelledby": "basic-button",
                     }}
                   >
                     <MenuItem onClick={handleClose}>

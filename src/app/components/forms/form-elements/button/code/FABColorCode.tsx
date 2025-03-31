@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const FABColorCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 "use client";
 import * as React from 'react';
 import { Fab, Tooltip, Stack } from '@mui/material';
@@ -37,9 +37,9 @@ import { IconSend } from '@tabler/icons-react';
         </Fab>
     </Tooltip>
 </Stack>`}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default FABColorCode;

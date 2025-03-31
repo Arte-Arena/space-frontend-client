@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const ColorButtonGroupCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 "use client";
 import * as React from 'react';
 import { Button, ButtonGroup, Stack } from '@mui/material';
@@ -156,9 +156,9 @@ import { IconAlignCenter, IconAlignLeft, IconAlignRight, IconPlayerPlay, IconPla
         </ButtonGroup>
     </Stack>
 </Stack>`}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default ColorButtonGroupCode;

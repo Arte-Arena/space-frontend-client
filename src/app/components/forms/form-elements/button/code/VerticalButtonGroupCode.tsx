@@ -1,10 +1,10 @@
-  import CodeDialog from "@/app/components/shared/CodeDialog";
-  import React from "react";
-  const VerticalButtonGroupCode = () => {
-      return (
-          <>
-              <CodeDialog>
-                  {`
+import CodeDialog from "@/app/components/shared/CodeDialog";
+import React from "react";
+const VerticalButtonGroupCode = () => {
+  return (
+    <>
+      <CodeDialog>
+        {`
   "use client";
   import * as React from 'react';
   import {  Button, ButtonGroup, Stack } from '@mui/material';
@@ -32,9 +32,9 @@
         <Button>Three</Button>
       </ButtonGroup>
   </Stack>`}
-              </CodeDialog>
-          </>
-      );
-  };
+      </CodeDialog>
+    </>
+  );
+};
 
-  export default VerticalButtonGroupCode;
+export default VerticalButtonGroupCode;

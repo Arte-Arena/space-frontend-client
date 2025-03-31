@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React from "react";
 
 import { Card, CardHeader, CardContent, Divider } from "@mui/material";
@@ -16,7 +16,7 @@ const ChildCard = ({ title, children, codeModel }: Props) => (
   >
     {title ? (
       <>
-        <CardHeader title={title} action={codeModel } />
+        <CardHeader title={title} action={codeModel} />
         <Divider />{" "}
       </>
     ) : (

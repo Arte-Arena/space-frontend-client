@@ -1,6 +1,6 @@
-import React from 'react';
-import { Fab, Tooltip, Stack } from '@mui/material';
-import { IconBell } from '@tabler/icons-react';
+import React from "react";
+import { Fab, Tooltip, Stack } from "@mui/material";
+import { IconBell } from "@tabler/icons-react";
 
 const FabSizeButtons = () => (
   <>

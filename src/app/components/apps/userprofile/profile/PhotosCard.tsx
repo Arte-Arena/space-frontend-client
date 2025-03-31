@@ -1,12 +1,12 @@
-'use client'
-import Box from '@mui/material/Box';
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
-import Skeleton from '@mui/material/Skeleton';
-import Typography from '@mui/material/Typography';
-import React, { useEffect } from 'react';
-import ChildCard from '../../../../components/shared/ChildCard';
-import Image from 'next/image';
+"use client";
+import Box from "@mui/material/Box";
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
+import Skeleton from "@mui/material/Skeleton";
+import Typography from "@mui/material/Typography";
+import React, { useEffect } from "react";
+import ChildCard from "../../../../components/shared/ChildCard";
+import Image from "next/image";
 
 const photos = [
   {
@@ -48,7 +48,6 @@ const photos = [
 ];
 
 const PhotosCard = () => {
-
   const [isLoading, setLoading] = React.useState(true);
 
   useEffect(() => {
@@ -65,31 +64,33 @@ const PhotosCard = () => {
       <ImageList cols={3} gap={20}>
         {photos.map((photo) => (
           <Box key={photo.id}>
-            {
-              isLoading ? (
-                <>
-                  <Skeleton
-                    variant="rectangular"
-                    animation="wave"
-                    width="100%"
-                    height={93}
-                    key={photo.id}
-                  ></Skeleton>
-                </>
-              ) : (
-                <ImageListItem key={photo.id}>
-                  <Image
-                    src={photo.img}
-                    alt={photo.img} width={92} height={92}
-                    loading="lazy" style={{ borderRadius: 8 }}
-                  />
-                </ImageListItem>
-              )}
+            {isLoading ? (
+              <>
+                <Skeleton
+                  variant="rectangular"
+                  animation="wave"
+                  width="100%"
+                  height={93}
+                  key={photo.id}
+                ></Skeleton>
+              </>
+            ) : (
+              <ImageListItem key={photo.id}>
+                <Image
+                  src={photo.img}
+                  alt={photo.img}
+                  width={92}
+                  height={92}
+                  loading="lazy"
+                  style={{ borderRadius: 8 }}
+                />
+              </ImageListItem>
+            )}
           </Box>
         ))}
       </ImageList>
-    </ChildCard >
-  )
+    </ChildCard>
+  );
 };
 
 export default PhotosCard;

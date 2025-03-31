@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React from "react";
 import { Grid, Typography, Box, Breadcrumbs, Theme } from "@mui/material";
 import Link from "next/link";

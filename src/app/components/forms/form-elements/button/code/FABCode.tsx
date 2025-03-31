@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const FABCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 "use client";
 import * as React from 'react';
 import { Fab, Tooltip, Stack } from '@mui/material';
@@ -25,9 +25,9 @@ import { IconClipboard, IconPlus, IconSend } from '@tabler/icons-react';
       <IconClipboard width={20} />
     </Fab>
 </Stack>`}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default FABCode;

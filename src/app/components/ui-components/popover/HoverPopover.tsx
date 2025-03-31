@@ -1,6 +1,6 @@
-'use client'
-import React from 'react';
-import { Popover, Box, Typography } from '@mui/material';
+"use client";
+import React from "react";
+import { Popover, Box, Typography } from "@mui/material";
 
 const HoverPopover = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -18,7 +18,7 @@ const HoverPopover = () => {
   return (
     <>
       <Typography
-        aria-owns={open ? 'mouse-over-popover' : undefined}
+        aria-owns={open ? "mouse-over-popover" : undefined}
         aria-haspopup="true"
         onMouseEnter={handlePopoverOpen}
         onMouseLeave={handlePopoverClose}
@@ -28,17 +28,17 @@ const HoverPopover = () => {
       <Popover
         id="mouse-over-popover"
         sx={{
-          pointerEvents: 'none',
+          pointerEvents: "none",
         }}
         open={open}
         anchorEl={anchorEl}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
+          vertical: "bottom",
+          horizontal: "left",
         }}
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
+          vertical: "top",
+          horizontal: "left",
         }}
         onClose={handlePopoverClose}
         disableRestoreFocus

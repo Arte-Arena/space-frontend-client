@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Chip from '@mui/material/Chip';
-import Divider from '@mui/material/Divider';
-import Grid from '@mui/material/Grid';
-import IconButton from '@mui/material/IconButton';
-import Paper from '@mui/material/Paper';
-import Stack from '@mui/material/Stack';
-import Tooltip from '@mui/material/Tooltip';
-import Typography from '@mui/material/Typography';
-import { useTheme } from '@mui/material/styles';
-import { EmailType } from '../../../(DashboardLayout)/types/apps/email';
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Chip from "@mui/material/Chip";
+import Divider from "@mui/material/Divider";
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
+import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
+import { useTheme } from "@mui/material/styles";
+import { EmailType } from "../../../(DashboardLayout)/types/apps/email";
 import { IconStar, IconAlertCircle, IconTrash } from "@tabler/icons-react";
 import { useSelector, useDispatch } from "@/store/hooks";
 import {
@@ -29,13 +29,13 @@ const ReactQuill: any = dynamic(
   },
   {
     ssr: false,
-  }
+  },
 );
 import Image from "next/image";
 
 const EmailContent = () => {
   const emailDetails: EmailType = useSelector(
-    (state) => state.emailReducer.emails[state.emailReducer.emailContent - 1]
+    (state) => state.emailReducer.emails[state.emailReducer.emailContent - 1],
   );
 
   const [show, setShow] = useState(false);
@@ -107,8 +107,8 @@ const EmailContent = () => {
               emailDetails.label === "Promotional"
                 ? "primary"
                 : emailDetails.label === "Social"
-                ? "error"
-                : "success"
+                  ? "error"
+                  : "success"
             }
           />
         </Box>
@@ -220,8 +220,8 @@ const EmailContent = () => {
         <Image
           src="/images/breadcrumb/emailSv.png"
           alt={"emailIcon"}
-          width= {250}
-          height= {250}
+          width={250}
+          height={250}
         />
       </Box>
     </Box>

@@ -1,17 +1,21 @@
-import React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import CardContent from '@mui/material/CardContent';
-import Divider from '@mui/material/Divider';
-import Grid from '@mui/material/Grid';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
+import React from "react";
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import CardContent from "@mui/material/CardContent";
+import Divider from "@mui/material/Divider";
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
 
 // components
-import BlankCard from '../../shared/BlankCard';
-import { Stack } from '@mui/system';
-import { IconDeviceLaptop, IconDeviceMobile, IconDotsVertical } from '@tabler/icons-react';
+import BlankCard from "../../shared/BlankCard";
+import { Stack } from "@mui/system";
+import {
+  IconDeviceLaptop,
+  IconDeviceMobile,
+  IconDotsVertical,
+} from "@tabler/icons-react";
 
 const SecurityTab = () => {
   return (
@@ -23,10 +27,16 @@ const SecurityTab = () => {
               <Typography variant="h4" mb={2}>
                 Autenticação de Dois Fatores
               </Typography>
-              <Stack direction="row" justifyContent="space-between" alignItems="center" mb={4}>
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+                mb={4}
+              >
                 <Typography variant="subtitle1" color="textSecondary">
-                  Proteja sua conta com uma camada adicional de segurança. Quando ativado, você precisará
-                  fornecer um código de verificação ao acessar sua conta.
+                  Proteja sua conta com uma camada adicional de segurança.
+                  Quando ativado, você precisará fornecer um código de
+                  verificação ao acessar sua conta.
                 </Typography>
                 <Button variant="contained" color="primary">
                   Ativar
@@ -38,12 +48,14 @@ const SecurityTab = () => {
               {/* list 1 */}
               <Stack direction="row" spacing={2} py={2} alignItems="center">
                 <Box>
-                  <Typography variant="h6">Aplicativo de Autenticação</Typography>
+                  <Typography variant="h6">
+                    Aplicativo de Autenticação
+                  </Typography>
                   <Typography variant="subtitle1" color="textSecondary">
                     Google Authenticator ou similar
                   </Typography>
                 </Box>
-                <Box sx={{ ml: 'auto !important' }}>
+                <Box sx={{ ml: "auto !important" }}>
                   <Button variant="text" color="primary">
                     Configurar
                   </Button>
@@ -58,7 +70,7 @@ const SecurityTab = () => {
                     E-mail para enviar o link de verificação
                   </Typography>
                 </Box>
-                <Box sx={{ ml: 'auto !important' }}>
+                <Box sx={{ ml: "auto !important" }}>
                   <Button variant="text" color="primary">
                     Configurar
                   </Button>
@@ -73,7 +85,7 @@ const SecurityTab = () => {
                     Seu número de telefone para recuperação
                   </Typography>
                 </Box>
-                <Box sx={{ ml: 'auto !important' }}>
+                <Box sx={{ ml: "auto !important" }}>
                   <Button variant="text" color="primary">
                     Configurar
                   </Button>
@@ -87,7 +99,12 @@ const SecurityTab = () => {
             <CardContent>
               <Avatar
                 variant="rounded"
-                sx={{ bgcolor: 'primary.light', color: 'primary.main', width: 48, height: 48 }}
+                sx={{
+                  bgcolor: "primary.light",
+                  color: "primary.main",
+                  width: 48,
+                  height: 48,
+                }}
               >
                 <IconDeviceLaptop size="26" />
               </Avatar>
@@ -96,14 +113,21 @@ const SecurityTab = () => {
                 Dispositivos
               </Typography>
               <Typography color="textSecondary" mt={1} mb={2}>
-                Gerencie os dispositivos conectados à sua conta para maior segurança.
+                Gerencie os dispositivos conectados à sua conta para maior
+                segurança.
               </Typography>
               <Button variant="contained" color="primary">
                 Sair de todos os dispositivos
               </Button>
 
               {/* list 1 */}
-              <Stack direction="row" spacing={2} py={2} mt={3} alignItems="center">
+              <Stack
+                direction="row"
+                spacing={2}
+                py={2}
+                mt={3}
+                alignItems="center"
+              >
                 <IconDeviceMobile size="26" />
 
                 <Box>
@@ -112,7 +136,7 @@ const SecurityTab = () => {
                     São Paulo BR, 23 Out às 01:15
                   </Typography>
                 </Box>
-                <Box sx={{ ml: 'auto !important' }}>
+                <Box sx={{ ml: "auto !important" }}>
                   <IconButton>
                     <IconDotsVertical size="22" />
                   </IconButton>
@@ -129,7 +153,7 @@ const SecurityTab = () => {
                     Rio de Janeiro BR, 24 Out às 03:15
                   </Typography>
                 </Box>
-                <Box sx={{ ml: 'auto !important' }}>
+                <Box sx={{ ml: "auto !important" }}>
                   <IconButton>
                     <IconDotsVertical size="22" />
                   </IconButton>
@@ -145,7 +169,7 @@ const SecurityTab = () => {
         </Grid>
       </Grid>
 
-      <Stack direction="row" spacing={2} sx={{ justifyContent: 'end' }} mt={3}>
+      <Stack direction="row" spacing={2} sx={{ justifyContent: "end" }} mt={3}>
         <Button size="large" variant="contained" color="primary">
           Salvar
         </Button>

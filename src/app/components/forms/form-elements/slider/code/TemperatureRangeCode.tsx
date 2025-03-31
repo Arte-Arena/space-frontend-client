@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const DiscreteSliderCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 "use client";
 import * as React from 'react';
 import { Slider } from '@mui/material';
@@ -26,9 +26,9 @@ import { Slider } from '@mui/material';
     getAriaValueText={valuetext2}
 />
 `}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default DiscreteSliderCode;

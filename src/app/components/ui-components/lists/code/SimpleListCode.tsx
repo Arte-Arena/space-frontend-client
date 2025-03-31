@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const SimpleListCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 "use client";
 import BlankCard from '../../shared/BlankCard';
 import {
@@ -51,9 +51,9 @@ import { IconInbox, IconMailOpened } from '@tabler/icons-react';
         </ListItem>
     </List>
 </BlankCard>`}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default SimpleListCode;

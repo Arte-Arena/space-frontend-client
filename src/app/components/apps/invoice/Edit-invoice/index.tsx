@@ -42,7 +42,7 @@ const EditInvoicePage = () => {
       // If there's a specific item to edit, use it
       if (getTitle) {
         const invoice = invoices.find(
-          (inv: { billFrom: string }) => inv.billFrom === getTitle
+          (inv: { billFrom: string }) => inv.billFrom === getTitle,
         );
         if (invoice) {
           setSelectedInvoice(invoice);
@@ -90,7 +90,7 @@ const EditInvoicePage = () => {
   const handleOrderChange = (
     index: string | number | any,
     field: string,
-    value: string | number
+    value: string | number,
   ) => {
     const updatedOrders = [...editedInvoice.orders];
     updatedOrders[index][field] = value;
@@ -109,7 +109,7 @@ const EditInvoicePage = () => {
       vat: calculateVAT(updatedOrders),
       grandTotal: calculateGrandTotal(
         calculateTotalCost(updatedOrders),
-        calculateVAT(updatedOrders)
+        calculateVAT(updatedOrders),
       ),
     };
 
@@ -134,7 +134,7 @@ const EditInvoicePage = () => {
       vat: calculateVAT(updatedOrders),
       grandTotal: calculateGrandTotal(
         calculateTotalCost(updatedOrders),
-        calculateVAT(updatedOrders)
+        calculateVAT(updatedOrders),
       ),
     };
     setEditedInvoice(updatedInvoice);
@@ -142,7 +142,7 @@ const EditInvoicePage = () => {
 
   const handleDeleteItem = (index: any) => {
     const updatedOrders = editedInvoice.orders.filter(
-      (_: any, i: any) => i !== index
+      (_: any, i: any) => i !== index,
     );
 
     const updatedInvoice = {
@@ -152,7 +152,7 @@ const EditInvoicePage = () => {
       vat: calculateVAT(updatedOrders),
       grandTotal: calculateGrandTotal(
         calculateTotalCost(updatedOrders),
-        calculateVAT(updatedOrders)
+        calculateVAT(updatedOrders),
       ),
     };
     setEditedInvoice(updatedInvoice);
@@ -367,7 +367,7 @@ const EditInvoicePage = () => {
                         handleOrderChange(
                           index,
                           "unitPrice",
-                          parseFloat(e.target.value)
+                          parseFloat(e.target.value),
                         )
                       }
                       fullWidth
@@ -381,7 +381,7 @@ const EditInvoicePage = () => {
                         handleOrderChange(
                           index,
                           "units",
-                          parseInt(e.target.value)
+                          parseInt(e.target.value),
                         )
                       }
                       fullWidth

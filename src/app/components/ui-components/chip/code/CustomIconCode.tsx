@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const CustomIconCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 "use client";
 import * as React from 'react';
 import { 
@@ -28,9 +28,9 @@ import InlineItemCard from "@/app/components/shared/InlineItemCard";
         deleteIcon={<IconChecks width={20} />}
     />
 </InlineItemCard>`}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default CustomIconCode;

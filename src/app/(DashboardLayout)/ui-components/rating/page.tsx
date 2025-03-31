@@ -24,8 +24,6 @@ const BCrumb = [
 ];
 
 const MuiRating = () => {
-
-
   return (
     <PageContainer title="Rating" description="this is Rating">
       {/* breadcrumb */}

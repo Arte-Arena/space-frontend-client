@@ -14,7 +14,7 @@ const ReactQuill: any = dynamic(
   },
   {
     ssr: false,
-  }
+  },
 );
 
 import Paper from "@mui/material/Paper";

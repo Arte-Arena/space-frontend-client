@@ -1,6 +1,6 @@
-'use client'
-import React from 'react';
-import { useTheme } from '@mui/material/styles';
+"use client";
+import React from "react";
+import { useTheme } from "@mui/material/styles";
 import {
   Grid,
   List,
@@ -12,11 +12,11 @@ import {
   CardHeader,
   Stack,
   Paper,
-} from '@mui/material';
+} from "@mui/material";
 
-import { IconChevronRight, IconChevronLeft } from '@tabler/icons-react';
+import { IconChevronRight, IconChevronLeft } from "@tabler/icons-react";
 
-import CustomCheckbox from '../../forms/theme-elements/CustomCheckbox';
+import CustomCheckbox from "../../forms/theme-elements/CustomCheckbox";
 
 function not(a: readonly number[], b: readonly number[]) {
   return a.filter((value) => b.indexOf(value) === -1);
@@ -51,7 +51,8 @@ const EnhancedTransferList = () => {
     setChecked(newChecked);
   };
 
-  const numberOfChecked = (items: readonly number[]) => intersection(checked, items).length;
+  const numberOfChecked = (items: readonly number[]) =>
+    intersection(checked, items).length;
 
   const handleToggleAll = (items: readonly number[]) => () => {
     if (numberOfChecked(items) === items.length) {
@@ -83,11 +84,16 @@ const EnhancedTransferList = () => {
         avatar={
           <CustomCheckbox
             onClick={handleToggleAll(items)}
-            checked={numberOfChecked(items) === items.length && items.length !== 0}
-            indeterminate={numberOfChecked(items) !== items.length && numberOfChecked(items) !== 0}
+            checked={
+              numberOfChecked(items) === items.length && items.length !== 0
+            }
+            indeterminate={
+              numberOfChecked(items) !== items.length &&
+              numberOfChecked(items) !== 0
+            }
             disabled={items.length === 0}
             inputProps={{
-              'aria-label': 'all items selected',
+              "aria-label": "all items selected",
             }}
           />
         }
@@ -99,7 +105,7 @@ const EnhancedTransferList = () => {
         sx={{
           width: 200,
           height: 230,
-          overflow: 'auto',
+          overflow: "auto",
         }}
         dense
         component="div"
@@ -109,14 +115,19 @@ const EnhancedTransferList = () => {
           const labelId = `transfer-list-all-item-${value}-label`;
 
           return (
-            <ListItem key={value} role="listitem" button onClick={handleToggle(value)}>
+            <ListItem
+              key={value}
+              role="listitem"
+              button
+              onClick={handleToggle(value)}
+            >
               <ListItemIcon>
                 <CustomCheckbox
                   checked={checked.indexOf(value) !== -1}
                   tabIndex={-1}
                   disableRipple
                   inputProps={{
-                    'aria-labelledby': labelId,
+                    "aria-labelledby": labelId,
                   }}
                 />
               </ListItemIcon>
@@ -131,7 +142,7 @@ const EnhancedTransferList = () => {
 
   return (
     <Grid container spacing={2} justifyContent="center" alignItems="center">
-      <Grid item>{customList('Choices', left)}</Grid>
+      <Grid item>{customList("Choices", left)}</Grid>
       <Grid item>
         <Stack spacing={1}>
           <Button
@@ -154,7 +165,7 @@ const EnhancedTransferList = () => {
           </Button>
         </Stack>
       </Grid>
-      <Grid item>{customList('Chosen', right)}</Grid>
+      <Grid item>{customList("Chosen", right)}</Grid>
     </Grid>
   );
 };

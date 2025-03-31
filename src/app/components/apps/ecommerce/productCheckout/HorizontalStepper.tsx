@@ -1,10 +1,10 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import Button from '@mui/material/Button';
-import Link from 'next/link';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
+import Button from "@mui/material/Button";
+import Link from "next/link";
 
 interface Props {
   children: JSX.Element | JSX.Element[];
@@ -14,9 +14,15 @@ interface Props {
   finalStep: JSX.Element | JSX.Element[];
 }
 
-const HorizontalStepper = ({ children, steps, activeStep, handleReset, finalStep }: Props) => {
+const HorizontalStepper = ({
+  children,
+  steps,
+  activeStep,
+  handleReset,
+  finalStep,
+}: Props) => {
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: "100%" }}>
       <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map((label) => {
           const stepProps = {};
@@ -32,11 +38,16 @@ const HorizontalStepper = ({ children, steps, activeStep, handleReset, finalStep
       {activeStep === steps.length ? (
         <React.Fragment>
           <Box>{finalStep}</Box>
-          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2, gap: 3 }}>
-            <Button variant="contained" color="success" component={Link} href="/apps/ecommerce/shop">
+          <Box sx={{ display: "flex", flexDirection: "row", pt: 2, gap: 3 }}>
+            <Button
+              variant="contained"
+              color="success"
+              component={Link}
+              href="/apps/ecommerce/shop"
+            >
               Continue Shopping
             </Button>
-            <Box sx={{ flex: '1 1 auto' }} />
+            <Box sx={{ flex: "1 1 auto" }} />
             <Button variant="contained">Download Receipt</Button>
             <Button onClick={handleReset}>Reset</Button>
           </Box>

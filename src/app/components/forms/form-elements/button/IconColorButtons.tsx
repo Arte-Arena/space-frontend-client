@@ -1,6 +1,6 @@
-import React from 'react';
-import { IconButton, Tooltip, Stack } from '@mui/material';
-import { IconBell } from '@tabler/icons-react';
+import React from "react";
+import { IconButton, Tooltip, Stack } from "@mui/material";
+import { IconBell } from "@tabler/icons-react";
 
 const IconColorButtons = () => (
   <Stack spacing={1} direction="row" justifyContent="center">

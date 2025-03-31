@@ -1,8 +1,8 @@
 import React from "react";
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Stack from '@mui/material/Stack';
-import { styled } from '@mui/material/styles';
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Stack from "@mui/material/Stack";
+import { styled } from "@mui/material/styles";
 import FrameworksTitle from "./FrameworksTitle";
 
 // images

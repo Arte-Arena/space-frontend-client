@@ -1,25 +1,23 @@
-'use client'
-import Box from '@mui/material/Box'
-import Grid from '@mui/material/Grid'
-import { useEffect, useState } from 'react';
+"use client";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import { useEffect, useState } from "react";
 
-import PageContainer from '@/app/components/container/PageContainer';
+import PageContainer from "@/app/components/container/PageContainer";
 // components
-import YearlyBreakup from '@/app/components/dashboards/modern/YearlyBreakup';
-import MonthlyEarnings from '@/app/components/dashboards/modern/MonthlyEarnings';
-import TopCards from '@/app/components/dashboards/modern/TopCards';
-import RevenueUpdates from '@/app/components/dashboards/modern/RevenueUpdates';
-import EmployeeSalary from '@/app/components/dashboards/modern/EmployeeSalary';
-import Customers from '@/app/components/dashboards/modern/Customers';
-import Projects from '@/app/components/dashboards/modern/Projects';
-import Social from '@/app/components/dashboards/modern/Social';
-import SellingProducts from '@/app/components/dashboards/modern/SellingProducts';
-import WeeklyStats from '@/app/components/dashboards/modern/WeeklyStats';
-import TopPerformers from '@/app/components/dashboards/modern/TopPerformers';
+import YearlyBreakup from "@/app/components/dashboards/modern/YearlyBreakup";
+import MonthlyEarnings from "@/app/components/dashboards/modern/MonthlyEarnings";
+import TopCards from "@/app/components/dashboards/modern/TopCards";
+import RevenueUpdates from "@/app/components/dashboards/modern/RevenueUpdates";
+import EmployeeSalary from "@/app/components/dashboards/modern/EmployeeSalary";
+import Customers from "@/app/components/dashboards/modern/Customers";
+import Projects from "@/app/components/dashboards/modern/Projects";
+import Social from "@/app/components/dashboards/modern/Social";
+import SellingProducts from "@/app/components/dashboards/modern/SellingProducts";
+import WeeklyStats from "@/app/components/dashboards/modern/WeeklyStats";
+import TopPerformers from "@/app/components/dashboards/modern/TopPerformers";
 
-
-export default function Dashboard (){
-
+export default function Dashboard() {
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(false);
@@ -28,7 +26,7 @@ export default function Dashboard (){
   return (
     <PageContainer title="Dashboard" description="this is Dashboard">
       <Box mt={3}>
-      <Grid container spacing={3}>
+        <Grid container spacing={3}>
           {/* column */}
           <Grid item xs={12} lg={12}>
             <TopCards />
@@ -81,6 +79,5 @@ export default function Dashboard (){
         </Grid>
       </Box>
     </PageContainer>
-  )
+  );
 }
-

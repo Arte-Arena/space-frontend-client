@@ -3,7 +3,6 @@ import { Providers } from "@/store/providers";
 import MyApp from "./app";
 import "./global.css";
 
-
 export const metadata = {
   title: "Modernize Main Demo",
   description: "Modernize Main kit",

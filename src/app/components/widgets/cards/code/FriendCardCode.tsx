@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const FriendCardCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 import { CardContent, Typography, Grid, Button, Box, AvatarGroup, Avatar, Card } from '@mui/material';
 import { Stack } from '@mui/system';
 
@@ -74,9 +74,9 @@ const FriendCard = () => {
 
 export default FriendCard;
 `}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default FriendCardCode;

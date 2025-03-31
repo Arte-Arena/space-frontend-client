@@ -48,7 +48,8 @@ const WelcomeCard = () => {
                 </Typography>
               </Box>
 
-              <Stack mt={8}
+              <Stack
+                mt={8}
                 spacing={2}
                 direction="row"
                 divider={<Divider orientation="vertical" flexItem />}

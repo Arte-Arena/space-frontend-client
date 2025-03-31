@@ -1,22 +1,22 @@
-'use client'
+"use client";
 import React, { useEffect, useState } from "react";
-import { usePathname, useSearchParams  } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 // MUI Elements
-import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-import ButtonGroup from '@mui/material/ButtonGroup'
-import Chip from '@mui/material/Chip'
-import Divider from '@mui/material/Divider'
-import Fab from '@mui/material/Fab'
-import Grid from '@mui/material/Grid'
-import Rating from '@mui/material/Rating'
-import Stack from '@mui/material/Stack'
-import Typography from '@mui/material/Typography'
-import { useTheme } from '@mui/material/styles'
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import Chip from "@mui/material/Chip";
+import Divider from "@mui/material/Divider";
+import Fab from "@mui/material/Fab";
+import Grid from "@mui/material/Grid";
+import Rating from "@mui/material/Rating";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import { useTheme } from "@mui/material/styles";
 
-import {  useSelector, useDispatch } from "@/store/hooks";
+import { useSelector, useDispatch } from "@/store/hooks";
 import { AppState } from "@/store/store";
 import {
   fetchProducts,
@@ -30,9 +30,9 @@ const ProductDetail = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const router = usePathname();
-  
-  const getTitle: string | any = router.split('/').pop();
-  
+
+  const getTitle: string | any = router.split("/").pop();
+
   // Get Product
   useEffect(() => {
     dispatch(fetchProducts());
@@ -40,7 +40,7 @@ const ProductDetail = () => {
 
   // Get Products
   const product: ProductType | any = useSelector(
-    (state: AppState) => state.ecommerceReducer.products[getTitle - 1]
+    (state: AppState) => state.ecommerceReducer.products[getTitle - 1],
   );
 
   /// select colors on click

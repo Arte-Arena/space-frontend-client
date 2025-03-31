@@ -1,14 +1,14 @@
-import React from 'react';
-import { useSelector } from '@/store/hooks';
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import { useTheme } from '@mui/material/styles';
-import { IconStar, IconTrash } from '@tabler/icons-react';
+import React from "react";
+import { useSelector } from "@/store/hooks";
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import { useTheme } from "@mui/material/styles";
+import { IconStar, IconTrash } from "@tabler/icons-react";
 
 type Props = {
   onContactClick: (event: React.MouseEvent<HTMLElement>) => void;
@@ -50,7 +50,12 @@ const ContactListItem = ({
       <ListItemText>
         <Stack direction="row" gap="10px" alignItems="center">
           <Box mr="auto" onClick={onContactClick}>
-            <Typography variant="subtitle1" noWrap fontWeight={600} sx={{ maxWidth: '150px' }}>
+            <Typography
+              variant="subtitle1"
+              noWrap
+              fontWeight={600}
+              sx={{ maxWidth: "150px" }}
+            >
               {firstname} {lastname}
             </Typography>
             <Typography variant="body2" color="text.secondary" noWrap>
@@ -61,7 +66,10 @@ const ContactListItem = ({
             onClick={onStarredClick}
             size="16"
             stroke={1.5}
-            style={{ fill: starred ? warningColor : '', stroke: starred ? warningColor : '' }}
+            style={{
+              fill: starred ? warningColor : "",
+              stroke: starred ? warningColor : "",
+            }}
           />
           <IconTrash onClick={onDeleteClick} size="16" stroke={1.5} />
         </Stack>
@@ -69,6 +77,5 @@ const ContactListItem = ({
     </ListItemButton>
   );
 };
-
 
 export default ContactListItem;

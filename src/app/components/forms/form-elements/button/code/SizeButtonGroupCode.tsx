@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const SizeButtonGroupCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 "use client";
 import * as React from 'react';
 import {  Button, ButtonGroup, Stack } from '@mui/material';
@@ -26,9 +26,9 @@ import {  Button, ButtonGroup, Stack } from '@mui/material';
         <Button>Three</Button>
     </ButtonGroup>
 </Stack>`}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default SizeButtonGroupCode;

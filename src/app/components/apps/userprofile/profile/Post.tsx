@@ -1,11 +1,11 @@
-'use client'
-import Grid from '@mui/material/Grid'
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from'@/store/hooks';
-import { fetchPosts } from '@/store/apps/userProfile/UserProfileSlice';
-import PostItem from './PostItem';
-import { PostTextBox } from './PostTextBox';
-import { PostType } from '../../../../(DashboardLayout)/types/apps/userProfile';
+"use client";
+import Grid from "@mui/material/Grid";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "@/store/hooks";
+import { fetchPosts } from "@/store/apps/userProfile/UserProfileSlice";
+import PostItem from "./PostItem";
+import { PostTextBox } from "./PostTextBox";
+import { PostType } from "../../../../(DashboardLayout)/types/apps/userProfile";
 
 const Post = () => {
   const dispatch = useDispatch();
@@ -13,7 +13,9 @@ const Post = () => {
     dispatch(fetchPosts());
   }, [dispatch]);
 
-  const getPosts: PostType[] = useSelector((state) => state.userpostsReducer.posts);
+  const getPosts: PostType[] = useSelector(
+    (state) => state.userpostsReducer.posts,
+  );
 
   return (
     <Grid container spacing={3}>

@@ -1,14 +1,14 @@
 import { FC, useState } from "react";
-import Divider from '@mui/material/Divider'
-import Drawer from '@mui/material/Drawer'
-import Fab from '@mui/material/Fab'
-import Grid from '@mui/material/Grid'
-import IconButton from '@mui/material/IconButton'
-import Slider from '@mui/material/Slider'
-import Stack from '@mui/material/Stack'
-import Tooltip from '@mui/material/Tooltip'
-import Typography from '@mui/material/Typography'
-import { styled } from '@mui/material/styles'
+import Divider from "@mui/material/Divider";
+import Drawer from "@mui/material/Drawer";
+import Fab from "@mui/material/Fab";
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
+import Slider from "@mui/material/Slider";
+import Stack from "@mui/material/Stack";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
+import { styled } from "@mui/material/styles";
 import { useSelector, useDispatch } from "@/store/hooks";
 import Box, { BoxProps } from "@mui/material/Box";
 import { IconX, IconSettings, IconCheck } from "@tabler/icons-react";

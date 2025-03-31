@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const SizesCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 "use client";
 import * as React from 'react';
 import { 
@@ -17,9 +17,9 @@ import InlineItemCard from "@/app/components/shared/InlineItemCard";
     <Chip label="Small" size="small" color="primary" />
     <Chip label="Normal" color="primary" />
 </InlineItemCard>`}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default SizesCode;

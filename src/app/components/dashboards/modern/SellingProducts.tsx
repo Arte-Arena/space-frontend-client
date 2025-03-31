@@ -47,7 +47,12 @@ const SellingProducts = () => {
         </Typography>
 
         <Box textAlign="center" mt={2} mb="-40px">
-          <Image src="/images/backgrounds/piggy.png" alt="SavingsImg" width="300" height="220" />
+          <Image
+            src="/images/backgrounds/piggy.png"
+            alt="SavingsImg"
+            width="300"
+            height="220"
+          />
         </Box>
       </CardContent>
       <Paper
@@ -56,7 +61,7 @@ const SellingProducts = () => {
           zIndex: "1",
           position: "relative",
           margin: "10px",
-          mt: "-43px"
+          mt: "-43px",
         }}
       >
         <Box p={3}>

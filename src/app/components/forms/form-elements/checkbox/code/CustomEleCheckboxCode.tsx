@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const CustomEleCheckboxCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 "use client";
 import * as React from 'react';
 import { Box } from '@mui/material';
@@ -100,9 +100,9 @@ const handleChange = (event: any) => {
         inputProps={{ 'aria-label': 'checkbox with default color' }}
     />
 </Box>`}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default CustomEleCheckboxCode;

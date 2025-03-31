@@ -1,13 +1,13 @@
 import dynamic from "next/dynamic";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
-import { useTheme } from '@mui/material/styles';
-import { Stack, Typography, Avatar, Box } from '@mui/material';
-import DashboardCard from '../../shared/DashboardCard';
-import { IconGridDots } from '@tabler/icons-react';
+import { useTheme } from "@mui/material/styles";
+import { Stack, Typography, Avatar, Box } from "@mui/material";
+import DashboardCard from "../../shared/DashboardCard";
+import { IconGridDots } from "@tabler/icons-react";
 import SkeletonWeeklyStatsCard from "../skeleton/WeeklyStats";
 
 interface WeeklyCardProps {
-  isLoading ?: boolean;
+  isLoading?: boolean;
 }
 
 const WeeklyStats = ({ isLoading }: WeeklyCardProps) => {
@@ -23,9 +23,9 @@ const WeeklyStats = ({ isLoading }: WeeklyCardProps) => {
   // chart
   const optionscolumnchart: any = {
     chart: {
-      type: 'area',
+      type: "area",
       fontFamily: "'Plus Jakarta Sans', sans-serif;",
-      foreColor: '#adb0bb',
+      foreColor: "#adb0bb",
       toolbar: {
         show: false,
       },
@@ -33,14 +33,14 @@ const WeeklyStats = ({ isLoading }: WeeklyCardProps) => {
       sparkline: {
         enabled: true,
       },
-      group: 'sparklines',
+      group: "sparklines",
     },
     stroke: {
-      curve: 'smooth',
+      curve: "smooth",
       width: 2,
     },
     fill: {
-      type: 'gradient',
+      type: "gradient",
       gradient: {
         shadeIntensity: 0,
         inverseColors: false,
@@ -53,7 +53,7 @@ const WeeklyStats = ({ isLoading }: WeeklyCardProps) => {
       size: 0,
     },
     tooltip: {
-      theme: theme.palette.mode === 'dark' ? 'dark' : 'light',
+      theme: theme.palette.mode === "dark" ? "dark" : "light",
       x: {
         show: false,
       },
@@ -61,7 +61,7 @@ const WeeklyStats = ({ isLoading }: WeeklyCardProps) => {
   };
   const seriescolumnchart = [
     {
-      name: 'Weekly Stats',
+      name: "Weekly Stats",
       color: primary,
       data: [5, 15, 5, 10, 5],
     },
@@ -69,25 +69,25 @@ const WeeklyStats = ({ isLoading }: WeeklyCardProps) => {
 
   const stats = [
     {
-      title: 'Top Sales',
-      subtitle: 'Johnathan Doe',
-      percent: '68',
+      title: "Top Sales",
+      subtitle: "Johnathan Doe",
+      percent: "68",
       color: primary,
       lightcolor: primarylight,
       icon: <IconGridDots width={18} />,
     },
     {
-      title: 'Best Seller',
-      subtitle: 'Footware',
-      percent: '45',
+      title: "Best Seller",
+      subtitle: "Footware",
+      percent: "45",
       color: secondary,
       lightcolor: secondarylight,
       icon: <IconGridDots width={18} />,
     },
     {
-      title: 'Most Commented',
-      subtitle: 'Fashionware',
-      percent: '14',
+      title: "Most Commented",
+      subtitle: "Fashionware",
+      percent: "14",
       color: error,
       lightcolor: errorlight,
       icon: <IconGridDots width={18} />,
@@ -96,67 +96,70 @@ const WeeklyStats = ({ isLoading }: WeeklyCardProps) => {
 
   return (
     <>
-      {
-        isLoading ? (
-          <SkeletonWeeklyStatsCard />
-        ) : (
-          <DashboardCard title="Weekly Stats" subtitle="Average sales">
-            <>
-              <Stack mt={4}>
-                <Chart
-                  options={optionscolumnchart}
-                  series={seriescolumnchart}
-                  type="area"
-                  height={130}
-                  width={"100%"}
-                />
-              </Stack>
-              <Stack spacing={3} mt={3}>
-                {stats.map((stat, i) => (
-                  <Stack
-                    direction="row"
-                    spacing={2}
-                    justifyContent="space-between"
-                    alignItems="center"
-                    key={i}
-                  >
-                    <Stack direction="row" alignItems="center" spacing={2}>
-                      <Avatar
-                        variant="rounded"
-                        sx={{ bgcolor: stat.lightcolor, color: stat.color, width: 40, height: 40 }}
-                      >
-                        {stat.icon}
-                      </Avatar>
-                      <Box>
-                        <Typography variant="h6" mb="4px">
-                          {stat.title}
-                        </Typography>
-                        <Typography variant="subtitle2" color="textSecondary">
-                          {stat.subtitle}
-                        </Typography>
-                      </Box>
-                    </Stack>
+      {isLoading ? (
+        <SkeletonWeeklyStatsCard />
+      ) : (
+        <DashboardCard title="Weekly Stats" subtitle="Average sales">
+          <>
+            <Stack mt={4}>
+              <Chart
+                options={optionscolumnchart}
+                series={seriescolumnchart}
+                type="area"
+                height={130}
+                width={"100%"}
+              />
+            </Stack>
+            <Stack spacing={3} mt={3}>
+              {stats.map((stat, i) => (
+                <Stack
+                  direction="row"
+                  spacing={2}
+                  justifyContent="space-between"
+                  alignItems="center"
+                  key={i}
+                >
+                  <Stack direction="row" alignItems="center" spacing={2}>
                     <Avatar
+                      variant="rounded"
                       sx={{
                         bgcolor: stat.lightcolor,
                         color: stat.color,
-                        width: 42,
-                        height: 24,
-                        borderRadius: '4px',
+                        width: 40,
+                        height: 40,
                       }}
                     >
-                      <Typography variant="subtitle2" fontWeight="600">
-                        +{stat.percent}
-                      </Typography>
+                      {stat.icon}
                     </Avatar>
+                    <Box>
+                      <Typography variant="h6" mb="4px">
+                        {stat.title}
+                      </Typography>
+                      <Typography variant="subtitle2" color="textSecondary">
+                        {stat.subtitle}
+                      </Typography>
+                    </Box>
                   </Stack>
-                ))}
-              </Stack>
-            </>
-          </DashboardCard>
-        )}
+                  <Avatar
+                    sx={{
+                      bgcolor: stat.lightcolor,
+                      color: stat.color,
+                      width: 42,
+                      height: 24,
+                      borderRadius: "4px",
+                    }}
+                  >
+                    <Typography variant="subtitle2" fontWeight="600">
+                      +{stat.percent}
+                    </Typography>
+                  </Avatar>
+                </Stack>
+              ))}
+            </Stack>
+          </>
+        </DashboardCard>
+      )}
     </>
-
   );
 };
 

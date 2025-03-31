@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const ColumnChartCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 "use client"
 
 import dynamic from "next/dynamic";
@@ -109,9 +109,9 @@ const ColumnChart = () => {
 };
 
 export default ColumnChart;`}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default ColumnChartCode;

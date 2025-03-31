@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 
 // third party
-import { useInView } from 'react-intersection-observer';
-import { motion, useAnimation } from 'framer-motion';
+import { useInView } from "react-intersection-observer";
+import { motion, useAnimation } from "framer-motion";
 
 function AnimateFadeIn({ children }: { children: React.ReactElement }) {
   const controls = useAnimation();
@@ -10,7 +10,7 @@ function AnimateFadeIn({ children }: { children: React.ReactElement }) {
 
   useEffect(() => {
     if (inView) {
-      controls.start('visible');
+      controls.start("visible");
     }
   }, [controls, inView]);
 

@@ -104,22 +104,22 @@ const columns = [
             info.getValue() === "Active"
               ? (theme) => theme.palette.success.light
               : info.getValue() === "Pending"
-              ? (theme) => theme.palette.warning.light
-              : info.getValue() === "Completed"
-              ? (theme) => theme.palette.primary.light
-              : info.getValue() === "Cancel"
-              ? (theme) => theme.palette.error.light
-              : (theme) => theme.palette.secondary.light,
+                ? (theme) => theme.palette.warning.light
+                : info.getValue() === "Completed"
+                  ? (theme) => theme.palette.primary.light
+                  : info.getValue() === "Cancel"
+                    ? (theme) => theme.palette.error.light
+                    : (theme) => theme.palette.secondary.light,
           color:
             info.getValue() === "Active"
               ? (theme) => theme.palette.success.main
               : info.getValue() === "Pending"
-              ? (theme) => theme.palette.warning.main
-              : info.getValue() === "Completed"
-              ? (theme) => theme.palette.primary.main
-              : info.getValue() === "Cancel"
-              ? (theme) => theme.palette.error.main
-              : (theme) => theme.palette.secondary.main,
+                ? (theme) => theme.palette.warning.main
+                : info.getValue() === "Completed"
+                  ? (theme) => theme.palette.primary.main
+                  : info.getValue() === "Cancel"
+                    ? (theme) => theme.palette.error.main
+                    : (theme) => theme.palette.secondary.main,
           borderRadius: "8px",
         }}
         size="small"
@@ -159,7 +159,7 @@ const TableExpanding = () => {
         item.teams.map((team) => team.text).join(", "),
         item.status,
         item.budget,
-      ]
+      ],
     );
 
     const csvContent = [
@@ -199,7 +199,7 @@ const TableExpanding = () => {
                               ? null
                               : flexRender(
                                   header.column.columnDef.header,
-                                  header.getContext()
+                                  header.getContext(),
                                 )}
                           </Typography>
                         </TableCell>
@@ -215,7 +215,7 @@ const TableExpanding = () => {
                           <TableCell key={cell.id}>
                             {flexRender(
                               cell.column.columnDef.cell,
-                              cell.getContext()
+                              cell.getContext(),
                             )}
                           </TableCell>
                         ))}
@@ -251,24 +251,30 @@ const TableExpanding = () => {
                                       row.original.status === "Active"
                                         ? (theme) => theme.palette.success.light
                                         : row.original.status === "Pending"
-                                        ? (theme) => theme.palette.warning.light
-                                        : row.original.status === "Completed"
-                                        ? (theme) => theme.palette.primary.light
-                                        : row.original.status === "Cancel"
-                                        ? (theme) => theme.palette.error.light
-                                        : (theme) =>
-                                            theme.palette.secondary.light,
+                                          ? (theme) =>
+                                              theme.palette.warning.light
+                                          : row.original.status === "Completed"
+                                            ? (theme) =>
+                                                theme.palette.primary.light
+                                            : row.original.status === "Cancel"
+                                              ? (theme) =>
+                                                  theme.palette.error.light
+                                              : (theme) =>
+                                                  theme.palette.secondary.light,
                                     color:
                                       row.original.status === "Active"
                                         ? (theme) => theme.palette.success.main
                                         : row.original.status === "Pending"
-                                        ? (theme) => theme.palette.warning.main
-                                        : row.original.status === "Completed"
-                                        ? (theme) => theme.palette.primary.main
-                                        : row.original.status === "Cancel"
-                                        ? (theme) => theme.palette.error.main
-                                        : (theme) =>
-                                            theme.palette.secondary.main,
+                                          ? (theme) =>
+                                              theme.palette.warning.main
+                                          : row.original.status === "Completed"
+                                            ? (theme) =>
+                                                theme.palette.primary.main
+                                            : row.original.status === "Cancel"
+                                              ? (theme) =>
+                                                  theme.palette.error.main
+                                              : (theme) =>
+                                                  theme.palette.secondary.main,
                                     borderRadius: "8px",
                                   }}
                                   label={row.original.status}

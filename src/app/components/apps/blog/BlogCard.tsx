@@ -1,20 +1,20 @@
 // third-party
-import { format } from 'date-fns';
-import NextLink  from 'next/link';
-import { useDispatch } from '@/store/hooks';
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Chip from '@mui/material/Chip';
-import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-import Tooltip from '@mui/material/Tooltip';
-import Typography from '@mui/material/Typography';
-import { IconEye, IconMessage2, IconPoint } from '@tabler/icons-react';
-import { fetchBlogPost } from '@/store/apps/blog/BlogSlice';
-import BlankCard from '../../shared/BlankCard';
-import { BlogPostType } from '../../../(DashboardLayout)/types/apps/blog';
+import { format } from "date-fns";
+import NextLink from "next/link";
+import { useDispatch } from "@/store/hooks";
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Chip from "@mui/material/Chip";
+import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
+import { IconEye, IconMessage2, IconPoint } from "@tabler/icons-react";
+import { fetchBlogPost } from "@/store/apps/blog/BlogSlice";
+import BlankCard from "../../shared/BlankCard";
+import { BlogPostType } from "../../../(DashboardLayout)/types/apps/blog";
 
 interface Btype {
   post: BlogPostType;
@@ -23,12 +23,13 @@ interface Btype {
 
 const BlogCard = ({ post }: Btype) => {
   const dispatch = useDispatch();
-  const { coverImg, title, view, comments, category, author, createdAt }: any = post;
+  const { coverImg, title, view, comments, category, author, createdAt }: any =
+    post;
 
   const linkTo = title
     .toLowerCase()
-    .replace(/ /g, '-')
-    .replace(/[^\w-]+/g, '');
+    .replace(/ /g, "-")
+    .replace(/[^\w-]+/g, "");
 
   return (
     <Grid item xs={12} lg={4} md={4} sm={6} display="flex" alignItems="stretch">
@@ -39,15 +40,27 @@ const BlogCard = ({ post }: Btype) => {
             href={`/apps/blog/detail/${linkTo}`}
             onClick={() => dispatch(fetchBlogPost(linkTo))}
           >
-            <CardMedia component="img" height="240" image={coverImg} alt="green iguana" />
+            <CardMedia
+              component="img"
+              height="240"
+              image={coverImg}
+              alt="green iguana"
+            />
           </Typography>
           <CardContent>
-            <Stack direction="row" sx={{ marginTop: '-45px' }}>
+            <Stack direction="row" sx={{ marginTop: "-45px" }}>
               <Tooltip title={author?.name} placement="top">
                 <Avatar aria-label="recipe" src={author?.avatar}></Avatar>
               </Tooltip>
               <Chip
-                sx={{ marginLeft: 'auto', marginTop: '-21px', backgroundColor: (theme: any) => theme.palette.mode === 'dark' ? theme.palette.background.dark : 'white', }}
+                sx={{
+                  marginLeft: "auto",
+                  marginTop: "-21px",
+                  backgroundColor: (theme: any) =>
+                    theme.palette.mode === "dark"
+                      ? theme.palette.background.dark
+                      : "white",
+                }}
                 label="2 min Read"
                 size="small"
               ></Chip>
@@ -58,7 +71,7 @@ const BlogCard = ({ post }: Btype) => {
                 gutterBottom
                 variant="h5"
                 color="inherit"
-                sx={{ textDecoration: 'none' }}
+                sx={{ textDecoration: "none" }}
                 component={NextLink}
                 href={`/apps/blog/detail/${linkTo}`}
                 onClick={() => dispatch(fetchBlogPost(linkTo))}
@@ -76,7 +89,7 @@ const BlogCard = ({ post }: Btype) => {
 
               <Stack direction="row" ml="auto" alignItems="center">
                 <IconPoint size="16" />
-                <small>{format(new Date(createdAt), 'E, MMM d')}</small>
+                <small>{format(new Date(createdAt), "E, MMM d")}</small>
               </Stack>
             </Stack>
           </CardContent>

@@ -1,10 +1,10 @@
-'use client'
+"use client";
 import dynamic from "next/dynamic";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
-import { useTheme } from '@mui/material/styles';
-import { CardContent, Typography } from '@mui/material';
-import BlankCard from '../../shared/BlankCard';
-import { Stack } from '@mui/system';
+import { useTheme } from "@mui/material/styles";
+import { CardContent, Typography } from "@mui/material";
+import BlankCard from "../../shared/BlankCard";
+import { Stack } from "@mui/system";
 
 const Views = () => {
   // chart color
@@ -15,9 +15,9 @@ const Views = () => {
   // chart
   const optionscolumnchart: any = {
     chart: {
-      type: 'bar',
+      type: "bar",
       fontFamily: "'Plus Jakarta Sans', sans-serif;",
-      foreColor: '#adb0bb',
+      foreColor: "#adb0bb",
       toolbar: {
         show: false,
       },
@@ -39,9 +39,9 @@ const Views = () => {
     plotOptions: {
       bar: {
         borderRadius: 4,
-        columnWidth: '50%',
+        columnWidth: "50%",
         distributed: true,
-        endingShape: 'rounded',
+        endingShape: "rounded",
       },
     },
     dataLabels: {
@@ -60,7 +60,7 @@ const Views = () => {
       },
     },
     xaxis: {
-      categories: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+      categories: ["M", "T", "W", "T", "F", "S", "S"],
       labels: {
         show: false,
       },
@@ -77,21 +77,26 @@ const Views = () => {
       },
     },
     tooltip: {
-      theme: theme.palette.mode === 'dark' ? 'dark' : 'light',
+      theme: theme.palette.mode === "dark" ? "dark" : "light",
     },
   };
   const seriescolumnchart = [
     {
-      name: '',
+      name: "",
       data: [20, 15, 30, 25, 10, 18, 20],
     },
   ];
 
   return (
     <BlankCard>
-      <CardContent sx={{ p: '30px' }}>
+      <CardContent sx={{ p: "30px" }}>
         <Typography variant="h4">15,480</Typography>
-        <Stack direction="row" spacing={2} justifyContent="space-between" mb={2}>
+        <Stack
+          direction="row"
+          spacing={2}
+          justifyContent="space-between"
+          mb={2}
+        >
           <Typography variant="subtitle2" color="textSecondary">
             Views
           </Typography>
@@ -99,7 +104,13 @@ const Views = () => {
             -4.150%
           </Typography>
         </Stack>
-        <Chart options={optionscolumnchart} series={seriescolumnchart} type="bar" height="80px" width={"100%"} />
+        <Chart
+          options={optionscolumnchart}
+          series={seriescolumnchart}
+          type="bar"
+          height="80px"
+          width={"100%"}
+        />
       </CardContent>
     </BlankCard>
   );

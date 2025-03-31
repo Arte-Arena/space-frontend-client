@@ -1,11 +1,11 @@
 // material
-import InputAdornment from '@mui/material/InputAdornment';
-import TextField from '@mui/material/TextField';
-import { IconSearch } from '@tabler/icons-react';
+import InputAdornment from "@mui/material/InputAdornment";
+import TextField from "@mui/material/TextField";
+import { IconSearch } from "@tabler/icons-react";
 
 // redux
-import { useDispatch } from '@/store/hooks';
-import { SearchProduct } from '@/store/apps/eCommerce/ECommerceSlice';
+import { useDispatch } from "@/store/hooks";
+import { SearchProduct } from "@/store/apps/eCommerce/ECommerceSlice";
 
 // ----------------------------------------------------------------------
 export default function ProductSearch() {
@@ -22,7 +22,7 @@ export default function ProductSearch() {
         size="small"
         type="search"
         variant="outlined"
-        InputProps={{ 
+        InputProps={{
           startAdornment: (
             <InputAdornment position="start">
               <IconSearch size="14" />

@@ -16,7 +16,7 @@ import BasicDateTimeCode from "@/app/components/forms/form-elements/date-time/co
 const BasicDateTime = () => {
   // date time
   const [value3, setValue3] = React.useState<Dayjs | null>(
-    dayjs("2018-01-01T00:00:00.000Z")
+    dayjs("2018-01-01T00:00:00.000Z"),
   );
 
   return (

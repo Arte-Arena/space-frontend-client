@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 import dynamic from "next/dynamic";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
-import { useTheme } from '@mui/material/styles';
-import DashboardCard from '../../shared/DashboardCard';
-import CustomSelect from '../../forms/theme-elements/CustomSelect';
+import { useTheme } from "@mui/material/styles";
+import DashboardCard from "../../shared/DashboardCard";
+import CustomSelect from "../../forms/theme-elements/CustomSelect";
 import {
   MenuItem,
   Typography,
@@ -17,11 +17,11 @@ import {
   Chip,
   TableContainer,
   Stack,
-} from '@mui/material';
+} from "@mui/material";
 
 const ProductPerformances = () => {
   // for select
-  const [month, setMonth] = React.useState('1');
+  const [month, setMonth] = React.useState("1");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMonth(event.target.value);
@@ -37,9 +37,9 @@ const ProductPerformances = () => {
   //   // chart 1
   const optionsrow1chart: any = {
     chart: {
-      type: 'area',
+      type: "area",
       fontFamily: "'Plus Jakarta Sans', sans-serif;",
-      foreColor: '#adb0bb',
+      foreColor: "#adb0bb",
       toolbar: {
         show: false,
       },
@@ -48,15 +48,15 @@ const ProductPerformances = () => {
       sparkline: {
         enabled: true,
       },
-      group: 'sparklines',
+      group: "sparklines",
     },
     stroke: {
-      curve: 'smooth',
+      curve: "smooth",
       width: 2,
     },
     fill: {
       colors: [primarylight],
-      type: 'solid',
+      type: "solid",
       opacity: 0.05,
     },
     markers: {
@@ -68,7 +68,7 @@ const ProductPerformances = () => {
   };
   const seriesrow1chart = [
     {
-      name: 'Customers',
+      name: "Customers",
       color: primary,
       data: [30, 25, 35, 20, 30],
     },
@@ -77,9 +77,9 @@ const ProductPerformances = () => {
   // chart 2
   const optionsrow2chart: any = {
     chart: {
-      type: 'area',
+      type: "area",
       fontFamily: "'Plus Jakarta Sans', sans-serif;",
-      foreColor: '#adb0bb',
+      foreColor: "#adb0bb",
       toolbar: {
         show: false,
       },
@@ -88,15 +88,15 @@ const ProductPerformances = () => {
       sparkline: {
         enabled: true,
       },
-      group: 'sparklines',
+      group: "sparklines",
     },
     stroke: {
-      curve: 'smooth',
+      curve: "smooth",
       width: 2,
     },
     fill: {
       colors: [greylight],
-      type: 'solid',
+      type: "solid",
       opacity: 0.05,
     },
     markers: {
@@ -108,7 +108,7 @@ const ProductPerformances = () => {
   };
   const seriesrow2chart = [
     {
-      name: 'Customers',
+      name: "Customers",
       color: grey,
       data: [30, 25, 35, 20, 30],
     },
@@ -117,9 +117,9 @@ const ProductPerformances = () => {
   // chart 3
   const optionsrow3chart: any = {
     chart: {
-      type: 'area',
+      type: "area",
       fontFamily: "'Plus Jakarta Sans', sans-serif;",
-      foreColor: '#adb0bb',
+      foreColor: "#adb0bb",
       toolbar: {
         show: false,
       },
@@ -128,15 +128,15 @@ const ProductPerformances = () => {
       sparkline: {
         enabled: true,
       },
-      group: 'sparklines',
+      group: "sparklines",
     },
     stroke: {
-      curve: 'smooth',
+      curve: "smooth",
       width: 2,
     },
     fill: {
       colors: [primarylight],
-      type: 'solid',
+      type: "solid",
       opacity: 0.05,
     },
     markers: {
@@ -148,7 +148,7 @@ const ProductPerformances = () => {
   };
   const seriesrow3chart = [
     {
-      name: 'Customers',
+      name: "Customers",
       color: primary,
       data: [30, 25, 35, 20, 30],
     },
@@ -157,9 +157,9 @@ const ProductPerformances = () => {
   // chart 4
   const optionsrow4chart: any = {
     chart: {
-      type: 'area',
+      type: "area",
       fontFamily: "'Plus Jakarta Sans', sans-serif;",
-      foreColor: '#adb0bb',
+      foreColor: "#adb0bb",
       toolbar: {
         show: false,
       },
@@ -168,15 +168,15 @@ const ProductPerformances = () => {
       sparkline: {
         enabled: true,
       },
-      group: 'sparklines',
+      group: "sparklines",
     },
     stroke: {
-      curve: 'smooth',
+      curve: "smooth",
       width: 2,
     },
     fill: {
       colors: [greylight],
-      type: 'solid',
+      type: "solid",
       opacity: 0.05,
     },
     markers: {
@@ -214,7 +214,7 @@ const ProductPerformances = () => {
         <Table
           aria-label="simple table"
           sx={{
-            whiteSpace: 'nowrap',
+            whiteSpace: "nowrap",
           }}
         >
           <TableHead>
@@ -250,19 +250,32 @@ const ProductPerformances = () => {
             <TableRow>
               <TableCell sx={{ pl: 0 }}>
                 <Stack direction="row" spacing={2}>
-                  <Avatar src={"/images/products/s6.jpg"} variant="rounded" alt="productOne" sx={{ width: 48, height: 48 }} />
+                  <Avatar
+                    src={"/images/products/s6.jpg"}
+                    variant="rounded"
+                    alt="productOne"
+                    sx={{ width: 48, height: 48 }}
+                  />
                   <Box>
                     <Typography variant="subtitle2" fontWeight={600}>
-                    Gaming Console
+                      Gaming Console
                     </Typography>
-                    <Typography color="textSecondary" fontSize="12px" variant="subtitle2">
-                    Electronics
+                    <Typography
+                      color="textSecondary"
+                      fontSize="12px"
+                      variant="subtitle2"
+                    >
+                      Electronics
                     </Typography>
                   </Box>
                 </Stack>
               </TableCell>
               <TableCell>
-                <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
+                <Typography
+                  color="textSecondary"
+                  variant="subtitle2"
+                  fontWeight={400}
+                >
                   78.5%
                 </Typography>
               </TableCell>
@@ -271,7 +284,7 @@ const ProductPerformances = () => {
                   sx={{
                     bgcolor: (theme) => theme.palette.success.light,
                     color: (theme) => theme.palette.success.main,
-                    borderRadius: '6px',
+                    borderRadius: "6px",
                     width: 80,
                   }}
                   size="small"
@@ -295,19 +308,32 @@ const ProductPerformances = () => {
             <TableRow>
               <TableCell sx={{ pl: 0 }}>
                 <Stack direction="row" spacing={2}>
-                  <Avatar src={"/images/products/s9.jpg"} variant="rounded" alt="productTwo" sx={{ width: 48, height: 48 }} />
+                  <Avatar
+                    src={"/images/products/s9.jpg"}
+                    variant="rounded"
+                    alt="productTwo"
+                    sx={{ width: 48, height: 48 }}
+                  />
                   <Box>
                     <Typography variant="subtitle2" fontWeight={600}>
-                    Leather Purse
+                      Leather Purse
                     </Typography>
-                    <Typography color="textSecondary" fontSize="12px" variant="subtitle2">
-                    Fashion
+                    <Typography
+                      color="textSecondary"
+                      fontSize="12px"
+                      variant="subtitle2"
+                    >
+                      Fashion
                     </Typography>
                   </Box>
                 </Stack>
               </TableCell>
               <TableCell>
-                <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
+                <Typography
+                  color="textSecondary"
+                  variant="subtitle2"
+                  fontWeight={400}
+                >
                   58.6%
                 </Typography>
               </TableCell>
@@ -316,7 +342,7 @@ const ProductPerformances = () => {
                   sx={{
                     bgcolor: (theme) => theme.palette.warning.light,
                     color: (theme) => theme.palette.warning.main,
-                    borderRadius: '6px',
+                    borderRadius: "6px",
                     width: 80,
                   }}
                   size="small"
@@ -340,20 +366,32 @@ const ProductPerformances = () => {
             <TableRow>
               <TableCell sx={{ pl: 0 }}>
                 <Stack direction="row" spacing={2}>
-                  <Avatar src={"/images/products/s7.jpg"} variant="rounded" alt="productThree" sx={{ width: 48, height: 48 }} />
+                  <Avatar
+                    src={"/images/products/s7.jpg"}
+                    variant="rounded"
+                    alt="productThree"
+                    sx={{ width: 48, height: 48 }}
+                  />
                   <Box>
                     <Typography variant="subtitle2" fontWeight={600}>
-                    Red Velvate Dress
+                      Red Velvate Dress
                     </Typography>
-                    <Typography color="textSecondary" fontSize="12px" variant="subtitle2">
-                    Womens Fashion
-
+                    <Typography
+                      color="textSecondary"
+                      fontSize="12px"
+                      variant="subtitle2"
+                    >
+                      Womens Fashion
                     </Typography>
                   </Box>
                 </Stack>
               </TableCell>
               <TableCell>
-                <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
+                <Typography
+                  color="textSecondary"
+                  variant="subtitle2"
+                  fontWeight={400}
+                >
                   25%
                 </Typography>
               </TableCell>
@@ -362,7 +400,7 @@ const ProductPerformances = () => {
                   sx={{
                     bgcolor: (theme) => theme.palette.primary.light,
                     color: (theme) => theme.palette.primary.main,
-                    borderRadius: '6px',
+                    borderRadius: "6px",
                     width: 80,
                   }}
                   size="small"
@@ -386,19 +424,32 @@ const ProductPerformances = () => {
             <TableRow>
               <TableCell sx={{ pl: 0 }}>
                 <Stack direction="row" spacing={2}>
-                  <Avatar src={"/images/products/s4.jpg"} variant="rounded" alt="productFour" sx={{ width: 48, height: 48 }} />
+                  <Avatar
+                    src={"/images/products/s4.jpg"}
+                    variant="rounded"
+                    alt="productFour"
+                    sx={{ width: 48, height: 48 }}
+                  />
                   <Box>
                     <Typography variant="subtitle2" fontWeight={600}>
-                    Headphone Boat
+                      Headphone Boat
                     </Typography>
-                    <Typography color="textSecondary" fontSize="12px" variant="subtitle2">
-                    Electronics
+                    <Typography
+                      color="textSecondary"
+                      fontSize="12px"
+                      variant="subtitle2"
+                    >
+                      Electronics
                     </Typography>
                   </Box>
                 </Stack>
               </TableCell>
               <TableCell>
-                <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
+                <Typography
+                  color="textSecondary"
+                  variant="subtitle2"
+                  fontWeight={400}
+                >
                   96.3%
                 </Typography>
               </TableCell>
@@ -407,7 +458,7 @@ const ProductPerformances = () => {
                   sx={{
                     bgcolor: (theme) => theme.palette.error.light,
                     color: (theme) => theme.palette.error.main,
-                    borderRadius: '6px',
+                    borderRadius: "6px",
                     width: 80,
                   }}
                   size="small"

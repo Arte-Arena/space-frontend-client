@@ -3,7 +3,17 @@ import React, { useState, useEffect } from "react";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { Button, TextField, MenuItem, Dialog, DialogTitle, DialogContent, DialogActions, Grid, Typography } from "@mui/material";
+import {
+  Button,
+  TextField,
+  MenuItem,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Grid,
+  Typography,
+} from "@mui/material";
 import CustomFormLabel from "@/app/components/forms/theme-elements/CustomFormLabel";
 import CustomTextField from "@/app/components/forms/theme-elements/CustomTextField";
 import CustomSelect from "@/app/components/forms/theme-elements/CustomSelect";
@@ -111,11 +121,18 @@ function EditTaskModal({ show, onHide, editedTask, onSave }: any) {
                 />
                 {imagePreview && (
                   <Grid item xs={12} sx={{ mt: 2 }}>
-                    <CustomFormLabel htmlFor="taskImage">Image Preview:</CustomFormLabel>
+                    <CustomFormLabel htmlFor="taskImage">
+                      Image Preview:
+                    </CustomFormLabel>
                     <img
                       src={imagePreview}
                       alt="Selected"
-                      style={{ maxWidth: '100%', height: 'auto', marginTop: '8px', borderRadius: "4px" }}
+                      style={{
+                        maxWidth: "100%",
+                        height: "auto",
+                        marginTop: "8px",
+                        borderRadius: "4px",
+                      }}
                     />
                   </Grid>
                 )}
@@ -168,4 +185,3 @@ function EditTaskModal({ show, onHide, editedTask, onSave }: any) {
 }
 
 export default EditTaskModal;
-

@@ -1,10 +1,10 @@
-'use client'
+"use client";
 import dynamic from "next/dynamic";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
-import { useTheme } from '@mui/material/styles';
-import { Box, Button, CardContent, Grid, Typography } from '@mui/material';
-import BlankCard from '../../shared/BlankCard';
-import { Stack } from '@mui/system';
+import { useTheme } from "@mui/material/styles";
+import { Box, Button, CardContent, Grid, Typography } from "@mui/material";
+import BlankCard from "../../shared/BlankCard";
+import { Stack } from "@mui/system";
 
 const CurrentValue = () => {
   // chart color
@@ -12,14 +12,15 @@ const CurrentValue = () => {
   const primary = theme.palette.primary.main;
   const primarylight = theme.palette.primary.light;
   const secondary = theme.palette.secondary.main;
-  const textColor = theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.8)' : '#2A3547';
+  const textColor =
+    theme.palette.mode === "dark" ? "rgba(255,255,255,0.8)" : "#2A3547";
 
   // chart
   const optionscolumnchart: any = {
     chart: {
-      type: 'bar',
+      type: "bar",
       fontFamily: "'Plus Jakarta Sans', sans-serif;",
-      foreColor: '#adb0bb',
+      foreColor: "#adb0bb",
       toolbar: {
         show: false,
       },
@@ -33,11 +34,11 @@ const CurrentValue = () => {
     plotOptions: {
       bar: {
         horizontal: false,
-        barHeight: '60%',
-        columnWidth: '20%',
+        barHeight: "60%",
+        columnWidth: "20%",
         borderRadius: [6],
-        borderRadiusApplication: 'end',
-        borderRadiusWhenStacked: 'all',
+        borderRadiusApplication: "end",
+        borderRadiusWhenStacked: "all",
       },
     },
     stroke: {
@@ -64,23 +65,23 @@ const CurrentValue = () => {
       tickAmount: 4,
     },
     xaxis: {
-      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+      categories: ["Jan", "Feb", "Mar", "Apr", "May"],
       axisTicks: {
         show: false,
       },
     },
     tooltip: {
-      theme: theme.palette.mode === 'dark' ? 'dark' : 'light',
+      theme: theme.palette.mode === "dark" ? "dark" : "light",
       fillSeriesColor: false,
     },
   };
   const seriescolumnchart = [
     {
-      name: '',
+      name: "",
       data: [2.5, 3.7, 3.2, 2.6, 1.9, 2.5],
     },
     {
-      name: '',
+      name: "",
       data: [-2.8, -1.1, -3.0, -1.5, -1.9, -2.8],
     },
   ];
@@ -88,9 +89,9 @@ const CurrentValue = () => {
   //   chart 2
   const optionscolumn2chart: any = {
     chart: {
-      type: 'bar',
+      type: "bar",
       fontFamily: "'Plus Jakarta Sans', sans-serif;",
-      foreColor: '#adb0bb',
+      foreColor: "#adb0bb",
       toolbar: {
         show: false,
       },
@@ -104,11 +105,11 @@ const CurrentValue = () => {
     plotOptions: {
       bar: {
         horizontal: false,
-        barHeight: '60%',
-        columnWidth: '20%',
+        barHeight: "60%",
+        columnWidth: "20%",
         borderRadius: [6],
-        borderRadiusApplication: 'end',
-        borderRadiusWhenStacked: 'all',
+        borderRadiusApplication: "end",
+        borderRadiusWhenStacked: "all",
       },
     },
     stroke: {
@@ -135,23 +136,23 @@ const CurrentValue = () => {
       tickAmount: 4,
     },
     xaxis: {
-      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+      categories: ["Jan", "Feb", "Mar", "Apr", "May"],
       axisTicks: {
         show: false,
       },
     },
     tooltip: {
-      theme: theme.palette.mode === 'dark' ? 'dark' : 'light',
+      theme: theme.palette.mode === "dark" ? "dark" : "light",
       fillSeriesColor: false,
     },
   };
   const seriescolumn2chart = [
     {
-      name: '',
+      name: "",
       data: [2.5, 3.7, 3.2, 2.6, 1.9, 2.5],
     },
     {
-      name: '',
+      name: "",
       data: [-2.8, -1.1, -3.0, -1.5, -1.9, -2.8],
     },
   ];
@@ -159,7 +160,7 @@ const CurrentValue = () => {
   //   chart 3
   const optionscolumn3chart: any = {
     chart: {
-      type: 'donut',
+      type: "donut",
       fontFamily: "'Plus Jakarta Sans', sans-serif;",
 
       toolbar: {
@@ -167,15 +168,15 @@ const CurrentValue = () => {
       },
       height: 220,
     },
-    labels: ['Income', 'Current', 'Expance'],
+    labels: ["Income", "Current", "Expance"],
     colors: [primary, primarylight, secondary],
     plotOptions: {
       pie: {
         startAngle: 0,
         endAngle: 360,
         donut: {
-          size: '89%',
-          background: 'transparent',
+          size: "89%",
+          background: "transparent",
 
           labels: {
             show: true,
@@ -189,9 +190,9 @@ const CurrentValue = () => {
             total: {
               show: true,
               color: textColor,
-              fontSize: '20px',
-              fontWeight: '600',
-              label: '$98,260',
+              fontSize: "20px",
+              fontWeight: "600",
+              label: "$98,260",
             },
           },
         },
@@ -207,7 +208,7 @@ const CurrentValue = () => {
       show: false,
     },
     tooltip: {
-      theme: theme.palette.mode === 'dark' ? 'dark' : 'light',
+      theme: theme.palette.mode === "dark" ? "dark" : "light",
       fillSeriesColor: false,
     },
   };
@@ -215,7 +216,7 @@ const CurrentValue = () => {
 
   return (
     <BlankCard>
-      <CardContent sx={{ p: '30px' }}>
+      <CardContent sx={{ p: "30px" }}>
         <Stack direction="row" spacing={2} justifyContent="space-between">
           <Typography variant="h5">Current Value</Typography>
           <Stack spacing={1} direction="row">
@@ -232,7 +233,7 @@ const CurrentValue = () => {
           {/* 1 */}
           <Grid item xs={12} sm={4}>
             <BlankCard>
-              <CardContent sx={{ p: '30px' }}>
+              <CardContent sx={{ p: "30px" }}>
                 <Box>
                   <Chart
                     options={optionscolumnchart}
@@ -246,7 +247,11 @@ const CurrentValue = () => {
                   <Typography variant="h6" fontWeight={400} mb={1}>
                     Income
                   </Typography>
-                  <Stack direction="row" spacing={2} justifyContent="space-between">
+                  <Stack
+                    direction="row"
+                    spacing={2}
+                    justifyContent="space-between"
+                  >
                     <Typography variant="h4">$25,260</Typography>
                     <Typography variant="subtitle1" color="success.main">
                       +1.25%
@@ -259,7 +264,7 @@ const CurrentValue = () => {
           {/* 2 */}
           <Grid item xs={12} sm={4}>
             <BlankCard>
-              <CardContent sx={{ p: '30px' }}>
+              <CardContent sx={{ p: "30px" }}>
                 <Box>
                   <Chart
                     options={optionscolumn2chart}
@@ -273,7 +278,11 @@ const CurrentValue = () => {
                   <Typography variant="h6" fontWeight={400} mb={1}>
                     Expance
                   </Typography>
-                  <Stack direction="row" spacing={2} justifyContent="space-between">
+                  <Stack
+                    direction="row"
+                    spacing={2}
+                    justifyContent="space-between"
+                  >
                     <Typography variant="h4">$12,260</Typography>
                     <Typography variant="subtitle1" color="success.main">
                       +4.25%
@@ -286,7 +295,7 @@ const CurrentValue = () => {
           {/* 3 */}
           <Grid item xs={12} sm={4}>
             <BlankCard>
-              <CardContent sx={{ p: '30px' }}>
+              <CardContent sx={{ p: "30px" }}>
                 <Box>
                   <Chart
                     options={optionscolumn3chart}
@@ -300,7 +309,11 @@ const CurrentValue = () => {
                   <Typography variant="h6" fontWeight={400} mb={1}>
                     Current Year
                   </Typography>
-                  <Stack direction="row" spacing={2} justifyContent="space-between">
+                  <Stack
+                    direction="row"
+                    spacing={2}
+                    justifyContent="space-between"
+                  >
                     <Typography variant="h4">$98,260</Typography>
                     <Typography variant="subtitle1" color="success.main">
                       +2.5%

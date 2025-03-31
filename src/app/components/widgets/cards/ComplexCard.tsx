@@ -77,7 +77,10 @@ const ComplexCard = () => {
                       sx={{
                         marginLeft: "auto",
                         marginTop: "-21px",
-                        backgroundColor: (theme: any) => theme.palette.mode === 'dark' ? theme.palette.background.dark : 'white',
+                        backgroundColor: (theme: any) =>
+                          theme.palette.mode === "dark"
+                            ? theme.palette.background.dark
+                            : "white",
                       }}
                       label="2 min Read"
                       size="small"

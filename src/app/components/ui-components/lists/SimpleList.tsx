@@ -1,15 +1,15 @@
-'use client'
-import BlankCard from '../../shared/BlankCard';
+"use client";
+import BlankCard from "../../shared/BlankCard";
 import {
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Divider
-} from '@mui/material';
+  Divider,
+} from "@mui/material";
 
-import { IconInbox, IconMailOpened } from '@tabler/icons-react';
+import { IconInbox, IconMailOpened } from "@tabler/icons-react";
 
 const SimpleList = () => {
   return (

@@ -1,9 +1,15 @@
-'use client'
-import React from 'react';
-import { List, ListItemText,  ListItemButton, Divider, ListItemIcon } from '@mui/material';
-import BlankCard from '../../shared/BlankCard';
+"use client";
+import React from "react";
+import {
+  List,
+  ListItemText,
+  ListItemButton,
+  Divider,
+  ListItemIcon,
+} from "@mui/material";
+import BlankCard from "../../shared/BlankCard";
 
-import { IconInbox, IconMailOpened } from '@tabler/icons-react';
+import { IconInbox, IconMailOpened } from "@tabler/icons-react";
 
 const SelectedList = () => {
   const [selectedIndex, setSelectedIndex] = React.useState(1);

@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const SettingsCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 import React from 'react';
 import { CardContent, Typography, Avatar, Divider, Button, Card } from '@mui/material';
 import { Box, Stack } from '@mui/system';
@@ -120,9 +120,9 @@ const Settings = () => {
 
 export default Settings;
 `}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default SettingsCode;

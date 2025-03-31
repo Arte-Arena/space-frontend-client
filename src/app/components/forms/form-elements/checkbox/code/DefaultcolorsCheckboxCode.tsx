@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const DefaultcolorsCheckboxCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 "use client";
 import * as React from 'react';
 import { Box, Checkbox } from '@mui/material';
@@ -48,9 +48,9 @@ import { Box, Checkbox } from '@mui/material';
         }}
     />
 </Box>`}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default DefaultcolorsCheckboxCode;

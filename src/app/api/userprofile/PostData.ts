@@ -1,6 +1,6 @@
-import mock from '../mock';
-import { Chance } from 'chance';
-import { PostType } from '@/app/(DashboardLayout)/types/apps/userProfile';
+import mock from "../mock";
+import { Chance } from "chance";
+import { PostType } from "@/app/(DashboardLayout)/types/apps/userProfile";
 
 const chance = new Chance();
 
@@ -11,8 +11,8 @@ const posts: PostType[] = [
     profile: {
       id: chance.integer({ min: 1, max: 2000 }),
       avatar: "/images/profile/user-10.jpg",
-      name: 'Nirav Joshi',
-      time: '15 min ago',
+      name: "Nirav Joshi",
+      time: "15 min ago",
     },
     data: {
       content: chance.paragraph({ sentences: 2 }),
@@ -32,8 +32,8 @@ const posts: PostType[] = [
           profile: {
             id: chance.integer({ min: 1, max: 2000 }),
             avatar: "/images/profile/user-3.jpg",
-            name: 'Deran Mac',
-            time: '8 min ago ',
+            name: "Deran Mac",
+            time: "8 min ago ",
           },
           data: {
             comment: chance.paragraph({ sentences: 2 }),
@@ -49,8 +49,8 @@ const posts: PostType[] = [
           profile: {
             id: chance.integer({ min: 1, max: 2000 }),
             avatar: "/images/profile/user-4.jpg",
-            name: 'Jonathan Bg',
-            time: '5 min ago ',
+            name: "Jonathan Bg",
+            time: "5 min ago ",
           },
           data: {
             comment: chance.paragraph({ sentences: 2 }),
@@ -64,8 +64,8 @@ const posts: PostType[] = [
                 profile: {
                   id: chance.integer({ min: 1, max: 2000 }),
                   avatar: "/images/profile/user-5.jpg",
-                  name: 'Carry minati',
-                  time: 'just now ',
+                  name: "Carry minati",
+                  time: "just now ",
                 },
                 data: {
                   comment: chance.paragraph({ sentences: 2 }),
@@ -86,8 +86,8 @@ const posts: PostType[] = [
     profile: {
       id: chance.integer({ min: 1, max: 2000 }),
       avatar: "/images/profile/user-5.jpg",
-      name: 'Carry Minati',
-      time: 'now',
+      name: "Carry Minati",
+      time: "now",
     },
     data: {
       content: chance.paragraph({ sentences: 2 }),
@@ -104,19 +104,19 @@ const posts: PostType[] = [
     profile: {
       id: chance.integer({ min: 1, max: 2000 }),
       avatar: "/images/profile/user-2.jpg",
-      name: 'Genelia Desouza',
-      time: '15 min ago ',
+      name: "Genelia Desouza",
+      time: "15 min ago ",
     },
     data: {
       content: chance.paragraph({ sentences: 2 }),
       images: [
         {
           img: "/images/products/s2.jpg",
-          title: 'Image Title',
+          title: "Image Title",
         },
         {
           img: "/images/products/s4.jpg",
-          title: 'Painter',
+          title: "Painter",
         },
       ],
       likes: {
@@ -129,8 +129,8 @@ const posts: PostType[] = [
           profile: {
             id: chance.integer({ min: 1, max: 2000 }),
             avatar: "/images/profile/user-3.jpg",
-            name: 'Ritesh Deshmukh',
-            time: '15 min ago ',
+            name: "Ritesh Deshmukh",
+            time: "15 min ago ",
           },
           data: {
             comment: chance.paragraph({ sentences: 2 }),
@@ -149,13 +149,13 @@ const posts: PostType[] = [
     profile: {
       id: chance.integer({ min: 1, max: 2000 }),
       avatar: "/images/profile/user-6.jpg",
-      name: 'Himesh R',
-      time: '15 min ago ',
+      name: "Himesh R",
+      time: "15 min ago ",
     },
     data: {
       content: chance.paragraph({ sentences: 2 }),
       images: [],
-      video: 'd1-FRj20WBE',
+      video: "d1-FRj20WBE",
       likes: {
         like: true,
         value: 129,
@@ -164,11 +164,11 @@ const posts: PostType[] = [
   },
 ];
 
-mock.onGet('/api/data/postData').reply(() => {
+mock.onGet("/api/data/postData").reply(() => {
   return [200, posts];
 });
 
-mock.onPost('/api/data/posts/like').reply((config) => {
+mock.onPost("/api/data/posts/like").reply((config) => {
   try {
     const { postId } = JSON.parse(config.data);
     const postIndex = posts.findIndex((x) => x.id === postId);
@@ -185,11 +185,11 @@ mock.onPost('/api/data/posts/like').reply((config) => {
   } catch (err) {
     console.error(err);
 
-    return [500, { message: 'Internal server error' }];
+    return [500, { message: "Internal server error" }];
   }
 });
 
-mock.onPost('/api/data/posts/comments/add').reply((config) => {
+mock.onPost("/api/data/posts/comments/add").reply((config) => {
   try {
     const { postId, comment } = JSON.parse(config.data);
     const postIndex = posts.findIndex((x) => x.id === postId);
@@ -201,11 +201,11 @@ mock.onPost('/api/data/posts/comments/add').reply((config) => {
   } catch (err) {
     console.error(err);
 
-    return [500, { message: 'Internal server error' }];
+    return [500, { message: "Internal server error" }];
   }
 });
 
-mock.onPost('/api/data/posts/replies/add').reply((config) => {
+mock.onPost("/api/data/posts/replies/add").reply((config) => {
   try {
     const { postId, commentId, reply } = JSON.parse(config.data);
     const postIndex = posts.findIndex((x) => x.id === postId);
@@ -220,11 +220,11 @@ mock.onPost('/api/data/posts/replies/add').reply((config) => {
   } catch (err) {
     console.error(err);
 
-    return [500, { message: 'Internal server error' }];
+    return [500, { message: "Internal server error" }];
   }
 });
 
-mock.onPost('/api/data/posts/replies/like').reply((config) => {
+mock.onPost("/api/data/posts/replies/like").reply((config) => {
   try {
     const { postId, commentId } = JSON.parse(config.data);
     const postIndex = posts.findIndex((x) => x.id === postId);
@@ -239,13 +239,14 @@ mock.onPost('/api/data/posts/replies/like').reply((config) => {
       comment.data.likes.value = comment.data.likes.like
         ? comment.data.likes.value + 1
         : comment.data.likes.value - 1;
-    if (post && post.data && post.data.comments) post.data.comments[commentIndex] = comment;
+    if (post && post.data && post.data.comments)
+      post.data.comments[commentIndex] = comment;
 
     return [200, { posts: [...posts] }];
   } catch (err) {
     console.error(err);
 
-    return [500, { message: 'Internal server error' }];
+    return [500, { message: "Internal server error" }];
   }
 });
 

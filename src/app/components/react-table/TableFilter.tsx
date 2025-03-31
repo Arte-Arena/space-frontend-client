@@ -93,14 +93,14 @@ const columns = [
             info.getValue() == "Paid"
               ? (theme) => theme.palette.primary.light
               : info.getValue() == "Cancelled"
-              ? (theme) => theme.palette.error.light
-              : (theme) => theme.palette.secondary.light,
+                ? (theme) => theme.palette.error.light
+                : (theme) => theme.palette.secondary.light,
           color:
             info.getValue() == "Paid"
               ? (theme) => theme.palette.primary.main
               : info.getValue() == "Cancelled"
-              ? (theme) => theme.palette.error.main
-              : (theme) => theme.palette.secondary.main,
+                ? (theme) => theme.palette.error.main
+                : (theme) => theme.palette.secondary.main,
           ".MuiChip-icon": {
             color: "inherit !important",
           },
@@ -294,7 +294,7 @@ const TableFilter = () => {
                               ? null
                               : flexRender(
                                   header.column.columnDef.header,
-                                  header.getContext()
+                                  header.getContext(),
                                 )}
                           </Typography>
                           {header.column.getCanFilter() ? (
@@ -314,7 +314,7 @@ const TableFilter = () => {
                         <TableCell key={cell.id}>
                           {flexRender(
                             cell.column.columnDef.cell,
-                            cell.getContext()
+                            cell.getContext(),
                           )}
                         </TableCell>
                       ))}

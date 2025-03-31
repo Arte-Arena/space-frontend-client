@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const GiftCardCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 import { CardContent, Typography, Grid, Button, CardMedia, IconButton, Card } from '@mui/material';
 import { Stack } from '@mui/system';
 import { IconGift } from '@tabler/icons-react';
@@ -53,9 +53,9 @@ const GiftCard = () => {
 
 export default GiftCard;
 `}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default GiftCardCode;

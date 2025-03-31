@@ -95,22 +95,22 @@ const defaultColumns = [
             info.getValue() === "Active"
               ? (theme) => theme.palette.success.light
               : info.getValue() === "Pending"
-              ? (theme) => theme.palette.warning.light
-              : info.getValue() === "Completed"
-              ? (theme) => theme.palette.primary.light
-              : info.getValue() === "Cancel"
-              ? (theme) => theme.palette.error.light
-              : (theme) => theme.palette.secondary.light,
+                ? (theme) => theme.palette.warning.light
+                : info.getValue() === "Completed"
+                  ? (theme) => theme.palette.primary.light
+                  : info.getValue() === "Cancel"
+                    ? (theme) => theme.palette.error.light
+                    : (theme) => theme.palette.secondary.light,
           color:
             info.getValue() === "Active"
               ? (theme) => theme.palette.success.main
               : info.getValue() === "Pending"
-              ? (theme) => theme.palette.warning.main
-              : info.getValue() === "Completed"
-              ? (theme) => theme.palette.primary.main
-              : info.getValue() === "Cancel"
-              ? (theme) => theme.palette.error.main
-              : (theme) => theme.palette.secondary.main,
+                ? (theme) => theme.palette.warning.main
+                : info.getValue() === "Completed"
+                  ? (theme) => theme.palette.primary.main
+                  : info.getValue() === "Cancel"
+                    ? (theme) => theme.palette.error.main
+                    : (theme) => theme.palette.secondary.main,
           borderRadius: "8px",
         }}
         size="small"
@@ -129,47 +129,51 @@ const defaultColumns = [
 const TableColumnVisibility = () => {
   const [data, _setData] = React.useState<any>(() => [...basics]);
 
-  const [columns] = React.useState(() => [
-      ...defaultColumns,
-  ])
-  const [columnVisibility, setColumnVisibility] = React.useState({})
-
+  const [columns] = React.useState(() => [...defaultColumns]);
+  const [columnVisibility, setColumnVisibility] = React.useState({});
 
   const table = useReactTable({
-      data,
-      columns,
-      getCoreRowModel: getCoreRowModel(),
-      state: {
-          columnVisibility,
-      },
-      onColumnVisibilityChange: setColumnVisibility,
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    state: {
+      columnVisibility,
+    },
+    onColumnVisibilityChange: setColumnVisibility,
   });
 
   const handleDownload = () => {
-      const headers = ["Users", "Project Name", "Team", "Status", "Budget"];
-      const rows = data.map((item: { name: any; pname: any; teams: any[]; status: any; budget: any; }) => [
+    const headers = ["Users", "Project Name", "Team", "Status", "Budget"];
+    const rows = data.map(
+      (item: {
+        name: any;
+        pname: any;
+        teams: any[];
+        status: any;
+        budget: any;
+      }) => [
+        item.name,
+        item.pname,
+        item.teams.map((team) => team.text).join(", "),
+        item.status,
+        item.budget,
+      ],
+    );
 
-          item.name,
-          item.pname,
-          item.teams.map(team => team.text).join(", "),
-          item.status,
-          item.budget,
-      ]);
+    const csvContent = [
+      headers.join(","),
+      ...rows.map((e: any[]) => e.join(",")),
+    ].join("\n");
 
-      const csvContent = [
-          headers.join(","),
-          ...rows.map((e: any[]) => e.join(","))
-      ].join("\n");
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
 
-      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", "table-data.csv");
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "table-data.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -234,7 +238,7 @@ const TableColumnVisibility = () => {
                               ? null
                               : flexRender(
                                   header.column.columnDef.header,
-                                  header.getContext()
+                                  header.getContext(),
                                 )}
                           </Typography>
                         </TableCell>
@@ -249,7 +253,7 @@ const TableColumnVisibility = () => {
                         <TableCell key={cell.id}>
                           {flexRender(
                             cell.column.columnDef.cell,
-                            cell.getContext()
+                            cell.getContext(),
                           )}
                         </TableCell>
                       ))}

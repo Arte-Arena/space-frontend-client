@@ -40,7 +40,7 @@ const ApexCandlestick = () => {
     },
     tooltip: {
       theme: "dark",
-      enabled: false
+      enabled: false,
     },
     grid: {
       show: false,

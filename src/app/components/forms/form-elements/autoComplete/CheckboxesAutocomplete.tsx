@@ -1,9 +1,9 @@
-'use client'
-import React from 'react';
-import { Autocomplete } from '@mui/material';
-import CustomTextField from '../../theme-elements/CustomTextField';
-import CustomCheckbox from '../../theme-elements/CustomCheckbox';
-import top100Films from './data';
+"use client";
+import React from "react";
+import { Autocomplete } from "@mui/material";
+import CustomTextField from "../../theme-elements/CustomTextField";
+import CustomCheckbox from "../../theme-elements/CustomCheckbox";
+import top100Films from "./data";
 
 const CheckboxesAutocomplete = () => (
   <Autocomplete
@@ -20,7 +20,11 @@ const CheckboxesAutocomplete = () => (
     )}
     fullWidth
     renderInput={(params) => (
-      <CustomTextField {...params} placeholder="Favorites" aria-label="Favorites" />
+      <CustomTextField
+        {...params}
+        placeholder="Favorites"
+        aria-label="Favorites"
+      />
     )}
   />
 );

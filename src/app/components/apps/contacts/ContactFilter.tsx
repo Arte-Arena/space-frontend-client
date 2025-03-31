@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "@/store/hooks";
-import Divider from '@mui/material/Divider';
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Typography from '@mui/material/Typography';
+import Divider from "@mui/material/Divider";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Typography from "@mui/material/Typography";
 import { setVisibilityFilter } from "@/store/apps/contacts/ContactSlice";
 import Scrollbar from "../../../components/custom-scroll/Scrollbar";
 import {

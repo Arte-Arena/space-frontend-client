@@ -9,11 +9,19 @@ import { Box } from "@mui/material";
 
 function TaskManager() {
   const { todoCategories, moveTask } = useContext(KanbanDataContext);
-  const onDragEnd = (result: { source: any; destination: any; draggableId: any; }) => {
+  const onDragEnd = (result: {
+    source: any;
+    destination: any;
+    draggableId: any;
+  }) => {
     const { source, destination, draggableId } = result;
 
     // If no destination is provided or the drop is in the same place, do nothing
-    if (!destination || (source.droppableId === destination.droppableId && source.index === destination.index)) {
+    if (
+      !destination ||
+      (source.droppableId === destination.droppableId &&
+        source.index === destination.index)
+    ) {
       return;
     }
 
@@ -24,7 +32,13 @@ function TaskManager() {
     const destinationIndex = destination.index;
 
     // Call moveTask function from context
-    moveTask(draggableId, sourceCategoryId, destinationCategoryId, sourceIndex, destinationIndex);
+    moveTask(
+      draggableId,
+      sourceCategoryId,
+      destinationCategoryId,
+      sourceIndex,
+      destinationIndex,
+    );
   };
 
   return (
@@ -32,7 +46,6 @@ function TaskManager() {
       <KanbanHeader />
       <SimpleBar>
         <DragDropContext onDragEnd={onDragEnd}>
-
           <Box display="flex" gap={2}>
             {todoCategories.map((category) => (
               <Droppable droppableId={category.id.toString()} key={category.id}>
@@ -52,7 +65,3 @@ function TaskManager() {
 }
 
 export default TaskManager;
-
-
-
-

@@ -10,10 +10,7 @@ import Link from "next/link";
 import { IconMinus, IconPlus } from "@tabler/icons-react";
 import { useSelector, useDispatch } from "@/store/hooks";
 import emptyCart from "/public/images/products/empty-shopping-cart.svg";
-import {
-  increment,
-  decrement,
-} from "@/store/apps/eCommerce/ECommerceSlice";
+import { increment, decrement } from "@/store/apps/eCommerce/ECommerceSlice";
 import { AppState } from "@/store/store";
 import Image from "next/image";
 
@@ -22,7 +19,7 @@ const CartItems = () => {
 
   // Get Products
   const Cartproduct = useSelector(
-    (state: AppState) => state.ecommerceReducer.cart
+    (state: AppState) => state.ecommerceReducer.cart,
   );
 
   const Increase = (productId: string) => {
@@ -104,7 +101,12 @@ const CartItems = () => {
         </>
       ) : (
         <Box textAlign="center" mb={3}>
-          <Image src="/images/products/empty-shopping-cart.svg" alt="cart" width={200} height={200} />
+          <Image
+            src="/images/products/empty-shopping-cart.svg"
+            alt="cart"
+            width={200}
+            height={200}
+          />
           <Typography variant="h5" mb={2}>
             Cart is Empty
           </Typography>

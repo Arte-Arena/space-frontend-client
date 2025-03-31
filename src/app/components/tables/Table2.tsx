@@ -1,5 +1,5 @@
-'use client'
-import React from 'react';
+"use client";
+import React from "react";
 import {
   TableContainer,
   Table,
@@ -15,59 +15,84 @@ import {
   IconButton,
   ListItemIcon,
   AvatarGroup,
-} from '@mui/material';
-import BlankCard from '../shared/BlankCard';
-import { Box, Stack } from '@mui/system';
-import { IconDotsVertical, IconEdit, IconPlus, IconTrash } from '@tabler/icons-react';
+} from "@mui/material";
+import BlankCard from "../shared/BlankCard";
+import { Box, Stack } from "@mui/system";
+import {
+  IconDotsVertical,
+  IconEdit,
+  IconPlus,
+  IconTrash,
+} from "@tabler/icons-react";
 
 const rows = [
   {
-    status: 'active',
+    status: "active",
     avatar: "/images/profile/user-2.jpg",
-    name: 'Olivia Rhye',
-    project: 'Xtreme admin',
+    name: "Olivia Rhye",
+    project: "Xtreme admin",
     percent: 60,
-    users: [{ img: "/images/profile/user-3.jpg" }, { img: "/images/profile/user-2.jpg" }],
+    users: [
+      { img: "/images/profile/user-3.jpg" },
+      { img: "/images/profile/user-2.jpg" },
+    ],
   },
   {
-    status: 'cancel',
+    status: "cancel",
     avatar: "/images/profile/user-3.jpg",
-    name: 'Barbara Steele',
-    project: 'Adminpro admin',
+    name: "Barbara Steele",
+    project: "Adminpro admin",
     percent: 30,
-    users: [{ img: "/images/profile/user-4.jpg" }, { img: "/images/profile/user-2.jpg" }, { img: "/images/profile/user-3.jpg" }],
+    users: [
+      { img: "/images/profile/user-4.jpg" },
+      { img: "/images/profile/user-2.jpg" },
+      { img: "/images/profile/user-3.jpg" },
+    ],
   },
   {
-    status: 'active',
+    status: "active",
     avatar: "/images/profile/user-4.jpg",
-    name: 'Leonard Gordon',
-    project: 'Monster admin',
+    name: "Leonard Gordon",
+    project: "Monster admin",
     percent: 45,
-    users: [{ img: "/images/profile/user-3.jpg" }, { img: "/images/profile/user-2.jpg" }],
+    users: [
+      { img: "/images/profile/user-3.jpg" },
+      { img: "/images/profile/user-2.jpg" },
+    ],
   },
   {
-    status: 'pending',
+    status: "pending",
     avatar: "/images/profile/user-5.jpg",
-    name: 'Evelyn Pope',
-    project: 'Materialpro admin',
+    name: "Evelyn Pope",
+    project: "Materialpro admin",
     percent: 37,
-    users: [{ img: "/images/profile/user-6.jpg" }, { img: "/images/profile/user-2.jpg" }, { img: "/images/profile/user-3.jpg" }],
+    users: [
+      { img: "/images/profile/user-6.jpg" },
+      { img: "/images/profile/user-2.jpg" },
+      { img: "/images/profile/user-3.jpg" },
+    ],
   },
   {
-    status: 'cancel',
+    status: "cancel",
     avatar: "/images/profile/user-7.jpg",
-    name: 'Tommy Garza',
-    project: 'Elegant admin',
+    name: "Tommy Garza",
+    project: "Elegant admin",
     percent: 87,
-    users: [{ img: "/images/profile/user-5.jpg" }, { img: "/images/profile/user-6.jpg" }],
+    users: [
+      { img: "/images/profile/user-5.jpg" },
+      { img: "/images/profile/user-6.jpg" },
+    ],
   },
   {
-    status: 'pending',
+    status: "pending",
     avatar: "/images/profile/user-8.jpg",
-    name: 'Isabel Vasquez',
-    project: 'Modernize admin',
+    name: "Isabel Vasquez",
+    project: "Modernize admin",
     percent: 32,
-    users: [{ img: "/images/profile/user-2.jpg" }, { img: "/images/profile/user-4.jpg" }],
+    users: [
+      { img: "/images/profile/user-2.jpg" },
+      { img: "/images/profile/user-4.jpg" },
+    ],
   },
 ];
 
@@ -104,10 +129,17 @@ const Table2 = () => {
           </TableHead>
           <TableBody>
             {rows.map((row) => (
-              <TableRow key={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+              <TableRow
+                key={row.name}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
                 <TableCell>
                   <Stack direction="row" alignItems="center" spacing={2}>
-                    <Avatar src={row.avatar} alt={row.avatar} sx={{ width: 42, height: 42 }} />
+                    <Avatar
+                      src={row.avatar}
+                      alt={row.avatar}
+                      sx={{ width: 42, height: 42 }}
+                    />
                     <Box>
                       <Typography variant="h6">{row.name}</Typography>
                     </Box>
@@ -119,7 +151,7 @@ const Table2 = () => {
                   </Typography>
                 </TableCell>
                 <TableCell>
-                  <AvatarGroup sx={{ justifyContent: 'start' }}>
+                  <AvatarGroup sx={{ justifyContent: "start" }}>
                     {row.users.map((user, i) => (
                       <Avatar
                         src={user.img}
@@ -135,17 +167,17 @@ const Table2 = () => {
                     label={row.status}
                     sx={{
                       backgroundColor:
-                        row.status == 'active'
+                        row.status == "active"
                           ? (theme) => theme.palette.primary.light
-                          : row.status == 'cancel'
-                          ? (theme) => theme.palette.error.light
-                          : (theme) => theme.palette.success.light,
+                          : row.status == "cancel"
+                            ? (theme) => theme.palette.error.light
+                            : (theme) => theme.palette.success.light,
                       color:
-                        row.status == 'active'
+                        row.status == "active"
                           ? (theme) => theme.palette.primary.main
-                          : row.status == 'cancel'
-                          ? (theme) => theme.palette.error.main
-                          : (theme) => theme.palette.success.main,
+                          : row.status == "cancel"
+                            ? (theme) => theme.palette.error.main
+                            : (theme) => theme.palette.success.main,
                     }}
                   />
                 </TableCell>
@@ -153,9 +185,9 @@ const Table2 = () => {
                 <TableCell>
                   <IconButton
                     id="basic-button"
-                    aria-controls={open ? 'basic-menu' : undefined}
+                    aria-controls={open ? "basic-menu" : undefined}
                     aria-haspopup="true"
-                    aria-expanded={open ? 'true' : undefined}
+                    aria-expanded={open ? "true" : undefined}
                     onClick={handleClick}
                   >
                     <IconDotsVertical width={18} />
@@ -166,7 +198,7 @@ const Table2 = () => {
                     open={open}
                     onClose={handleClose}
                     MenuListProps={{
-                      'aria-labelledby': 'basic-button',
+                      "aria-labelledby": "basic-button",
                     }}
                   >
                     <MenuItem onClick={handleClose}>

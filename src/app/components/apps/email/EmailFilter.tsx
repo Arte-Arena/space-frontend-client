@@ -1,15 +1,15 @@
-import { useSelector, useDispatch } from '@/store/hooks';
-import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Typography from '@mui/material/Typography';
-import { setVisibilityFilter } from '@/store/apps/email/EmailSlice';
-import EmailCompose from './EmailCompose';
+import { useSelector, useDispatch } from "@/store/hooks";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Typography from "@mui/material/Typography";
+import { setVisibilityFilter } from "@/store/apps/email/EmailSlice";
+import EmailCompose from "./EmailCompose";
 
-import Scrollbar from '../../../components/custom-scroll/Scrollbar';
+import Scrollbar from "../../../components/custom-scroll/Scrollbar";
 import {
   IconMail,
   IconSend,
@@ -19,7 +19,7 @@ import {
   IconAlertCircle,
   IconFolder,
   IconNote,
-} from '@tabler/icons-react';
+} from "@tabler/icons-react";
 
 interface fitlerType {
   id?: number;
@@ -39,33 +39,33 @@ const EmailFilter = () => {
   const filterData: fitlerType[] = [
     {
       id: 2,
-      name: 'inbox',
+      name: "inbox",
       icon: IconMail,
-      color: 'inherit',
+      color: "inherit",
     },
     {
       id: 3,
-      name: 'sent',
+      name: "sent",
       icon: IconSend,
-      color: 'inherit',
+      color: "inherit",
     },
     {
       id: 4,
-      name: 'draft',
+      name: "draft",
       icon: IconNote,
-      color: 'inherit',
+      color: "inherit",
     },
     {
       id: 4,
-      name: 'spam',
+      name: "spam",
       icon: IconFlag,
-      color: 'inherit',
+      color: "inherit",
     },
     {
       id: 5,
-      name: 'trash',
+      name: "trash",
       icon: IconTrash,
-      color: 'inherit',
+      color: "inherit",
     },
     {
       id: 6,
@@ -73,19 +73,19 @@ const EmailFilter = () => {
     },
     {
       id: 1,
-      filterbyTitle: 'Sort By',
+      filterbyTitle: "Sort By",
     },
     {
       id: 7,
-      name: 'starred',
+      name: "starred",
       icon: IconStar,
-      color: 'inherit',
+      color: "inherit",
     },
     {
       id: 8,
-      name: 'important',
+      name: "important",
       icon: IconAlertCircle,
-      color: 'inherit',
+      color: "inherit",
     },
     {
       id: 9,
@@ -93,25 +93,25 @@ const EmailFilter = () => {
     },
     {
       id: 13,
-      filterbyTitle: 'Labels',
+      filterbyTitle: "Labels",
     },
     {
       id: 10,
-      name: 'Promotional',
+      name: "Promotional",
       icon: IconFolder,
-      color: 'primary.main',
+      color: "primary.main",
     },
     {
       id: 11,
-      name: 'Social',
+      name: "Social",
       icon: IconFolder,
-      color: 'error.main',
+      color: "error.main",
     },
     {
       id: 12,
-      name: 'Health',
+      name: "Health",
       icon: IconFolder,
-      color: 'success.main',
+      color: "success.main",
     },
   ];
 
@@ -124,7 +124,12 @@ const EmailFilter = () => {
         <EmailCompose />
       </Box>
       <List>
-      <Scrollbar sx={{ height: { lg: 'calc(100vh - 100px)', md: '100vh' }, maxHeight: '800px' }}>
+        <Scrollbar
+          sx={{
+            height: { lg: "calc(100vh - 100px)", md: "100vh" },
+            maxHeight: "800px",
+          }}
+        >
           {filterData.map((filter) => {
             if (filter.filterbyTitle) {
               return (
@@ -147,7 +152,7 @@ const EmailFilter = () => {
               <ListItemButton
                 sx={{
                   mb: 1,
-                  px: '20px',
+                  px: "20px",
                   mx: 3,
                   borderRadius: br,
                 }}
@@ -158,10 +163,12 @@ const EmailFilter = () => {
                 {/* ------------------------------------------- */}
                 {/* If list to filter */}
                 {/* ------------------------------------------- */}
-                <ListItemIcon sx={{ minWidth: '30px', color: filter.color }}>
+                <ListItemIcon sx={{ minWidth: "30px", color: filter.color }}>
                   <filter.icon stroke="1.5" size={19} />
                 </ListItemIcon>
-                <ListItemText sx={{ textTransform: 'capitalize' }}>{filter.name}</ListItemText>
+                <ListItemText sx={{ textTransform: "capitalize" }}>
+                  {filter.name}
+                </ListItemText>
               </ListItemButton>
             );
           })}

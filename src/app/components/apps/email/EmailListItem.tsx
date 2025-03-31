@@ -1,14 +1,14 @@
-import React from 'react';
-import Chip from '@mui/material/Chip';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import { useTheme } from '@mui/material/styles';
-import CustomCheckbox from '../../../components/forms/theme-elements/CustomCheckbox';
-import { IconAlertCircle, IconStar, IconTrash } from '@tabler/icons-react';
-import { formatDistanceToNowStrict } from 'date-fns';
+import React from "react";
+import Chip from "@mui/material/Chip";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import { useTheme } from "@mui/material/styles";
+import CustomCheckbox from "../../../components/forms/theme-elements/CustomCheckbox";
+import { IconAlertCircle, IconStar, IconTrash } from "@tabler/icons-react";
+import { formatDistanceToNowStrict } from "date-fns";
 
 interface EmailListType {
   id: number;
@@ -50,25 +50,45 @@ const EmailListItem = ({
   const errorColor = theme.palette.error.light;
 
   return (
-    <ListItemButton sx={{ mb: 1, py: 2 }} selected={isSelected} alignItems="flex-start">
-      <ListItemIcon sx={{ minWidth: '35px', mt: '0' }}>
-        <CustomCheckbox edge="start" id={`check${id}`} tabIndex={-1} onChange={onChange} />
+    <ListItemButton
+      sx={{ mb: 1, py: 2 }}
+      selected={isSelected}
+      alignItems="flex-start"
+    >
+      <ListItemIcon sx={{ minWidth: "35px", mt: "0" }}>
+        <CustomCheckbox
+          edge="start"
+          id={`check${id}`}
+          tabIndex={-1}
+          onChange={onChange}
+        />
       </ListItemIcon>
       {/* ------------------------------------------- */}
       {/* Email page */}
       {/* ------------------------------------------- */}
       <ListItemText onClick={onClick}>
         <Stack direction="row" gap="10px" alignItems="center">
-          <Typography variant="subtitle2" mb={0.5} fontWeight={600} mr={'auto'}>
+          <Typography variant="subtitle2" mb={0.5} fontWeight={600} mr={"auto"}>
             {from}
           </Typography>
           <Chip
             label={label}
             size="small"
-            color={label === 'Promotional' ? 'primary' : label === 'Social' ? 'error' : 'success'}
+            color={
+              label === "Promotional"
+                ? "primary"
+                : label === "Social"
+                  ? "error"
+                  : "success"
+            }
           />
         </Stack>
-        <Typography variant="subtitle2" noWrap width={'80%'} color="text.secondary">
+        <Typography
+          variant="subtitle2"
+          noWrap
+          width={"80%"}
+          color="text.secondary"
+        >
           {subject}
         </Typography>
         {/* ------------------------------------------- */}
@@ -78,24 +98,25 @@ const EmailListItem = ({
           <IconStar
             stroke={1}
             size="18"
-            style={{ fill: starred ? warningColor : '', stroke: starred ? warningColor : '' }}
+            style={{
+              fill: starred ? warningColor : "",
+              stroke: starred ? warningColor : "",
+            }}
           />
           <IconAlertCircle
             size="18"
             stroke={1.2}
-            style={{ fill: important ? errorColor : '' }}
+            style={{ fill: important ? errorColor : "" }}
           />
           {/* ------------------------------------------- */}
           {/* Checked ? */}
           {/* ------------------------------------------- */}
-          {checked ? <IconTrash
-            stroke={1.5}
-            size="16" /> : ''}
-          <Typography variant="caption" noWrap sx={{ ml: 'auto' }}>
-            { }
+          {checked ? <IconTrash stroke={1.5} size="16" /> : ""}
+          <Typography variant="caption" noWrap sx={{ ml: "auto" }}>
+            {}
             {formatDistanceToNowStrict(new Date(time), {
               addSuffix: false,
-            })}{' '}
+            })}{" "}
             ago
           </Typography>
         </Stack>

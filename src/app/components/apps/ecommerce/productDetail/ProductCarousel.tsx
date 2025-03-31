@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import Box from '@mui/material/Box';
+import Box from "@mui/material/Box";
 import { useSelector, useDispatch } from "@/store/hooks";
 import { usePathname, useSearchParams } from "next/navigation";
 
@@ -10,7 +10,7 @@ import Slider from "react-slick";
 import SliderData from "./SliderData";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "./Carousel.css"
+import "./Carousel.css";
 
 //fetch product
 import { fetchProducts } from "@/store/apps/eCommerce/ECommerceSlice";
@@ -24,7 +24,7 @@ const ProductCarousel = () => {
   const dispatch = useDispatch();
   const pathName = usePathname();
   const searchParams = useSearchParams();
-  const getTitle: string | any = pathName.split('/').pop();
+  const getTitle: string | any = pathName.split("/").pop();
 
   // Get Product
   useEffect(() => {
@@ -33,7 +33,7 @@ const ProductCarousel = () => {
 
   // Get Products
   const product: ProductType = useSelector(
-    (state) => state.ecommerceReducer.products[getTitle - 1]
+    (state) => state.ecommerceReducer.products[getTitle - 1],
   );
   const getProductImage = product ? product.photo : "/images/products/s1.jpg";
   useEffect(() => {
@@ -65,15 +65,17 @@ const ProductCarousel = () => {
             alt={getProductImage}
             width={500}
             height={500}
-            style={{ borderRadius: '5px', width: '100%', height: 'auto' }}
+            style={{ borderRadius: "5px", width: "100%", height: "auto" }}
           />
         </Box>
         {SliderData.map((step) => (
           <Box key={step.id}>
             <Image
-              src={step.imgPath} width={500} height={500}
+              src={step.imgPath}
+              width={500}
+              height={500}
               alt={step.imgPath}
-              style={{ borderRadius: '5px', width: '100%', height: 'auto' }}
+              style={{ borderRadius: "5px", width: "100%", height: "auto" }}
             />
           </Box>
         ))}
@@ -86,16 +88,20 @@ const ProductCarousel = () => {
         <Box sx={{ p: 1, cursor: "pointer" }}>
           <Image
             src={getProductImage}
-            alt={getProductImage} width={72} height={72}
-            style={{ borderRadius: '5px' }}
+            alt={getProductImage}
+            width={72}
+            height={72}
+            style={{ borderRadius: "5px" }}
           />
         </Box>
         {SliderData.map((step) => (
           <Box key={step.id} sx={{ p: 1, cursor: "pointer" }}>
             <Image
               src={step.imgPath}
-              alt={step.imgPath} width={72} height={72}
-              style={{ borderRadius: '5px' }}
+              alt={step.imgPath}
+              width={72}
+              height={72}
+              style={{ borderRadius: "5px" }}
             />
           </Box>
         ))}

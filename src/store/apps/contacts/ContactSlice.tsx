@@ -1,9 +1,9 @@
-import axios from '../../../utils/axios';
-import { createSlice } from '@reduxjs/toolkit';
-import { AppDispatch } from '../../store';
-import type { PayloadAction } from '@reduxjs/toolkit';
+import axios from "../../../utils/axios";
+import { createSlice } from "@reduxjs/toolkit";
+import { AppDispatch } from "../../store";
+import type { PayloadAction } from "@reduxjs/toolkit";
 
-const API_URL = '/api/data/contacts/ContactsData';
+const API_URL = "/api/data/contacts/ContactsData";
 
 interface StateType {
   contacts: any[];
@@ -16,13 +16,13 @@ interface StateType {
 const initialState = {
   contacts: [],
   contactContent: 1,
-  contactSearch: '',
+  contactSearch: "",
   editContact: false,
-  currentFilter: 'show_all',
+  currentFilter: "show_all",
 };
 
 export const ContactSlice = createSlice({
-  name: 'contacts',
+  name: "contacts",
   initialState,
   reducers: {
     getContacts: (state: StateType, action) => {
@@ -36,12 +36,16 @@ export const ContactSlice = createSlice({
     },
     DeleteContact: (state: StateType, action) => {
       state.contacts = state.contacts.map((contact) =>
-        contact.id === action.payload ? { ...contact, deleted: !contact.deleted } : contact,
+        contact.id === action.payload
+          ? { ...contact, deleted: !contact.deleted }
+          : contact,
       );
     },
     toggleStarredContact: (state: StateType, action) => {
       state.contacts = state.contacts.map((contact) =>
-        contact.id === action.payload ? { ...contact, starred: !contact.starred } : contact,
+        contact.id === action.payload
+          ? { ...contact, starred: !contact.starred }
+          : contact,
       );
     },
     isEdit: (state: StateType) => {

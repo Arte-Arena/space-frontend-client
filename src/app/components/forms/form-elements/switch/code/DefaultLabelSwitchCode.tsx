@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const DefaultLabelSwitchCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 "use client";
 import * as React from 'react';
 import { Box, Switch, FormGroup, FormControlLabel } from '@mui/material';
@@ -16,9 +16,9 @@ import { Box, Switch, FormGroup, FormControlLabel } from '@mui/material';
     </FormGroup>
 </Box>
 `}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default DefaultLabelSwitchCode;

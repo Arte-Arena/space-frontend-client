@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React from "react";
 import dynamic from "next/dynamic";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
@@ -8,7 +8,7 @@ import DashboardCard from "../../shared/DashboardCard";
 import SkeletonRevenueUpdatesCards from "../skeleton/RevenueUpdatesCard";
 
 interface RevenueupdatesCardProps {
-  isLoading ?: boolean;
+  isLoading?: boolean;
 }
 
 const RevenueUpdates = ({ isLoading }: RevenueupdatesCardProps) => {
@@ -82,65 +82,63 @@ const RevenueUpdates = ({ isLoading }: RevenueupdatesCardProps) => {
 
   return (
     <>
-      {
-        isLoading ? (
-          <SkeletonRevenueUpdatesCards />
-        ) : (
-          <DashboardCard title="Revenue Updates" subtitle="Overview of Profit">
-            <>
-              <Stack direction="row" spacing={3}>
-                <Stack direction="row" alignItems="center" spacing={1}>
-                  <Avatar
-                    sx={{
-                      width: 9,
-                      height: 9,
-                      bgcolor: primary,
-                      svg: { display: "none" },
-                    }}
-                  ></Avatar>
-                  <Box>
-                    <Typography
-                      variant="subtitle2"
-                      fontSize="12px"
-                      color="textSecondary"
-                    >
-                      Footware
-                    </Typography>
-                  </Box>
-                </Stack>
-                <Stack direction="row" alignItems="center" spacing={1}>
-                  <Avatar
-                    sx={{
-                      width: 9,
-                      height: 9,
-                      bgcolor: secondary,
-                      svg: { display: "none" },
-                    }}
-                  ></Avatar>
-                  <Box>
-                    <Typography
-                      variant="subtitle2"
-                      fontSize="12px"
-                      color="textSecondary"
-                    >
-                      Fashionware
-                    </Typography>
-                  </Box>
-                </Stack>
+      {isLoading ? (
+        <SkeletonRevenueUpdatesCards />
+      ) : (
+        <DashboardCard title="Revenue Updates" subtitle="Overview of Profit">
+          <>
+            <Stack direction="row" spacing={3}>
+              <Stack direction="row" alignItems="center" spacing={1}>
+                <Avatar
+                  sx={{
+                    width: 9,
+                    height: 9,
+                    bgcolor: primary,
+                    svg: { display: "none" },
+                  }}
+                ></Avatar>
+                <Box>
+                  <Typography
+                    variant="subtitle2"
+                    fontSize="12px"
+                    color="textSecondary"
+                  >
+                    Footware
+                  </Typography>
+                </Box>
               </Stack>
-              <Box className="rounded-bars" height="335px">
-                <Chart
-                  options={optionscolumnchart}
-                  series={seriescolumnchart}
-                  type="bar"
-                  height="320px"
-                  width={"100%"}
-                />
-              </Box>
-            </>
-          </DashboardCard>
-        )
-      }
+              <Stack direction="row" alignItems="center" spacing={1}>
+                <Avatar
+                  sx={{
+                    width: 9,
+                    height: 9,
+                    bgcolor: secondary,
+                    svg: { display: "none" },
+                  }}
+                ></Avatar>
+                <Box>
+                  <Typography
+                    variant="subtitle2"
+                    fontSize="12px"
+                    color="textSecondary"
+                  >
+                    Fashionware
+                  </Typography>
+                </Box>
+              </Stack>
+            </Stack>
+            <Box className="rounded-bars" height="335px">
+              <Chart
+                options={optionscolumnchart}
+                series={seriescolumnchart}
+                type="bar"
+                height="320px"
+                width={"100%"}
+              />
+            </Box>
+          </>
+        </DashboardCard>
+      )}
     </>
   );
 };

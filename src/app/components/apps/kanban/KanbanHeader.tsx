@@ -64,10 +64,7 @@ function KanbanHeader() {
         <DialogContent>
           <Grid container spacing={3}>
             <Grid item xs={12} lg={12}>
-              <CustomFormLabel
-                
-                htmlFor="default-value"
-              >
+              <CustomFormLabel htmlFor="default-value">
                 List Name
               </CustomFormLabel>
               <CustomTextField
@@ -85,13 +82,17 @@ function KanbanHeader() {
           <Button variant="outlined" onClick={handleClose} color="error">
             Cancel
           </Button>
-          <Button variant="contained" onClick={handleSave} color="primary" disabled={isAddButtonDisabled}>
+          <Button
+            variant="contained"
+            onClick={handleSave}
+            color="primary"
+            disabled={isAddButtonDisabled}
+          >
             Add List
           </Button>
         </DialogActions>
       </Dialog>
     </>
   );
-
 }
 export default KanbanHeader;

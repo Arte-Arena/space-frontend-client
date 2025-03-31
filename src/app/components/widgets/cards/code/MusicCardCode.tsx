@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const MusicCardCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 import { CardContent, Typography, Grid, Card, CardMedia, Box, IconButton } from '@mui/material';
 import { Stack } from '@mui/system';
 import { IconPlayerPlay, IconPlayerSkipBack, IconPlayerSkipForward } from '@tabler/icons-react';
@@ -69,9 +69,9 @@ const MusicCard = () => {
 
 export default MusicCard;
 `}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default MusicCardCode;

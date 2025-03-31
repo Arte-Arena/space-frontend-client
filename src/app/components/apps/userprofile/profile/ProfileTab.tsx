@@ -1,8 +1,8 @@
-'use client'
+"use client";
 import React from "react";
-import Box from '@mui/material/Box';
-import Tab from '@mui/material/Tab';
-import Tabs from '@mui/material/Tabs';
+import Box from "@mui/material/Box";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
 import { IconHeart, IconPhoto, IconUserCircle } from "@tabler/icons-react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";

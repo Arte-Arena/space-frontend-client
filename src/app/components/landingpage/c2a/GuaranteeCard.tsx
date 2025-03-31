@@ -1,24 +1,24 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import CardContent from '@mui/material/CardContent';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import { styled } from '@mui/material/styles';
-import BlankCard from '../../shared/BlankCard';
-import badgeImg from '/public/images/landingpage/shape/badge.svg';
-import Image from 'next/image';
+import React from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import CardContent from "@mui/material/CardContent";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import { styled } from "@mui/material/styles";
+import BlankCard from "../../shared/BlankCard";
+import badgeImg from "/public/images/landingpage/shape/badge.svg";
+import Image from "next/image";
 
 const ImgCard = styled(BlankCard)(() => ({
   backgroundImage: `url('/images/landingpage/shape/line-bg-2.svg')`,
-  backgroundRepeat: 'no-repeat',
-  backgroundPosition: 'center center',
-  marginTop: '-70px',
+  backgroundRepeat: "no-repeat",
+  backgroundPosition: "center center",
+  marginTop: "-70px",
 }));
 
 const StyledButton = styled(Button)(() => ({
-  padding: '13px 34px',
-  fontSize: '16px',
+  padding: "13px 34px",
+  fontSize: "16px",
 }));
 
 const GuaranteeCard = () => {
@@ -26,7 +26,7 @@ const GuaranteeCard = () => {
     <ImgCard>
       <CardContent>
         <Stack
-          direction={{ xs: 'column', sm: 'row' }}
+          direction={{ xs: "column", sm: "row" }}
           alignItems="center"
           justifyContent="space-between"
         >
@@ -51,8 +51,8 @@ const GuaranteeCard = () => {
                 lg: 2,
               },
               width: {
-                xs: '100%',
-                sm: 'auto',
+                xs: "100%",
+                sm: "auto",
               },
             }}
           >

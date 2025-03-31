@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React from "react";
 import dynamic from "next/dynamic";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
@@ -11,7 +11,7 @@ import { IconArrowUpRight, IconShoppingCart } from "@tabler/icons-react";
 import SkeletonSalesTwoCard from "../skeleton/SalesTwoCard";
 
 interface SalestwoCardProps {
-  isLoading ?: boolean;
+  isLoading?: boolean;
 }
 
 const SalesTwo = ({ isLoading }: SalestwoCardProps) => {
@@ -105,53 +105,52 @@ const SalesTwo = ({ isLoading }: SalestwoCardProps) => {
 
   return (
     <>
-      {
-        isLoading ? (
-          <SkeletonSalesTwoCard />
-        ) : (
-          <DashboardCard>
-            <>
-              <Box
-                width={38}
-                height={38}
-                bgcolor="primary.light"
+      {isLoading ? (
+        <SkeletonSalesTwoCard />
+      ) : (
+        <DashboardCard>
+          <>
+            <Box
+              width={38}
+              height={38}
+              bgcolor="primary.light"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+            >
+              <Typography
+                color="primary.main"
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
               >
-                <Typography
-                  color="primary.main"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
-                >
-                  <IconShoppingCart width={22} />
-                </Typography>
-              </Box>
-
-              <Box mt={3} mb={2} height="25px">
-                <Chart
-                  options={optionscolumnchart}
-                  series={seriescolumnchart}
-                  type="bar"
-                  height="25px" width={"100%"}
-                />
-              </Box>
-
-              <Typography variant="h4">
-                $16.5k
-                <span>
-                  <IconArrowUpRight width={18} color="#39B69A" />
-                </span>
+                <IconShoppingCart width={22} />
               </Typography>
-              <Typography variant="subtitle2" color="textSecondary">
-                Sales
-              </Typography>
-            </>
-          </DashboardCard>
-        )}
+            </Box>
+
+            <Box mt={3} mb={2} height="25px">
+              <Chart
+                options={optionscolumnchart}
+                series={seriescolumnchart}
+                type="bar"
+                height="25px"
+                width={"100%"}
+              />
+            </Box>
+
+            <Typography variant="h4">
+              $16.5k
+              <span>
+                <IconArrowUpRight width={18} color="#39B69A" />
+              </span>
+            </Typography>
+            <Typography variant="subtitle2" color="textSecondary">
+              Sales
+            </Typography>
+          </>
+        </DashboardCard>
+      )}
     </>
-
   );
 };
 

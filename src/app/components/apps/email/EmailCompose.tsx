@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import Slide from '@mui/material/Slide';
-import TextField from '@mui/material/TextField';
-import CustomFormLabel from '../../../components/forms/theme-elements/CustomFormLabel';
-import { TransitionProps } from '@mui/material/transitions';
+import React, { useState } from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Slide from "@mui/material/Slide";
+import TextField from "@mui/material/TextField";
+import CustomFormLabel from "../../../components/forms/theme-elements/CustomFormLabel";
+import { TransitionProps } from "@mui/material/transitions";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -36,7 +36,12 @@ const EmailCompose = () => {
       {/* Compose Email */}
       {/* ------------------------------------------- */}
       <Box p={3} pb={1}>
-        <Button variant="contained" fullWidth color="primary" onClick={handleClickOpen}>
+        <Button
+          variant="contained"
+          fullWidth
+          color="primary"
+          onClick={handleClickOpen}
+        >
           Compose
         </Button>
       </Box>
@@ -56,11 +61,19 @@ const EmailCompose = () => {
           Compose Mail
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description" component="div">
+          <DialogContentText
+            id="alert-dialog-slide-description"
+            component="div"
+          >
             <CustomFormLabel htmlFor="to-text">To</CustomFormLabel>
             <TextField id="to-text" fullWidth size="small" variant="outlined" />
             <CustomFormLabel htmlFor="subject-text">Subject</CustomFormLabel>
-            <TextField id="subject-text" fullWidth size="small" variant="outlined" />
+            <TextField
+              id="subject-text"
+              fullWidth
+              size="small"
+              variant="outlined"
+            />
             <CustomFormLabel htmlFor="message-text">Message</CustomFormLabel>
             <TextField
               id="message-text"

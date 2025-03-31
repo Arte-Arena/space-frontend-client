@@ -1,29 +1,29 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import CardContent from '@mui/material/CardContent';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import { styled } from '@mui/material/styles';
-import BlankCard from '../../shared/BlankCard';
-import AnimationFadeIn from '../animation/Animation';
+import React from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import CardContent from "@mui/material/CardContent";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import { styled } from "@mui/material/styles";
+import BlankCard from "../../shared/BlankCard";
+import AnimationFadeIn from "../animation/Animation";
 
 const ImgCard = styled(BlankCard)(() => ({
   backgroundImage: `url('/images/landingpage/shape/line-bg.svg')`,
-  backgroundRepeat: 'no-repeat',
-  backgroundPosition: 'center center',
+  backgroundRepeat: "no-repeat",
+  backgroundPosition: "center center",
 }));
 
 const StyledButton = styled(Button)(() => ({
-  padding: '13px 48px',
-  fontSize: '16px',
+  padding: "13px 48px",
+  fontSize: "16px",
 }));
 
 const StyledButton2 = styled(Button)(({ theme }) => ({
-  padding: '13px 48px',
-  fontSize: '16px',
+  padding: "13px 48px",
+  fontSize: "16px",
   background: theme.palette.background.paper,
 }));
 
@@ -33,8 +33,8 @@ const C2a = () => {
       pt={7}
       sx={{
         pb: {
-          xs: '70px',
-          lg: '120px',
+          xs: "70px",
+          lg: "120px",
         },
       }}
     >
@@ -48,12 +48,16 @@ const C2a = () => {
                     <Typography variant="h3" fontWeight={600}>
                       Haven&apos;t found an answer to your question?
                     </Typography>
-                    <Typography variant="subtitle1" color="textSecondary" mt={1}>
+                    <Typography
+                      variant="subtitle1"
+                      color="textSecondary"
+                      mt={1}
+                    >
                       Connect with us either on discord or email us
                     </Typography>
                   </Box>
                   <Stack
-                    direction={{ xs: 'column', sm: 'row' }}
+                    direction={{ xs: "column", sm: "row" }}
                     spacing={3}
                     mt={5}
                     justifyContent="center"

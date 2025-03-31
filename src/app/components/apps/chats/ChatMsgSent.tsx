@@ -4,18 +4,14 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import InputBase from "@mui/material/InputBase";
 import { EmojiClickData } from "emoji-picker-react";
-import {
-  IconPaperclip,
-  IconPhoto,
-  IconSend,
-} from "@tabler/icons-react";
+import { IconPaperclip, IconPhoto, IconSend } from "@tabler/icons-react";
 import { sendMsg } from "@/store/apps/chat/ChatSlice";
 
 const ChatMsgSent = () => {
   const [msg, setMsg] = React.useState<any>("");
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
-    null
+    null,
   );
   const [chosenEmoji, setChosenEmoji] = React.useState<string>("");
 

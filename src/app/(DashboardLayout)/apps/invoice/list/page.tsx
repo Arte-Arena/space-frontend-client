@@ -29,5 +29,5 @@ const InvoiceListing = () => {
       </PageContainer>
     </InvoiceProvider>
   );
-}
+};
 export default InvoiceListing;

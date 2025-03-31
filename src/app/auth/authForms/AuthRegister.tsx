@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { Box, Typography, Button, Divider } from "@mui/material";
 import Link from "next/link";
 import CustomTextField from "@/app/components/forms/theme-elements/CustomTextField";

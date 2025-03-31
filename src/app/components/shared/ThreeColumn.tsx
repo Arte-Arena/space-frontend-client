@@ -1,7 +1,13 @@
-'use client'
-import React, { useState } from 'react';
-import { Button, Box, Drawer, useMediaQuery, Paper, Theme } from '@mui/material';
-
+"use client";
+import React, { useState } from "react";
+import {
+  Button,
+  Box,
+  Drawer,
+  useMediaQuery,
+  Paper,
+  Theme,
+} from "@mui/material";
 
 const drawerWidth = 240;
 const secdrawerWidth = 320;
@@ -15,11 +21,11 @@ type Props = {
 const ThreeColumn = ({ leftChild, middleChild, rightChild }: Props) => {
   const [isLeftSidebarOpen, setLeftSidebarOpen] = useState(false);
   const [isRightSidebarOpen, setRightSidebarOpen] = useState(false);
-  const lgUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
-  const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
+  const lgUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("lg"));
+  const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
 
   return (
-    <Paper sx={{ display: 'flex', p: 0 }} variant="outlined">
+    <Paper sx={{ display: "flex", p: 0 }} variant="outlined">
       {/* ------------------------------------------- */}
       {/* Left Part */}
       {/* ------------------------------------------- */}
@@ -29,10 +35,10 @@ const ThreeColumn = ({ leftChild, middleChild, rightChild }: Props) => {
         onClose={() => setLeftSidebarOpen(false)}
         sx={{
           width: drawerWidth,
-          [`& .MuiDrawer-paper`]: { width: drawerWidth, position: 'relative' },
+          [`& .MuiDrawer-paper`]: { width: drawerWidth, position: "relative" },
           flexShrink: 0,
         }}
-        variant={lgUp ? 'permanent' : 'temporary'}
+        variant={lgUp ? "permanent" : "temporary"}
       >
         {leftChild}
       </Drawer>
@@ -42,7 +48,7 @@ const ThreeColumn = ({ leftChild, middleChild, rightChild }: Props) => {
       <Box
         sx={{
           minWidth: secdrawerWidth,
-          width: { xs: '100%', md: secdrawerWidth, lg: secdrawerWidth },
+          width: { xs: "100%", md: secdrawerWidth, lg: secdrawerWidth },
           flexShrink: 0,
         }}
       >
@@ -58,14 +64,14 @@ const ThreeColumn = ({ leftChild, middleChild, rightChild }: Props) => {
         sx={{
           flexShrink: 0,
           width: drawerWidth,
-          flex: mdUp ? 'auto' : '',
-          [`& .MuiDrawer-paper`]: { width: '100%', position: 'relative' },
+          flex: mdUp ? "auto" : "",
+          [`& .MuiDrawer-paper`]: { width: "100%", position: "relative" },
         }}
-        variant={mdUp ? 'permanent' : 'temporary'}
+        variant={mdUp ? "permanent" : "temporary"}
       >
         {/* back btn Part */}
         {mdUp ? (
-          ''
+          ""
         ) : (
           <Box sx={{ p: 3 }}>
             <Button
@@ -73,9 +79,9 @@ const ThreeColumn = ({ leftChild, middleChild, rightChild }: Props) => {
               color="primary"
               size="small"
               onClick={() => setRightSidebarOpen(false)}
-              sx={{ mb: 3, display: { xs: 'block', md: 'none', lg: 'none' } }}
+              sx={{ mb: 3, display: { xs: "block", md: "none", lg: "none" } }}
             >
-              Back{' '}
+              Back{" "}
             </Button>
           </Box>
         )}

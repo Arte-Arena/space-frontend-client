@@ -1,6 +1,6 @@
-'use client'
-import React from 'react';
-import { Popover, Typography, Button, Box } from '@mui/material';
+"use client";
+import React from "react";
+import { Popover, Typography, Button, Box } from "@mui/material";
 
 const ClickPopover = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -14,7 +14,7 @@ const ClickPopover = () => {
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
+  const id = open ? "simple-popover" : undefined;
 
   return (
     <>
@@ -27,8 +27,8 @@ const ClickPopover = () => {
         anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
+          vertical: "bottom",
+          horizontal: "left",
         }}
       >
         <Box p={2}>

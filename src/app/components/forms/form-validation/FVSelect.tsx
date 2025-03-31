@@ -1,20 +1,20 @@
-'use client'
-import { useFormik } from 'formik';
-import * as yup from 'yup';
+"use client";
+import { useFormik } from "formik";
+import * as yup from "yup";
 
-import { Box, Button, Stack, FormHelperText, MenuItem } from '@mui/material';
+import { Box, Button, Stack, FormHelperText, MenuItem } from "@mui/material";
 
-import CustomFormLabel from '../theme-elements/CustomFormLabel';
-import CustomSelect from '../theme-elements/CustomSelect';
+import CustomFormLabel from "../theme-elements/CustomFormLabel";
+import CustomSelect from "../theme-elements/CustomSelect";
 
 const validationSchema = yup.object({
-  age: yup.number().required('Age selection is required.'),
+  age: yup.number().required("Age selection is required."),
 });
 
 const FVSelect = () => {
   const formik = useFormik({
     initialValues: {
-      age: '',
+      age: "",
     },
     validationSchema,
     onSubmit: (values) => {
@@ -44,8 +44,8 @@ const FVSelect = () => {
           </CustomSelect>
           {formik.errors.age && (
             <FormHelperText error id="standard-weight-helper-text-email-login">
-              {' '}
-              {formik.errors.age}{' '}
+              {" "}
+              {formik.errors.age}{" "}
             </FormHelperText>
           )}
         </Box>

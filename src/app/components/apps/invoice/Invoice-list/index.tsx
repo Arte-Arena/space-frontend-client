@@ -52,14 +52,11 @@ function InvoiceList() {
   const tabItem = ["All", "Shipped", "Delivered", "Pending"];
   const [currentIndex, setCurrentIndex] = useState(0);
 
-
   // Handle status filter change
   const handleClick = (status: string) => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % tabItem.length);
     setActiveTab(status);
   };
-
-
 
   // Filter invoices based on search term
   const filteredInvoices = invoices.filter(
@@ -69,20 +66,18 @@ function InvoiceList() {
           invoice.billTo.toLowerCase().includes(searchTerm.toLowerCase())) &&
         (activeTab === "All" || invoice.status === activeTab)
       );
-    }
+    },
   );
-
-
 
   // Calculate the counts for different statuses
   const Shipped = invoices.filter(
-    (t: { status: string }) => t.status === "Shipped"
+    (t: { status: string }) => t.status === "Shipped",
   ).length;
   const Delivered = invoices.filter(
-    (t: { status: string }) => t.status === "Delivered"
+    (t: { status: string }) => t.status === "Delivered",
   ).length;
   const Pending = invoices.filter(
-    (t: { status: string }) => t.status === "Pending"
+    (t: { status: string }) => t.status === "Pending",
   ).length;
 
   // Toggle all checkboxes
@@ -103,7 +98,7 @@ function InvoiceList() {
       setSelectedProducts([...selectedProducts, productId]);
     } else {
       setSelectedProducts(
-        selectedProducts.filter((id: any) => id !== productId)
+        selectedProducts.filter((id: any) => id !== productId),
       );
     }
   };
@@ -131,8 +126,13 @@ function InvoiceList() {
   return (
     <Box>
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={6} lg={3} >
-          <Box bgcolor="primary.light" p={3} onClick={() => handleClick("All")} sx={{ cursor: "pointer" }}>
+        <Grid item xs={12} sm={6} lg={3}>
+          <Box
+            bgcolor="primary.light"
+            p={3}
+            onClick={() => handleClick("All")}
+            sx={{ cursor: "pointer" }}
+          >
             <Stack direction="row" gap={2} alignItems="center">
               <Box
                 width={38}
@@ -161,7 +161,12 @@ function InvoiceList() {
           </Box>
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
-          <Box bgcolor="secondary.light" p={3} onClick={() => handleClick("Shipped")} sx={{ cursor: "pointer" }}>
+          <Box
+            bgcolor="secondary.light"
+            p={3}
+            onClick={() => handleClick("Shipped")}
+            sx={{ cursor: "pointer" }}
+          >
             <Stack direction="row" gap={2} alignItems="center">
               <Box
                 width={38}
@@ -188,7 +193,12 @@ function InvoiceList() {
           </Box>
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
-          <Box bgcolor="success.light" p={3} onClick={() => handleClick("Delivered")} sx={{ cursor: "pointer" }}>
+          <Box
+            bgcolor="success.light"
+            p={3}
+            onClick={() => handleClick("Delivered")}
+            sx={{ cursor: "pointer" }}
+          >
             <Stack direction="row" gap={2} alignItems="center">
               <Box
                 width={38}
@@ -215,7 +225,12 @@ function InvoiceList() {
           </Box>
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
-          <Box bgcolor="warning.light" p={3} onClick={() => handleClick("Pending")} sx={{ cursor: "pointer" }}>
+          <Box
+            bgcolor="warning.light"
+            p={3}
+            onClick={() => handleClick("Pending")}
+            sx={{ cursor: "pointer" }}
+          >
             <Stack direction="row" gap={2} alignItems="center">
               <Box
                 width={38}
@@ -416,7 +431,7 @@ function InvoiceList() {
                     </Tooltip>
                   </TableCell>
                 </TableRow>
-              )
+              ),
             )}
           </TableBody>
         </Table>
@@ -439,7 +454,7 @@ function InvoiceList() {
           </Button>
         </DialogActions>
       </Dialog>
-    </Box >
+    </Box>
   );
 }
 export default InvoiceList;

@@ -1,16 +1,14 @@
 import dynamic from "next/dynamic";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from "@mui/material/styles";
 
-import DashboardWidgetCard from '../../shared/DashboardWidgetCard';
+import DashboardWidgetCard from "../../shared/DashboardWidgetCard";
 import SkeletonEmployeeSalaryCard from "../skeleton/EmployeeSalaryCard";
 import { Box } from "@mui/material";
 
-
 interface EmployeeSalaryCardProps {
-  isLoading ?: boolean;
+  isLoading?: boolean;
 }
-
 
 const EmployeeSalary = ({ isLoading }: EmployeeSalaryCardProps) => {
   // chart color
@@ -21,21 +19,28 @@ const EmployeeSalary = ({ isLoading }: EmployeeSalaryCardProps) => {
   // chart
   const optionscolumnchart: any = {
     chart: {
-      type: 'bar',
+      type: "bar",
       fontFamily: "'Plus Jakarta Sans', sans-serif;",
-      foreColor: '#adb0bb',
+      foreColor: "#adb0bb",
       toolbar: {
         show: false,
       },
       height: 280,
     },
-    colors: [primarylight, primarylight, primary, primarylight, primarylight, primarylight],
+    colors: [
+      primarylight,
+      primarylight,
+      primary,
+      primarylight,
+      primarylight,
+      primarylight,
+    ],
     plotOptions: {
       bar: {
         borderRadius: 4,
-        columnWidth: '45%',
+        columnWidth: "45%",
         distributed: true,
-        endingShape: 'rounded',
+        endingShape: "rounded",
       },
     },
     dataLabels: {
@@ -52,7 +57,7 @@ const EmployeeSalary = ({ isLoading }: EmployeeSalaryCardProps) => {
       },
     },
     xaxis: {
-      categories: [['Apr'], ['May'], ['June'], ['July'], ['Aug'], ['Sept']],
+      categories: [["Apr"], ["May"], ["June"], ["July"], ["Aug"], ["Sept"]],
       axisBorder: {
         show: false,
       },
@@ -63,39 +68,43 @@ const EmployeeSalary = ({ isLoading }: EmployeeSalaryCardProps) => {
       },
     },
     tooltip: {
-      theme: theme.palette.mode === 'dark' ? 'dark' : 'light',
+      theme: theme.palette.mode === "dark" ? "dark" : "light",
     },
   };
   const seriescolumnchart = [
     {
-      name: '',
+      name: "",
       data: [20, 15, 30, 25, 10, 15],
     },
   ];
 
   return (
     <>
-      {
-        isLoading ? (
-          <SkeletonEmployeeSalaryCard />
-        ) : (
-          <DashboardWidgetCard
-            title="Employee Salary"
-            subtitle="Every month"
-            dataLabel1="Salary"
-            dataItem1="$36,358"
-            dataLabel2="Profit"
-            dataItem2="$5,296"
-          >
-            <>
-              <Box height="295px">
-                <Chart options={optionscolumnchart} series={seriescolumnchart} type="bar" height={280} width={"100%"} />
-              </Box>
-            </>
-          </DashboardWidgetCard>
-        )}
+      {isLoading ? (
+        <SkeletonEmployeeSalaryCard />
+      ) : (
+        <DashboardWidgetCard
+          title="Employee Salary"
+          subtitle="Every month"
+          dataLabel1="Salary"
+          dataItem1="$36,358"
+          dataLabel2="Profit"
+          dataItem2="$5,296"
+        >
+          <>
+            <Box height="295px">
+              <Chart
+                options={optionscolumnchart}
+                series={seriescolumnchart}
+                type="bar"
+                height={280}
+                width={"100%"}
+              />
+            </Box>
+          </>
+        </DashboardWidgetCard>
+      )}
     </>
-
   );
 };
 

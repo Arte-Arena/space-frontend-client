@@ -73,7 +73,7 @@ const TableEmpty = () => {
         item.teams.map((team) => team.text).join(", "),
         item.status,
         item.budget,
-      ]
+      ],
     );
 
     const csvContent = [
@@ -127,7 +127,7 @@ const TableEmpty = () => {
                                 >
                                   {flexRender(
                                     header.column.columnDef.header,
-                                    header.getContext()
+                                    header.getContext(),
                                   )}
                                 </FormLabel>
                                 <CustomTextField
@@ -173,7 +173,7 @@ const TableEmpty = () => {
                               ? null
                               : flexRender(
                                   header.column.columnDef.header,
-                                  header.getContext()
+                                  header.getContext(),
                                 )}
                           </Typography>
                         </TableCell>

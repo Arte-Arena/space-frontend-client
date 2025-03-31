@@ -1,5 +1,5 @@
-'use client'
-import React from 'react';
+"use client";
+import React from "react";
 import {
   TableContainer,
   Table,
@@ -15,9 +15,9 @@ import {
   MenuItem,
   IconButton,
   ListItemIcon,
-} from '@mui/material';
-import BlankCard from '../shared/BlankCard';
-import { Box, Stack } from '@mui/system';
+} from "@mui/material";
+import BlankCard from "../shared/BlankCard";
+import { Box, Stack } from "@mui/system";
 import {
   IconArrowBackUp,
   IconCheck,
@@ -26,55 +26,55 @@ import {
   IconPlus,
   IconTrash,
   IconX,
-} from '@tabler/icons-react';
+} from "@tabler/icons-react";
 
 const rows = [
   {
     no: 3066,
-    status: 'paid',
+    status: "paid",
     avatar: "/images/profile/user-2.jpg",
-    cname: 'Olivia Rhye',
-    email: 'olivia@ui.com',
+    cname: "Olivia Rhye",
+    email: "olivia@ui.com",
     percent: 60,
   },
   {
     no: 3067,
-    status: 'cancelled',
+    status: "cancelled",
     avatar: "/images/profile/user-3.jpg",
-    cname: 'Barbara Steele',
-    email: 'steele@ui.com',
+    cname: "Barbara Steele",
+    email: "steele@ui.com",
     percent: 30,
   },
   {
     no: 3068,
-    status: 'paid',
+    status: "paid",
     avatar: "/images/profile/user-4.jpg",
-    cname: 'Leonard Gordon',
-    email: 'olivia@ui.com',
+    cname: "Leonard Gordon",
+    email: "olivia@ui.com",
     percent: 45,
   },
   {
     no: 3069,
-    status: 'refunded',
+    status: "refunded",
     avatar: "/images/profile/user-5.jpg",
-    cname: 'Evelyn Pope',
-    email: 'steele@ui.com',
+    cname: "Evelyn Pope",
+    email: "steele@ui.com",
     percent: 37,
   },
   {
     no: 3070,
-    status: 'cancelled',
+    status: "cancelled",
     avatar: "/images/profile/user-7.jpg",
-    cname: 'Tommy Garza',
-    email: 'olivia@ui.com',
+    cname: "Tommy Garza",
+    email: "olivia@ui.com",
     percent: 87,
   },
   {
     no: 3071,
-    status: 'refunded',
+    status: "refunded",
     avatar: "/images/profile/user-8.jpg",
-    cname: 'Isabel Vasquez',
-    email: 'steele@ui.com',
+    cname: "Isabel Vasquez",
+    email: "steele@ui.com",
     percent: 32,
   },
 ];
@@ -112,9 +112,16 @@ const Table1 = () => {
           </TableHead>
           <TableBody>
             {rows.map((row) => (
-              <TableRow key={row.no} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+              <TableRow
+                key={row.no}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
                 <TableCell scope="row">
-                  <Typography variant="subtitle1" color="textPrimary" fontWeight={600}>
+                  <Typography
+                    variant="subtitle1"
+                    color="textPrimary"
+                    fontWeight={600}
+                  >
                     INV-{row.no}
                   </Typography>
                 </TableCell>
@@ -122,9 +129,9 @@ const Table1 = () => {
                   <Chip
                     label={row.status}
                     icon={
-                      row.status == 'paid' ? (
+                      row.status == "paid" ? (
                         <IconCheck width={16} />
-                      ) : row.status == 'cancelled' ? (
+                      ) : row.status == "cancelled" ? (
                         <IconX width={16} />
                       ) : (
                         <IconArrowBackUp width={16} />
@@ -132,26 +139,30 @@ const Table1 = () => {
                     }
                     sx={{
                       backgroundColor:
-                        row.status == 'paid'
+                        row.status == "paid"
                           ? (theme) => theme.palette.primary.light
-                          : row.status == 'cancelled'
-                          ? (theme) => theme.palette.error.light
-                          : (theme) => theme.palette.secondary.light,
+                          : row.status == "cancelled"
+                            ? (theme) => theme.palette.error.light
+                            : (theme) => theme.palette.secondary.light,
                       color:
-                        row.status == 'paid'
+                        row.status == "paid"
                           ? (theme) => theme.palette.primary.main
-                          : row.status == 'cancelled'
-                          ? (theme) => theme.palette.error.main
-                          : (theme) => theme.palette.secondary.main,
-                      '.MuiChip-icon': {
-                        color: 'inherit !important',
+                          : row.status == "cancelled"
+                            ? (theme) => theme.palette.error.main
+                            : (theme) => theme.palette.secondary.main,
+                      ".MuiChip-icon": {
+                        color: "inherit !important",
                       },
                     }}
                   />
                 </TableCell>
                 <TableCell>
                   <Stack direction="row" spacing={2}>
-                    <Avatar src={row.avatar} alt={row.avatar} sx={{ width: 42, height: 42 }} />
+                    <Avatar
+                      src={row.avatar}
+                      alt={row.avatar}
+                      sx={{ width: 42, height: 42 }}
+                    />
                     <Box>
                       <Typography variant="h6">{row.cname}</Typography>
                       <Typography variant="subtitle1" color="textSecondary">
@@ -163,7 +174,11 @@ const Table1 = () => {
                 <TableCell>
                   <Stack direction="row" alignItems="center" spacing={2}>
                     <Box width="100%">
-                      <LinearProgress variant="determinate" value={row.percent} color="primary" />
+                      <LinearProgress
+                        variant="determinate"
+                        value={row.percent}
+                        color="primary"
+                      />
                     </Box>
                     <Typography variant="subtitle2" color="textSecondary">
                       {row.percent}%
@@ -173,9 +188,9 @@ const Table1 = () => {
                 <TableCell>
                   <IconButton
                     id="basic-button"
-                    aria-controls={open ? 'basic-menu' : undefined}
+                    aria-controls={open ? "basic-menu" : undefined}
                     aria-haspopup="true"
-                    aria-expanded={open ? 'true' : undefined}
+                    aria-expanded={open ? "true" : undefined}
                     onClick={handleClick}
                   >
                     <IconDotsVertical width={18} />
@@ -186,7 +201,7 @@ const Table1 = () => {
                     open={open}
                     onClose={handleClose}
                     MenuListProps={{
-                      'aria-labelledby': 'basic-button',
+                      "aria-labelledby": "basic-button",
                     }}
                   >
                     <MenuItem onClick={handleClose}>

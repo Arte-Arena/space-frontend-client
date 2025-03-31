@@ -4,12 +4,11 @@ const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 import { useTheme } from "@mui/material/styles";
 import { Box, Typography } from "@mui/material";
 
-
 import DashboardCard from "../../shared/DashboardCard";
 import SkeletonExpenceCard from "../skeleton/ExpanceCard";
 
 interface SalesCardProps {
-  isLoading ?: boolean;
+  isLoading?: boolean;
 }
 
 const Sales = ({ isLoading }: SalesCardProps) => {
@@ -87,28 +86,27 @@ const Sales = ({ isLoading }: SalesCardProps) => {
 
   return (
     <>
-      {
-        isLoading ? (
-          <SkeletonExpenceCard />
-        ) : (
-          <DashboardCard>
-            <>
-              <Typography variant="h4">$65,432</Typography>
-              <Typography variant="subtitle2" color="textSecondary" mb={3}>
-                Sales
-              </Typography>
-              <Box className="rounded-bars" height="90px">
-                <Chart
-                  options={optionscolumnchart}
-                  series={seriescolumnchart}
-                  type="bar"
-                  height="90px" width={"100%"}
-                />
-              </Box>
-            </>
-          </DashboardCard>
-        )
-      }
+      {isLoading ? (
+        <SkeletonExpenceCard />
+      ) : (
+        <DashboardCard>
+          <>
+            <Typography variant="h4">$65,432</Typography>
+            <Typography variant="subtitle2" color="textSecondary" mb={3}>
+              Sales
+            </Typography>
+            <Box className="rounded-bars" height="90px">
+              <Chart
+                options={optionscolumnchart}
+                series={seriescolumnchart}
+                type="bar"
+                height="90px"
+                width={"100%"}
+              />
+            </Box>
+          </>
+        </DashboardCard>
+      )}
     </>
   );
 };

@@ -1,14 +1,20 @@
-'use client'
-import React from 'react';
-import { List, ListItem, ListItemIcon, ListItemText, ListSubheader } from '@mui/material';
-import BlankCard from '../../shared/BlankCard';
+"use client";
+import React from "react";
+import {
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  ListSubheader,
+} from "@mui/material";
+import BlankCard from "../../shared/BlankCard";
 
-import { IconWifi, IconBluetooth } from '@tabler/icons-react';
+import { IconWifi, IconBluetooth } from "@tabler/icons-react";
 
-import CustomSwitch from '../../forms/theme-elements/CustomSwitch';
+import CustomSwitch from "../../forms/theme-elements/CustomSwitch";
 
 const SwitchList = () => {
-  const [checked, setChecked] = React.useState(['wifi']);
+  const [checked, setChecked] = React.useState(["wifi"]);
 
   const handleToggle = (value: string) => () => {
     const currentIndex = checked.indexOf(value);
@@ -34,10 +40,10 @@ const SwitchList = () => {
             <ListItemText id="switch-list-label-wifi" primary="Wi-Fi" />
             <CustomSwitch
               edge="end"
-              onChange={handleToggle('wifi')}
-              checked={checked.indexOf('wifi') !== -1}
+              onChange={handleToggle("wifi")}
+              checked={checked.indexOf("wifi") !== -1}
               inputProps={{
-                'aria-labelledby': 'switch-list-label-wifi',
+                "aria-labelledby": "switch-list-label-wifi",
               }}
             />
           </ListItem>
@@ -45,13 +51,16 @@ const SwitchList = () => {
             <ListItemIcon>
               <IconBluetooth width={20} height={20} />
             </ListItemIcon>
-            <ListItemText id="switch-list-label-bluetooth" primary="Bluetooth" />
+            <ListItemText
+              id="switch-list-label-bluetooth"
+              primary="Bluetooth"
+            />
             <CustomSwitch
               edge="end"
-              onChange={handleToggle('bluetooth')}
-              checked={checked.indexOf('bluetooth') !== -1}
+              onChange={handleToggle("bluetooth")}
+              checked={checked.indexOf("bluetooth") !== -1}
               inputProps={{
-                'aria-labelledby': 'switch-list-label-bluetooth',
+                "aria-labelledby": "switch-list-label-bluetooth",
               }}
             />
           </ListItem>

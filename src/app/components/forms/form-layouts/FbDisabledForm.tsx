@@ -1,9 +1,9 @@
-'use client'
-import React from 'react';
-import { Box, Button } from '@mui/material';
-import CustomTextField from '../theme-elements/CustomTextField';
-import CustomFormLabel from '../theme-elements/CustomFormLabel';
-import ParentCard from '../../shared/ParentCard';
+"use client";
+import React from "react";
+import { Box, Button } from "@mui/material";
+import CustomTextField from "../theme-elements/CustomTextField";
+import CustomFormLabel from "../theme-elements/CustomFormLabel";
+import ParentCard from "../../shared/ParentCard";
 
 const FbDisabledForm = () => (
   <ParentCard title="Disabled Form">
@@ -16,12 +16,7 @@ const FbDisabledForm = () => (
       >
         Name
       </CustomFormLabel>
-      <CustomTextField
-        id="df-name"
-        variant="outlined"
-        fullWidth
-        disabled
-      />
+      <CustomTextField id="df-name" variant="outlined" fullWidth disabled />
       <CustomFormLabel htmlFor="df-email-address">Email</CustomFormLabel>
       <CustomTextField
         id="df-email-address"
@@ -30,7 +25,9 @@ const FbDisabledForm = () => (
         fullWidth
         disabled
       />
-      <CustomFormLabel htmlFor="df-outlined-password-input">Password</CustomFormLabel>
+      <CustomFormLabel htmlFor="df-outlined-password-input">
+        Password
+      </CustomFormLabel>
       <CustomTextField
         id="df-outlined-password-input"
         type="password"

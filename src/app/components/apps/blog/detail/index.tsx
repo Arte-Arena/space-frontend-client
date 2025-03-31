@@ -1,20 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-'use client'
+"use client";
 import React, { useEffect } from "react";
 import { fetchBlogPosts, fetchBlogPost } from "@/store/apps/blog/BlogSlice";
-import { useRouter, usePathname, useSearchParams  } from "next/navigation";
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Chip from '@mui/material/Chip';
-import Divider from '@mui/material/Divider';
-import Skeleton from '@mui/material/Skeleton';
-import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
-import Tooltip from '@mui/material/Tooltip';
-import Typography from '@mui/material/Typography';
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Chip from "@mui/material/Chip";
+import Divider from "@mui/material/Divider";
+import Skeleton from "@mui/material/Skeleton";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
 import Breadcrumb from "@/app/(DashboardLayout)/layout/shared/breadcrumb/Breadcrumb";
 import {
   IconEye,
@@ -29,16 +29,18 @@ import { addComment } from "@/store/apps/blog/BlogSlice";
 import BlankCard from "../../../shared/BlankCard";
 import { useDispatch, useSelector } from "@/store/hooks";
 import { AppState } from "@/store/store";
-import type { BlogPostType, BlogType } from "../../../../(DashboardLayout)/types/apps/blog";
-
+import type {
+  BlogPostType,
+  BlogType,
+} from "../../../../(DashboardLayout)/types/apps/blog";
 
 const BlogDetail = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const pathName = usePathname();
-  
-  const getTitle: string | any = pathName.split('/').pop();
-  
+
+  const getTitle: string | any = pathName.split("/").pop();
+
   const [replyTxt, setReplyTxt] = React.useState("");
 
   useEffect(() => {
@@ -55,9 +57,9 @@ const BlogDetail = () => {
   const getPost = useSelector((state: AppState) => state.blogReducer.blogposts);
   console.log(getPost);
   const post: BlogPostType | any = getPost.find(
-    (p: BlogPostType) => getTitle === paramCase(p.title)
+    (p: BlogPostType) => getTitle === paramCase(p.title),
   );
-  
+
   const BCrumb = [
     {
       to: "/",
@@ -143,7 +145,10 @@ const BlogDetail = () => {
                     sx={{
                       marginLeft: "auto",
                       marginTop: "-21px",
-                      backgroundColor: (theme: any) => theme.palette.mode === 'dark' ? theme.palette.background.dark : 'white',
+                      backgroundColor: (theme: any) =>
+                        theme.palette.mode === "dark"
+                          ? theme.palette.background.dark
+                          : "white",
                     }}
                     label="2 min Read"
                     size="small"

@@ -1,7 +1,7 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
-import { IconFolder, IconActivity, IconTag } from '@tabler/icons-react';
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import { IconFolder, IconActivity, IconTag } from "@tabler/icons-react";
 
 const EmailActions = () => {
   return (

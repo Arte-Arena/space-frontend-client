@@ -1,8 +1,8 @@
-import axios from '../../../utils/axios';
-import { createSlice } from '@reduxjs/toolkit';
-import { AppDispatch } from '../../store';
+import axios from "../../../utils/axios";
+import { createSlice } from "@reduxjs/toolkit";
+import { AppDispatch } from "../../store";
 
-const API_URL = '/api/data/email/EmailData';
+const API_URL = "/api/data/email/EmailData";
 
 interface StateType {
   emails: any[];
@@ -14,12 +14,12 @@ interface StateType {
 const initialState = {
   emails: [],
   emailContent: 1,
-  emailSearch: '',
-  currentFilter: 'inbox',
+  emailSearch: "",
+  currentFilter: "inbox",
 };
 
 export const EmailSlice = createSlice({
-  name: 'email',
+  name: "email",
   initialState,
   reducers: {
     getEmails: (state: StateType, action) => {
@@ -33,17 +33,23 @@ export const EmailSlice = createSlice({
     },
     starEmail: (state: StateType, action) => {
       state.emails = state.emails.map((email) =>
-        email.id === action.payload ? { ...email, starred: !email.starred } : email,
+        email.id === action.payload
+          ? { ...email, starred: !email.starred }
+          : email,
       );
     },
     importantEmail: (state: StateType, action) => {
       state.emails = state.emails.map((email) =>
-        email.id === action.payload ? { ...email, important: !email.important } : email,
+        email.id === action.payload
+          ? { ...email, important: !email.important }
+          : email,
       );
     },
     checkEmail: (state: StateType, action) => {
       state.emails = state.emails.map((email) =>
-        email.id === action.payload ? { ...email, checked: !email.checked } : email,
+        email.id === action.payload
+          ? { ...email, checked: !email.checked }
+          : email,
       );
     },
     deleteEmail: (state: StateType, action) => {

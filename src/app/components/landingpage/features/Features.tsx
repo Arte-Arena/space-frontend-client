@@ -24,7 +24,7 @@ import {
   IconSquareKey,
   IconTable,
   IconPresentation,
-  IconPackage
+  IconPackage,
 } from "@tabler/icons-react";
 import AnimationFadeIn from "../animation/Animation";
 
@@ -52,13 +52,14 @@ const featuresData: FeaturesType[] = [
   },
   {
     icon: <IconPresentation width={40} height={40} strokeWidth={1.5} />,
-    title: '4+ Frontend Pages',
-    subtext: 'We have added useful frontend pages with Modernize Admin',
+    title: "4+ Frontend Pages",
+    subtext: "We have added useful frontend pages with Modernize Admin",
   },
   {
     icon: <IconPackage width={40} height={40} strokeWidth={1.5} />,
-    title: 'Blogs with MDX',
-    subtext: 'It provides a comprehensive blogging solution using MDX, which uniquely blends Markdown and JSX.',
+    title: "Blogs with MDX",
+    subtext:
+      "It provides a comprehensive blogging solution using MDX, which uniquely blends Markdown and JSX.",
   },
   {
     icon: <IconTag width={40} height={40} strokeWidth={1.5} />,

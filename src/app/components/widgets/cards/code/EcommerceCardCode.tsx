@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const EcommerceCardCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 import  Link  from 'next/link';
 import { CardContent, Typography, Grid, Rating, Tooltip, Fab, Card } from '@mui/material';
 import { Stack } from '@mui/system';
@@ -86,9 +86,9 @@ const EcommerceCard = () => {
 export default EcommerceCard;
 
 `}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default EcommerceCardCode;

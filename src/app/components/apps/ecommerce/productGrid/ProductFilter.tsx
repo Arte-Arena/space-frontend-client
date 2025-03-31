@@ -1,17 +1,17 @@
-import React from 'react';
-import { useDispatch, useSelector } from '@/store/hooks';
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormGroup from '@mui/material/FormGroup';
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Radio from '@mui/material/Radio';
-import Typography from '@mui/material/Typography';
+import React from "react";
+import { useDispatch, useSelector } from "@/store/hooks";
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Divider from "@mui/material/Divider";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormGroup from "@mui/material/FormGroup";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Radio from "@mui/material/Radio";
+import Typography from "@mui/material/Typography";
 import {
   filterProducts,
   sortByProducts,
@@ -19,8 +19,8 @@ import {
   sortByColor,
   sortByPrice,
   filterReset,
-} from '@/store/apps/eCommerce/ECommerceSlice';
-import { IconCheck } from '@tabler/icons-react';
+} from "@/store/apps/eCommerce/ECommerceSlice";
+import { IconCheck } from "@tabler/icons-react";
 import {
   IconHanger,
   IconCircles,
@@ -30,9 +30,9 @@ import {
   IconSortAscending2,
   IconSortDescending2,
   IconAd2,
-} from '@tabler/icons-react';
-import { Stack } from '@mui/system';
-import { ProductFiterType } from '../../../../(DashboardLayout)/types/apps/eCommerce';
+} from "@tabler/icons-react";
+import { Stack } from "@mui/system";
+import { ProductFiterType } from "../../../../(DashboardLayout)/types/apps/eCommerce";
 
 const ProductFilter = () => {
   const dispatch = useDispatch();
@@ -46,49 +46,49 @@ const ProductFilter = () => {
     let newVal = data.map((curElem) => {
       return curElem[attr];
     });
-    if (attr === 'colors') {
+    if (attr === "colors") {
       newVal = newVal.flat();
     }
 
-    return (newVal = ['All', ...Array.from(new Set(newVal))]);
+    return (newVal = ["All", ...Array.from(new Set(newVal))]);
   };
 
-  const filterbyGender = getUniqueData(products, 'gender');
-  const filterbyColors = getUniqueData(products, 'colors');
+  const filterbyGender = getUniqueData(products, "gender");
+  const filterbyColors = getUniqueData(products, "colors");
 
   const filterCategory: ProductFiterType[] = [
     {
       id: 1,
-      filterbyTitle: 'Filter by Category',
+      filterbyTitle: "Filter by Category",
     },
     {
       id: 2,
-      name: 'All',
-      sort: 'All',
+      name: "All",
+      sort: "All",
       icon: IconCircles,
     },
     {
       id: 3,
-      name: 'Fashion',
-      sort: 'fashion',
+      name: "Fashion",
+      sort: "fashion",
       icon: IconHanger,
     },
     {
       id: 9,
-      name: 'Books',
-      sort: 'books',
+      name: "Books",
+      sort: "books",
       icon: IconNotebook,
     },
     {
       id: 10,
-      name: 'Toys',
-      sort: 'toys',
+      name: "Toys",
+      sort: "toys",
       icon: IconMoodSmile,
     },
     {
       id: 11,
-      name: 'Electronics',
-      sort: 'electronics',
+      name: "Electronics",
+      sort: "electronics",
       icon: IconDeviceLaptop,
     },
     {
@@ -97,36 +97,46 @@ const ProductFilter = () => {
     },
   ];
   const filterbySort = [
-    { id: 1, value: 'newest', label: 'Newest', icon: IconAd2 },
-    { id: 2, value: 'priceDesc', label: 'Price: High-Low', icon: IconSortAscending2 },
-    { id: 3, value: 'priceAsc', label: 'Price: Low-High', icon: IconSortDescending2 },
-    { id: 4, value: 'discount', label: 'Discounted', icon: IconAd2 },
+    { id: 1, value: "newest", label: "Newest", icon: IconAd2 },
+    {
+      id: 2,
+      value: "priceDesc",
+      label: "Price: High-Low",
+      icon: IconSortAscending2,
+    },
+    {
+      id: 3,
+      value: "priceAsc",
+      label: "Price: Low-High",
+      icon: IconSortDescending2,
+    },
+    { id: 4, value: "discount", label: "Discounted", icon: IconAd2 },
   ];
   const filterbyPrice = [
     {
       id: 0,
-      label: 'All',
-      value: 'All',
+      label: "All",
+      value: "All",
     },
     {
       id: 1,
-      label: '0-50',
-      value: '0-50',
+      label: "0-50",
+      value: "0-50",
     },
     {
       id: 3,
-      label: '50-100',
-      value: '50-100',
+      label: "50-100",
+      value: "50-100",
     },
     {
       id: 4,
-      label: '100-200',
-      value: '100-200',
+      label: "100-200",
+      value: "100-200",
     },
     {
       id: 5,
-      label: 'Over 200',
-      value: '200-99999',
+      label: "Over 200",
+      value: "200-99999",
     },
   ];
 
@@ -150,7 +160,14 @@ const ProductFilter = () => {
         {filterCategory.map((filter) => {
           if (filter.filterbyTitle) {
             return (
-              <Typography variant="subtitle2" fontWeight={600} px={3} mt={2} pb={2} key={filter.id}>
+              <Typography
+                variant="subtitle2"
+                fontWeight={600}
+                px={3}
+                mt={2}
+                pb={2}
+                key={filter.id}
+              >
                 {filter.filterbyTitle}
               </Typography>
             );
@@ -162,10 +179,12 @@ const ProductFilter = () => {
             <ListItemButton
               sx={{ mb: 1, mx: 3, borderRadius: br }}
               selected={active.category === `${filter.sort}`}
-              onClick={() => dispatch(filterProducts({ category: `${filter.sort}` }))}
+              onClick={() =>
+                dispatch(filterProducts({ category: `${filter.sort}` }))
+              }
               key={filter.id}
             >
-              <ListItemIcon sx={{ minWidth: '30px' }}>
+              <ListItemIcon sx={{ minWidth: "30px" }}>
                 <filter.icon stroke="1.5" size="19" />
               </ListItemIcon>
               <ListItemText>{filter.name}</ListItemText>
@@ -186,7 +205,7 @@ const ProductFilter = () => {
               onClick={() => dispatch(sortByProducts(`${filter.value}`))}
               key={filter.id + filter.label + filter.value}
             >
-              <ListItemIcon sx={{ minWidth: '30px' }}>
+              <ListItemIcon sx={{ minWidth: "30px" }}>
                 <filter.icon stroke="1.5" size={19} />
               </ListItemIcon>
               <ListItemText>{filter.label}</ListItemText>
@@ -250,30 +269,30 @@ const ProductFilter = () => {
         {/* Filter By colors */}
         {/* ------------------------------------------- */}
         <Box p={3} pt={0}>
-          <Stack direction={'row'} flexWrap="wrap" gap={1}>
+          <Stack direction={"row"} flexWrap="wrap" gap={1}>
             {filterbyColors.map((curColor) => {
-              if (curColor !== 'All') {
+              if (curColor !== "All") {
                 return (
                   <Avatar
                     sx={{
                       backgroundColor: curColor,
                       width: 24,
                       height: 24,
-                      cursor: 'pointer',
+                      cursor: "pointer",
                     }}
                     aria-label={curColor}
                     key={curColor}
                     onClick={
                       active.color === curColor
-                        ? () => dispatch(sortByColor({ color: 'All' }))
+                        ? () => dispatch(sortByColor({ color: "All" }))
                         : () => dispatch(sortByColor({ color: curColor }))
                     }
                   >
-                    {active.color === curColor ? <IconCheck size="13" /> : ''}
+                    {active.color === curColor ? <IconCheck size="13" /> : ""}
                   </Avatar>
                 );
               } else {
-                return <Box key={curColor} sx={{ display: 'none' }}></Box>;
+                return <Box key={curColor} sx={{ display: "none" }}></Box>;
               }
             })}
           </Stack>
@@ -283,7 +302,11 @@ const ProductFilter = () => {
         {/* Reset */}
         {/* ------------------------------------------- */}
         <Box p={3}>
-          <Button variant="contained" onClick={() => dispatch(filterReset())} fullWidth>
+          <Button
+            variant="contained"
+            onClick={() => dispatch(filterReset())}
+            fullWidth
+          >
             Reset Filters
           </Button>
         </Box>

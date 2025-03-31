@@ -1,11 +1,11 @@
 import React from "react";
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-import { Theme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { styled } from '@mui/material/styles';
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
+import { Theme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { styled } from "@mui/material/styles";
 import BannerContent from "./BannerContent";
 import bannerbgImg1 from "/public/images/landingpage/bannerimg1.svg";
 import bannerbgImg2 from "/public/images/landingpage/bannerimg2.svg";

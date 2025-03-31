@@ -368,7 +368,7 @@ const CreateInvoice = () => {
                             handleOrderChange(
                               index,
                               "unitPrice",
-                              e.target.value
+                              e.target.value,
                             )
                           }
                           fullWidth

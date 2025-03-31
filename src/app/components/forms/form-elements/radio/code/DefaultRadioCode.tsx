@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const DefaultRadioCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 "use client";
 import * as React from 'react';
 import { Box, Radio } from '@mui/material';
@@ -24,9 +24,9 @@ const handleChange = (event: any) => {
     <Radio disabled inputProps={{ 'aria-label': 'disabled checked checkbox' }} />
     <Radio color="default" inputProps={{ 'aria-label': 'checkbox with default color' }} />
 </Box>`}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default DefaultRadioCode;

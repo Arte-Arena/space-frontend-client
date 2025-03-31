@@ -9,7 +9,7 @@ import DashboardCard from "../../shared/DashboardCard";
 import SkeletonExpenceCard from "../skeleton/ExpanceCard";
 
 interface ExpanceCardProps {
-  isLoading ?: boolean;
+  isLoading?: boolean;
 }
 
 const Expence = ({ isLoading }: ExpanceCardProps) => {

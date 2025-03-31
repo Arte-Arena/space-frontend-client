@@ -1,8 +1,14 @@
-'use client'
-import { List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@mui/material';
-import BlankCard from '../../shared/BlankCard';
+"use client";
+import {
+  List,
+  ListItem,
+  ListItemText,
+  ListItemAvatar,
+  Avatar,
+} from "@mui/material";
+import BlankCard from "../../shared/BlankCard";
 
-import { IconPhoto, IconBriefcase, IconBeach } from '@tabler/icons-react';
+import { IconPhoto, IconBriefcase, IconBeach } from "@tabler/icons-react";
 
 const FolderList = () => {
   return (

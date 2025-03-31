@@ -28,14 +28,14 @@ const GalleryCard = () => {
   const filterPhotos = (photos: GallaryType[], cSearch: string) => {
     if (photos)
       return photos.filter((t) =>
-        t.name.toLocaleLowerCase().includes(cSearch.toLocaleLowerCase())
+        t.name.toLocaleLowerCase().includes(cSearch.toLocaleLowerCase()),
       );
 
     return photos;
   };
   const [search, setSearch] = React.useState("");
   const getPhotos = useSelector((state) =>
-    filterPhotos(state.userpostsReducer.gallery, search)
+    filterPhotos(state.userpostsReducer.gallery, search),
   );
 
   // skeleton
@@ -50,7 +50,7 @@ const GalleryCard = () => {
   }, []);
 
   const [toggler, setToggler] = useState(false);
-  const [currentImage, setCurrentImage] = useState('');
+  const [currentImage, setCurrentImage] = useState("");
 
   const openLightbox = (image: any) => {
     setCurrentImage(image);
@@ -108,7 +108,8 @@ const GalleryCard = () => {
                     height="220"
                     alt="Remy Sharp"
                     src={photo.cover}
-                    onClick={() => openLightbox(photo.cover)} sx={{ cursor: 'pointer' }}
+                    onClick={() => openLightbox(photo.cover)}
+                    sx={{ cursor: "pointer" }}
                   />
                 )}
                 <Box p={3}>

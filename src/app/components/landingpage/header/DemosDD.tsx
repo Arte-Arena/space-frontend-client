@@ -1,10 +1,10 @@
 import React from "react";
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import { styled } from '@mui/material/styles';
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import { styled } from "@mui/material/styles";
 import NextLink from "next/link";
 
 import mainDemo from "/public/images/landingpage/demos/demo-main.jpg";

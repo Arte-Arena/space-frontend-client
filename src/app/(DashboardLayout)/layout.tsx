@@ -42,7 +42,11 @@ export default function RootLayout({
   const theme = useTheme();
 
   return (
-    <MainWrapper className={customizer.activeMode === 'dark' ? 'darkbg mainwrapper' : 'mainwrapper'}>
+    <MainWrapper
+      className={
+        customizer.activeMode === "dark" ? "darkbg mainwrapper" : "mainwrapper"
+      }
+    >
       <title>Modernize NextJs</title>
       {/* ------------------------------------------- */}
       {/* Sidebar */}
@@ -69,10 +73,10 @@ export default function RootLayout({
         {customizer.isHorizontal ? <Navigation /> : ""}
         <Container
           sx={{
-            pt: '20px',
-            px: '24px',
-            maxWidth: '100%!important',
-            width: '100%',
+            pt: "20px",
+            px: "24px",
+            maxWidth: "100%!important",
+            width: "100%",
           }}
           disableGutters
         >
@@ -80,7 +84,7 @@ export default function RootLayout({
           {/* PageContent */}
           {/* ------------------------------------------- */}
 
-          <Box sx={{ minHeight: "calc(100vh - 170px)", width: '100%' }}>
+          <Box sx={{ minHeight: "calc(100vh - 170px)", width: "100%" }}>
             {/* <Outlet /> */}
             {children}
             {/* <Index /> */}

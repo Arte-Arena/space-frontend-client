@@ -24,11 +24,12 @@ const components: any = (theme: Theme) => {
         "#root": {
           height: "100%",
         },
-        '.ql-container.ql-snow, .ql-toolbar.ql-snow': {
-          border: '0 !important', borderRadius: '7px'
+        ".ql-container.ql-snow, .ql-toolbar.ql-snow": {
+          border: "0 !important",
+          borderRadius: "7px",
         },
-        '.ql-editor, .ql-snow *': {
-          fontFamiy: 'inherit !important'
+        ".ql-editor, .ql-snow *": {
+          fontFamiy: "inherit !important",
         },
         "*[dir='rtl'] .buyNowImg": {
           transform: "scaleX(-1)",
@@ -462,11 +463,11 @@ const components: any = (theme: Theme) => {
     MuiAutocomplete: {
       styleOverrides: {
         root: {
-          '& .MuiOutlinedInput-root': {
-            padding: '4px 9px' 
-          }
-        }
-      }
+          "& .MuiOutlinedInput-root": {
+            padding: "4px 9px",
+          },
+        },
+      },
     },
     MuiTooltip: {
       styleOverrides: {

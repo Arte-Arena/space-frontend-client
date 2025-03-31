@@ -1,10 +1,10 @@
-'use client'
+"use client";
 import dynamic from "next/dynamic";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
-import { useTheme } from '@mui/material/styles';
-import { CardContent, Typography } from '@mui/material';
-import BlankCard from '../../shared/BlankCard';
-import { Stack } from '@mui/system';
+import { useTheme } from "@mui/material/styles";
+import { CardContent, Typography } from "@mui/material";
+import BlankCard from "../../shared/BlankCard";
+import { Stack } from "@mui/system";
 
 const Followers = () => {
   // chart color
@@ -14,9 +14,9 @@ const Followers = () => {
   // chart
   const optionscolumnchart: any = {
     chart: {
-      type: 'area',
+      type: "area",
       fontFamily: "'Plus Jakarta Sans', sans-serif;",
-      foreColor: '#adb0bb',
+      foreColor: "#adb0bb",
       toolbar: {
         show: false,
       },
@@ -28,7 +28,7 @@ const Followers = () => {
     colors: [primary],
 
     stroke: {
-      curve: 'straight',
+      curve: "straight",
       width: 2,
     },
     dataLabels: {
@@ -49,20 +49,20 @@ const Followers = () => {
       },
     },
     tooltip: {
-      theme: theme.palette.mode === 'dark' ? 'dark' : 'light',
+      theme: theme.palette.mode === "dark" ? "dark" : "light",
       fillSeriesColor: false,
     },
   };
   const seriescolumnchart = [
     {
-      name: '',
+      name: "",
       data: [0, 150, 110, 240, 200, 200, 300, 200],
     },
   ];
 
   return (
     <BlankCard>
-      <CardContent sx={{ p: '30px' }}>
+      <CardContent sx={{ p: "30px" }}>
         <Typography variant="h4">2,545</Typography>
         <Stack direction="row" spacing={2} justifyContent="space-between">
           <Typography variant="subtitle2" color="textSecondary">
@@ -73,7 +73,13 @@ const Followers = () => {
           </Typography>
         </Stack>
       </CardContent>
-      <Chart options={optionscolumnchart} series={seriescolumnchart} type="area" height="90px" width={"100%"}/>
+      <Chart
+        options={optionscolumnchart}
+        series={seriescolumnchart}
+        type="area"
+        height="90px"
+        width={"100%"}
+      />
     </BlankCard>
   );
 };

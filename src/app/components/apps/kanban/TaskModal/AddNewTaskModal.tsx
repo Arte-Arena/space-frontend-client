@@ -72,7 +72,7 @@ function AddNewList({
               variant="outlined"
               fullWidth
               value={task}
-              onChange={(e: { target: { value: any; }; }) =>
+              onChange={(e: { target: { value: any } }) =>
                 setNewTaskData({ ...newTaskData, task: e.target.value })
               }
             />
@@ -92,7 +92,7 @@ function AddNewList({
               variant="outlined"
               fullWidth
               value={taskText}
-              onChange={(e: { target: { value: any; }; }) =>
+              onChange={(e: { target: { value: any } }) =>
                 setNewTaskData({ ...newTaskData, taskText: e.target.value })
               }
             />
@@ -112,7 +112,7 @@ function AddNewList({
               variant="outlined"
               fullWidth
               value={taskImage}
-              onChange={(e: { target: { value: any; }; }) =>
+              onChange={(e: { target: { value: any } }) =>
                 setNewTaskData({ ...newTaskData, taskImage: e.target.value })
               }
             />
@@ -141,7 +141,7 @@ function AddNewList({
               id="taskProperty"
               variant="outlined"
               value={taskProperty}
-              onChange={(e: { target: { value: any; }; }) =>
+              onChange={(e: { target: { value: any } }) =>
                 setNewTaskData({ ...newTaskData, taskProperty: e.target.value })
               }
             >

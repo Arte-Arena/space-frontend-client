@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const SizesCheckboxCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 "use client";
 import * as React from 'react';
 import { FormGroup, FormControlLabel, Checkbox } from '@mui/material';
@@ -51,9 +51,9 @@ import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
         label="Heart"
     />
 </FormGroup>`}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default SizesCheckboxCode;

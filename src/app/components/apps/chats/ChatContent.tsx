@@ -1,16 +1,16 @@
 import React from "react";
-import Avatar from '@mui/material/Avatar'
-import Badge from '@mui/material/Badge'
-import Box from '@mui/material/Box'
-import Divider from '@mui/material/Divider'
-import IconButton from '@mui/material/IconButton'
-import ListItem from '@mui/material/ListItem'
-import ListItemAvatar from '@mui/material/ListItemAvatar'
-import ListItemText from '@mui/material/ListItemText'
-import Stack from '@mui/material/Stack'
-import { Theme } from '@mui/material/styles';
-import Typography from '@mui/material/Typography'
-import useMediaQuery from '@mui/material/useMediaQuery'
+import Avatar from "@mui/material/Avatar";
+import Badge from "@mui/material/Badge";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import ListItem from "@mui/material/ListItem";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemText from "@mui/material/ListItemText";
+import Stack from "@mui/material/Stack";
+import { Theme } from "@mui/material/styles";
+import Typography from "@mui/material/Typography";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import {
   IconDotsVertical,
   IconMenu2,
@@ -19,7 +19,7 @@ import {
 } from "@tabler/icons-react";
 import { useSelector } from "@/store/hooks";
 
-import { ChatsType } from '../../../(DashboardLayout)/types/apps/chat';
+import { ChatsType } from "../../../(DashboardLayout)/types/apps/chat";
 import { formatDistanceToNowStrict } from "date-fns";
 import ChatInsideSidebar from "./ChatInsideSidebar";
 import Scrollbar from "../../../components/custom-scroll/Scrollbar";
@@ -36,7 +36,7 @@ const ChatContent: React.FC<ChatContentProps> = ({
   const lgUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("lg"));
 
   const chatDetails: ChatsType = useSelector(
-    (state) => state.chatReducer.chats[state.chatReducer.chatContent - 1]
+    (state) => state.chatReducer.chats[state.chatReducer.chatContent - 1],
   );
 
   return (
@@ -63,10 +63,10 @@ const ChatContent: React.FC<ChatContentProps> = ({
                       chatDetails.status === "online"
                         ? "success"
                         : chatDetails.status === "busy"
-                        ? "error"
-                        : chatDetails.status === "away"
-                        ? "warning"
-                        : "secondary"
+                          ? "error"
+                          : chatDetails.status === "away"
+                            ? "warning"
+                            : "secondary"
                     }
                     variant="dot"
                     anchorOrigin={{
@@ -75,7 +75,11 @@ const ChatContent: React.FC<ChatContentProps> = ({
                     }}
                     overlap="circular"
                   >
-                    <Avatar alt={chatDetails.name} src={chatDetails.thumb} sx={{width: 40, height: 40}} />
+                    <Avatar
+                      alt={chatDetails.name}
+                      src={chatDetails.thumb}
+                      sx={{ width: 40, height: 40 }}
+                    />
                   </Badge>
                 </ListItemAvatar>
                 <ListItemText
@@ -141,7 +145,7 @@ const ChatContent: React.FC<ChatContentProps> = ({
                                     new Date(chat.createdAt),
                                     {
                                       addSuffix: false,
-                                    }
+                                    },
                                   )}{" "}
                                   ago
                                 </Typography>
@@ -170,7 +174,8 @@ const ChatContent: React.FC<ChatContentProps> = ({
                                   <Image
                                     src={chat.msg}
                                     alt="attach"
-                                    width="150" height="150"
+                                    width="150"
+                                    height="150"
                                   />
                                 </Box>
                               ) : null}
@@ -198,7 +203,7 @@ const ChatContent: React.FC<ChatContentProps> = ({
                                     new Date(chat.createdAt),
                                     {
                                       addSuffix: false,
-                                    }
+                                    },
                                   )}{" "}
                                   ago
                                 </Typography>
@@ -224,7 +229,8 @@ const ChatContent: React.FC<ChatContentProps> = ({
                                   <Image
                                     src={chat.msg}
                                     alt="attach"
-                                    width="250" height="165"
+                                    width="250"
+                                    height="165"
                                   />
                                 </Box>
                               ) : null}

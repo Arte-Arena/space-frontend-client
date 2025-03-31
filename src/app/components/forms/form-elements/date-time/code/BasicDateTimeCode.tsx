@@ -1,10 +1,10 @@
 import CodeDialog from "@/app/components/shared/CodeDialog";
 import React from "react";
 const BasicDateTimeCode = () => {
-    return (
-        <>
-            <CodeDialog>
-                {`
+  return (
+    <>
+      <CodeDialog>
+        {`
 "use client";
 import * as React from 'react';
 import dayjs, { Dayjs } from 'dayjs';
@@ -46,9 +46,9 @@ const CustomTextField = styled((props: any) => <TextField {...props} />)(({ them
     />
 </LocalizationProvider>
 `}
-            </CodeDialog>
-        </>
-    );
+      </CodeDialog>
+    </>
+  );
 };
 
 export default BasicDateTimeCode;

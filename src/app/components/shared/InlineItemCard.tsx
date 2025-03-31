@@ -1,23 +1,23 @@
-'use client'
-import { Box } from '@mui/material';
+"use client";
+import { Box } from "@mui/material";
 
 type Props = {
-  children: JSX.Element|JSX.Element[];
+  children: JSX.Element | JSX.Element[];
 };
 
 const InlineItemCard = ({ children }: Props) => (
   <Box
     sx={{
       display: {
-        xs: 'flex',
-        sm: 'inline-block',
+        xs: "flex",
+        sm: "inline-block",
       },
       flexDirection: {
-        xs: 'column',
-        sm: 'unset',
+        xs: "column",
+        sm: "unset",
       },
-      '.MuiChip-root, .MuiButton-root': {
-        m: '5px',
+      ".MuiChip-root, .MuiButton-root": {
+        m: "5px",
       },
     }}
   >

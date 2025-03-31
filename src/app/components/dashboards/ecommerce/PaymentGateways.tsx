@@ -1,9 +1,8 @@
-'use client'
-import React from 'react';
-import { useTheme } from '@mui/material/styles';
-import { Stack, Typography, Avatar, Box, Button } from '@mui/material';
-import DashboardCard from '../../shared/DashboardCard';
-
+"use client";
+import React from "react";
+import { useTheme } from "@mui/material/styles";
+import { Stack, Typography, Avatar, Box, Button } from "@mui/material";
+import DashboardCard from "../../shared/DashboardCard";
 
 const PaymentGateways = () => {
   // chart color
@@ -19,32 +18,32 @@ const PaymentGateways = () => {
 
   const stats = [
     {
-      title: 'Paypal',
-      subtitle: 'Big Brands',
+      title: "Paypal",
+      subtitle: "Big Brands",
       price: 6235,
       color: primary,
       lightcolor: primarylight,
       icon: "/images/svgs/icon-paypal.svg",
     },
     {
-      title: 'Wallet',
-      subtitle: 'Bill payment',
+      title: "Wallet",
+      subtitle: "Bill payment",
       price: 345,
       color: secondary,
       lightcolor: secondarylight,
       icon: "/images/svgs/icon-office-bag.svg",
     },
     {
-      title: 'Credit Card',
-      subtitle: 'Money reversed',
+      title: "Credit Card",
+      subtitle: "Money reversed",
       price: 2235,
       color: warning,
       lightcolor: warninglight,
       icon: "/images/svgs/icon-master-card.svg",
     },
     {
-      title: 'Refund',
-      subtitle: 'Bill Payment',
+      title: "Refund",
+      subtitle: "Bill Payment",
       price: 32,
       color: error,
       lightcolor: errorlight,
@@ -67,9 +66,18 @@ const PaymentGateways = () => {
               <Stack direction="row" alignItems="center" spacing={2}>
                 <Avatar
                   variant="rounded"
-                  sx={{ bgcolor: stat.lightcolor, color: stat.color, width: 40, height: 40 }}
+                  sx={{
+                    bgcolor: stat.lightcolor,
+                    color: stat.color,
+                    width: 40,
+                    height: 40,
+                  }}
                 >
-                    <Avatar src={stat.icon} alt={stat.icon} sx={{ width: 24, height: 24 }} />
+                  <Avatar
+                    src={stat.icon}
+                    alt={stat.icon}
+                    sx={{ width: 24, height: 24 }}
+                  />
                 </Avatar>
                 <Box>
                   <Typography variant="h6" mb="4px">
@@ -81,7 +89,11 @@ const PaymentGateways = () => {
                 </Box>
               </Stack>
               {stat.price < 400 ? (
-                <Typography variant="subtitle2" color="textSecondary" fontWeight="600">
+                <Typography
+                  variant="subtitle2"
+                  color="textSecondary"
+                  fontWeight="600"
+                >
                   -${stat.price}
                 </Typography>
               ) : (
@@ -91,7 +103,11 @@ const PaymentGateways = () => {
               )}
             </Stack>
           ))}
-          <Button variant="outlined" color="primary" sx={{mt: "40px !important"}}>
+          <Button
+            variant="outlined"
+            color="primary"
+            sx={{ mt: "40px !important" }}
+          >
             View all transactions
           </Button>
         </Stack>

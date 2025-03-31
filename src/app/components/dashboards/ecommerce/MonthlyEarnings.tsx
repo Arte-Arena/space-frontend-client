@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React from "react";
 import dynamic from "next/dynamic";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
@@ -10,7 +10,7 @@ import DashboardCard from "../../shared/DashboardCard";
 import SkeletonMonthlyEarningsCard from "../skeleton/MonthlyEarningsCard";
 
 interface monthlyearningsCardProps {
-  isLoading ?: boolean;
+  isLoading?: boolean;
 }
 
 const MonthlyEarnings = ({ isLoading }: monthlyearningsCardProps) => {
@@ -64,57 +64,62 @@ const MonthlyEarnings = ({ isLoading }: monthlyearningsCardProps) => {
 
   return (
     <>
-      {
-        isLoading ? (
-          <SkeletonMonthlyEarningsCard />
-        ) : (
-          <DashboardCard
-            title="Monthly Earnings"
-            action={
+      {isLoading ? (
+        <SkeletonMonthlyEarningsCard />
+      ) : (
+        <DashboardCard
+          title="Monthly Earnings"
+          action={
+            <Avatar
+              variant="rounded"
+              sx={{
+                bgcolor: (theme) => theme.palette.primary.light,
+                width: 40,
+                height: 40,
+              }}
+            >
               <Avatar
-                variant="rounded"
-                sx={{
-                  bgcolor: (theme) => theme.palette.primary.light,
-                  width: 40,
-                  height: 40,
-                }}
+                src="/images/svgs/icon-master-card-2.svg"
+                alt="icon"
+                sx={{ width: 24, height: 24 }}
+              />
+            </Avatar>
+          }
+          footer={
+            <Box height="70px">
+              <Chart
+                options={optionscolumnchart}
+                series={seriescolumnchart}
+                type="area"
+                width={"100%"}
+                height="70px"
+              />
+            </Box>
+          }
+        >
+          <>
+            <Stack direction="row" spacing={1} alignItems="center" mb={3}>
+              <Typography variant="h3" fontWeight="700">
+                $6,820
+              </Typography>
+              <Stack
+                direction="row"
+                spacing={1}
+                mt={1}
+                mb={2}
+                alignItems="center"
               >
-                <Avatar
-                  src="/images/svgs/icon-master-card-2.svg"
-                  alt="icon"
-                  sx={{ width: 24, height: 24 }}
-                />
-              </Avatar>
-            }
-            footer={
-              <Box height="70px">
-                <Chart
-                  options={optionscolumnchart}
-                  series={seriescolumnchart}
-                  type="area"
-                  width={"100%"}
-                  height="70px"
-                />
-              </Box>
-            }
-          >
-            <>
-              <Stack direction="row" spacing={1} alignItems="center" mb={3}>
-                <Typography variant="h3" fontWeight="700">
-                  $6,820
+                <Avatar sx={{ bgcolor: successlight, width: 20, height: 20 }}>
+                  <IconArrowUpLeft width={18} color="#13DEB9" />
+                </Avatar>
+                <Typography variant="subtitle2" color="textSecondary">
+                  +9%
                 </Typography>
-                <Stack direction="row" spacing={1} mt={1} mb={2} alignItems="center">
-                  <Avatar sx={{ bgcolor: successlight, width: 20, height: 20 }}>
-                    <IconArrowUpLeft width={18} color="#13DEB9" />
-                  </Avatar>
-                  <Typography variant="subtitle2" color="textSecondary">
-                    +9%
-                  </Typography>
-                </Stack>
               </Stack>
-            </>
-          </DashboardCard>
-        )}
+            </Stack>
+          </>
+        </DashboardCard>
+      )}
     </>
   );
 };

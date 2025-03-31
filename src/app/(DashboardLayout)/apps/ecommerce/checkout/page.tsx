@@ -1,16 +1,16 @@
-import { Box } from '@mui/material';
-import Breadcrumb from '@/app/(DashboardLayout)/layout/shared/breadcrumb/Breadcrumb';
-import PageContainer from '@/app/components/container/PageContainer';
-import ProductChecout from '@/app/components/apps/ecommerce/productCheckout/ProductCheckout';
-import ChildCard from '@/app/components/shared/ChildCard';
+import { Box } from "@mui/material";
+import Breadcrumb from "@/app/(DashboardLayout)/layout/shared/breadcrumb/Breadcrumb";
+import PageContainer from "@/app/components/container/PageContainer";
+import ProductChecout from "@/app/components/apps/ecommerce/productCheckout/ProductCheckout";
+import ChildCard from "@/app/components/shared/ChildCard";
 
 const BCrumb = [
   {
-    to: '/',
-    title: 'Home',
+    to: "/",
+    title: "Home",
   },
   {
-    title: 'Checkout',
+    title: "Checkout",
   },
 ];
 

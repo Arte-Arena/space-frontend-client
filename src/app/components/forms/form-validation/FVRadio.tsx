@@ -1,7 +1,7 @@
-'use client'
-import React from 'react';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
+"use client";
+import React from "react";
+import { useFormik } from "formik";
+import * as yup from "yup";
 
 import {
   Box,
@@ -12,16 +12,16 @@ import {
   RadioGroup,
   Radio,
   FormHelperText,
-} from '@mui/material';
+} from "@mui/material";
 
 const validationSchema = yup.object({
-  color: yup.string().required('Color selection is required'),
+  color: yup.string().required("Color selection is required"),
 });
 
 const FVRadio = () => {
   const formik = useFormik({
     initialValues: {
-      color: '',
+      color: "",
     },
     validationSchema,
     onSubmit: (values) => {
@@ -47,8 +47,8 @@ const FVRadio = () => {
                 control={
                   <Radio
                     sx={{
-                      color: 'primary.main',
-                      '&.Mui-checked': { color: 'primary.main' },
+                      color: "primary.main",
+                      "&.Mui-checked": { color: "primary.main" },
                     }}
                   />
                 }
@@ -59,8 +59,8 @@ const FVRadio = () => {
                 control={
                   <Radio
                     sx={{
-                      color: 'error.main',
-                      '&.Mui-checked': { color: 'error.main' },
+                      color: "error.main",
+                      "&.Mui-checked": { color: "error.main" },
                     }}
                   />
                 }
@@ -71,8 +71,8 @@ const FVRadio = () => {
                 control={
                   <Radio
                     sx={{
-                      color: 'secondary.main',
-                      '&.Mui-checked': { color: 'secondary.main' },
+                      color: "secondary.main",
+                      "&.Mui-checked": { color: "secondary.main" },
                     }}
                   />
                 }
@@ -82,8 +82,8 @@ const FVRadio = () => {
           </FormControl>
           {formik.errors.color && (
             <FormHelperText error id="standard-weight-helper-text-email-login">
-              {' '}
-              {formik.errors.color}{' '}
+              {" "}
+              {formik.errors.color}{" "}
             </FormHelperText>
           )}
         </Box>

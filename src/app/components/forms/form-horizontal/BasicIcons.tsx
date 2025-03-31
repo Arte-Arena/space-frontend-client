@@ -1,9 +1,15 @@
-'use client'
-import { Grid, InputAdornment, Button } from '@mui/material';
-import React from 'react';
-import CustomFormLabel from '../theme-elements/CustomFormLabel';
-import CustomOutlinedInput from '../theme-elements/CustomOutlinedInput';
-import { IconBuildingArch, IconMail, IconMessage2, IconPhone, IconUser } from '@tabler/icons-react';
+"use client";
+import { Grid, InputAdornment, Button } from "@mui/material";
+import React from "react";
+import CustomFormLabel from "../theme-elements/CustomFormLabel";
+import CustomOutlinedInput from "../theme-elements/CustomOutlinedInput";
+import {
+  IconBuildingArch,
+  IconMail,
+  IconMessage2,
+  IconPhone,
+  IconUser,
+} from "@tabler/icons-react";
 
 const BasicIcons = () => {
   return (
@@ -14,7 +20,10 @@ const BasicIcons = () => {
       <Grid container spacing={3}>
         {/* 1 */}
         <Grid item xs={12} sm={3} display="flex" alignItems="center">
-          <CustomFormLabel htmlFor="bi-name" sx={{ mt: 0, mb: { xs: '-10px', sm: 0 } }}>
+          <CustomFormLabel
+            htmlFor="bi-name"
+            sx={{ mt: 0, mb: { xs: "-10px", sm: 0 } }}
+          >
             Name
           </CustomFormLabel>
         </Grid>
@@ -32,7 +41,10 @@ const BasicIcons = () => {
         </Grid>
         {/* 2 */}
         <Grid item xs={12} sm={3} display="flex" alignItems="center">
-          <CustomFormLabel htmlFor="bi-company" sx={{ mt: 0, mb: { xs: '-10px', sm: 0 } }}>
+          <CustomFormLabel
+            htmlFor="bi-company"
+            sx={{ mt: 0, mb: { xs: "-10px", sm: 0 } }}
+          >
             Company
           </CustomFormLabel>
         </Grid>
@@ -50,7 +62,10 @@ const BasicIcons = () => {
         </Grid>
         {/* 3 */}
         <Grid item xs={12} sm={3} display="flex" alignItems="center">
-          <CustomFormLabel htmlFor="bi-email" sx={{ mt: 0, mb: { xs: '-10px', sm: 0 } }}>
+          <CustomFormLabel
+            htmlFor="bi-email"
+            sx={{ mt: 0, mb: { xs: "-10px", sm: 0 } }}
+          >
             Email
           </CustomFormLabel>
         </Grid>
@@ -68,7 +83,10 @@ const BasicIcons = () => {
         </Grid>
         {/* 4 */}
         <Grid item xs={12} sm={3} display="flex" alignItems="center">
-          <CustomFormLabel htmlFor="bi-phone" sx={{ mt: 0, mb: { xs: '-10px', sm: 0 } }}>
+          <CustomFormLabel
+            htmlFor="bi-phone"
+            sx={{ mt: 0, mb: { xs: "-10px", sm: 0 } }}
+          >
             Phone No
           </CustomFormLabel>
         </Grid>
@@ -86,7 +104,10 @@ const BasicIcons = () => {
         </Grid>
         {/* 5 */}
         <Grid item xs={12} sm={3} display="flex" alignItems="center">
-          <CustomFormLabel htmlFor="bi-message" sx={{ mt: 0, mb: { xs: '-10px', sm: 0 } }}>
+          <CustomFormLabel
+            htmlFor="bi-message"
+            sx={{ mt: 0, mb: { xs: "-10px", sm: 0 } }}
+          >
             Message
           </CustomFormLabel>
         </Grid>

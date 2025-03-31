@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import Alert from '@mui/material/Alert';
-import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
-import Tooltip from '@mui/material/Tooltip';
-import Typography from '@mui/material/Typography';
+import Alert from "@mui/material/Alert";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
 import { useSelector, useDispatch } from "@/store/hooks";
 import Scrollbar from "../../custom-scroll/Scrollbar";
 import {
@@ -15,7 +15,7 @@ import {
   SearchNotes,
 } from "@/store/apps/notes/NotesSlice";
 import { IconTrash } from "@tabler/icons-react";
-import { NotesType } from '../../../(DashboardLayout)/types/apps/notes';
+import { NotesType } from "../../../(DashboardLayout)/types/apps/notes";
 
 const NoteList = () => {
   const dispatch = useDispatch();
@@ -34,16 +34,16 @@ const NoteList = () => {
           t.title
             .toLocaleLowerCase()
             .concat(" ")
-            .includes(nSearch.toLocaleLowerCase())
+            .includes(nSearch.toLocaleLowerCase()),
       );
 
     return notes.filter((t) => !t.deleted);
   };
 
   const notes = useSelector((state) =>
-    filterNotes(state.notesReducer.notes, state.notesReducer.noteSearch)
+    filterNotes(state.notesReducer.notes, state.notesReducer.noteSearch),
   );
-  console.log(notes)
+  console.log(notes);
   return (
     <>
       <Box p={3} px={2}>

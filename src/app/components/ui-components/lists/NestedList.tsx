@@ -1,5 +1,5 @@
-'use client'
-import React from 'react';
+"use client";
+import React from "react";
 import {
   List,
   ListItemButton,
@@ -7,8 +7,8 @@ import {
   ListItemText,
   ListSubheader,
   Collapse,
-} from '@mui/material';
-import BlankCard from '../../shared/BlankCard';
+} from "@mui/material";
+import BlankCard from "../../shared/BlankCard";
 
 import {
   IconInbox,
@@ -17,7 +17,7 @@ import {
   IconChevronDown,
   IconChevronUp,
   IconStar,
-} from '@tabler/icons-react';
+} from "@tabler/icons-react";
 
 const NestedList = () => {
   const [open, setOpen] = React.useState(true);

@@ -1,7 +1,7 @@
-'use client'
-import React from 'react';
-import { Box, FormControlLabel } from '@mui/material';
-import CustomRadio from '../../theme-elements/CustomRadio';
+"use client";
+import React from "react";
+import { Box, FormControlLabel } from "@mui/material";
+import CustomRadio from "../../theme-elements/CustomRadio";
 
 const ColorLabelRadio = () => {
   return (

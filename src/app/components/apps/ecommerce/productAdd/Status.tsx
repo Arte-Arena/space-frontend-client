@@ -23,12 +23,12 @@ const StatusCard = () => {
               status === 0
                 ? "primary.main"
                 : status === 1
-                ? "error.main"
-                : status === 2
-                ? "secondary.main"
-                : status === 3
-                ? "warning.main"
-                : "error.main",
+                  ? "error.main"
+                  : status === 2
+                    ? "secondary.main"
+                    : status === 3
+                      ? "warning.main"
+                      : "error.main",
             "& svg": { display: "none" },
             width: 15,
             height: 15,

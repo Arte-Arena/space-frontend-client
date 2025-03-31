@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
 import { filter, orderBy } from "lodash";
-import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-import CardContent from '@mui/material/CardContent'
-import Fab from '@mui/material/Fab'
-import Grid from '@mui/material/Grid'
-import Rating from '@mui/material/Rating'
-import Skeleton from '@mui/material/Skeleton'
-import Stack from '@mui/material/Stack'
-import { Theme } from '@mui/material/styles';
-import Tooltip from '@mui/material/Tooltip'
-import Typography from '@mui/material/Typography'
-import useMediaQuery from '@mui/material/useMediaQuery'
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import CardContent from "@mui/material/CardContent";
+import Fab from "@mui/material/Fab";
+import Grid from "@mui/material/Grid";
+import Rating from "@mui/material/Rating";
+import Skeleton from "@mui/material/Skeleton";
+import Stack from "@mui/material/Stack";
+import { Theme } from "@mui/material/styles";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import Link from "next/link";
 import { useSelector, useDispatch } from "@/store/hooks";
 import {
@@ -43,7 +43,7 @@ const ProductList = ({ onClick }: Props) => {
     products: ProductType[],
     sortBy: string,
     filters: any,
-    search: string
+    search: string,
   ) => {
     // SORT BY
     if (sortBy === "newest") {
@@ -62,7 +62,7 @@ const ProductList = ({ onClick }: Props) => {
     // FILTER PRODUCTS
     if (filters.category !== "All") {
       products = products.filter((_product) =>
-        _product.category.includes(filters.category)
+        _product.category.includes(filters.category),
       );
     }
 
@@ -70,21 +70,21 @@ const ProductList = ({ onClick }: Props) => {
     if (filters.gender !== "All") {
       products = filter(
         products,
-        (_product) => _product.gender === filters.gender
+        (_product) => _product.gender === filters.gender,
       );
     }
 
     //FILTER PRODUCTS BY GENDER
     if (filters.color !== "All") {
       products = products.filter((_product) =>
-        _product.colors.includes(filters.color)
+        _product.colors.includes(filters.color),
       );
     }
 
     //FILTER PRODUCTS BY Search
     if (search !== "") {
       products = products.filter((_product) =>
-        _product.title.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+        _product.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()),
       );
     }
 
@@ -94,7 +94,7 @@ const ProductList = ({ onClick }: Props) => {
       products = products.filter((_product) =>
         filters.price
           ? _product.price >= minMax[0] && _product.price <= minMax[1]
-          : true
+          : true,
       );
     }
 
@@ -106,8 +106,8 @@ const ProductList = ({ onClick }: Props) => {
       state.ecommerceReducer.products,
       state.ecommerceReducer.sortBy,
       state.ecommerceReducer.filters,
-      state.ecommerceReducer.productSearch
-    )
+      state.ecommerceReducer.productSearch,
+    ),
   );
 
   // for alert when added something to cart
@@ -190,7 +190,13 @@ const ProductList = ({ onClick }: Props) => {
                       component={Link}
                       href={`/apps/ecommerce/detail/${product.id}`}
                     >
-                      <Image src={product.photo} alt="img" width={250} height={268} style={{ width: "100%" }} />
+                      <Image
+                        src={product.photo}
+                        alt="img"
+                        width={250}
+                        height={268}
+                        style={{ width: "100%" }}
+                      />
                     </Typography>
                     <Tooltip title="Add To Cart">
                       <Fab
