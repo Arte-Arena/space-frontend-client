@@ -11,6 +11,9 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControl from "@mui/material/FormControl";
 import Checkbox from "@mui/material/Checkbox";
 import Divider from "@mui/material/Divider";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import BlankCard from "../../shared/BlankCard";
 import CustomTextField from "../../forms/theme-elements/CustomTextField";
@@ -82,6 +85,12 @@ const AccountTab = () => {
   const [situacao, setSituacao] = React.useState("A");
 
   const [errors, setErrors] = useState<{ [key: string]: string | null }>({});
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState<
+    "success" | "error" | "info" | "warning"
+  >("info");
+  const [isSaving, setIsSaving] = useState(false);
 
   const handleTipoPessoaChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -113,12 +122,10 @@ const AccountTab = () => {
     setErrors((prev) => ({ ...prev, [field]: errorMessage }));
   };
 
-  // Função para verificar se o formulário é válido
   const validateForm = async () => {
     const newErrors: { [key: string]: string | null } = {};
     let isValid = true;
 
-    // Validações comuns para ambos tipos de pessoa
     const nomeEl = document.getElementById("text-nome") as HTMLInputElement;
     const emailEl = document.getElementById("text-email") as HTMLInputElement;
     const celularEl = document.getElementById(
@@ -149,7 +156,6 @@ const AccountTab = () => {
       if (celularError) isValid = false;
     }
 
-    // Validações específicas por tipo de pessoa
     if (tipoPessoa === "F") {
       const cpfEl = document.getElementById("text-cpf") as HTMLInputElement;
       if (cpfEl) {
@@ -184,13 +190,31 @@ const AccountTab = () => {
   };
 
   const handleSave = async () => {
+    setIsSaving(true);
     const isValid = await validateForm();
 
     if (isValid) {
-      console.log("Formulário válido, enviando dados...");
+      try {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        setSnackbarSeverity("success");
+        setSnackbarMessage("Dados salvos com sucesso!");
+        setOpenSnackbar(true);
+      } catch (error) {
+        setSnackbarSeverity("error");
+        setSnackbarMessage(
+          "Erro ao salvar os dados. Por favor, tente novamente mais tarde.",
+        );
+        setOpenSnackbar(true);
+      }
     } else {
-      console.log("Formulário contém erros, corrija antes de enviar.");
+      setSnackbarSeverity("error");
+      setSnackbarMessage(
+        "Formulário contém erros. Por favor, corrija os campos destacados.",
+      );
+      setOpenSnackbar(true);
     }
+    setIsSaving(false);
   };
 
   return (
@@ -734,14 +758,25 @@ const AccountTab = () => {
             variant="contained"
             color="primary"
             onClick={handleSave}
+            disabled={isSaving}
           >
-            Salvar
-          </Button>
-          <Button size="large" variant="text" color="error">
-            Cancelar
+            {isSaving ? <CircularProgress size={24} /> : "Salvar"}
           </Button>
         </Stack>
       </Grid>
+
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={() => setOpenSnackbar(false)}
+      >
+        <Alert
+          onClose={() => setOpenSnackbar(false)}
+          severity={snackbarSeverity}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </Grid>
   );
 };
