@@ -2,9 +2,9 @@ import * as yup from "yup";
 
 export const formatCelular = (value: string): string => {
   if (!value) return value;
-  
+
   const numbers = value.replace(/\D/g, "");
-  
+
   if (numbers.length <= 2) {
     return numbers.length ? `(${numbers}` : numbers;
   } else if (numbers.length <= 7) {
@@ -18,9 +18,9 @@ export const formatCelular = (value: string): string => {
 
 export const formatCPF = (value: string): string => {
   if (!value) return value;
-  
+
   const numbers = value.replace(/\D/g, "");
-  
+
   if (numbers.length <= 3) {
     return numbers;
   } else if (numbers.length <= 6) {
@@ -34,9 +34,9 @@ export const formatCPF = (value: string): string => {
 
 export const formatCNPJ = (value: string): string => {
   if (!value) return value;
-  
+
   const numbers = value.replace(/\D/g, "");
-  
+
   if (numbers.length <= 2) {
     return numbers;
   } else if (numbers.length <= 5) {
@@ -52,9 +52,9 @@ export const formatCNPJ = (value: string): string => {
 
 export const formatRG = (value: string): string => {
   if (!value) return value;
-  
+
   const numbers = value.replace(/\D/g, "");
-  
+
   if (numbers.length <= 2) {
     return numbers;
   } else if (numbers.length <= 5) {
@@ -68,9 +68,9 @@ export const formatRG = (value: string): string => {
 
 export const formatCEP = (value: string): string => {
   if (!value) return value;
-  
+
   const numbers = value.replace(/\D/g, "");
-  
+
   if (numbers.length <= 5) {
     return numbers;
   } else {

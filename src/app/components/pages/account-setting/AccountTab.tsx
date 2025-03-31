@@ -96,7 +96,7 @@ const AccountTab = () => {
     "success" | "error" | "info" | "warning"
   >("info");
   const [isSaving, setIsSaving] = useState(false);
-  
+
   const [formValues, setFormValues] = useState({
     celular: "",
     cpf: "",
@@ -134,27 +134,27 @@ const AccountTab = () => {
 
   const handleCelularChange = (e: ChangeEvent<HTMLInputElement>) => {
     const formatted = formatCelular(e.target.value);
-    setFormValues(prev => ({ ...prev, celular: formatted }));
+    setFormValues((prev) => ({ ...prev, celular: formatted }));
   };
 
   const handleCpfChange = (e: ChangeEvent<HTMLInputElement>) => {
     const formatted = formatCPF(e.target.value);
-    setFormValues(prev => ({ ...prev, cpf: formatted }));
+    setFormValues((prev) => ({ ...prev, cpf: formatted }));
   };
 
   const handleCnpjChange = (e: ChangeEvent<HTMLInputElement>) => {
     const formatted = formatCNPJ(e.target.value);
-    setFormValues(prev => ({ ...prev, cnpj: formatted }));
+    setFormValues((prev) => ({ ...prev, cnpj: formatted }));
   };
 
   const handleRgChange = (e: ChangeEvent<HTMLInputElement>) => {
     const formatted = formatRG(e.target.value);
-    setFormValues(prev => ({ ...prev, rg: formatted }));
+    setFormValues((prev) => ({ ...prev, rg: formatted }));
   };
 
   const handleCepChange = (e: ChangeEvent<HTMLInputElement>, field: string) => {
     const formatted = formatCEP(e.target.value);
-    setFormValues(prev => ({ ...prev, [field]: formatted }));
+    setFormValues((prev) => ({ ...prev, [field]: formatted }));
   };
 
   const handleBlur = async (field: string, value: string, validator: any) => {
@@ -530,7 +530,9 @@ const AccountTab = () => {
                     variant="outlined"
                     fullWidth
                     value={formValues.cep}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => handleCepChange(e, "cep")}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      handleCepChange(e, "cep")
+                    }
                     onBlur={(e: FocusEvent<HTMLInputElement>) =>
                       handleBlur("cep", e.target.value, cepValidator)
                     }
@@ -686,9 +688,15 @@ const AccountTab = () => {
                         variant="outlined"
                         fullWidth
                         value={formValues.cepCobranca}
-                        onChange={(e: ChangeEvent<HTMLInputElement>) => handleCepChange(e, "cepCobranca")}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                          handleCepChange(e, "cepCobranca")
+                        }
                         onBlur={(e: FocusEvent<HTMLInputElement>) =>
-                          handleBlur("cepCobranca", e.target.value, cepValidator)
+                          handleBlur(
+                            "cepCobranca",
+                            e.target.value,
+                            cepValidator,
+                          )
                         }
                         error={Boolean(errors.cepCobranca)}
                         helperText={errors.cepCobranca || ""}
@@ -826,7 +834,7 @@ const AccountTab = () => {
         open={openSnackbar}
         autoHideDuration={6000}
         onClose={() => setOpenSnackbar(false)}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
         <Alert
           onClose={() => setOpenSnackbar(false)}
