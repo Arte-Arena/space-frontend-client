@@ -19,10 +19,10 @@ const Error = () => (
         style={{ width: "100%", maxWidth: "500px", maxHeight: "500px" }}
       />
       <Typography align="center" variant="h1" mb={4}>
-        Opps 404!!!
+        Ops, erro 404!!!
       </Typography>
       <Typography align="center" variant="h4" mb={4}>
-        This page you are looking for could not be found.
+        A página que você está procurando não foi encontrada.
       </Typography>
       <Button
         color="primary"
@@ -31,7 +31,7 @@ const Error = () => (
         href="/"
         disableElevation
       >
-        Go Back to Home
+        Voltar para a Página Inicial
       </Button>
     </Container>
   </Box>

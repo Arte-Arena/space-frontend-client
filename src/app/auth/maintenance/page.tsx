@@ -19,10 +19,10 @@ const Maintenance = () => (
         style={{ width: "100%", maxWidth: "500px", maxHeight: "500px" }}
       />
       <Typography align="center" variant="h1" mb={4}>
-        Maintenance Mode!!!
+        Modo de Manutenção!!!
       </Typography>
       <Typography align="center" variant="h4" mb={4}>
-        Website is Under Construction. Check back later!
+        O site está em manutenção. Volte mais tarde!
       </Typography>
       <Button
         color="primary"
@@ -31,7 +31,7 @@ const Maintenance = () => (
         href="/"
         disableElevation
       >
-        Go Back to Home
+        Voltar para a Página Inicial
       </Button>
     </Container>
   </Box>
