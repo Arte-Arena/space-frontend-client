@@ -9,7 +9,9 @@ export default function AuthForgotPassword() {
   return (
     <>
       <Stack mt={4} spacing={2}>
-        <CustomFormLabel htmlFor="reset-email">Endereço de E-mail</CustomFormLabel>
+        <CustomFormLabel htmlFor="reset-email">
+          Endereço de E-mail
+        </CustomFormLabel>
         <CustomTextField id="reset-email" variant="outlined" fullWidth />
 
         <Button

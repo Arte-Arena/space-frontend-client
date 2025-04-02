@@ -33,7 +33,7 @@ const AuthSocialButtons = ({ title }: signInType) => (
           </CustomSocialButton>
         </span>
       </Tooltip>
-      
+
       <Tooltip title="Em breve disponível">
         <span>
           <CustomSocialButton disabled sx={{ opacity: 0.6 }}>

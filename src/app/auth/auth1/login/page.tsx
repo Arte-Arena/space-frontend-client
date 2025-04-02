@@ -7,7 +7,10 @@ import Image from "next/image";
 
 export default function Login() {
   return (
-    <PageContainer title="Página de Login" description="esta é uma página de exemplo">
+    <PageContainer
+      title="Página de Login"
+      description="esta é uma página de exemplo"
+    >
       <Grid
         container
         spacing={0}

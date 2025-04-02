@@ -6,7 +6,10 @@ import Image from "next/image";
 
 export default function TwoSteps() {
   return (
-    <PageContainer title="Verificação em Duas Etapas" description="esta é uma página de exemplo">
+    <PageContainer
+      title="Verificação em Duas Etapas"
+      description="esta é uma página de exemplo"
+    >
       <Grid
         container
         spacing={0}
@@ -83,7 +86,8 @@ export default function TwoSteps() {
               fontWeight="400"
               mt={2}
             >
-              Enviamos um código de verificação para o seu dispositivo móvel. Digite o código para continuar.
+              Enviamos um código de verificação para o seu dispositivo móvel.
+              Digite o código para continuar.
             </Typography>
             <AuthTwoSteps />
           </Box>

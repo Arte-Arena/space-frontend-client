@@ -7,7 +7,10 @@ import Image from "next/image";
 
 export default function Register() {
   return (
-    <PageContainer title="Página de Cadastro" description="esta é uma página de exemplo">
+    <PageContainer
+      title="Página de Cadastro"
+      description="esta é uma página de exemplo"
+    >
       <Grid
         container
         spacing={0}
@@ -83,7 +86,11 @@ export default function Register() {
               }
               subtitle={
                 <Stack direction="row" spacing={1} mt={3}>
-                  <Typography color="textSecondary" variant="h6" fontWeight="400">
+                  <Typography
+                    color="textSecondary"
+                    variant="h6"
+                    fontWeight="400"
+                  >
                     Já tem uma conta?
                   </Typography>
                   <Typography

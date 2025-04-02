@@ -21,12 +21,8 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
 
 const validationSchema = yup.object({
-  username: yup
-    .string()
-    .required("Usuário é obrigatório"),
-  password: yup
-    .string()
-    .required("Senha é obrigatória")
+  username: yup.string().required("Usuário é obrigatório"),
+  password: yup.string().required("Senha é obrigatória"),
 });
 
 const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
@@ -84,7 +80,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
         <Stack>
           <Box>
             <CustomFormLabel htmlFor="username">Usuário</CustomFormLabel>
-            <CustomTextField 
+            <CustomTextField
               id="username"
               name="username"
               variant="outlined"

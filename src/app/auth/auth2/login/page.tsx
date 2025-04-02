@@ -8,7 +8,10 @@ import AuthLogin from "../../authForms/AuthLogin";
 
 export default function Login2() {
   return (
-    <PageContainer title="Página de Login" description="esta é uma página de exemplo">
+    <PageContainer
+      title="Página de Login"
+      description="esta é uma página de exemplo"
+    >
       <Box
         sx={{
           position: "relative",

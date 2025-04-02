@@ -6,7 +6,10 @@ import Image from "next/image";
 
 export default function ForgotPassword() {
   return (
-    <PageContainer title="Recuperar Senha" description="esta é uma página de exemplo">
+    <PageContainer
+      title="Recuperar Senha"
+      description="esta é uma página de exemplo"
+    >
       <Grid
         container
         justifyContent="center"
@@ -83,7 +86,7 @@ export default function ForgotPassword() {
               fontWeight="400"
               mt={2}
             >
-              Por favor, digite o endereço de e-mail associado à sua conta e nós 
+              Por favor, digite o endereço de e-mail associado à sua conta e nós
               enviaremos um link para redefinir sua senha.
             </Typography>
             <AuthForgotPassword />
