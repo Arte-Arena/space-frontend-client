@@ -1,16 +1,27 @@
 "use client";
 import React from "react";
-import { Box, Typography, Button, Divider, Stack, Alert, IconButton, InputAdornment } from "@mui/material";
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import {
+  Box,
+  Typography,
+  Button,
+  Divider,
+  Stack,
+  Alert,
+  IconButton,
+  InputAdornment,
+} from "@mui/material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import Link from "next/link";
 import CustomTextField from "@/app/components/forms/theme-elements/CustomTextField";
 import CustomFormLabel from "@/app/components/forms/theme-elements/CustomFormLabel";
 import { registerType } from "@/app/(DashboardLayout)/types/auth/auth";
 import AuthSocialButtons from "./AuthSocialButtons";
+import AuthSuccessMessage from "./AuthSuccessMessage";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import CircularProgress from "@mui/material/CircularProgress";
+import axios from "@/utils/axios";
 
 const passwordRequirements = [
   { id: "length", label: "Mínimo de 8 caracteres", regex: /.{8,}/ },
@@ -58,6 +69,7 @@ const validationSchema = yup.object({
 const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
+  const [success, setSuccess] = React.useState(false);
   const [showPassword, setShowPassword] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
   const [passwordRequirementsMet, setPasswordRequirementsMet] = React.useState<{
@@ -65,7 +77,8 @@ const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
   }>({});
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleClickShowConfirmPassword = () => setShowConfirmPassword((show) => !show);
+  const handleClickShowConfirmPassword = () =>
+    setShowConfirmPassword((show) => !show);
 
   const formik = useFormik({
     initialValues: {
@@ -77,12 +90,19 @@ const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
     validationSchema,
     onSubmit: async (values) => {
       setError(null);
+      setSuccess(false);
       setIsLoading(true);
       try {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        throw new Error("Erro ao criar conta");
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Erro ao criar conta");
+        const response = await axios.post("http://localhost:8000/v1/clients", {
+          name: values.name,
+          email: values.email,
+          password: values.password,
+        });
+        if (response.status === 201) {
+          setSuccess(true);
+        }
+      } catch (err: any) {
+        setError(err.message);
       } finally {
         setIsLoading(false);
       }
@@ -103,162 +123,184 @@ const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
 
   return (
     <>
-      {title ? (
-        <Typography fontWeight="700" variant="h3" mb={1}>
-          {title}
-        </Typography>
-      ) : null}
+      {success ? (
+        <AuthSuccessMessage />
+      ) : (
+        <>
+          {title ? (
+            <Typography fontWeight="700" variant="h3" mb={1}>
+              {title}
+            </Typography>
+          ) : null}
 
-      {subtext}
-      <AuthSocialButtons title="Cadastre-se com" />
+          {subtext}
+          <AuthSocialButtons title="Cadastre-se com" />
 
-      <Box mt={3}>
-        <Divider>
-          <Typography
-            component="span"
-            color="textSecondary"
-            variant="h6"
-            fontWeight="400"
-            position="relative"
-            px={2}
-          >
-            ou cadastre-se com
-          </Typography>
-        </Divider>
-      </Box>
-
-      <form onSubmit={formik.handleSubmit}>
-        <Stack mb={3}>
-          <CustomFormLabel htmlFor="name">Nome</CustomFormLabel>
-          <CustomTextField
-            id="name"
-            name="name"
-            variant="outlined"
-            fullWidth
-            value={formik.values.name}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.name && Boolean(formik.errors.name)}
-            helperText={formik.touched.name && formik.errors.name}
-          />
-          <CustomFormLabel htmlFor="email">E-mail</CustomFormLabel>
-          <CustomTextField
-            id="email"
-            name="email"
-            variant="outlined"
-            fullWidth
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.email && Boolean(formik.errors.email)}
-            helperText={formik.touched.email && formik.errors.email}
-          />
-          <CustomFormLabel htmlFor="password">Senha</CustomFormLabel>
-          <CustomTextField
-            id="password"
-            name="password"
-            type={showPassword ? "text" : "password"}
-            variant="outlined"
-            fullWidth
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-
-          <CustomFormLabel htmlFor="confirmPassword">
-            Confirmar Senha
-          </CustomFormLabel>
-          <CustomTextField
-            id="confirmPassword"
-            name="confirmPassword"
-            type={showConfirmPassword ? "text" : "password"}
-            variant="outlined"
-            fullWidth
-            value={formik.values.confirmPassword}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
-            helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle confirm password visibility"
-                    onClick={handleClickShowConfirmPassword}
-                    edge="end"
-                  >
-                    {showConfirmPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-
-          {formik.values.password && (
-            <Box mt={2}>
+          <Box mt={3}>
+            <Divider>
               <Typography
-                variant="subtitle2"
+                component="span"
                 color="textSecondary"
-                gutterBottom
+                variant="h6"
+                fontWeight="400"
+                position="relative"
+                px={2}
               >
-                Requisitos da senha:
+                ou cadastre-se com
               </Typography>
-              {passwordRequirements.map((req) => (
-                <Typography
-                  key={req.id}
-                  variant="caption"
-                  color={
-                    passwordRequirementsMet[req.id]
-                      ? "success.main"
-                      : "text.secondary"
-                  }
-                  display="block"
-                  sx={{ display: "flex", alignItems: "center", gap: 1 }}
-                >
-                  {passwordRequirementsMet[req.id] ? "✓" : "○"} {req.label}
-                </Typography>
-              ))}
-            </Box>
-          )}
-        </Stack>
-
-        {error && (
-          <Box mb={2}>
-            <Alert severity="error">{error}</Alert>
+            </Divider>
           </Box>
-        )}
 
-        <Button
-          color="primary"
-          variant="contained"
-          size="large"
-          fullWidth
-          type="submit"
-          disabled={isLoading || !formik.isValid || !formik.dirty}
-        >
-          {isLoading ? (
-            <CircularProgress size={24} color="inherit" />
-          ) : (
-            "Cadastrar"
-          )}
-        </Button>
-      </form>
-      {subtitle}
+          <form onSubmit={formik.handleSubmit}>
+            <Stack mb={3}>
+              <CustomFormLabel htmlFor="name">Nome</CustomFormLabel>
+              <CustomTextField
+                id="name"
+                name="name"
+                variant="outlined"
+                fullWidth
+                value={formik.values.name}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={formik.touched.name && Boolean(formik.errors.name)}
+                helperText={formik.touched.name && formik.errors.name}
+              />
+              <CustomFormLabel htmlFor="email">E-mail</CustomFormLabel>
+              <CustomTextField
+                id="email"
+                name="email"
+                variant="outlined"
+                fullWidth
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={formik.touched.email && Boolean(formik.errors.email)}
+                helperText={formik.touched.email && formik.errors.email}
+              />
+              <CustomFormLabel htmlFor="password">Senha</CustomFormLabel>
+              <CustomTextField
+                id="password"
+                name="password"
+                type={showPassword ? "text" : "password"}
+                variant="outlined"
+                fullWidth
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={
+                  formik.touched.password && Boolean(formik.errors.password)
+                }
+                helperText={formik.touched.password && formik.errors.password}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        edge="end"
+                      >
+                        {showPassword ? (
+                          <VisibilityOffIcon />
+                        ) : (
+                          <VisibilityIcon />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+
+              <CustomFormLabel htmlFor="confirmPassword">
+                Confirmar Senha
+              </CustomFormLabel>
+              <CustomTextField
+                id="confirmPassword"
+                name="confirmPassword"
+                type={showConfirmPassword ? "text" : "password"}
+                variant="outlined"
+                fullWidth
+                value={formik.values.confirmPassword}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={
+                  formik.touched.confirmPassword &&
+                  Boolean(formik.errors.confirmPassword)
+                }
+                helperText={
+                  formik.touched.confirmPassword &&
+                  formik.errors.confirmPassword
+                }
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle confirm password visibility"
+                        onClick={handleClickShowConfirmPassword}
+                        edge="end"
+                      >
+                        {showConfirmPassword ? (
+                          <VisibilityOffIcon />
+                        ) : (
+                          <VisibilityIcon />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+
+              {formik.values.password && (
+                <Box mt={2}>
+                  <Typography
+                    variant="subtitle2"
+                    color="textSecondary"
+                    gutterBottom
+                  >
+                    Requisitos da senha:
+                  </Typography>
+                  {passwordRequirements.map((req) => (
+                    <Typography
+                      key={req.id}
+                      variant="caption"
+                      color={
+                        passwordRequirementsMet[req.id]
+                          ? "success.main"
+                          : "text.secondary"
+                      }
+                      display="block"
+                      sx={{ display: "flex", alignItems: "center", gap: 1 }}
+                    >
+                      {passwordRequirementsMet[req.id] ? "✓" : "○"} {req.label}
+                    </Typography>
+                  ))}
+                </Box>
+              )}
+            </Stack>
+
+            {error && (
+              <Box mb={2}>
+                <Alert severity="error">{error}</Alert>
+              </Box>
+            )}
+
+            <Button
+              color="primary"
+              variant="contained"
+              size="large"
+              fullWidth
+              type="submit"
+              disabled={isLoading || !formik.isValid || !formik.dirty}
+            >
+              {isLoading ? (
+                <CircularProgress size={24} color="inherit" />
+              ) : (
+                "Cadastrar"
+              )}
+            </Button>
+          </form>
+          {subtitle}
+        </>
+      )}
     </>
   );
 };
