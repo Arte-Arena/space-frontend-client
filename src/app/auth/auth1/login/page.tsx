@@ -7,7 +7,7 @@ import Image from "next/image";
 
 export default function Login() {
   return (
-    <PageContainer title="Login Page" description="this is Sample page">
+    <PageContainer title="Página de Login" description="esta é uma página de exemplo">
       <Grid
         container
         spacing={0}
@@ -75,10 +75,10 @@ export default function Login() {
         >
           <Box p={4}>
             <AuthLogin
-              title="Welcome to Modernize"
+              title="Bem-vindo ao Space"
               subtext={
                 <Typography variant="subtitle1" color="textSecondary" mb={1}>
-                  Your Admin Dashboard
+                  Um pedaço da Arte Arena para você
                 </Typography>
               }
               subtitle={
@@ -88,7 +88,7 @@ export default function Login() {
                     variant="h6"
                     fontWeight="500"
                   >
-                    New to Modernize?
+                    Novo no Space?
                   </Typography>
                   <Typography
                     component={Link}
@@ -99,7 +99,7 @@ export default function Login() {
                       color: "primary.main",
                     }}
                   >
-                    Create an account
+                    Criar uma conta
                   </Typography>
                 </Stack>
               }

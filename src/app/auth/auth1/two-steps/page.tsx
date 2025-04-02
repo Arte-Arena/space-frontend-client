@@ -6,12 +6,12 @@ import Image from "next/image";
 
 export default function TwoSteps() {
   return (
-    <PageContainer title="Two steps Page" description="this is Sample page">
+    <PageContainer title="Verificação em Duas Etapas" description="esta é uma página de exemplo">
       <Grid
         container
         spacing={0}
         justifyContent="center"
-        sx={{ overflowX: "hidden" }}
+        sx={{ height: "100vh" }}
       >
         <Grid
           item
@@ -74,15 +74,16 @@ export default function TwoSteps() {
         >
           <Box p={4}>
             <Typography variant="h4" fontWeight="700">
-              Two Step Verification
+              Verificação em Duas Etapas
             </Typography>
 
-            <Typography variant="subtitle1" color="textSecondary" mt={2} mb={1}>
-              We sent a verification code to your mobile. Enter the code from
-              the mobile in the field below.
-            </Typography>
-            <Typography variant="subtitle1" fontWeight="700" mb={1}>
-              ******1234
+            <Typography
+              color="textSecondary"
+              variant="subtitle2"
+              fontWeight="400"
+              mt={2}
+            >
+              Enviamos um código de verificação para o seu dispositivo móvel. Digite o código para continuar.
             </Typography>
             <AuthTwoSteps />
           </Box>

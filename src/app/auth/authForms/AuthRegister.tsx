@@ -16,7 +16,7 @@ const AuthRegister = ({ title, subtitle, subtext }: registerType) => (
     ) : null}
 
     {subtext}
-    <AuthSocialButtons title="Sign up with" />
+    <AuthSocialButtons title="Cadastre-se com" />
 
     <Box mt={3}>
       <Divider>
@@ -28,19 +28,19 @@ const AuthRegister = ({ title, subtitle, subtext }: registerType) => (
           position="relative"
           px={2}
         >
-          or sign up with
+          ou cadastre-se com
         </Typography>
       </Divider>
     </Box>
 
     <Box>
       <Stack mb={3}>
-        <CustomFormLabel htmlFor="name">Name</CustomFormLabel>
+        <CustomFormLabel htmlFor="name">Nome</CustomFormLabel>
         <CustomTextField id="name" variant="outlined" fullWidth />
-        <CustomFormLabel htmlFor="email">Email Adddress</CustomFormLabel>
+        <CustomFormLabel htmlFor="email">E-mail</CustomFormLabel>
         <CustomTextField id="email" variant="outlined" fullWidth />
-        <CustomFormLabel htmlFor="password">Password</CustomFormLabel>
-        <CustomTextField id="password" variant="outlined" fullWidth />
+        <CustomFormLabel htmlFor="password">Senha</CustomFormLabel>
+        <CustomTextField id="password" type="password" variant="outlined" fullWidth />
       </Stack>
       <Button
         color="primary"
@@ -50,7 +50,7 @@ const AuthRegister = ({ title, subtitle, subtext }: registerType) => (
         component={Link}
         href="/auth/auth1/login"
       >
-        Sign Up
+        Cadastrar
       </Button>
     </Box>
     {subtitle}

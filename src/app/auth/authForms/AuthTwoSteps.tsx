@@ -10,7 +10,7 @@ const AuthTwoSteps = () => (
     <Box mt={4}>
       <Stack mb={3}>
         <CustomFormLabel htmlFor="code">
-          Type your 6 digits security code{" "}
+          Digite seu código de segurança de 6 dígitos
         </CustomFormLabel>
         <Stack spacing={2} direction="row">
           <CustomTextField id="code" variant="outlined" fullWidth />
@@ -29,12 +29,12 @@ const AuthTwoSteps = () => (
         component={Link}
         href="/"
       >
-        Verify My Account
+        Verificar Minha Conta
       </Button>
 
       <Stack direction="row" spacing={1} mt={3}>
         <Typography color="textSecondary" variant="h6" fontWeight="400">
-          Didn&apos;t get the code?
+          Não recebeu o código?
         </Typography>
         <Typography
           component={Link}
@@ -45,7 +45,7 @@ const AuthTwoSteps = () => (
             color: "primary.main",
           }}
         >
-          Resend
+          Reenviar
         </Typography>
       </Stack>
     </Box>

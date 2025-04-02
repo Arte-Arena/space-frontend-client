@@ -2,13 +2,12 @@ import Link from "next/link";
 import { Grid, Box, Typography, Stack } from "@mui/material";
 import PageContainer from "@/app/components/container/PageContainer";
 import Logo from "@/app/(DashboardLayout)/layout/shared/logo/Logo";
-
 import AuthRegister from "../../authForms/AuthRegister";
 import Image from "next/image";
 
 export default function Register() {
   return (
-    <PageContainer title="Register Page" description="this is Sample page">
+    <PageContainer title="Página de Cadastro" description="esta é uma página de exemplo">
       <Grid
         container
         spacing={0}
@@ -76,20 +75,16 @@ export default function Register() {
         >
           <Box p={4}>
             <AuthRegister
-              title="Welcome to Modernize"
+              title="Bem-vindo ao Modernize"
               subtext={
                 <Typography variant="subtitle1" color="textSecondary" mb={1}>
-                  Your Admin Dashboard
+                  Seu Painel Administrativo
                 </Typography>
               }
               subtitle={
                 <Stack direction="row" spacing={1} mt={3}>
-                  <Typography
-                    color="textSecondary"
-                    variant="h6"
-                    fontWeight="400"
-                  >
-                    Already have an Account?
+                  <Typography color="textSecondary" variant="h6" fontWeight="400">
+                    Já tem uma conta?
                   </Typography>
                   <Typography
                     component={Link}
@@ -100,7 +95,7 @@ export default function Register() {
                       color: "primary.main",
                     }}
                   >
-                    Sign In
+                    Entrar
                   </Typography>
                 </Stack>
               }

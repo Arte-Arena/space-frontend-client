@@ -12,7 +12,7 @@ const mockUniformSets: UniformSet[] = [
 const generateMockSketches = (): Sketch[] => {
   const letters = ["A", "B", "C"];
   return letters.map((letter) => {
-    const playerCount = Math.floor(Math.random() * 10) + 5;
+    const playerCount = Math.floor(Math.random() * 1) + 1;
     const players = Array.from({ length: playerCount }, (_, i) =>
       createEmptyPlayer(i + 1),
     );

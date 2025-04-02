@@ -8,7 +8,7 @@ import AuthLogin from "../../authForms/AuthLogin";
 
 export default function Login2() {
   return (
-    <PageContainer title="Login Page" description="this is Sample page">
+    <PageContainer title="Página de Login" description="esta é uma página de exemplo">
       <Box
         sx={{
           position: "relative",
@@ -60,7 +60,7 @@ export default function Login2() {
                       variant="h6"
                       fontWeight="500"
                     >
-                      New to Modernize?
+                      Novo no Modernize?
                     </Typography>
                     <Typography
                       component={Link}
@@ -71,7 +71,7 @@ export default function Login2() {
                         color: "primary.main",
                       }}
                     >
-                      Create an account
+                      Criar uma conta
                     </Typography>
                   </Stack>
                 }
