@@ -1,4 +1,5 @@
-"use client";
+'use client';
+
 import React from "react";
 import {
   Box,
@@ -19,9 +20,12 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
+import axios from "@/utils/axios";
 
 const validationSchema = yup.object({
-  username: yup.string().required("Usuário é obrigatório"),
+  email: yup.string()
+    .required("Email é obrigatório")
+    .email("Digite um email válido"),
   password: yup.string().required("Senha é obrigatória"),
 });
 
@@ -31,7 +35,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
 
   const formik = useFormik({
     initialValues: {
-      username: "",
+      email: "",
       password: "",
     },
     validationSchema,
@@ -39,10 +43,18 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
       setError(null);
       setIsLoading(true);
       try {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        throw new Error("Credenciais inválidas");
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Erro ao fazer login");
+        const response = await axios.post("http://localhost:8000/v1/auth/signin", {
+          email: values.email,
+          password: values.password,
+        }, {
+          withCredentials: true
+        });
+        
+        if (response.status === 200) {
+          window.location.href = '/';
+        }
+      } catch (err: any) {
+        setError(err.response?.data?.message || err.message || "Erro ao fazer login");
       } finally {
         setIsLoading(false);
       }
@@ -79,17 +91,17 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
       <form onSubmit={formik.handleSubmit}>
         <Stack>
           <Box>
-            <CustomFormLabel htmlFor="username">Usuário</CustomFormLabel>
+            <CustomFormLabel htmlFor="email">Email</CustomFormLabel>
             <CustomTextField
-              id="username"
-              name="username"
+              id="email"
+              name="email"
               variant="outlined"
               fullWidth
-              value={formik.values.username}
+              value={formik.values.email}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              error={formik.touched.username && Boolean(formik.errors.username)}
-              helperText={formik.touched.username && formik.errors.username}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
             />
           </Box>
           <Box>
