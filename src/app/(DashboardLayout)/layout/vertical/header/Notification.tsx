@@ -114,17 +114,17 @@ const Notifications = () => {
               </Box>
             ))
           ) : (
-            <Box 
-              display="flex" 
-              flexDirection="column" 
-              alignItems="center" 
-              justifyContent="center" 
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              justifyContent="center"
               sx={{ py: 4, px: 4, height: "100%" }}
             >
               <IconInfoCircle size={48} stroke={1.5} color="#9e9e9e" />
-              <Typography 
-                variant="body1" 
-                color="textSecondary" 
+              <Typography
+                variant="body1"
+                color="textSecondary"
                 sx={{ mt: 2, textAlign: "center" }}
               >
                 Você não possui notificações no momento.

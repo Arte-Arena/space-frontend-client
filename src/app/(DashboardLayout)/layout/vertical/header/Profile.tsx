@@ -17,7 +17,7 @@ import { logout } from "@/services/auth";
 const Profile = () => {
   const [anchorEl2, setAnchorEl2] = useState(null);
   const router = useRouter();
-  
+
   const handleClick2 = (event: any) => {
     setAnchorEl2(event.currentTarget);
   };

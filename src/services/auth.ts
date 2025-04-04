@@ -27,9 +27,13 @@ export const login = async (data: LoginData): Promise<any> => {
 
 export const logout = async (router: any): Promise<void> => {
   try {
-    await axios.post(`${API_URL}/auth/signout`, {}, {
-      withCredentials: true,
-    });
+    await axios.post(
+      `${API_URL}/auth/signout`,
+      {},
+      {
+        withCredentials: true,
+      },
+    );
     router.push("/auth/auth1/login");
   } catch (error) {
     router.push("/auth/auth1/login");
