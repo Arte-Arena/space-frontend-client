@@ -20,7 +20,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
-import axios from "@/utils/axios";
+import { login } from "@/services/auth";
 
 const validationSchema = yup.object({
   email: yup
@@ -44,20 +44,11 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
       setError(null);
       setIsLoading(true);
       try {
-        const response = await axios.post(
-          "http://localhost:8000/v1/auth/signin",
-          {
-            email: values.email,
-            password: values.password,
-          },
-          {
-            withCredentials: true,
-          },
-        );
-
-        if (response.status === 200) {
-          window.location.href = "/";
-        }
+        await login({
+          email: values.email,
+          password: values.password,
+        });
+        window.location.href = "/";
       } catch (err: any) {
         setError(
           err.response?.data?.message || err.message || "Erro ao fazer login",

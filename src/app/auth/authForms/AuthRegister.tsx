@@ -21,7 +21,7 @@ import AuthSuccessMessage from "./AuthSuccessMessage";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import CircularProgress from "@mui/material/CircularProgress";
-import axios from "@/utils/axios";
+import { register } from "@/services/auth";
 
 const passwordRequirements = [
   { id: "length", label: "Mínimo de 8 caracteres", regex: /.{8,}/ },
@@ -93,14 +93,12 @@ const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
       setSuccess(false);
       setIsLoading(true);
       try {
-        const response = await axios.post("http://localhost:8000/v1/clients", {
+        await register({
           name: values.name,
           email: values.email,
           password: values.password,
         });
-        if (response.status === 201) {
-          setSuccess(true);
-        }
+        setSuccess(true);
       } catch (err: any) {
         setError(err.message);
       } finally {
