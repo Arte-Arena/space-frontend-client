@@ -16,9 +16,11 @@ import {
 import { IconShoppingCart, IconCheck } from "@tabler/icons-react";
 import Image from "next/image";
 
-const WelcomeCard = () => {
-  // Mock client data that would come from an API or authentication context
-  const [clientName, setClientName] = useState("");
+interface WelcomeCardProps {
+  clientName?: string;
+}
+
+const WelcomeCard: React.FC<WelcomeCardProps> = ({ clientName }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [pendingOrders, setPendingOrders] = useState(0);
   const [completedOrders, setCompletedOrders] = useState(0);
@@ -29,7 +31,6 @@ const WelcomeCard = () => {
   useEffect(() => {
     // Simulate fetch data from an API
     setTimeout(() => {
-      setClientName("Ricardo Silva");
       setPendingOrders(2);
       setCompletedOrders(3);
       setIsLoading(false);
@@ -80,7 +81,7 @@ const WelcomeCard = () => {
                   {isLoading ? (
                     <Skeleton variant="text" width={250} height={32} />
                   ) : (
-                    `Bem-vindo de volta, ${clientName}!`
+                    `Bem-vindo de volta, ${clientName || "Usuário"}!`
                   )}
                 </Typography>
               </Box>

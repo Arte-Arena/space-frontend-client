@@ -1,0 +1,29 @@
+export interface Contact {
+  personType?: string;
+  name: string;
+  identityCard?: string;
+  cpf?: string;
+  email: string;
+  cellPhone?: string;
+  zipCode?: string;
+  address?: string;
+  number?: string;
+  complement?: string;
+  neighborhood?: string;
+  city?: string;
+  state?: string;
+  companyName?: string;
+  cnpj?: string;
+  stateRegistration?: string;
+  billingZipCode?: string;
+  billingAddress?: string;
+  billingNumber?: string;
+  billingComplement?: string;
+  billingNeighborhood?: string;
+  billingCity?: string;
+  billingState?: string;
+  differentBillingAddress?: boolean;
+  status?: string;
+  created_at?: Date;
+  updated_at: Date;
+}

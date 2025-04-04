@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FocusEvent } from "react";
+import React, { useState, ChangeEvent, FocusEvent, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import CardContent from "@mui/material/CardContent";
@@ -45,6 +45,12 @@ import {
   formatCEP,
 } from "../../../../utils/validators";
 
+import {
+  getClientData,
+  ClientData,
+} from "../../../../services/account-settings";
+import { useRouter } from "next/navigation";
+
 const ufOptions = [
   { value: "AC", label: "AC" },
   { value: "AL", label: "AL" },
@@ -82,6 +88,7 @@ const situacaoOptions = [
 ];
 
 const AccountTab = () => {
+  const router = useRouter();
   const [tipoPessoa, setTipoPessoa] = React.useState("F");
   const [enderecoCobrancaDiferente, setEnderecoCobrancaDiferente] =
     React.useState(false);
@@ -97,14 +104,30 @@ const AccountTab = () => {
   >("info");
   const [isSaving, setIsSaving] = useState(false);
 
+  const [clientData, setClientData] = useState<ClientData | null>(null);
+
   const [formValues, setFormValues] = useState({
+    nome: "",
+    email: "",
     celular: "",
     cpf: "",
     rg: "",
     cnpj: "",
     inscricaoEstadual: "",
     cep: "",
+    endereco: "",
+    numero: "",
+    complemento: "",
+    bairro: "",
+    cidade: "",
     cepCobranca: "",
+    enderecoCobranca: "",
+    numeroCobranca: "",
+    complementoCobranca: "",
+    bairroCobranca: "",
+    cidadeCobranca: "",
+    nomeFantasia: "",
+    razaoSocial: "",
   });
 
   const handleTipoPessoaChange = (
@@ -257,6 +280,49 @@ const AccountTab = () => {
     setIsSaving(false);
   };
 
+  useEffect(() => {
+    const fetchClientData = async () => {
+      const data = await getClientData(router);
+      setClientData(data);
+
+      if (data && data.contact) {
+        setTipoPessoa(data.contact.personType || "F");
+        setUf(data.contact.state || "SP");
+        setUfCobranca(data.contact.billingState || "SP");
+        setSituacao(data.contact.status || "A");
+        setEnderecoCobrancaDiferente(
+          data.contact.differentBillingAddress || false,
+        );
+
+        setFormValues({
+          nome: data.contact.name || "",
+          email: data.contact.email || "",
+          celular: data.contact.cellPhone || "",
+          cpf: data.contact.cpf || "",
+          rg: data.contact.identityCard || "",
+          cnpj: data.contact.cnpj || "",
+          inscricaoEstadual: data.contact.stateRegistration || "",
+          cep: data.contact.zipCode || "",
+          endereco: data.contact.address || "",
+          numero: data.contact.number || "",
+          complemento: data.contact.complement || "",
+          bairro: data.contact.neighborhood || "",
+          cidade: data.contact.city || "",
+          cepCobranca: data.contact.billingZipCode || "",
+          enderecoCobranca: data.contact.billingAddress || "",
+          numeroCobranca: data.contact.billingNumber || "",
+          complementoCobranca: data.contact.billingComplement || "",
+          bairroCobranca: data.contact.billingNeighborhood || "",
+          cidadeCobranca: data.contact.billingCity || "",
+          nomeFantasia: data.contact.name || "",
+          razaoSocial: data.contact.companyName || "",
+        });
+      }
+    };
+
+    fetchClientData();
+  }, [router]);
+
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
@@ -314,6 +380,13 @@ const AccountTab = () => {
                     }
                     variant="outlined"
                     fullWidth
+                    value={formValues.nome}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      setFormValues((prev) => ({
+                        ...prev,
+                        nome: e.target.value,
+                      }))
+                    }
                     onBlur={(e: FocusEvent<HTMLInputElement>) =>
                       handleBlur(
                         "nome",
@@ -338,6 +411,13 @@ const AccountTab = () => {
                     variant="outlined"
                     fullWidth
                     type="email"
+                    value={formValues.email}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      setFormValues((prev) => ({
+                        ...prev,
+                        email: e.target.value,
+                      }))
+                    }
                     onBlur={(e: FocusEvent<HTMLInputElement>) =>
                       handleBlur("email", e.target.value, emailValidator)
                     }
@@ -430,7 +510,8 @@ const AccountTab = () => {
                         placeholder="Razão social da empresa"
                         variant="outlined"
                         fullWidth
-                        onBlur={(e: FocusEvent<HTMLInputElement>) =>
+                        value={formValues.razaoSocial}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
                           handleBlur(
                             "razaoSocial",
                             e.target.value,
@@ -477,7 +558,8 @@ const AccountTab = () => {
                         placeholder="Inscrição estadual"
                         variant="outlined"
                         fullWidth
-                        onBlur={(e: FocusEvent<HTMLInputElement>) =>
+                        value={formValues.inscricaoEstadual}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
                           handleBlur(
                             "inscricaoEstadual",
                             e.target.value,
@@ -547,9 +629,16 @@ const AccountTab = () => {
                   </CustomFormLabel>
                   <CustomTextField
                     id="text-endereco"
-                    placeholder="Rua, Avenida, etc"
+                    placeholder="Endereço"
                     variant="outlined"
                     fullWidth
+                    value={formValues.endereco}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      setFormValues((prev) => ({
+                        ...prev,
+                        endereco: e.target.value,
+                      }))
+                    }
                     onBlur={(e: FocusEvent<HTMLInputElement>) =>
                       handleBlur("endereco", e.target.value, enderecoValidator)
                     }
@@ -567,6 +656,13 @@ const AccountTab = () => {
                     placeholder="Número"
                     variant="outlined"
                     fullWidth
+                    value={formValues.numero}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      setFormValues((prev) => ({
+                        ...prev,
+                        numero: e.target.value,
+                      }))
+                    }
                     onBlur={(e: FocusEvent<HTMLInputElement>) =>
                       handleBlur("numero", e.target.value, numeroValidator)
                     }
@@ -584,6 +680,13 @@ const AccountTab = () => {
                     placeholder="Apto, sala, etc"
                     variant="outlined"
                     fullWidth
+                    value={formValues.complemento}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      setFormValues((prev) => ({
+                        ...prev,
+                        complemento: e.target.value,
+                      }))
+                    }
                     onBlur={(e: FocusEvent<HTMLInputElement>) =>
                       handleBlur(
                         "complemento",
@@ -605,6 +708,13 @@ const AccountTab = () => {
                     placeholder="Bairro"
                     variant="outlined"
                     fullWidth
+                    value={formValues.bairro}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      setFormValues((prev) => ({
+                        ...prev,
+                        bairro: e.target.value,
+                      }))
+                    }
                     onBlur={(e: FocusEvent<HTMLInputElement>) =>
                       handleBlur("bairro", e.target.value, bairroValidator)
                     }
@@ -622,6 +732,13 @@ const AccountTab = () => {
                     placeholder="Cidade"
                     variant="outlined"
                     fullWidth
+                    value={formValues.cidade}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      setFormValues((prev) => ({
+                        ...prev,
+                        cidade: e.target.value,
+                      }))
+                    }
                     onBlur={(e: FocusEvent<HTMLInputElement>) =>
                       handleBlur("cidade", e.target.value, cidadeValidator)
                     }
@@ -712,7 +829,7 @@ const AccountTab = () => {
                       </CustomFormLabel>
                       <CustomTextField
                         id="text-endereco-cobranca"
-                        placeholder="Rua, Avenida, etc"
+                        placeholder="Endereço"
                         variant="outlined"
                         fullWidth
                       />

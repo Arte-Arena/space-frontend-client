@@ -19,7 +19,9 @@ import {
 } from "@tabler/icons-react";
 import ProfileTab from "./ProfileTab";
 import BlankCard from "../../../shared/BlankCard";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { getClientData, ClientData } from "@/services/account-settings";
 
 const ProfileBanner = () => {
   const ProfileImage = styled(Box)(() => ({
@@ -32,6 +34,18 @@ const ProfileBanner = () => {
     justifyContent: "center",
     margin: "0 auto",
   }));
+
+  const router = useRouter();
+  const [clientData, setClientData] = useState<ClientData | null>(null);
+
+  useEffect(() => {
+    const fetchClientData = async () => {
+      const data = await getClientData(router);
+      setClientData(data);
+    };
+
+    fetchClientData();
+  }, [router]);
 
   return (
     <>
@@ -139,14 +153,14 @@ const ProfileBanner = () => {
                 </ProfileImage>
                 <Box mt={1}>
                   <Typography fontWeight={600} variant="h5">
-                    Mathew Anderson
+                    {clientData?.contact?.name || "User"}
                   </Typography>
                   <Typography
                     color="textSecondary"
                     variant="h6"
                     fontWeight={400}
                   >
-                    Designer
+                    {clientData?.contact?.email || "user@example.com"}
                   </Typography>
                 </Box>
               </Box>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Menu,
@@ -13,10 +13,21 @@ import { IconMail } from "@tabler/icons-react";
 import { Stack } from "@mui/system";
 import { useRouter } from "next/navigation";
 import { logout } from "@/services/auth";
+import { getClientData, ClientData } from "@/services/account-settings";
 
 const Profile = () => {
   const [anchorEl2, setAnchorEl2] = useState(null);
   const router = useRouter();
+  const [clientData, setClientData] = useState<ClientData | null>(null);
+
+  useEffect(() => {
+    const fetchClientData = async () => {
+      const data = await getClientData(router);
+      setClientData(data);
+    };
+
+    fetchClientData();
+  }, [router]);
 
   const handleClick2 = (event: any) => {
     setAnchorEl2(event.currentTarget);
@@ -62,52 +73,41 @@ const Profile = () => {
         keepMounted
         open={Boolean(anchorEl2)}
         onClose={handleClose2}
-        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-        transformOrigin={{ horizontal: "right", vertical: "top" }}
         sx={{
           "& .MuiMenu-paper": {
-            width: "360px",
-            p: 4,
+            width: "385px",
           },
         }}
       >
-        <Typography variant="h5">Perfil do Usuário</Typography>
-        <Stack direction="row" py={3} spacing={2} alignItems="center">
-          <Avatar
-            src={"/images/profile/user-1.jpg"}
-            alt={"ProfileImg"}
-            sx={{ width: 95, height: 95 }}
-          />
-          <Box>
-            <Typography
-              variant="subtitle2"
-              color="textPrimary"
-              fontWeight={600}
+        <Box p={2} pt={1}>
+          <Stack direction="row" py={1} alignItems="center">
+            <Box display="flex" alignItems="center">
+              <Avatar
+                src={"/images/profile/user-1.jpg"}
+                alt={"ProfileImg"}
+                sx={{ width: 54, height: 54 }}
+              />
+              <Box sx={{ ml: 2 }}>
+                <Typography variant="h5" fontWeight={600}>
+                  {clientData?.contact?.name || "User"}
+                </Typography>
+                <Typography color="textSecondary" variant="h6" fontWeight={400}>
+                  {clientData?.contact?.email || "example@email.com"}
+                </Typography>
+              </Box>
+            </Box>
+          </Stack>
+          <Divider />
+          <Box pt={3}>
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              onClick={handleLogout}
             >
-              Mathew Anderson
-            </Typography>
-            <Typography
-              variant="subtitle2"
-              color="textSecondary"
-              display="flex"
-              alignItems="center"
-              gap={1}
-            >
-              <IconMail width={15} height={15} />
-              info@modernize.com
-            </Typography>
+              Logout
+            </Button>
           </Box>
-        </Stack>
-        <Divider />
-        <Box mt={2}>
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={handleLogout}
-            fullWidth
-          >
-            Logout
-          </Button>
         </Box>
       </Menu>
     </Box>

@@ -2,6 +2,9 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { getClientData, ClientData } from "@/services/account-settings";
+import moment from "moment";
 
 import PageContainer from "@/app/components/container/PageContainer";
 
@@ -19,6 +22,7 @@ import {
   ListItemText,
   ListItemIcon,
   Divider,
+  Skeleton,
 } from "@mui/material";
 import Link from "next/link";
 import {
@@ -30,9 +34,28 @@ import {
 
 export default function Dashboard() {
   const [isLoading, setLoading] = useState(true);
+  const [clientData, setClientData] = useState<ClientData | null>(null);
+  const router = useRouter();
+
   useEffect(() => {
-    setLoading(false);
-  }, []);
+    const fetchClientData = async () => {
+      try {
+        const data = await getClientData(router);
+        setClientData(data);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchClientData();
+  }, [router]);
+
+  const formatClientSince = () => {
+    if (!clientData?.created_at) return "N/A";
+
+    moment.locale("pt-br");
+    return moment(clientData.created_at).format("MMMM YYYY");
+  };
 
   return (
     <PageContainer title="Dashboard" description="Painel do Cliente">
@@ -40,7 +63,7 @@ export default function Dashboard() {
         <Grid container spacing={3}>
           {/* Welcome Card for Client */}
           <Grid item xs={12} lg={8}>
-            <WelcomeCard />
+            <WelcomeCard clientName={clientData?.contact?.name} />
           </Grid>
 
           {/* Informações Rápidas do Cliente */}
@@ -61,28 +84,40 @@ export default function Dashboard() {
                     <ListItemIcon>
                       <IconUser size={20} />
                     </ListItemIcon>
-                    <ListItemText
-                      primary="Nome Completo"
-                      secondary="Ricardo Silva"
-                    />
+                    {isLoading ? (
+                      <Skeleton variant="text" width="100%" height={40} />
+                    ) : (
+                      <ListItemText
+                        primary="Nome Completo"
+                        secondary={clientData?.contact?.name || "N/A"}
+                      />
+                    )}
                   </ListItem>
                   <ListItem>
                     <ListItemIcon>
                       <IconAddressBook size={20} />
                     </ListItemIcon>
-                    <ListItemText
-                      primary="Email"
-                      secondary="ricardo.silva@email.com"
-                    />
+                    {isLoading ? (
+                      <Skeleton variant="text" width="100%" height={40} />
+                    ) : (
+                      <ListItemText
+                        primary="Email"
+                        secondary={clientData?.contact?.email || "N/A"}
+                      />
+                    )}
                   </ListItem>
                   <ListItem>
                     <ListItemIcon>
                       <IconCalendarEvent size={20} />
                     </ListItemIcon>
-                    <ListItemText
-                      primary="Cliente Desde"
-                      secondary="Fevereiro 2023"
-                    />
+                    {isLoading ? (
+                      <Skeleton variant="text" width="100%" height={40} />
+                    ) : (
+                      <ListItemText
+                        primary="Cliente Desde"
+                        secondary={formatClientSince()}
+                      />
+                    )}
                   </ListItem>
                 </List>
                 <Box mt={2}>

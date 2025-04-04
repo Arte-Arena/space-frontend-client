@@ -11,6 +11,8 @@ import { IconPower } from "@tabler/icons-react";
 import { AppState } from "@/store/store";
 import { useRouter } from "next/navigation";
 import { logout } from "@/services/auth";
+import { useEffect, useState } from "react";
+import { getClientData, ClientData } from "@/services/account-settings";
 
 export const Profile = () => {
   const customizer = useSelector((state: AppState) => state.customizer);
@@ -19,6 +21,16 @@ export const Profile = () => {
     ? customizer.isCollapse && !customizer.isSidebarHover
     : "";
   const router = useRouter();
+  const [clientData, setClientData] = useState<ClientData | null>(null);
+
+  useEffect(() => {
+    const fetchClientData = async () => {
+      const data = await getClientData(router);
+      setClientData(data);
+    };
+
+    fetchClientData();
+  }, [router]);
 
   const handleLogout = async () => {
     await logout(router);
@@ -34,13 +46,15 @@ export const Profile = () => {
       {!hideMenu ? (
         <>
           <Avatar
-            alt="Remy Sharp"
+            alt="Profile"
             src={"/images/profile/user-1.jpg"}
             sx={{ height: 40, width: 40 }}
           />
 
           <Box>
-            <Typography variant="h6">Mathew</Typography>
+            <Typography variant="h6">
+              {clientData?.contact?.name || "User"}
+            </Typography>
           </Box>
           <Box sx={{ ml: "auto" }}>
             <Tooltip title="Logout" placement="top">
