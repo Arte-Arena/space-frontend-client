@@ -9,7 +9,8 @@ import {
 import { useSelector } from "@/store/hooks";
 import { IconPower } from "@tabler/icons-react";
 import { AppState } from "@/store/store";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { logout } from "@/services/auth";
 
 export const Profile = () => {
   const customizer = useSelector((state: AppState) => state.customizer);
@@ -17,6 +18,11 @@ export const Profile = () => {
   const hideMenu = lgUp
     ? customizer.isCollapse && !customizer.isSidebarHover
     : "";
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await logout(router);
+  };
 
   return (
     <Box
@@ -35,14 +41,12 @@ export const Profile = () => {
 
           <Box>
             <Typography variant="h6">Mathew</Typography>
-            <Typography variant="caption">Designer</Typography>
           </Box>
           <Box sx={{ ml: "auto" }}>
             <Tooltip title="Logout" placement="top">
               <IconButton
                 color="primary"
-                component={Link}
-                href="/auth/auth1/login"
+                onClick={handleLogout}
                 aria-label="logout"
                 size="small"
               >

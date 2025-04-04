@@ -13,7 +13,7 @@ import {
 import * as dropdownData from "./data";
 import Scrollbar from "@/app/components/custom-scroll/Scrollbar";
 
-import { IconBellRinging } from "@tabler/icons-react";
+import { IconBellRinging, IconInfoCircle } from "@tabler/icons-react";
 import { Stack } from "@mui/system";
 import Link from "next/link";
 
@@ -32,7 +32,7 @@ const Notifications = () => {
     <Box>
       <IconButton
         size="large"
-        aria-label="show 11 new notifications"
+        aria-label="mostrar notificações"
         color="inherit"
         aria-controls="msgs-menu"
         aria-haspopup="true"
@@ -69,49 +69,68 @@ const Notifications = () => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Typography variant="h6">Notifications</Typography>
-          <Chip label="5 new" color="primary" size="small" />
+          <Typography variant="h6">Notificações</Typography>
+          <Chip label="0 novas" color="primary" size="small" />
         </Stack>
         <Scrollbar sx={{ height: "385px" }}>
-          {dropdownData.notifications.map((notification, index) => (
-            <Box key={index}>
-              <MenuItem sx={{ py: 2, px: 4 }}>
-                <Stack direction="row" spacing={2}>
-                  <Avatar
-                    src={notification.avatar}
-                    alt={notification.avatar}
-                    sx={{
-                      width: 48,
-                      height: 48,
-                    }}
-                  />
-                  <Box>
-                    <Typography
-                      variant="subtitle2"
-                      color="textPrimary"
-                      fontWeight={600}
-                      noWrap
+          {dropdownData.notifications.length > 0 ? (
+            dropdownData.notifications.map((notification, index) => (
+              <Box key={index}>
+                <MenuItem sx={{ py: 2, px: 4 }}>
+                  <Stack direction="row" spacing={2}>
+                    <Avatar
+                      src={notification.avatar}
+                      alt={notification.avatar}
                       sx={{
-                        width: "240px",
+                        width: 48,
+                        height: 48,
                       }}
-                    >
-                      {notification.title}
-                    </Typography>
-                    <Typography
-                      color="textSecondary"
-                      variant="subtitle2"
-                      sx={{
-                        width: "240px",
-                      }}
-                      noWrap
-                    >
-                      {notification.subtitle}
-                    </Typography>
-                  </Box>
-                </Stack>
-              </MenuItem>
+                    />
+                    <Box>
+                      <Typography
+                        variant="subtitle2"
+                        color="textPrimary"
+                        fontWeight={600}
+                        noWrap
+                        sx={{
+                          width: "240px",
+                        }}
+                      >
+                        {notification.title}
+                      </Typography>
+                      <Typography
+                        color="textSecondary"
+                        variant="subtitle2"
+                        sx={{
+                          width: "240px",
+                        }}
+                        noWrap
+                      >
+                        {notification.subtitle}
+                      </Typography>
+                    </Box>
+                  </Stack>
+                </MenuItem>
+              </Box>
+            ))
+          ) : (
+            <Box 
+              display="flex" 
+              flexDirection="column" 
+              alignItems="center" 
+              justifyContent="center" 
+              sx={{ py: 4, px: 4, height: "100%" }}
+            >
+              <IconInfoCircle size={48} stroke={1.5} color="#9e9e9e" />
+              <Typography 
+                variant="body1" 
+                color="textSecondary" 
+                sx={{ mt: 2, textAlign: "center" }}
+              >
+                Você não possui notificações no momento.
+              </Typography>
             </Box>
-          ))}
+          )}
         </Scrollbar>
         <Box p={3} pb={1}>
           <Button
@@ -121,7 +140,7 @@ const Notifications = () => {
             color="primary"
             fullWidth
           >
-            See all Notifications
+            Ver todas as notificações
           </Button>
         </Box>
       </Menu>

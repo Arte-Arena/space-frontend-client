@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Link from "next/link";
 import {
   Box,
   Menu,
@@ -9,19 +8,26 @@ import {
   Button,
   IconButton,
 } from "@mui/material";
-import * as dropdownData from "./data";
 
 import { IconMail } from "@tabler/icons-react";
 import { Stack } from "@mui/system";
-import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { logout } from "@/services/auth";
 
 const Profile = () => {
   const [anchorEl2, setAnchorEl2] = useState(null);
+  const router = useRouter();
+  
   const handleClick2 = (event: any) => {
     setAnchorEl2(event.currentTarget);
   };
   const handleClose2 = () => {
     setAnchorEl2(null);
+  };
+
+  const handleLogout = async () => {
+    setAnchorEl2(null);
+    await logout(router);
   };
 
   return (
@@ -65,7 +71,7 @@ const Profile = () => {
           },
         }}
       >
-        <Typography variant="h5">User Profile</Typography>
+        <Typography variant="h5">Perfil do Usuário</Typography>
         <Stack direction="row" py={3} spacing={2} alignItems="center">
           <Avatar
             src={"/images/profile/user-1.jpg"}
@@ -80,9 +86,6 @@ const Profile = () => {
             >
               Mathew Anderson
             </Typography>
-            <Typography variant="subtitle2" color="textSecondary">
-              Designer
-            </Typography>
             <Typography
               variant="subtitle2"
               color="textSecondary"
@@ -96,92 +99,11 @@ const Profile = () => {
           </Box>
         </Stack>
         <Divider />
-        {dropdownData.profile.map((profile) => (
-          <Box key={profile.title}>
-            <Box sx={{ py: 2, px: 0 }} className="hover-text-primary">
-              <Link href={profile.href}>
-                <Stack direction="row" spacing={2}>
-                  <Box
-                    width="45px"
-                    height="45px"
-                    bgcolor="primary.light"
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                    flexShrink="0"
-                  >
-                    <Avatar
-                      src={profile.icon}
-                      alt={profile.icon}
-                      sx={{
-                        width: 24,
-                        height: 24,
-                        borderRadius: 0,
-                      }}
-                    />
-                  </Box>
-                  <Box>
-                    <Typography
-                      variant="subtitle2"
-                      fontWeight={600}
-                      color="textPrimary"
-                      className="text-hover"
-                      noWrap
-                      sx={{
-                        width: "240px",
-                      }}
-                    >
-                      {profile.title}
-                    </Typography>
-                    <Typography
-                      color="textSecondary"
-                      variant="subtitle2"
-                      sx={{
-                        width: "240px",
-                      }}
-                      noWrap
-                    >
-                      {profile.subtitle}
-                    </Typography>
-                  </Box>
-                </Stack>
-              </Link>
-            </Box>
-          </Box>
-        ))}
         <Box mt={2}>
-          <Box
-            bgcolor="primary.light"
-            p={3}
-            mb={3}
-            overflow="hidden"
-            position="relative"
-          >
-            <Box display="flex" justifyContent="space-between">
-              <Box>
-                <Typography variant="h5" mb={2}>
-                  Unlimited <br />
-                  Access
-                </Typography>
-                <Button variant="contained" color="primary">
-                  Upgrade
-                </Button>
-              </Box>
-              <Image
-                src={"/images/backgrounds/unlimited-bg.png"}
-                width={150}
-                height={183}
-                style={{ height: "auto", width: "auto" }}
-                alt="unlimited"
-                className="signup-bg"
-              />
-            </Box>
-          </Box>
           <Button
-            href="/auth/auth1/login"
             variant="outlined"
             color="primary"
-            component={Link}
+            onClick={handleLogout}
             fullWidth
           >
             Logout
