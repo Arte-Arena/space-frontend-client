@@ -6,12 +6,16 @@ export interface Player {
   gender: Gender;
   jerseySize: string;
   shortsSize: string;
+  number: string;
 }
+
+export type PackageType = "Start" | "Prata" | "Ouro" | "Diamante" | "Pro" | "Premium";
 
 export interface Sketch {
   id: string;
   playerCount: number;
   players: Player[];
+  packageType: PackageType;
 }
 
 export interface UniformWithSketches {
@@ -45,4 +49,5 @@ export const createEmptyPlayer = (id: number): Player => ({
   gender: "masculino",
   jerseySize: "",
   shortsSize: "",
+  number: "",
 });

@@ -1,5 +1,5 @@
 import { UniformSet } from "./UniformList";
-import { UniformWithSketches, Sketch, createEmptyPlayer } from "./types";
+import { UniformWithSketches, Sketch, createEmptyPlayer, PackageType } from "./types";
 
 const mockUniformSets: UniformSet[] = [
   { id: 1, budgetNumber: "1", isFilled: true },
@@ -11,7 +11,9 @@ const mockUniformSets: UniformSet[] = [
 
 const generateMockSketches = (): Sketch[] => {
   const letters = ["A", "B", "C"];
-  return letters.map((letter) => {
+  const packageTypes: PackageType[] = ["Start", "Prata", "Ouro"];
+  
+  return letters.map((letter, index) => {
     const playerCount = Math.floor(Math.random() * 1) + 1;
     const players = Array.from({ length: playerCount }, (_, i) =>
       createEmptyPlayer(i + 1),
@@ -21,6 +23,7 @@ const generateMockSketches = (): Sketch[] => {
       id: letter,
       playerCount,
       players,
+      packageType: packageTypes[index] || "Start",
     };
   });
 };

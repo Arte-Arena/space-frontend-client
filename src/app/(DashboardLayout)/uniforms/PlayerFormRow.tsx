@@ -7,7 +7,6 @@ import {
   MenuItem,
   TextField,
   SelectChangeEvent,
-  Typography,
 } from "@mui/material";
 import { Player, Gender, SIZES_BY_GENDER } from "./types";
 
@@ -39,6 +38,13 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
     });
   };
 
+  const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onPlayerUpdate({
+      ...player,
+      number: e.target.value,
+    });
+  };
+
   const handleJerseySizeChange = (e: SelectChangeEvent) => {
     onPlayerUpdate({
       ...player,
@@ -56,13 +62,16 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
   return (
     <Grid container spacing={2} alignItems="center" mb={2}>
       <Grid item xs={12} md={1}>
-        <Typography
-          variant="body2"
-          fontWeight="medium"
-          sx={{ textAlign: { xs: "left", md: "center" } }}
-        >
-          #{index + 1}
-        </Typography>
+        <TextField
+          fullWidth
+          size="small"
+          label="Número"
+          value={player.number}
+          onChange={handleNumberChange}
+          inputProps={{
+            maxLength: 2,
+          }}
+        />
       </Grid>
 
       <Grid item xs={12} md={3}>

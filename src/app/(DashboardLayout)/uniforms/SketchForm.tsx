@@ -7,6 +7,7 @@ import {
   AccordionDetails,
   Divider,
   Grid,
+  Chip,
 } from "@mui/material";
 import { IconChevronDown } from "@tabler/icons-react";
 import { Sketch, Player } from "./types";
@@ -35,9 +36,17 @@ const SketchForm: React.FC<SketchFormProps> = ({ sketch, onSketchUpdate }) => {
         expandIcon={<IconChevronDown />}
         sx={{ backgroundColor: "action.hover" }}
       >
-        <Typography variant="h6">
-          Esboço {sketch.id} - {sketch.playerCount} Jogadores
-        </Typography>
+        <Box display="flex" alignItems="center" flexWrap="wrap" gap={1}>
+          <Typography variant="h6">
+            Esboço {sketch.id} - {sketch.playerCount} Jogadores
+          </Typography>
+          <Chip 
+            label={sketch.packageType} 
+            color="primary" 
+            size="small" 
+            sx={{ ml: 1 }}
+          />
+        </Box>
       </AccordionSummary>
       <AccordionDetails>
         <Box mb={2}>
@@ -60,7 +69,7 @@ const SketchForm: React.FC<SketchFormProps> = ({ sketch, onSketchUpdate }) => {
                 fontWeight="bold"
                 sx={{ textAlign: { xs: "left", md: "center" } }}
               >
-                #
+                Número
               </Typography>
             </Grid>
             <Grid item xs={12} md={3}>
