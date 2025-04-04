@@ -4,7 +4,6 @@ import {
   Button,
   Stack,
   Alert,
-  Snackbar,
   Typography,
   CircularProgress,
   Dialog,
@@ -64,6 +63,11 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
     if (hasError) {
       setErrorMessage(errorMsg);
       setShowError(true);
+
+      // Auto-hide alert after 6 seconds
+      setTimeout(() => {
+        setShowError(false);
+      }, 6000);
       return;
     }
 
@@ -81,6 +85,11 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
       );
       setShowSuccess(true);
 
+      // Auto-hide alert after 6 seconds
+      setTimeout(() => {
+        setShowSuccess(false);
+      }, 6000);
+
       if (onSave) {
         onSave(updatedUniform);
       }
@@ -88,6 +97,11 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
       console.error("Erro ao salvar os dados:", error);
       setErrorMessage("Ocorreu um erro ao salvar os dados. Tente novamente.");
       setShowError(true);
+
+      // Auto-hide alert after 6 seconds
+      setTimeout(() => {
+        setShowError(false);
+      }, 6000);
     } finally {
       setSaving(false);
     }
@@ -95,6 +109,30 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
 
   return (
     <Box>
+      {showSuccess && (
+        <Box mb={3}>
+          <Alert
+            onClose={() => setShowSuccess(false)}
+            severity="success"
+            variant="filled"
+          >
+            Dados salvos com sucesso!
+          </Alert>
+        </Box>
+      )}
+
+      {showError && (
+        <Box mb={3}>
+          <Alert
+            onClose={() => setShowError(false)}
+            severity="error"
+            variant="filled"
+          >
+            {errorMessage}
+          </Alert>
+        </Box>
+      )}
+
       <Typography variant="h5" mb={3}>
         Formulário de Uniformes - Orçamento {uniform.budgetNumber}
       </Typography>
@@ -160,36 +198,6 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
           </Button>
         </DialogActions>
       </Dialog>
-
-      <Snackbar
-        open={showSuccess}
-        autoHideDuration={6000}
-        onClose={() => setShowSuccess(false)}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      >
-        <Alert
-          onClose={() => setShowSuccess(false)}
-          severity="success"
-          variant="filled"
-        >
-          Dados salvos com sucesso!
-        </Alert>
-      </Snackbar>
-
-      <Snackbar
-        open={showError}
-        autoHideDuration={6000}
-        onClose={() => setShowError(false)}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      >
-        <Alert
-          onClose={() => setShowError(false)}
-          severity="error"
-          variant="filled"
-        >
-          {errorMessage}
-        </Alert>
-      </Snackbar>
     </Box>
   );
 };
