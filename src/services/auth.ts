@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
 
-const API_URL = 'http://localhost:8000/v1';
+const API_URL = "http://localhost:8000/v1";
 
 export interface RegisterData {
   name: string;
