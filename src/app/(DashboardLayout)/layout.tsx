@@ -2,7 +2,8 @@
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { styled, useTheme } from "@mui/material/styles";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Header from "./layout/vertical/header/Header";
 import Sidebar from "./layout/vertical/sidebar/Sidebar";
 import Customizer from "./layout/shared/customizer/Customizer";
@@ -10,6 +11,8 @@ import Navigation from "./layout/horizontal/navbar/Navigation";
 import HorizontalHeader from "./layout/horizontal/header/Header";
 import { useSelector } from "@/store/hooks";
 import { AppState } from "@/store/store";
+import { getClientData } from "@/services/account-settings";
+import Loading from "@/app/loading";
 
 const MainWrapper = styled("div")(() => ({
   display: "flex",
@@ -27,19 +30,38 @@ const PageWrapper = styled("div")(() => ({
   backgroundColor: "transparent",
 }));
 
-interface Props {
-  children: React.ReactNode;
-}
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [isSidebarOpen, setSidebarOpen] = useState(true);
-  const [isMobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+  const [isAuthChecking, setIsAuthChecking] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const customizer = useSelector((state: AppState) => state.customizer);
   const theme = useTheme();
+  const router = useRouter();
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const result = await getClientData(router);
+        if (result) {
+          setIsAuthenticated(true);
+        }
+        if (result) {
+          setIsAuthChecking(false);
+        }
+      } catch (error) {
+        //TODO
+      }
+    };
+
+    checkAuth();
+  }, [router]);
+
+  if (isAuthChecking || !isAuthenticated) {
+    return <Loading />;
+  }
 
   return (
     <MainWrapper
