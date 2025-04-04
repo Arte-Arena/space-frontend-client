@@ -9,7 +9,13 @@ export interface Player {
   number: string;
 }
 
-export type PackageType = "Start" | "Prata" | "Ouro" | "Diamante" | "Pro" | "Premium";
+export type PackageType =
+  | "Start"
+  | "Prata"
+  | "Ouro"
+  | "Diamante"
+  | "Pro"
+  | "Premium";
 
 export interface Sketch {
   id: string;

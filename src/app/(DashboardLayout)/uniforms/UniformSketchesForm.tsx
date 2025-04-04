@@ -47,7 +47,12 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
 
     for (const sketch of sketches) {
       for (const player of sketch.players) {
-        if (!player.name || !player.jerseySize || !player.shortsSize || !player.number) {
+        if (
+          !player.name ||
+          !player.jerseySize ||
+          !player.shortsSize ||
+          !player.number
+        ) {
           hasError = true;
           errorMsg = `Preencha todos os campos para o jogador ${player.id} no esboço ${sketch.id}`;
           break;
@@ -101,8 +106,8 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
           alterados.
         </Typography>
         <Typography variant="body2" color="textSecondary">
-          Campos obrigatórios: número do jogador, nome do jogador, tamanho da camisa e tamanho do
-          calção.
+          Campos obrigatórios: número do jogador, nome do jogador, tamanho da
+          camisa e tamanho do calção.
         </Typography>
       </Box>
 
@@ -136,9 +141,9 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
         <DialogTitle>Confirmar dados dos uniformes</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Por favor, confirme que você escolheu corretamente todos os números, tamanhos 
-            de camisas e calções para os jogadores. Após a confirmação, os
-            uniformes serão enviados para produção com essas informações.
+            Por favor, confirme que você escolheu corretamente todos os números,
+            tamanhos de camisas e calções para os jogadores. Após a confirmação,
+            os uniformes serão enviados para produção com essas informações.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

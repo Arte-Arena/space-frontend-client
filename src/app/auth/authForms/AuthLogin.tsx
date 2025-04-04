@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React from "react";
 import {
@@ -23,7 +23,8 @@ import Alert from "@mui/material/Alert";
 import axios from "@/utils/axios";
 
 const validationSchema = yup.object({
-  email: yup.string()
+  email: yup
+    .string()
     .required("Email é obrigatório")
     .email("Digite um email válido"),
   password: yup.string().required("Senha é obrigatória"),
@@ -43,18 +44,24 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
       setError(null);
       setIsLoading(true);
       try {
-        const response = await axios.post("http://localhost:8000/v1/auth/signin", {
-          email: values.email,
-          password: values.password,
-        }, {
-          withCredentials: true
-        });
-        
+        const response = await axios.post(
+          "http://localhost:8000/v1/auth/signin",
+          {
+            email: values.email,
+            password: values.password,
+          },
+          {
+            withCredentials: true,
+          },
+        );
+
         if (response.status === 200) {
-          window.location.href = '/';
+          window.location.href = "/";
         }
       } catch (err: any) {
-        setError(err.response?.data?.message || err.message || "Erro ao fazer login");
+        setError(
+          err.response?.data?.message || err.message || "Erro ao fazer login",
+        );
       } finally {
         setIsLoading(false);
       }

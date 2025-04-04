@@ -40,10 +40,10 @@ const SketchForm: React.FC<SketchFormProps> = ({ sketch, onSketchUpdate }) => {
           <Typography variant="h6">
             Esboço {sketch.id} - {sketch.playerCount} Jogadores
           </Typography>
-          <Chip 
-            label={sketch.packageType} 
-            color="primary" 
-            size="small" 
+          <Chip
+            label={sketch.packageType}
+            color="primary"
+            size="small"
             sx={{ ml: 1 }}
           />
         </Box>
