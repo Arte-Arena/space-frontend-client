@@ -16,7 +16,6 @@ interface MenuitemsType {
 }
 import {
   IconUserCircle,
-  IconPoint,
   IconShoppingCart,
 } from "@tabler/icons-react";
 
@@ -34,17 +33,9 @@ const Menuitems: MenuitemsType[] = [
   },
   {
     id: uniqueId(),
-    title: "Pedidos",
+    title: "Meus pedidos",
     icon: IconShoppingCart,
-    href: "/pedidos",
-    children: [
-      {
-        id: uniqueId(),
-        title: "Uniformes",
-        icon: IconPoint,
-        href: "/uniforms",
-      },
-    ],
+    href: "/orders",
   },
 ];
 
