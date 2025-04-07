@@ -14,10 +14,7 @@ interface MenuitemsType {
   variant?: string;
   external?: boolean;
 }
-import {
-  IconUserCircle,
-  IconShoppingCart,
-} from "@tabler/icons-react";
+import { IconUserCircle, IconShoppingCart } from "@tabler/icons-react";
 
 const Menuitems: MenuitemsType[] = [
   {
