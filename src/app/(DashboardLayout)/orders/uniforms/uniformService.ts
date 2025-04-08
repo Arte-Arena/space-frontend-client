@@ -1,9 +1,9 @@
-import { UniformSet } from "./UniformList";
 import {
   UniformWithSketches,
   Sketch,
   createEmptyPlayer,
   PackageType,
+  UniformSet,
 } from "./types";
 
 const mockUniformSets: UniformSet[] = [

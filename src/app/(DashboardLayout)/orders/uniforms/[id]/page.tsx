@@ -29,11 +29,11 @@ export default function UniformDetailPage({ params }: UniformDetailPageProps) {
       title: "Início",
     },
     {
-      to: "/uniforms",
-      title: "Uniformes",
+      to: "/orders",
+      title: "Pedidos",
     },
     {
-      title: `Orçamento ${id}`,
+      title: `Configuração de Uniforme - #${id}`,
     },
   ];
 
@@ -68,11 +68,11 @@ export default function UniformDetailPage({ params }: UniformDetailPageProps) {
           <Box mb={3}>
             <Button
               component={Link}
-              href="/uniforms"
+              href="/orders"
               startIcon={<IconArrowLeft />}
               variant="text"
             >
-              Voltar para lista
+              Voltar para pedidos
             </Button>
           </Box>
 

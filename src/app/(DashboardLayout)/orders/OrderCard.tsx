@@ -24,7 +24,9 @@ const translateStatus = (status: string): string => {
     case "pending":
       return "Pendente";
     case "processing":
-      return "Em Processamento";
+      return "Em produção";
+    case "completed":
+      return "Finalizado";
     case "shipped":
       return "Enviado";
     case "delivered":
@@ -42,6 +44,8 @@ const getStatusColor = (status: string) => {
       return "warning";
     case "processing":
       return "info";
+    case "completed":
+      return "success";
     case "shipped":
       return "primary";
     case "delivered":
@@ -57,7 +61,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
   const router = useRouter();
 
   const handleUniformConfig = () => {
-    router.push(`/uniforms/config/${order.id}`);
+    router.push(`/orders/uniforms/${order.id}`);
   };
 
   const formattedDate = () => {

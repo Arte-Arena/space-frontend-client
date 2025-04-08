@@ -9,6 +9,12 @@ export interface Player {
   number: string;
 }
 
+export interface UniformSet {
+  id: number;
+  budgetNumber: string;
+  isFilled: boolean;
+}
+
 export type PackageType =
   | "Start"
   | "Prata"
