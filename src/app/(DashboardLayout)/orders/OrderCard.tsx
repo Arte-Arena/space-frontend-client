@@ -127,8 +127,9 @@ const OrderCard = ({ order }: OrderCardProps) => {
               size="small"
               startIcon={<IconShoppingCart size={18} />}
               onClick={handleUniformConfig}
+              disabled={order.status.toLowerCase() !== "pending"}
             >
-              Configurar Uniformes
+              Configurar uniformes
             </Button>
           )}
         </Box>
