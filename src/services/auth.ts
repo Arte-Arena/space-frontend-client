@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8000/v1";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 
 export interface RegisterData {
   name: string;
@@ -14,12 +14,12 @@ export interface LoginData {
 }
 
 export const register = async (data: RegisterData): Promise<any> => {
-  const response = await axios.post(`${API_URL}/clients`, data);
+  const response = await axios.post(`${API_URL}/v1/clients`, data);
   return response.data;
 };
 
 export const login = async (data: LoginData): Promise<any> => {
-  const response = await axios.post(`${API_URL}/auth/signin`, data, {
+  const response = await axios.post(`${API_URL}/v1/auth/signin`, data, {
     withCredentials: true,
   });
   return response.data;
@@ -28,7 +28,7 @@ export const login = async (data: LoginData): Promise<any> => {
 export const logout = async (router: any): Promise<void> => {
   try {
     await axios.post(
-      `${API_URL}/auth/signout`,
+      `${API_URL}/v1/auth/signout`,
       {},
       {
         withCredentials: true,

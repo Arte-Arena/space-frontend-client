@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Order } from "../types/order";
 
-const API_URL = "http://localhost:8000/v1";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 
 export const getOrders = async (router: any): Promise<Order[]> => {
   try {

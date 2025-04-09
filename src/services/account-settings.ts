@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Contact } from "../types/contact";
 
-const API_URL = "http://localhost:8000/v1";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 
 export interface ClientData {
   id: string;
@@ -14,7 +14,7 @@ export const getClientData = async (
   router: any,
 ): Promise<ClientData | null> => {
   try {
-    const response = await axios.get(`${API_URL}/clients`, {
+    const response = await axios.get(`${API_URL}/v1/clients`, {
       withCredentials: true,
     });
 
@@ -62,7 +62,7 @@ export const updateClientData = async (
   router: any,
 ): Promise<boolean> => {
   try {
-    const response = await axios.patch(`${API_URL}/clients`, data, {
+    const response = await axios.patch(`${API_URL}/v1/clients`, data, {
       withCredentials: true,
     });
 
