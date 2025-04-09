@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Grid,
   FormControl,
@@ -21,6 +21,21 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
   index,
   onPlayerUpdate,
 }) => {
+  useEffect(() => {
+    const isComplete =
+      !!player.name &&
+      !!player.shirt_size &&
+      !!player.shorts_size &&
+      !!player.number;
+
+    if (isComplete !== player.ready) {
+      onPlayerUpdate({
+        ...player,
+        ready: isComplete,
+      });
+    }
+  }, [player.name, player.shirt_size, player.shorts_size, player.number]);
+
   const handleGenderChange = (e: SelectChangeEvent) => {
     const newGender = e.target.value as Gender;
     onPlayerUpdate({
@@ -71,6 +86,7 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
           inputProps={{
             maxLength: 2,
           }}
+          required
         />
       </Grid>
 
@@ -97,11 +113,12 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
           label="Nome do jogador"
           value={player.name}
           onChange={handleNameChange}
+          required
         />
       </Grid>
 
       <Grid item xs={12} md={2}>
-        <FormControl fullWidth size="small">
+        <FormControl fullWidth size="small" required>
           <InputLabel id={`jersey-size-label-${index}`}>
             Tamanho da camisa
           </InputLabel>
@@ -121,7 +138,7 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
       </Grid>
 
       <Grid item xs={12} md={2}>
-        <FormControl fullWidth size="small">
+        <FormControl fullWidth size="small" required>
           <InputLabel id={`shorts-size-label-${index}`}>
             Tamanho do calção
           </InputLabel>

@@ -45,6 +45,12 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
     let errorMsg = "";
 
     for (const sketch of sketches) {
+      if (!sketch.players || sketch.players.length !== sketch.player_count) {
+        hasError = true;
+        errorMsg = `Número incorreto de jogadores no esboço ${sketch.id}. Esperado: ${sketch.player_count}, Atual: ${sketch.players?.length || 0}`;
+        break;
+      }
+
       for (const player of sketch.players) {
         if (
           !player.name ||
@@ -78,10 +84,23 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
     setSaving(true);
 
     try {
-      const updates: SketchPlayersUpdate[] = sketches.map((sketch) => ({
-        sketch_id: sketch.id,
-        players: sketch.players,
-      }));
+      const updates: SketchPlayersUpdate[] = sketches.map((sketch) => {
+        if (sketch.players.length !== sketch.player_count) {
+          throw new Error(
+            `Número incorreto de jogadores no esboço ${sketch.id}`,
+          );
+        }
+
+        const cleanPlayers = sketch.players.map((player) => {
+          const { _index, ...cleanPlayer } = player;
+          return cleanPlayer;
+        });
+
+        return {
+          sketch_id: sketch.id,
+          players: cleanPlayers,
+        };
+      });
 
       const updatedUniform = await updateUniformPlayers(uniform.id, updates);
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Typography,
@@ -10,7 +10,7 @@ import {
   Chip,
 } from "@mui/material";
 import { IconChevronDown } from "@tabler/icons-react";
-import { Sketch, Player } from "./types";
+import { Sketch, Player, createEmptyPlayer } from "./types";
 import PlayerFormRow from "./PlayerFormRow";
 
 interface SketchFormProps {
@@ -19,6 +19,39 @@ interface SketchFormProps {
 }
 
 const SketchForm: React.FC<SketchFormProps> = ({ sketch, onSketchUpdate }) => {
+  useEffect(() => {
+    if (!sketch.players || sketch.players.length !== sketch.player_count) {
+      const updatedPlayers = generatePlayersArray(sketch);
+
+      onSketchUpdate({
+        ...sketch,
+        players: updatedPlayers,
+      });
+    }
+  }, [sketch.player_count]);
+
+  const generatePlayersArray = (sketch: Sketch): Player[] => {
+    if (!sketch.players || sketch.players.length === 0) {
+      return Array.from({ length: sketch.player_count }, () =>
+        createEmptyPlayer(),
+      );
+    }
+
+    if (sketch.players.length < sketch.player_count) {
+      const additionalPlayers = Array.from(
+        { length: sketch.player_count - sketch.players.length },
+        () => createEmptyPlayer(),
+      );
+      return [...sketch.players, ...additionalPlayers];
+    }
+
+    if (sketch.players.length > sketch.player_count) {
+      return sketch.players.slice(0, sketch.player_count);
+    }
+
+    return sketch.players;
+  };
+
   const handlePlayerUpdate = (updatedPlayer: Player) => {
     const updatedPlayers = sketch.players.map((player, index) =>
       index === updatedPlayer._index ? updatedPlayer : player,
@@ -29,6 +62,11 @@ const SketchForm: React.FC<SketchFormProps> = ({ sketch, onSketchUpdate }) => {
       players: updatedPlayers,
     });
   };
+
+  const playersToRender =
+    sketch.players?.length === sketch.player_count
+      ? sketch.players
+      : generatePlayersArray(sketch);
 
   return (
     <Accordion defaultExpanded>
@@ -96,7 +134,7 @@ const SketchForm: React.FC<SketchFormProps> = ({ sketch, onSketchUpdate }) => {
 
           <Divider sx={{ mt: 1, mb: 3 }} />
 
-          {sketch.players.map((player, index) => (
+          {playersToRender.map((player, index) => (
             <PlayerFormRow
               key={`player-${sketch.id}-${index}`}
               player={{ ...player, _index: index }}
