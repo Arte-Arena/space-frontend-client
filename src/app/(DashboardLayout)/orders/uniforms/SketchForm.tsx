@@ -20,8 +20,8 @@ interface SketchFormProps {
 
 const SketchForm: React.FC<SketchFormProps> = ({ sketch, onSketchUpdate }) => {
   const handlePlayerUpdate = (updatedPlayer: Player) => {
-    const updatedPlayers = sketch.players.map((player) =>
-      player.id === updatedPlayer.id ? updatedPlayer : player,
+    const updatedPlayers = sketch.players.map((player, index) =>
+      index === updatedPlayer._index ? updatedPlayer : player,
     );
 
     onSketchUpdate({
@@ -38,10 +38,10 @@ const SketchForm: React.FC<SketchFormProps> = ({ sketch, onSketchUpdate }) => {
       >
         <Box display="flex" alignItems="center" flexWrap="wrap" gap={1}>
           <Typography variant="h6">
-            Esboço {sketch.id} - {sketch.playerCount} Jogadores
+            Esboço {sketch.id} - {sketch.player_count} Jogadores
           </Typography>
           <Chip
-            label={sketch.packageType}
+            label={sketch.package_type}
             color="primary"
             size="small"
             sx={{ ml: 1 }}
@@ -98,8 +98,8 @@ const SketchForm: React.FC<SketchFormProps> = ({ sketch, onSketchUpdate }) => {
 
           {sketch.players.map((player, index) => (
             <PlayerFormRow
-              key={player.id}
-              player={player}
+              key={`player-${sketch.id}-${index}`}
+              player={{ ...player, _index: index }}
               index={index}
               onPlayerUpdate={handlePlayerUpdate}
             />

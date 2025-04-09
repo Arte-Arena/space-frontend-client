@@ -26,8 +26,8 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
     onPlayerUpdate({
       ...player,
       gender: newGender,
-      jerseySize: "",
-      shortsSize: "",
+      shirt_size: "",
+      shorts_size: "",
     });
   };
 
@@ -48,14 +48,14 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
   const handleJerseySizeChange = (e: SelectChangeEvent) => {
     onPlayerUpdate({
       ...player,
-      jerseySize: e.target.value,
+      shirt_size: e.target.value,
     });
   };
 
   const handleShortsSizeChange = (e: SelectChangeEvent) => {
     onPlayerUpdate({
       ...player,
-      shortsSize: e.target.value,
+      shorts_size: e.target.value,
     });
   };
 
@@ -76,9 +76,9 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
 
       <Grid item xs={12} md={3}>
         <FormControl fullWidth size="small">
-          <InputLabel id={`gender-label-${player.id}`}>Gênero</InputLabel>
+          <InputLabel id={`gender-label-${index}`}>Gênero</InputLabel>
           <Select
-            labelId={`gender-label-${player.id}`}
+            labelId={`gender-label-${index}`}
             value={player.gender}
             label="Gênero"
             onChange={handleGenderChange}
@@ -102,16 +102,16 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
 
       <Grid item xs={12} md={2}>
         <FormControl fullWidth size="small">
-          <InputLabel id={`jersey-size-label-${player.id}`}>
+          <InputLabel id={`jersey-size-label-${index}`}>
             Tamanho da camisa
           </InputLabel>
           <Select
-            labelId={`jersey-size-label-${player.id}`}
-            value={player.jerseySize}
+            labelId={`jersey-size-label-${index}`}
+            value={player.shirt_size}
             label="Tamanho da camisa"
             onChange={handleJerseySizeChange}
           >
-            {SIZES_BY_GENDER[player.gender].jersey.map((size) => (
+            {SIZES_BY_GENDER[player.gender as Gender].jersey.map((size) => (
               <MenuItem key={`jersey-${size}`} value={size}>
                 {size}
               </MenuItem>
@@ -122,16 +122,16 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
 
       <Grid item xs={12} md={2}>
         <FormControl fullWidth size="small">
-          <InputLabel id={`shorts-size-label-${player.id}`}>
+          <InputLabel id={`shorts-size-label-${index}`}>
             Tamanho do calção
           </InputLabel>
           <Select
-            labelId={`shorts-size-label-${player.id}`}
-            value={player.shortsSize}
+            labelId={`shorts-size-label-${index}`}
+            value={player.shorts_size}
             label="Tamanho do calção"
             onChange={handleShortsSizeChange}
           >
-            {SIZES_BY_GENDER[player.gender].shorts.map((size) => (
+            {SIZES_BY_GENDER[player.gender as Gender].shorts.map((size) => (
               <MenuItem key={`shorts-${size}`} value={size}>
                 {size}
               </MenuItem>

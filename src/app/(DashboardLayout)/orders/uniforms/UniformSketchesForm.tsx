@@ -13,9 +13,9 @@ import {
   DialogContentText,
 } from "@mui/material";
 import { IconDeviceFloppy } from "@tabler/icons-react";
-import { UniformWithSketches, Sketch } from "./types";
+import { UniformWithSketches, Sketch, SketchPlayersUpdate } from "./types";
 import SketchForm from "./SketchForm";
-import { uniformService } from "./uniformService";
+import { updateUniformPlayers } from "@/services/uniforms";
 
 interface UniformSketchesFormProps {
   uniform: UniformWithSketches;
@@ -48,12 +48,12 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
       for (const player of sketch.players) {
         if (
           !player.name ||
-          !player.jerseySize ||
-          !player.shortsSize ||
+          !player.shirt_size ||
+          !player.shorts_size ||
           !player.number
         ) {
           hasError = true;
-          errorMsg = `Preencha todos os campos para o jogador ${player.id} no esboço ${sketch.id}`;
+          errorMsg = `Preencha todos os campos para o jogador no esboço ${sketch.id}`;
           break;
         }
       }
@@ -64,7 +64,6 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
       setErrorMessage(errorMsg);
       setShowError(true);
 
-      // Auto-hide alert after 6 seconds
       setTimeout(() => {
         setShowError(false);
       }, 6000);
@@ -79,26 +78,31 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
     setSaving(true);
 
     try {
-      const updatedUniform = await uniformService.updateUniformSketches(
-        uniform.id,
-        sketches,
-      );
-      setShowSuccess(true);
+      const updates: SketchPlayersUpdate[] = sketches.map((sketch) => ({
+        sketch_id: sketch.id,
+        players: sketch.players,
+      }));
 
-      // Auto-hide alert after 6 seconds
-      setTimeout(() => {
-        setShowSuccess(false);
-      }, 6000);
+      const updatedUniform = await updateUniformPlayers(uniform.id, updates);
 
-      if (onSave) {
-        onSave(updatedUniform);
+      if (updatedUniform) {
+        setShowSuccess(true);
+
+        setTimeout(() => {
+          setShowSuccess(false);
+        }, 6000);
+
+        if (onSave) {
+          onSave(updatedUniform);
+        }
+      } else {
+        throw new Error("Falha ao atualizar o uniforme");
       }
     } catch (error) {
       console.error("Erro ao salvar os dados:", error);
       setErrorMessage("Ocorreu um erro ao salvar os dados. Tente novamente.");
       setShowError(true);
 
-      // Auto-hide alert after 6 seconds
       setTimeout(() => {
         setShowError(false);
       }, 6000);
@@ -134,7 +138,7 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
       )}
 
       <Typography variant="h5" mb={3}>
-        Formulário de Uniformes - Orçamento {uniform.budgetNumber}
+        Formulário de Uniformes - Orçamento {uniform.budget_id}
       </Typography>
 
       <Box mb={4}>
@@ -166,7 +170,7 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
           size="large"
           startIcon={!saving && <IconDeviceFloppy />}
           onClick={handleOpenConfirmDialog}
-          disabled={saving}
+          disabled={saving || !uniform.editable}
         >
           {saving ? <CircularProgress size={24} /> : "Salvar alterações"}
         </Button>

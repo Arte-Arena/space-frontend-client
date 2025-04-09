@@ -1,12 +1,14 @@
 export type Gender = "masculino" | "feminino" | "infantil";
 
 export interface Player {
-  id: number;
+  gender: string;
   name: string;
-  gender: Gender;
-  jerseySize: string;
-  shortsSize: string;
+  shirt_size: string;
   number: string;
+  shorts_size: string;
+  ready: boolean;
+  observations?: string;
+  _index?: number;
 }
 
 export interface UniformSet {
@@ -20,21 +22,29 @@ export type PackageType =
   | "Prata"
   | "Ouro"
   | "Diamante"
-  | "Pro"
-  | "Premium";
+  | "Premium"
+  | "Profissional";
 
 export interface Sketch {
   id: string;
-  playerCount: number;
+  player_count: number;
+  package_type: PackageType;
   players: Player[];
-  packageType: PackageType;
 }
 
 export interface UniformWithSketches {
-  id: number;
-  budgetNumber: string;
-  isFilled: boolean;
+  id: string;
+  client_id: string;
+  budget_id: number;
   sketches: Sketch[];
+  editable: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface SketchPlayersUpdate {
+  sketch_id: string;
+  players: Player[];
 }
 
 export const SIZES_BY_GENDER: Record<
@@ -55,11 +65,12 @@ export const SIZES_BY_GENDER: Record<
   },
 };
 
-export const createEmptyPlayer = (id: number): Player => ({
-  id,
+export const createEmptyPlayer = (): Player => ({
   name: "",
   gender: "masculino",
-  jerseySize: "",
-  shortsSize: "",
+  shirt_size: "",
+  shorts_size: "",
   number: "",
+  ready: false,
+  observations: "",
 });

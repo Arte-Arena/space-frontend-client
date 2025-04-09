@@ -6,7 +6,7 @@ import PageContainer from "@/app/components/container/PageContainer";
 import BlankCard from "@/app/components/shared/BlankCard";
 import { IconArrowLeft } from "@tabler/icons-react";
 import Link from "next/link";
-import { uniformService } from "../uniformService";
+import { getUniformById, updateUniformPlayers } from "@/services/uniforms";
 import UniformSketchesForm from "../UniformSketchesForm";
 import { UniformWithSketches } from "../types";
 
@@ -40,7 +40,7 @@ export default function UniformDetailPage({ params }: UniformDetailPageProps) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await uniformService.getUniformWithSketches(id);
+        const data = await getUniformById(id);
         setUniformData(data || null);
       } catch (error) {
         console.error("Erro ao carregar detalhes do uniforme:", error);
@@ -58,7 +58,7 @@ export default function UniformDetailPage({ params }: UniformDetailPageProps) {
 
   return (
     <PageContainer
-      title={`Uniforme - Orçamento ${id}`}
+      title={`Uniforme - ID ${id}`}
       description="Formulário para preenchimento de dados do uniforme"
     >
       <Breadcrumb title={`Formulário de Uniformes`} items={BCrumb} />
