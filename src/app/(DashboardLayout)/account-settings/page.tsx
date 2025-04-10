@@ -104,12 +104,14 @@ const AccountSetting = () => {
                     icon={<IconBell size="22" />}
                     label="Notificações"
                     {...a11yProps(1)}
+                    disabled
                   />
                   <Tab
                     iconPosition="start"
                     icon={<IconLock size="22" />}
                     label="Segurança"
                     {...a11yProps(2)}
+                    disabled
                   />
                 </Tabs>
               </Box>

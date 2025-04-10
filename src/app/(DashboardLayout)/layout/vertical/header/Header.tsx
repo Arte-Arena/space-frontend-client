@@ -15,7 +15,6 @@ import { IconMenu2, IconMoon, IconSun } from "@tabler/icons-react";
 import Notifications from "./Notification";
 import Profile from "./Profile";
 import { AppState } from "@/store/store";
-import MobileRightSidebar from "./MobileRightSidebar";
 
 const Header = () => {
   const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up("lg"));
@@ -79,7 +78,6 @@ const Header = () => {
           {/* ------------------------------------------- */}
           {/* Toggle Right Sidebar for mobile */}
           {/* ------------------------------------------- */}
-          {lgDown ? <MobileRightSidebar /> : null}
           <Profile />
         </Stack>
       </ToolbarStyled>

@@ -4,36 +4,14 @@ import Grid from "@mui/material/Grid";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getClientData, ClientData } from "@/services/account-settings";
-import moment from "moment";
 
 import PageContainer from "@/app/components/container/PageContainer";
-
-import WelcomeCard from "@/app/components/dashboards/ecommerce/WelcomeCard";
-import RecentTransactions from "@/app/components/dashboards/ecommerce/RecentTransactions";
-import TopCards from "@/app/components/dashboards/modern/TopCards";
-
 import BlankCard from "@/app/components/shared/BlankCard";
-import {
-  Typography,
-  Button,
-  Avatar,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  Divider,
-  Skeleton,
-} from "@mui/material";
+import { Typography, Paper, Button, Stack, Divider } from "@mui/material";
+import { IconTools, IconClockHour4 } from "@tabler/icons-react";
 import Link from "next/link";
-import {
-  IconShoppingCart,
-  IconUser,
-  IconCalendarEvent,
-  IconAddressBook,
-} from "@tabler/icons-react";
 
 export default function Dashboard() {
-  const [isLoading, setLoading] = useState(true);
   const [clientData, setClientData] = useState<ClientData | null>(null);
   const router = useRouter();
 
@@ -42,128 +20,80 @@ export default function Dashboard() {
       try {
         const data = await getClientData(router);
         setClientData(data);
-      } finally {
-        setLoading(false);
+      } catch (error) {
+        console.error("Erro ao carregar dados do cliente:", error);
       }
     };
 
     fetchClientData();
   }, [router]);
 
-  const formatClientSince = () => {
-    if (!clientData?.created_at) return "N/A";
-
-    moment.locale("pt-br");
-    return moment(clientData.created_at).format("MMMM YYYY");
-  };
-
   return (
     <PageContainer title="Dashboard" description="Painel do Cliente">
-      <Box mt={3}>
-        <Grid container spacing={3}>
-          {/* Welcome Card for Client */}
-          <Grid item xs={12} lg={8}>
-            <WelcomeCard clientName={clientData?.contact?.name} />
-          </Grid>
-
-          {/* Informações Rápidas do Cliente */}
-          <Grid item xs={12} lg={4}>
+      <Box
+        sx={{
+          height: "calc(100vh - 200px)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Grid container justifyContent="center">
+          <Grid item xs={12} md={8} lg={6}>
             <BlankCard>
-              <Box p={3}>
-                <Box display="flex" alignItems="center" mb={2}>
-                  <Avatar
-                    src="/images/profile/user-1.jpg"
-                    alt="perfil"
-                    sx={{ width: 50, height: 50, mr: 2 }}
-                  />
-                  <Typography variant="h5">Meu Perfil</Typography>
-                </Box>
-                <Divider sx={{ my: 2 }} />
-                <List dense>
-                  <ListItem>
-                    <ListItemIcon>
-                      <IconUser size={20} />
-                    </ListItemIcon>
-                    {isLoading ? (
-                      <Skeleton variant="text" width="100%" height={40} />
-                    ) : (
-                      <ListItemText
-                        primary="Nome Completo"
-                        secondary={clientData?.contact?.name || "N/A"}
-                      />
-                    )}
-                  </ListItem>
-                  <ListItem>
-                    <ListItemIcon>
-                      <IconAddressBook size={20} />
-                    </ListItemIcon>
-                    {isLoading ? (
-                      <Skeleton variant="text" width="100%" height={40} />
-                    ) : (
-                      <ListItemText
-                        primary="Email"
-                        secondary={clientData?.contact?.email || "N/A"}
-                      />
-                    )}
-                  </ListItem>
-                  <ListItem>
-                    <ListItemIcon>
-                      <IconCalendarEvent size={20} />
-                    </ListItemIcon>
-                    {isLoading ? (
-                      <Skeleton variant="text" width="100%" height={40} />
-                    ) : (
-                      <ListItemText
-                        primary="Cliente Desde"
-                        secondary={formatClientSince()}
-                      />
-                    )}
-                  </ListItem>
-                </List>
-                <Box mt={2}>
-                  <Button
-                    component={Link}
-                    href="/account-settings"
-                    variant="outlined"
-                    fullWidth
+              <Box p={5} textAlign="center">
+                <Stack spacing={3} alignItems="center">
+                  <IconClockHour4 size={80} color="#1976d2" />
+
+                  <Typography variant="h2" fontWeight="bold" color="primary">
+                    Em breve!
+                  </Typography>
+
+                  <Typography variant="h5" gutterBottom>
+                    Olá, {clientData?.contact?.name || "Cliente"}!
+                  </Typography>
+
+                  <Typography variant="body1" color="textSecondary" paragraph>
+                    Esta página está temporariamente desativada enquanto
+                    trabalhamos em novos recursos para melhorar sua experiência.
+                  </Typography>
+
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    gap={1}
                   >
-                    Editar Perfil
-                  </Button>
-                </Box>
-              </Box>
-            </BlankCard>
-          </Grid>
+                    <IconTools size={20} />
+                    <Typography variant="subtitle1" fontWeight="medium">
+                      Novos recursos em desenvolvimento
+                    </Typography>
+                  </Box>
 
-          {/* Quick Stats Cards */}
-          <Grid item xs={12} lg={12}>
-            <TopCards />
-          </Grid>
+                  <Divider sx={{ width: "100%", my: 2 }} />
 
-          {/* Recent Orders/Transactions */}
-          <Grid item xs={12} lg={8}>
-            <RecentTransactions />
-          </Grid>
+                  <Typography variant="body2">
+                    Enquanto isso, você pode acessar outras seções disponíveis:
+                  </Typography>
 
-          {/* Access to Orders Section */}
-          <Grid item xs={12} lg={4}>
-            <BlankCard>
-              <Box p={3} textAlign="center">
-                <IconShoppingCart size={48} style={{ marginBottom: "16px" }} />
-                <Typography variant="h5" gutterBottom>
-                  Seus Pedidos
-                </Typography>
-                <Typography variant="body1" color="textSecondary" paragraph>
-                  Acesse seus pedidos de uniformes e acompanhe o status.
-                </Typography>
-                <Button
-                  component={Link}
-                  href="/uniforms"
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                >
-                  Ver Pedidos de Uniformes
-                </Button>
+                  <Stack direction="row" spacing={2} mt={2}>
+                    <Button
+                      component={Link}
+                      href="/uniforms"
+                      variant="contained"
+                      color="primary"
+                    >
+                      Meus pedidos
+                    </Button>
+                    <Button
+                      component={Link}
+                      href="/account-settings"
+                      variant="outlined"
+                    >
+                      Configurações de conta
+                    </Button>
+                  </Stack>
+                </Stack>
               </Box>
             </BlankCard>
           </Grid>
