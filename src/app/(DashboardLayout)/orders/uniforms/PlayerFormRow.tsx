@@ -7,7 +7,6 @@ import {
   MenuItem,
   TextField,
   SelectChangeEvent,
-  Typography,
 } from "@mui/material";
 import {
   Player,
@@ -109,7 +108,7 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
 
   return (
     <Grid container spacing={2} alignItems="center" mb={2}>
-      {packageFeatures.hasPlayerNumber ? (
+      {packageFeatures.hasPlayerNumber && (
         <Grid item xs={12} md={1}>
           <TextField
             fullWidth
@@ -120,15 +119,8 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
             inputProps={{
               maxLength: 2,
             }}
-            required
             disabled={disabled}
           />
-        </Grid>
-      ) : (
-        <Grid item xs={12} md={1}>
-          <Typography variant="body2" color="textSecondary">
-            {index + 1}
-          </Typography>
         </Grid>
       )}
 
@@ -142,6 +134,7 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
             onChange={handleGenderChange}
             MenuProps={{ disableScrollLock: true }}
             disabled={disabled}
+            required
           >
             <MenuItem value="masculino">Masculino</MenuItem>
             <MenuItem value="feminino">Feminino</MenuItem>
@@ -152,27 +145,17 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
         </FormControl>
       </Grid>
 
-      {packageFeatures.hasPlayerName ? (
-        <Grid item xs={12} md={4}>
-          <TextField
-            fullWidth
-            size="small"
-            label="Nome do jogador"
-            value={player.name}
-            onChange={handleNameChange}
-            required
-            disabled={disabled}
-          />
-        </Grid>
-      ) : (
-        <Grid item xs={12} md={4}>
-          <Typography variant="body2" color="textSecondary">
-            Jogador {index + 1}
-          </Typography>
-        </Grid>
-      )}
-
-      <Grid item xs={12} md={packageFeatures.canHaveDifferentSizes ? 2 : 4}>
+      <Grid
+        item
+        xs={12}
+        md={
+          packageFeatures.canHaveDifferentSizes
+            ? 3
+            : packageFeatures.hasPlayerNumber
+              ? 7
+              : 8
+        }
+      >
         <FormControl fullWidth size="small" required>
           <InputLabel id={`jersey-size-label-${index}`}>
             {packageFeatures.canHaveDifferentSizes
@@ -190,6 +173,7 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
             onChange={handleJerseySizeChange}
             MenuProps={{ disableScrollLock: true }}
             disabled={disabled}
+            required
           >
             {getAvailableSizes("jersey").map((size) => (
               <MenuItem key={`jersey-${size}`} value={size}>
@@ -201,7 +185,7 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
       </Grid>
 
       {packageFeatures.canHaveDifferentSizes && (
-        <Grid item xs={12} md={2}>
+        <Grid item xs={12} md={4}>
           <FormControl fullWidth size="small" required>
             <InputLabel id={`shorts-size-label-${index}`}>
               Tamanho do calção
@@ -213,6 +197,7 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
               onChange={handleShortsSizeChange}
               MenuProps={{ disableScrollLock: true }}
               disabled={disabled}
+              required
             >
               {getAvailableSizes("shorts").map((size) => (
                 <MenuItem key={`shorts-${size}`} value={size}>

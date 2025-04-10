@@ -140,36 +140,35 @@ const SketchForm: React.FC<SketchFormProps> = ({
             mb={2}
             sx={{ fontWeight: "bold" }}
           >
-            <Grid item xs={12} md={1}>
-              <Typography
-                variant="body2"
-                fontWeight="bold"
-                sx={{ textAlign: { xs: "left", md: "center" } }}
-              >
-                {packageFeatures.hasPlayerNumber ? "Número" : "#"}
-              </Typography>
-            </Grid>
+            {packageFeatures.hasPlayerNumber && (
+              <Grid item xs={12} md={1}>
+                <Typography variant="body2" fontWeight="bold">
+                  Número
+                </Typography>
+              </Grid>
+            )}
             <Grid item xs={12} md={3}>
               <Typography variant="body2" fontWeight="bold">
                 Gênero
               </Typography>
             </Grid>
-            <Grid item xs={12} md={4}>
-              <Typography variant="body2" fontWeight="bold">
-                {packageFeatures.hasPlayerName ? "Nome do jogador" : "Jogador"}
-              </Typography>
-            </Grid>
             <Grid
               item
               xs={12}
-              md={packageFeatures.canHaveDifferentSizes ? 2 : 4}
+              md={
+                packageFeatures.canHaveDifferentSizes
+                  ? 3
+                  : packageFeatures.hasPlayerNumber
+                    ? 7
+                    : 8
+              }
             >
               <Typography variant="body2" fontWeight="bold">
                 {packageFeatures.canHaveDifferentSizes ? "Camisa" : "Tamanho"}
               </Typography>
             </Grid>
             {packageFeatures.canHaveDifferentSizes && (
-              <Grid item xs={12} md={2}>
+              <Grid item xs={12} md={4}>
                 <Typography variant="body2" fontWeight="bold">
                   Calção
                 </Typography>

@@ -59,13 +59,11 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
     const features =
       PACKAGE_FEATURES[packageType as keyof typeof PACKAGE_FEATURES];
 
-    if (!player.gender || !player.shirt_size) return false;
+    if (!player.gender) return false;
+
+    if (!player.shirt_size) return false;
 
     if (features.canHaveDifferentSizes && !player.shorts_size) return false;
-
-    if (features.hasPlayerName && !player.name) return false;
-
-    if (features.hasPlayerNumber && !player.number) return false;
 
     return true;
   };
@@ -86,14 +84,12 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
           const features = PACKAGE_FEATURES[sketch.package_type];
           hasError = true;
 
-          if (!player.gender || !player.shirt_size) {
-            errorMsg = `Preencha os campos obrigatórios do jogador no esboço ${sketch.id}`;
+          if (!player.gender) {
+            errorMsg = `Preencha o campo obrigatório de Gênero no esboço ${sketch.id}`;
+          } else if (!player.shirt_size) {
+            errorMsg = `Preencha o campo obrigatório de Tamanho no esboço ${sketch.id}`;
           } else if (features.canHaveDifferentSizes && !player.shorts_size) {
             errorMsg = `Informe o tamanho do calção para o jogador no esboço ${sketch.id}`;
-          } else if (features.hasPlayerName && !player.name) {
-            errorMsg = `Informe o nome do jogador no esboço ${sketch.id}`;
-          } else if (features.hasPlayerNumber && !player.number) {
-            errorMsg = `Informe o número do jogador no esboço ${sketch.id}`;
           } else {
             errorMsg = `Dados incompletos para o jogador no esboço ${sketch.id}`;
           }
