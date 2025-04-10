@@ -6,7 +6,6 @@ export interface Player {
   shirt_size: string;
   number: string;
   shorts_size: string;
-  ready: boolean;
   observations?: string;
   _index?: number;
 }
@@ -124,6 +123,5 @@ export const createEmptyPlayer = (): Player => ({
   shirt_size: "",
   shorts_size: "",
   number: "",
-  ready: false,
   observations: "",
 });

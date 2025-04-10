@@ -35,33 +35,6 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
 }) => {
   const packageFeatures = PACKAGE_FEATURES[packageType];
 
-  const determineIfComplete = useCallback((): boolean => {
-    if (!player.gender || !player.shirt_size) return false;
-
-    if (
-      !packageFeatures.canHaveDifferentSizes &&
-      player.shirt_size !== player.shorts_size
-    ) {
-      return false;
-    }
-
-    if (packageFeatures.canHaveDifferentSizes && !player.shorts_size)
-      return false;
-
-    if (packageFeatures.hasPlayerName && !player.name) return false;
-
-    if (packageFeatures.hasPlayerNumber && !player.number) return false;
-
-    return true;
-  }, [
-    player.gender,
-    player.shirt_size,
-    player.shorts_size,
-    player.name,
-    player.number,
-    packageFeatures,
-  ]);
-
   useEffect(() => {
     if (packageType === "Start" && player.gender === "infantil") {
       onPlayerUpdate({
@@ -72,26 +45,6 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
       });
     }
   }, [packageType, player.gender, onPlayerUpdate]);
-
-  useEffect(() => {
-    const isComplete = determineIfComplete();
-
-    if (isComplete !== player.ready) {
-      onPlayerUpdate({
-        ...player,
-        ready: isComplete,
-      });
-    }
-  }, [
-    player.name,
-    player.gender,
-    player.shirt_size,
-    player.shorts_size,
-    player.number,
-    player.ready,
-    determineIfComplete,
-    onPlayerUpdate,
-  ]);
 
   const handleGenderChange = (e: SelectChangeEvent) => {
     const newGender = e.target.value as Gender;

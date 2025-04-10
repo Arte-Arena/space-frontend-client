@@ -9,7 +9,6 @@ export interface Player {
   shirt_size: string;
   number: string;
   shorts_size: string;
-  ready: boolean;
   observations?: string;
 }
 
