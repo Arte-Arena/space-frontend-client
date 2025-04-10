@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import {
   Grid,
   FormControl,
@@ -33,39 +33,7 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
 }) => {
   const packageFeatures = PACKAGE_FEATURES[packageType];
 
-  useEffect(() => {
-    if (packageType === "Start" && player.gender === "infantil") {
-      onPlayerUpdate({
-        ...player,
-        gender: "masculino",
-        shirt_size: "",
-        shorts_size: "",
-      });
-    }
-  }, [packageType, player, onPlayerUpdate]);
-
-  useEffect(() => {
-    const isComplete = determineIfComplete();
-
-    if (isComplete !== player.ready) {
-      onPlayerUpdate({
-        ...player,
-        ready: isComplete,
-      });
-    }
-  }, [
-    player.name,
-    player.gender,
-    player.shirt_size,
-    player.shorts_size,
-    player.number,
-    player.ready,
-    player._index,
-    packageType,
-    onPlayerUpdate,
-  ]);
-
-  const determineIfComplete = (): boolean => {
+  const determineIfComplete = useCallback((): boolean => {
     if (!player.gender || !player.shirt_size) return false;
 
     if (
@@ -83,64 +51,91 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
     if (packageFeatures.hasPlayerNumber && !player.number) return false;
 
     return true;
-  };
+  }, [
+    player.gender,
+    player.shirt_size,
+    player.shorts_size,
+    player.name,
+    player.number,
+    packageFeatures,
+  ]);
 
   useEffect(() => {
-    if (
-      !packageFeatures.canHaveDifferentSizes &&
-      player.shirt_size &&
-      player.shirt_size !== player.shorts_size
-    ) {
+    if (packageType === "Start" && player.gender === "infantil") {
       onPlayerUpdate({
         ...player,
-        shorts_size: player.shirt_size,
+        gender: "masculino",
+        shirt_size: "",
+        shorts_size: "",
       });
     }
-  }, [player, packageFeatures.canHaveDifferentSizes, onPlayerUpdate]);
+  }, [packageType, player.gender, onPlayerUpdate]);
+
+  useEffect(() => {
+    const isComplete = determineIfComplete();
+
+    if (isComplete !== player.ready) {
+      onPlayerUpdate({
+        ...player,
+        ready: isComplete,
+      });
+    }
+  }, [
+    player.name,
+    player.gender,
+    player.shirt_size,
+    player.shorts_size,
+    player.number,
+    player.ready,
+    determineIfComplete,
+    onPlayerUpdate,
+  ]);
 
   const handleGenderChange = (e: SelectChangeEvent) => {
     const newGender = e.target.value as Gender;
-    onPlayerUpdate({
+    const updatedPlayer = {
       ...player,
       gender: newGender,
       shirt_size: "",
       shorts_size: "",
-    });
+    };
+    onPlayerUpdate(updatedPlayer);
   };
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onPlayerUpdate({
+    const updatedPlayer = {
       ...player,
       name: e.target.value,
-    });
+    };
+    onPlayerUpdate(updatedPlayer);
   };
 
   const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onPlayerUpdate({
+    const updatedPlayer = {
       ...player,
       number: e.target.value,
-    });
+    };
+    onPlayerUpdate(updatedPlayer);
   };
 
   const handleJerseySizeChange = (e: SelectChangeEvent) => {
     const newSize = e.target.value;
-    const update: Partial<Player> = { shirt_size: newSize };
+    let updatedPlayer = { ...player, shirt_size: newSize };
 
     if (!packageFeatures.canHaveDifferentSizes) {
-      update.shorts_size = newSize;
+      updatedPlayer.shorts_size = newSize;
     }
 
-    onPlayerUpdate({
-      ...player,
-      ...update,
-    });
+    onPlayerUpdate(updatedPlayer);
   };
 
   const handleShortsSizeChange = (e: SelectChangeEvent) => {
-    onPlayerUpdate({
+    const updatedPlayer = {
       ...player,
       shorts_size: e.target.value,
-    });
+    };
+
+    onPlayerUpdate(updatedPlayer);
   };
 
   const getAvailableSizes = (type: "jersey" | "shorts") => {
@@ -189,6 +184,7 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
             value={player.gender}
             label="Gênero"
             onChange={handleGenderChange}
+            MenuProps={{ disableScrollLock: true }}
           >
             <MenuItem value="masculino">Masculino</MenuItem>
             <MenuItem value="feminino">Feminino</MenuItem>
@@ -234,6 +230,7 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
                 : "Tamanho do uniforme"
             }
             onChange={handleJerseySizeChange}
+            MenuProps={{ disableScrollLock: true }}
           >
             {getAvailableSizes("jersey").map((size) => (
               <MenuItem key={`jersey-${size}`} value={size}>
@@ -255,6 +252,7 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
               value={player.shorts_size}
               label="Tamanho do calção"
               onChange={handleShortsSizeChange}
+              MenuProps={{ disableScrollLock: true }}
             >
               {getAvailableSizes("shorts").map((size) => (
                 <MenuItem key={`shorts-${size}`} value={size}>

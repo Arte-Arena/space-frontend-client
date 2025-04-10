@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Box,
   Button,
@@ -40,16 +40,20 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
 
   useEffect(() => {
     if (uniform.sketches) {
-      setSketches(uniform.sketches);
+      setSketches([...uniform.sketches]);
     }
   }, [uniform.sketches]);
 
-  const handleSketchUpdate = (updatedSketch: Sketch) => {
-    const updatedSketches = sketches.map((sketch) =>
-      sketch.id === updatedSketch.id ? updatedSketch : sketch,
-    );
-    setSketches(updatedSketches);
-  };
+  const handleSketchUpdate = useCallback(
+    (updatedSketch: Sketch) => {
+      const updatedSketches = sketches.map((sketch) =>
+        sketch.id === updatedSketch.id ? { ...updatedSketch } : { ...sketch },
+      );
+
+      setSketches([...updatedSketches]);
+    },
+    [sketches],
+  );
 
   const validatePlayer = (player: any, packageType: string): boolean => {
     const features =

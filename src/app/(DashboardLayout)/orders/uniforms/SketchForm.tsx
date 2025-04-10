@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import {
   Box,
   Typography,
@@ -19,6 +19,31 @@ interface SketchFormProps {
 }
 
 const SketchForm: React.FC<SketchFormProps> = ({ sketch, onSketchUpdate }) => {
+  const generatePlayersArray = useCallback(
+    (currentSketch: Sketch): Player[] => {
+      if (!currentSketch.players || currentSketch.players.length === 0) {
+        return Array.from({ length: currentSketch.player_count }, () =>
+          createEmptyPlayer(),
+        );
+      }
+
+      if (currentSketch.players.length < currentSketch.player_count) {
+        const additionalPlayers = Array.from(
+          { length: currentSketch.player_count - currentSketch.players.length },
+          () => createEmptyPlayer(),
+        );
+        return [...currentSketch.players, ...additionalPlayers];
+      }
+
+      if (currentSketch.players.length > currentSketch.player_count) {
+        return currentSketch.players.slice(0, currentSketch.player_count);
+      }
+
+      return currentSketch.players;
+    },
+    [],
+  );
+
   useEffect(() => {
     if (!sketch.players || sketch.players.length !== sketch.player_count) {
       const updatedPlayers = generatePlayersArray(sketch);
@@ -28,40 +53,35 @@ const SketchForm: React.FC<SketchFormProps> = ({ sketch, onSketchUpdate }) => {
         players: updatedPlayers,
       });
     }
-  }, [sketch.player_count, sketch.players, sketch, onSketchUpdate]);
+  }, [
+    sketch.player_count,
+    sketch.players,
+    sketch,
+    onSketchUpdate,
+    generatePlayersArray,
+  ]);
 
-  const generatePlayersArray = (sketch: Sketch): Player[] => {
-    if (!sketch.players || sketch.players.length === 0) {
-      return Array.from({ length: sketch.player_count }, () =>
-        createEmptyPlayer(),
-      );
-    }
+  const handlePlayerUpdate = useCallback(
+    (updatedPlayer: Player) => {
+      if (updatedPlayer._index === undefined) {
+        console.error("Player update received without _index", updatedPlayer);
+        return;
+      }
 
-    if (sketch.players.length < sketch.player_count) {
-      const additionalPlayers = Array.from(
-        { length: sketch.player_count - sketch.players.length },
-        () => createEmptyPlayer(),
-      );
-      return [...sketch.players, ...additionalPlayers];
-    }
+      const updatedPlayers = sketch.players.map((player, index) => {
+        if (index === updatedPlayer._index) {
+          return { ...updatedPlayer };
+        }
+        return { ...player };
+      });
 
-    if (sketch.players.length > sketch.player_count) {
-      return sketch.players.slice(0, sketch.player_count);
-    }
-
-    return sketch.players;
-  };
-
-  const handlePlayerUpdate = (updatedPlayer: Player) => {
-    const updatedPlayers = sketch.players.map((player, index) =>
-      index === updatedPlayer._index ? updatedPlayer : player,
-    );
-
-    onSketchUpdate({
-      ...sketch,
-      players: updatedPlayers,
-    });
-  };
+      onSketchUpdate({
+        ...sketch,
+        players: updatedPlayers,
+      });
+    },
+    [sketch, onSketchUpdate],
+  );
 
   const playersToRender =
     sketch.players?.length === sketch.player_count
