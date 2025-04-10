@@ -23,6 +23,7 @@ interface PlayerFormRowProps {
   index: number;
   packageType: PackageType;
   onPlayerUpdate: (updatedPlayer: Player) => void;
+  disabled?: boolean;
 }
 
 const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
@@ -30,6 +31,7 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
   index,
   packageType,
   onPlayerUpdate,
+  disabled = false,
 }) => {
   const packageFeatures = PACKAGE_FEATURES[packageType];
 
@@ -166,6 +168,7 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
               maxLength: 2,
             }}
             required
+            disabled={disabled}
           />
         </Grid>
       ) : (
@@ -185,6 +188,7 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
             label="Gênero"
             onChange={handleGenderChange}
             MenuProps={{ disableScrollLock: true }}
+            disabled={disabled}
           >
             <MenuItem value="masculino">Masculino</MenuItem>
             <MenuItem value="feminino">Feminino</MenuItem>
@@ -204,6 +208,7 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
             value={player.name}
             onChange={handleNameChange}
             required
+            disabled={disabled}
           />
         </Grid>
       ) : (
@@ -231,6 +236,7 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
             }
             onChange={handleJerseySizeChange}
             MenuProps={{ disableScrollLock: true }}
+            disabled={disabled}
           >
             {getAvailableSizes("jersey").map((size) => (
               <MenuItem key={`jersey-${size}`} value={size}>
@@ -253,6 +259,7 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
               label="Tamanho do calção"
               onChange={handleShortsSizeChange}
               MenuProps={{ disableScrollLock: true }}
+              disabled={disabled}
             >
               {getAvailableSizes("shorts").map((size) => (
                 <MenuItem key={`shorts-${size}`} value={size}>

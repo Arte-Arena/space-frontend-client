@@ -208,6 +208,16 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
         </Box>
       )}
 
+      {!uniform.editable && (
+        <Box mb={3}>
+          <Alert severity="info" variant="filled">
+            Este uniforme não está mais disponível para edição. Os dados já
+            foram confirmados e enviados para produção. Caso precise alterar
+            algum dado, entre em contato com o suporte.
+          </Alert>
+        </Box>
+      )}
+
       <Typography variant="h5" mb={3}>
         Formulário de Uniformes - Orçamento {uniform.budget_id}
       </Typography>
@@ -230,6 +240,7 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
             key={sketch.id}
             sketch={sketch}
             onSketchUpdate={handleSketchUpdate}
+            editable={uniform.editable}
           />
         ))}
       </Stack>

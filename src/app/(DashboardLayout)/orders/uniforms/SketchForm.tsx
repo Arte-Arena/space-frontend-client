@@ -16,9 +16,14 @@ import PlayerFormRow from "./PlayerFormRow";
 interface SketchFormProps {
   sketch: Sketch;
   onSketchUpdate: (updatedSketch: Sketch) => void;
+  editable?: boolean;
 }
 
-const SketchForm: React.FC<SketchFormProps> = ({ sketch, onSketchUpdate }) => {
+const SketchForm: React.FC<SketchFormProps> = ({
+  sketch,
+  onSketchUpdate,
+  editable = true,
+}) => {
   const generatePlayersArray = useCallback(
     (currentSketch: Sketch): Player[] => {
       if (!currentSketch.players || currentSketch.players.length === 0) {
@@ -181,6 +186,7 @@ const SketchForm: React.FC<SketchFormProps> = ({ sketch, onSketchUpdate }) => {
               index={index}
               packageType={sketch.package_type}
               onPlayerUpdate={handlePlayerUpdate}
+              disabled={!editable}
             />
           ))}
         </Box>
