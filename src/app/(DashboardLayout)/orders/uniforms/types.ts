@@ -25,6 +25,53 @@ export type PackageType =
   | "Premium"
   | "Profissional";
 
+export const PACKAGE_FEATURES: Record<
+  PackageType,
+  {
+    canHaveDifferentSizes: boolean;
+    hasPlayerName: boolean;
+    hasPlayerNumber: boolean;
+    availableSizes: "all" | "limited";
+  }
+> = {
+  Start: {
+    canHaveDifferentSizes: false,
+    hasPlayerName: false,
+    hasPlayerNumber: false,
+    availableSizes: "limited",
+  },
+  Prata: {
+    canHaveDifferentSizes: false,
+    hasPlayerName: false,
+    hasPlayerNumber: true,
+    availableSizes: "all",
+  },
+  Ouro: {
+    canHaveDifferentSizes: false,
+    hasPlayerName: true,
+    hasPlayerNumber: true,
+    availableSizes: "all",
+  },
+  Diamante: {
+    canHaveDifferentSizes: true,
+    hasPlayerName: true,
+    hasPlayerNumber: true,
+    availableSizes: "all",
+  },
+  Premium: {
+    canHaveDifferentSizes: true,
+    hasPlayerName: true,
+    hasPlayerNumber: true,
+    availableSizes: "all",
+  },
+  Profissional: {
+    canHaveDifferentSizes: true,
+    hasPlayerName: true,
+    hasPlayerNumber: true,
+    availableSizes: "all",
+  },
+};
+
 export interface Sketch {
   id: string;
   player_count: number;
@@ -63,6 +110,12 @@ export const SIZES_BY_GENDER: Record<
     jersey: ["2", "4", "6", "8", "10", "12", "14", "16"],
     shorts: ["2", "4", "6", "8", "10", "12", "14", "16"],
   },
+};
+
+export const LIMITED_SIZES: Record<Gender, string[]> = {
+  masculino: ["M", "G"],
+  feminino: ["M", "G"],
+  infantil: ["12", "14"],
 };
 
 export const createEmptyPlayer = (): Player => ({

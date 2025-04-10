@@ -10,7 +10,7 @@ import {
   Chip,
 } from "@mui/material";
 import { IconChevronDown } from "@tabler/icons-react";
-import { Sketch, Player, createEmptyPlayer } from "./types";
+import { Sketch, Player, createEmptyPlayer, PACKAGE_FEATURES } from "./types";
 import PlayerFormRow from "./PlayerFormRow";
 
 interface SketchFormProps {
@@ -28,7 +28,7 @@ const SketchForm: React.FC<SketchFormProps> = ({ sketch, onSketchUpdate }) => {
         players: updatedPlayers,
       });
     }
-  }, [sketch.player_count]);
+  }, [sketch.player_count, sketch.players, sketch, onSketchUpdate]);
 
   const generatePlayersArray = (sketch: Sketch): Player[] => {
     if (!sketch.players || sketch.players.length === 0) {
@@ -68,6 +68,8 @@ const SketchForm: React.FC<SketchFormProps> = ({ sketch, onSketchUpdate }) => {
       ? sketch.players
       : generatePlayersArray(sketch);
 
+  const packageFeatures = PACKAGE_FEATURES[sketch.package_type];
+
   return (
     <Accordion defaultExpanded>
       <AccordionSummary
@@ -91,6 +93,18 @@ const SketchForm: React.FC<SketchFormProps> = ({ sketch, onSketchUpdate }) => {
           <Typography variant="body2" color="textSecondary">
             Preencha as informações de cada jogador para este esboço.
           </Typography>
+          <Typography variant="body2" color="textSecondary" mt={1}>
+            {sketch.package_type === "Start" &&
+              "Pacote Start: Tamanhos limitados (M, G) para adultos apenas, sem tamanhos infantis, sem nome e número individuais."}
+            {sketch.package_type === "Prata" &&
+              "Pacote Prata: Todos os tamanhos, sem nome individual, apenas número."}
+            {sketch.package_type === "Ouro" &&
+              "Pacote Ouro: Todos os tamanhos, nome e número individuais."}
+            {(sketch.package_type === "Diamante" ||
+              sketch.package_type === "Premium" ||
+              sketch.package_type === "Profissional") &&
+              "Pacote avançado: Todos os tamanhos, nome e número individuais, tamanhos de camisa e calção podem ser diferentes."}
+          </Typography>
         </Box>
 
         <Box mt={3}>
@@ -107,7 +121,7 @@ const SketchForm: React.FC<SketchFormProps> = ({ sketch, onSketchUpdate }) => {
                 fontWeight="bold"
                 sx={{ textAlign: { xs: "left", md: "center" } }}
               >
-                Número
+                {packageFeatures.hasPlayerNumber ? "Número" : "#"}
               </Typography>
             </Grid>
             <Grid item xs={12} md={3}>
@@ -117,19 +131,25 @@ const SketchForm: React.FC<SketchFormProps> = ({ sketch, onSketchUpdate }) => {
             </Grid>
             <Grid item xs={12} md={4}>
               <Typography variant="body2" fontWeight="bold">
-                Nome do jogador
+                {packageFeatures.hasPlayerName ? "Nome do jogador" : "Jogador"}
               </Typography>
             </Grid>
-            <Grid item xs={12} md={2}>
+            <Grid
+              item
+              xs={12}
+              md={packageFeatures.canHaveDifferentSizes ? 2 : 4}
+            >
               <Typography variant="body2" fontWeight="bold">
-                Camisa
+                {packageFeatures.canHaveDifferentSizes ? "Camisa" : "Tamanho"}
               </Typography>
             </Grid>
-            <Grid item xs={12} md={2}>
-              <Typography variant="body2" fontWeight="bold">
-                Calção
-              </Typography>
-            </Grid>
+            {packageFeatures.canHaveDifferentSizes && (
+              <Grid item xs={12} md={2}>
+                <Typography variant="body2" fontWeight="bold">
+                  Calção
+                </Typography>
+              </Grid>
+            )}
           </Grid>
 
           <Divider sx={{ mt: 1, mb: 3 }} />
@@ -139,6 +159,7 @@ const SketchForm: React.FC<SketchFormProps> = ({ sketch, onSketchUpdate }) => {
               key={`player-${sketch.id}-${index}`}
               player={{ ...player, _index: index }}
               index={index}
+              packageType={sketch.package_type}
               onPlayerUpdate={handlePlayerUpdate}
             />
           ))}

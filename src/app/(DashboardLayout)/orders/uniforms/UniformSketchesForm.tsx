@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Button,
@@ -13,7 +13,12 @@ import {
   DialogContentText,
 } from "@mui/material";
 import { IconDeviceFloppy } from "@tabler/icons-react";
-import { UniformWithSketches, Sketch, SketchPlayersUpdate } from "./types";
+import {
+  UniformWithSketches,
+  Sketch,
+  SketchPlayersUpdate,
+  PACKAGE_FEATURES,
+} from "./types";
 import SketchForm from "./SketchForm";
 import { updateUniformPlayers } from "@/services/uniforms";
 
@@ -26,18 +31,39 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
   uniform,
   onSave,
 }) => {
-  const [sketches, setSketches] = useState<Sketch[]>(uniform.sketches);
+  const [sketches, setSketches] = useState<Sketch[]>(uniform.sketches || []);
   const [saving, setSaving] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
 
+  useEffect(() => {
+    if (uniform.sketches) {
+      setSketches(uniform.sketches);
+    }
+  }, [uniform.sketches]);
+
   const handleSketchUpdate = (updatedSketch: Sketch) => {
     const updatedSketches = sketches.map((sketch) =>
       sketch.id === updatedSketch.id ? updatedSketch : sketch,
     );
     setSketches(updatedSketches);
+  };
+
+  const validatePlayer = (player: any, packageType: string): boolean => {
+    const features =
+      PACKAGE_FEATURES[packageType as keyof typeof PACKAGE_FEATURES];
+
+    if (!player.gender || !player.shirt_size) return false;
+
+    if (features.canHaveDifferentSizes && !player.shorts_size) return false;
+
+    if (features.hasPlayerName && !player.name) return false;
+
+    if (features.hasPlayerNumber && !player.number) return false;
+
+    return true;
   };
 
   const handleOpenConfirmDialog = () => {
@@ -52,14 +78,22 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
       }
 
       for (const player of sketch.players) {
-        if (
-          !player.name ||
-          !player.shirt_size ||
-          !player.shorts_size ||
-          !player.number
-        ) {
+        if (!validatePlayer(player, sketch.package_type)) {
+          const features = PACKAGE_FEATURES[sketch.package_type];
           hasError = true;
-          errorMsg = `Preencha todos os campos para o jogador no esboço ${sketch.id}`;
+
+          if (!player.gender || !player.shirt_size) {
+            errorMsg = `Preencha os campos obrigatórios do jogador no esboço ${sketch.id}`;
+          } else if (features.canHaveDifferentSizes && !player.shorts_size) {
+            errorMsg = `Informe o tamanho do calção para o jogador no esboço ${sketch.id}`;
+          } else if (features.hasPlayerName && !player.name) {
+            errorMsg = `Informe o nome do jogador no esboço ${sketch.id}`;
+          } else if (features.hasPlayerNumber && !player.number) {
+            errorMsg = `Informe o número do jogador no esboço ${sketch.id}`;
+          } else {
+            errorMsg = `Dados incompletos para o jogador no esboço ${sketch.id}`;
+          }
+
           break;
         }
       }
@@ -91,8 +125,22 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
           );
         }
 
+        for (const player of sketch.players) {
+          if (!validatePlayer(player, sketch.package_type)) {
+            throw new Error(
+              `Dados incompletos para jogador no esboço ${sketch.id}`,
+            );
+          }
+        }
+
         const cleanPlayers = sketch.players.map((player) => {
           const { _index, ...cleanPlayer } = player;
+
+          const features = PACKAGE_FEATURES[sketch.package_type];
+          if (!features.canHaveDifferentSizes) {
+            cleanPlayer.shorts_size = cleanPlayer.shirt_size;
+          }
+
           return cleanPlayer;
         });
 
@@ -167,8 +215,8 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
           alterados.
         </Typography>
         <Typography variant="body2" color="textSecondary">
-          Campos obrigatórios: número do jogador, nome do jogador, tamanho da
-          camisa e tamanho do calção.
+          Os campos exibidos e obrigatórios variam de acordo com o tipo de
+          pacote.
         </Typography>
       </Box>
 
