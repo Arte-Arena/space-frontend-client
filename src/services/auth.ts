@@ -14,7 +14,7 @@ export interface LoginData {
 }
 
 export const register = async (data: RegisterData): Promise<any> => {
-  const response = await axios.post(`${API_URL}/v1/clients`, data);
+  const response = await axios.post(`${API_URL}/v1/auth/signup`, data);
   return response.data;
 };
 
