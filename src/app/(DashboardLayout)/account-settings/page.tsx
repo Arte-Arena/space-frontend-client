@@ -2,10 +2,17 @@
 
 import * as React from "react";
 import PageContainer from "@/app/components/container/PageContainer";
-import Breadcrumb from "@/app/(DashboardLayout)/layout/shared/breadcrumb/Breadcrumb";
-import { Grid, Tabs, Tab, Box, CardContent, Divider } from "@mui/material";
+import {
+  Grid,
+  Tabs,
+  Tab,
+  Box,
+  CardContent,
+  Divider,
+  Paper,
+  Typography,
+} from "@mui/material";
 
-// components
 import AccountTab from "@/app/components/pages/account-setting/AccountTab";
 import { IconBell, IconLock, IconUserCircle } from "@tabler/icons-react";
 import BlankCard from "@/app/components/shared/BlankCard";
@@ -63,56 +70,65 @@ const AccountSetting = () => {
       title="Configurações de Conta"
       description="Página de configurações de conta"
     >
-      {/* breadcrumb */}
-      <Breadcrumb title="Configurações de Conta" items={BCrumb} />
-      {/* end breadcrumb */}
-
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <BlankCard>
-            <Box sx={{ width: "100%" }}>
-              <Tabs
-                value={value}
-                onChange={handleChange}
-                scrollButtons="auto"
-                aria-label="abas de configurações de conta"
-              >
-                <Tab
-                  iconPosition="start"
-                  icon={<IconUserCircle size="22" />}
-                  label="Conta"
-                  {...a11yProps(0)}
-                />
-
-                <Tab
-                  iconPosition="start"
-                  icon={<IconBell size="22" />}
-                  label="Notificações"
-                  {...a11yProps(1)}
-                />
-                <Tab
-                  iconPosition="start"
-                  icon={<IconLock size="22" />}
-                  label="Segurança"
-                  {...a11yProps(2)}
-                />
-              </Tabs>
+      <Paper elevation={0} sx={{ p: 3, mb: 4 }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Box display="flex" alignItems="center" mb={3}>
+              <IconUserCircle size={32} />
+              <Typography variant="h4" ml={1}>
+                Configurações de Conta
+              </Typography>
             </Box>
-            <Divider />
-            <CardContent>
-              <TabPanel value={value} index={0}>
-                <AccountTab />
-              </TabPanel>
-              <TabPanel value={value} index={1}>
-                <NotificationTab />
-              </TabPanel>
-              <TabPanel value={value} index={2}>
-                <SecurityTab />
-              </TabPanel>
-            </CardContent>
-          </BlankCard>
+            <Typography variant="body1" color="textSecondary" mb={3}>
+              Personalize suas configurações de conta, notificações e segurança
+              conforme sua preferência.
+            </Typography>
+
+            <BlankCard>
+              <Box sx={{ width: "100%" }}>
+                <Tabs
+                  value={value}
+                  onChange={handleChange}
+                  scrollButtons="auto"
+                  aria-label="abas de configurações de conta"
+                >
+                  <Tab
+                    iconPosition="start"
+                    icon={<IconUserCircle size="22" />}
+                    label="Conta"
+                    {...a11yProps(0)}
+                  />
+
+                  <Tab
+                    iconPosition="start"
+                    icon={<IconBell size="22" />}
+                    label="Notificações"
+                    {...a11yProps(1)}
+                  />
+                  <Tab
+                    iconPosition="start"
+                    icon={<IconLock size="22" />}
+                    label="Segurança"
+                    {...a11yProps(2)}
+                  />
+                </Tabs>
+              </Box>
+              <Divider />
+              <CardContent>
+                <TabPanel value={value} index={0}>
+                  <AccountTab />
+                </TabPanel>
+                <TabPanel value={value} index={1}>
+                  <NotificationTab />
+                </TabPanel>
+                <TabPanel value={value} index={2}>
+                  <SecurityTab />
+                </TabPanel>
+              </CardContent>
+            </BlankCard>
+          </Grid>
         </Grid>
-      </Grid>
+      </Paper>
     </PageContainer>
   );
 };
