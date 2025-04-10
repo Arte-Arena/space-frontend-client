@@ -124,6 +124,19 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
         </Grid>
       )}
 
+      {packageFeatures.hasPlayerName && (
+        <Grid item xs={12} md={packageFeatures.hasPlayerNumber ? 2 : 3}>
+          <TextField
+            fullWidth
+            size="small"
+            label="Nome"
+            value={player.name}
+            onChange={handleNameChange}
+            disabled={disabled}
+          />
+        </Grid>
+      )}
+
       <Grid item xs={12} md={3}>
         <FormControl fullWidth size="small">
           <InputLabel id={`gender-label-${index}`}>Gênero</InputLabel>
@@ -151,9 +164,11 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
         md={
           packageFeatures.canHaveDifferentSizes
             ? 3
-            : packageFeatures.hasPlayerNumber
-              ? 7
-              : 8
+            : packageFeatures.hasPlayerNumber && packageFeatures.hasPlayerName
+              ? 5
+              : packageFeatures.hasPlayerNumber || packageFeatures.hasPlayerName
+                ? 6
+                : 9
         }
       >
         <FormControl fullWidth size="small" required>
