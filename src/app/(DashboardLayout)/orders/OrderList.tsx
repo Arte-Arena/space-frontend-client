@@ -31,7 +31,7 @@ const OrderList = ({ orders, isLoading, error }: OrderListProps) => {
             key={item}
             variant="rectangular"
             height={160}
-            sx={{ mb: 2 }}
+            sx={{ mb: 2, borderRadius: 2, bgcolor: "rgba(0, 0, 0, 0.15)" }}
           />
         ))}
       </Box>

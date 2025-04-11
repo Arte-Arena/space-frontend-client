@@ -96,9 +96,6 @@ const OrderCard = ({ order }: OrderCardProps) => {
           mb={2}
         >
           <Box>
-            <Typography variant="h6" gutterBottom>
-              Pedido #{order.order_number}
-            </Typography>
             <Stack direction="row" spacing={1} alignItems="center">
               <IconCalendarEvent size={16} />
               <Typography variant="body2" color="textSecondary">
@@ -135,8 +132,9 @@ const OrderCard = ({ order }: OrderCardProps) => {
           justifyContent="space-between"
           alignItems="center"
           mt={2}
+          flexDirection={{ xs: "column", sm: "row" }}
         >
-          <Typography variant="h6">
+          <Typography variant="h6" mb={{ xs: 2, sm: 0 }}>
             Total: {formatCurrency(order.total_amount)}
           </Typography>
 
@@ -148,6 +146,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
               startIcon={<IconShoppingCart size={18} />}
               onClick={handleUniformConfig}
               disabled={!canConfigureUniform()}
+              sx={{ width: { xs: "100%", sm: "auto" } }}
             >
               {order.status.toLowerCase() === "pending"
                 ? "Configurar uniformes"

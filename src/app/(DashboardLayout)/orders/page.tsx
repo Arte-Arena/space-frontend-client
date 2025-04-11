@@ -41,29 +41,7 @@ export default function OrdersPage() {
   }, [router]);
 
   const handleFilter = (filters: FilterOptions) => {
-    let result = [...orders];
-
-    if (filters.status) {
-      result = result.filter(
-        (order) => order.status.toLowerCase() === filters.status.toLowerCase(),
-      );
-    }
-
-    if (filters.productType) {
-      result = result.filter(
-        (order) => order.product_type === filters.productType,
-      );
-    }
-
-    if (filters.searchTerm) {
-      result = result.filter((order) =>
-        order.order_number
-          .toLowerCase()
-          .includes(filters.searchTerm.toLowerCase()),
-      );
-    }
-
-    setFilteredOrders(result);
+    setFilteredOrders([...orders]);
   };
 
   const handleRetryClick = () => {
@@ -111,7 +89,12 @@ export default function OrdersPage() {
               tipos de pedidos em breve.
             </Alert>
 
-            <OrderFilter onFilter={handleFilter} />
+            <Box sx={{ opacity: 0.6, pointerEvents: "none", mb: 3 }}>
+              <Alert severity="warning" sx={{ mb: 2 }}>
+                Filtros estarão disponíveis em breve.
+              </Alert>
+              <OrderFilter onFilter={handleFilter} />
+            </Box>
 
             <OrderList
               orders={filteredOrders}
