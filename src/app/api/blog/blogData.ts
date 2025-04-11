@@ -254,8 +254,6 @@ mock.onPost("/api/data/blog/post").reply((config) => {
 
     return [200, { post }];
   } catch (error) {
-    console.error(error);
-
     return [500, { message: "Internal server error" }];
   }
 });
@@ -270,8 +268,6 @@ mock.onPost("/api/data/blog/post/add").reply((config) => {
 
     return [200, { posts: [...BlogPost] }];
   } catch (err) {
-    console.error(err);
-
     return [500, { message: "Internal server error" }];
   }
 });

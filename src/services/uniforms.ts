@@ -3,6 +3,11 @@ import { useRouter } from "next/navigation";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 
+export interface ApiResponse {
+  message: string;
+  data?: any;
+}
+
 export interface Player {
   gender: string;
   name: string;

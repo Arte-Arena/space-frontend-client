@@ -166,7 +166,6 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
         throw new Error("Falha ao atualizar o uniforme");
       }
     } catch (error) {
-      console.error("Erro ao salvar os dados:", error);
       setErrorMessage("Ocorreu um erro ao salvar os dados. Tente novamente.");
       setShowError(true);
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Order, OrderItem } from "../types/order";
-import { getAllUniforms, Uniform } from "./uniforms";
+import { getAllUniforms, Uniform, ApiResponse } from "./uniforms";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 
@@ -35,25 +35,9 @@ const mapUniformToOrder = (uniform: Uniform): Order => {
 
 export const getOrders = async (router: any): Promise<Order[]> => {
   try {
-    const response = await axios.get(`${API_URL}/orders`, {
-      withCredentials: true,
-    });
-
-    let orders: Order[] = [];
-    if (response.data && response.data.data) {
-      orders = response.data.data;
-    }
-
-    try {
-      const uniforms = await getAllUniforms(router);
-      const uniformOrders = uniforms.map(mapUniformToOrder);
-
-      orders = [...orders, ...uniformOrders];
-    } catch (uniformError) {
-      console.error("Error fetching uniforms:", uniformError);
-    }
-
-    return orders;
+    const uniforms = await getAllUniforms(router);
+    const uniformOrders = uniforms.map(mapUniformToOrder);
+    return uniformOrders;
   } catch (error) {
     console.error("Error fetching orders:", error);
     if (axios.isAxiosError(error) && error.response?.status === 401) {
@@ -64,13 +48,7 @@ export const getOrders = async (router: any): Promise<Order[]> => {
       throw new Error(error.response.data.message);
     }
 
-    try {
-      const uniforms = await getAllUniforms(router);
-      return uniforms.map(mapUniformToOrder);
-    } catch (uniformError) {
-      console.error("Error fetching uniforms as backup:", uniformError);
-      throw error;
-    }
+    throw error;
   }
 };
 
@@ -79,12 +57,15 @@ export const getOrderById = async (
   router: any,
 ): Promise<Order | null> => {
   try {
-    const response = await axios.get(`${API_URL}/orders/${orderId}`, {
-      withCredentials: true,
-    });
+    const response = await axios.get<ApiResponse>(
+      `${API_URL}/v1/uniforms?id=${orderId}`,
+      {
+        withCredentials: true,
+      },
+    );
 
     if (response.data && response.data.data) {
-      return response.data.data;
+      return mapUniformToOrder(response.data.data);
     }
 
     return null;
@@ -94,8 +75,10 @@ export const getOrderById = async (
       router.push("/auth/auth1/login");
     }
 
-    if (axios.isAxiosError(error) && error.response?.data?.message) {
-      throw new Error(error.response.data.message);
+    if (axios.isAxiosError(error) && error.response?.data) {
+      const errorMessage =
+        error.response.data.message || "Erro ao buscar pedido";
+      throw new Error(errorMessage);
     }
 
     throw error;
