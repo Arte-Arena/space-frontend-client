@@ -65,6 +65,11 @@ export const getUniformById = async (
       const router = useRouter();
       router.push("/auth/auth1/login");
     }
+
+    if (axios.isAxiosError(error) && error.response?.data?.message) {
+      throw new Error(error.response.data.message);
+    }
+
     throw error;
   }
 };
@@ -97,6 +102,11 @@ export const updateUniformPlayers = async (
       const router = useRouter();
       router.push("/auth/auth1/login");
     }
+
+    if (axios.isAxiosError(error) && error.response?.data?.message) {
+      throw new Error(error.response.data.message);
+    }
+
     throw error;
   }
 };
@@ -117,6 +127,11 @@ export const getAllUniforms = async (router: any): Promise<Uniform[]> => {
     if (axios.isAxiosError(error) && error.response?.status === 401) {
       router.push("/auth/auth1/login");
     }
+
+    if (axios.isAxiosError(error) && error.response?.data?.message) {
+      throw new Error(error.response.data.message);
+    }
+
     throw error;
   }
 };

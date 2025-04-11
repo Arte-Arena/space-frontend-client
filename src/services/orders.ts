@@ -60,12 +60,16 @@ export const getOrders = async (router: any): Promise<Order[]> => {
       router.push("/auth/auth1/login");
     }
 
+    if (axios.isAxiosError(error) && error.response?.data?.message) {
+      throw new Error(error.response.data.message);
+    }
+
     try {
       const uniforms = await getAllUniforms(router);
       return uniforms.map(mapUniformToOrder);
     } catch (uniformError) {
       console.error("Error fetching uniforms as backup:", uniformError);
-      return [];
+      throw error;
     }
   }
 };
@@ -89,6 +93,11 @@ export const getOrderById = async (
     if (axios.isAxiosError(error) && error.response?.status === 401) {
       router.push("/auth/auth1/login");
     }
-    return null;
+
+    if (axios.isAxiosError(error) && error.response?.data?.message) {
+      throw new Error(error.response.data.message);
+    }
+
+    throw error;
   }
 };

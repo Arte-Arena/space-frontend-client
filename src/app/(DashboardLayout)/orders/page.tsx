@@ -8,26 +8,30 @@ import { Order } from "@/types/order";
 import OrderList from "./OrderList";
 import OrderFilter, { FilterOptions } from "./OrderFilter";
 import { IconPackage } from "@tabler/icons-react";
+import { getErrorMessage } from "@/utils/error-handler";
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [filteredOrders, setFilteredOrders] = useState<Order[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
         setIsLoading(true);
-        setError(null);
+        setErrorMessage(null);
         const data = await getOrders(router);
         setOrders(data);
         setFilteredOrders(data);
       } catch (err) {
         console.error("Error fetching orders:", err);
-        setError(
-          "Ocorreu um erro ao carregar seus pedidos. Tente novamente mais tarde.",
+        setErrorMessage(
+          getErrorMessage(
+            err,
+            "Ocorreu um erro ao carregar seus pedidos. Tente novamente mais tarde.",
+          ),
         );
       } finally {
         setIsLoading(false);
@@ -90,7 +94,7 @@ export default function OrdersPage() {
             <OrderList
               orders={filteredOrders}
               isLoading={isLoading}
-              error={error}
+              error={errorMessage}
             />
           </Grid>
         </Grid>

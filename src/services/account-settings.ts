@@ -24,8 +24,16 @@ export const getClientData = async (
 
     return null;
   } catch (error) {
-    router.push("/auth/auth1/login");
-    return null;
+    console.error("Error fetching client data:", error);
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
+      router.push("/auth/auth1/login");
+    }
+
+    if (axios.isAxiosError(error) && error.response?.data?.message) {
+      throw new Error(error.response.data.message);
+    }
+
+    throw error;
   }
 };
 
@@ -72,6 +80,11 @@ export const updateClientData = async (
     if (axios.isAxiosError(error) && error.response?.status === 401) {
       router.push("/auth/auth1/login");
     }
-    return false;
+
+    if (axios.isAxiosError(error) && error.response?.data?.message) {
+      throw new Error(error.response.data.message);
+    }
+
+    throw error;
   }
 };

@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Order } from "@/types/order";
-import { Box, Typography, Alert, Skeleton } from "@mui/material";
+import { Box, Alert, Skeleton } from "@mui/material";
 import OrderCard from "./OrderCard";
 
 interface OrderListProps {
