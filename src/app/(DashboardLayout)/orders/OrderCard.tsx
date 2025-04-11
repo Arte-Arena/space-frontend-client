@@ -12,8 +12,8 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { formatCurrency } from "../../../utils/currency";
+import { formatDate } from "../../../utils/date";
 import { IconShoppingCart, IconCalendarEvent } from "@tabler/icons-react";
-import moment from "moment";
 
 interface OrderCardProps {
   order: Order;
@@ -61,12 +61,28 @@ const OrderCard = ({ order }: OrderCardProps) => {
   const router = useRouter();
 
   const handleUniformConfig = () => {
-    router.push(`/orders/uniforms/${order.id}`);
+    const uniformItem = order.items.find(
+      (item) => item.product_details && item.product_details.uniformId,
+    );
+
+    if (uniformItem && uniformItem.product_details.uniformId) {
+      router.push(`/orders/uniforms/${order.id}`);
+    }
   };
 
-  const formattedDate = () => {
-    moment.locale("pt-br");
-    return moment(order.created_at).format("DD/MM/YYYY");
+  const canConfigureUniform = () => {
+    if (
+      order.status.toLowerCase() !== "pending" &&
+      order.status.toLowerCase() !== "processing"
+    ) {
+      return false;
+    }
+
+    const hasUniformId = order.items.some(
+      (item) => item.product_details && item.product_details.uniformId,
+    );
+
+    return hasUniformId || order.status.toLowerCase() === "pending";
   };
 
   return (
@@ -86,7 +102,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
             <Stack direction="row" spacing={1} alignItems="center">
               <IconCalendarEvent size={16} />
               <Typography variant="body2" color="textSecondary">
-                {formattedDate()}
+                {formatDate(order.created_at)}
               </Typography>
             </Stack>
           </Box>
@@ -131,9 +147,11 @@ const OrderCard = ({ order }: OrderCardProps) => {
               size="small"
               startIcon={<IconShoppingCart size={18} />}
               onClick={handleUniformConfig}
-              disabled={order.status.toLowerCase() !== "pending"}
+              disabled={!canConfigureUniform()}
             >
-              Configurar uniformes
+              {order.status.toLowerCase() === "pending"
+                ? "Configurar uniformes"
+                : "Ver uniformes"}
             </Button>
           )}
         </Box>

@@ -8,7 +8,6 @@ import { Order } from "@/types/order";
 import OrderList from "./OrderList";
 import OrderFilter, { FilterOptions } from "./OrderFilter";
 import { IconPackage } from "@tabler/icons-react";
-import MockData from "./MockData";
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -64,12 +63,6 @@ export default function OrdersPage() {
     setFilteredOrders(result);
   };
 
-  const handleAddMockOrder = (mockOrder: Order) => {
-    const updatedOrders = [...orders, mockOrder];
-    setOrders(updatedOrders);
-    setFilteredOrders(updatedOrders);
-  };
-
   return (
     <PageContainer title="Meus Pedidos" description="Gerenciamento de pedidos">
       <Paper elevation={0} sx={{ p: 3, mb: 4 }}>
@@ -86,7 +79,11 @@ export default function OrdersPage() {
               uniformes quando necessário.
             </Typography>
 
-            <MockData onAddMockOrder={handleAddMockOrder} />
+            <Alert severity="info" sx={{ mb: 3 }}>
+              Atualmente, o sistema exibe pedidos relacionados aos uniformes.
+              Estamos trabalhando para implementar a visualização de todos os
+              tipos de pedidos em breve.
+            </Alert>
 
             <OrderFilter onFilter={handleFilter} />
 

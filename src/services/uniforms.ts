@@ -100,3 +100,23 @@ export const updateUniformPlayers = async (
     throw error;
   }
 };
+
+export const getAllUniforms = async (router: any): Promise<Uniform[]> => {
+  try {
+    const response = await axios.get(`${API_URL}/v1/uniforms`, {
+      withCredentials: true,
+    });
+
+    if (response.data && response.data.data) {
+      return response.data.data;
+    }
+
+    return [];
+  } catch (error) {
+    console.error("Error fetching uniforms:", error);
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
+      router.push("/auth/auth1/login");
+    }
+    throw error;
+  }
+};
