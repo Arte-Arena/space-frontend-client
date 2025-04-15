@@ -1,10 +1,21 @@
+"use client";
+
 import { Grid, Box, Typography } from "@mui/material";
 import Logo from "@/app/(DashboardLayout)/layout/shared/logo/Logo";
 import PageContainer from "@/app/components/container/PageContainer";
 import AuthForgotPassword from "../../authForms/AuthForgotPassword";
 import Image from "next/image";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { checkAuthAndRedirect } from "@/services/auth";
 
 export default function ForgotPassword() {
+  const router = useRouter();
+
+  useEffect(() => {
+    checkAuthAndRedirect(router);
+  }, [router]);
+
   return (
     <PageContainer
       title="Recuperar Senha"

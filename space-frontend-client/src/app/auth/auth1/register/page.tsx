@@ -1,11 +1,22 @@
+"use client";
+
 import Link from "next/link";
 import { Grid, Box, Typography, Stack } from "@mui/material";
 import PageContainer from "@/app/components/container/PageContainer";
 import Logo from "@/app/(DashboardLayout)/layout/shared/logo/Logo";
 import AuthRegister from "../../authForms/AuthRegister";
 import Image from "next/image";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { checkAuthAndRedirect } from "@/services/auth";
 
 export default function Register() {
+  const router = useRouter();
+
+  useEffect(() => {
+    checkAuthAndRedirect(router);
+  }, [router]);
+
   return (
     <PageContainer
       title="Página de Cadastro"

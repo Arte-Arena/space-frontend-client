@@ -1,10 +1,21 @@
+"use client";
+
 import { Grid, Box, Typography } from "@mui/material";
 import PageContainer from "@/app/components/container/PageContainer";
 import Logo from "@/app/(DashboardLayout)/layout/shared/logo/Logo";
 import AuthTwoSteps from "../../authForms/AuthTwoSteps";
 import Image from "next/image";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { checkAuthAndRedirect } from "@/services/auth";
 
 export default function TwoSteps() {
+  const router = useRouter();
+
+  useEffect(() => {
+    checkAuthAndRedirect(router);
+  }, [router]);
+
   return (
     <PageContainer
       title="Verificação em Duas Etapas"

@@ -18,8 +18,6 @@ export const register = async (data: RegisterData): Promise<any> => {
     const response = await axios.post(`${API_URL}/v1/auth/signup`, data);
     return response.data;
   } catch (error) {
-    console.error("Registration error:", error);
-
     if (axios.isAxiosError(error) && error.response?.data?.message) {
       throw new Error(error.response.data.message);
     }
@@ -35,8 +33,6 @@ export const login = async (data: LoginData): Promise<any> => {
     });
     return response.data;
   } catch (error) {
-    console.error("Login error:", error);
-
     if (axios.isAxiosError(error) && error.response?.data?.message) {
       throw new Error(error.response.data.message);
     }
@@ -56,8 +52,6 @@ export const logout = async (router: any): Promise<void> => {
     );
     router.push("/auth/auth1/login");
   } catch (error) {
-    console.error("Logout error:", error);
-
     if (axios.isAxiosError(error) && error.response?.data?.message) {
       throw new Error(error.response.data.message);
     }
@@ -66,19 +60,30 @@ export const logout = async (router: any): Promise<void> => {
   }
 };
 
-export const checkAuth = async () => {
+export const checkAuth = async (router: any) => {
   try {
-    const response = await axios.get(`${API_URL}/auth/check`, {
-      withCredentials: true,
-    });
+    const response = await axios.post(
+      `${API_URL}/v1/auth/authorize`,
+      {},
+      {
+        withCredentials: true,
+      }
+    );
     return response.data;
   } catch (error) {
-    console.error("Check auth error:", error);
-
     if (axios.isAxiosError(error) && error.response?.data?.message) {
       throw new Error(error.response.data.message);
     }
-
     throw error;
+  }
+};
+
+export const checkAuthAndRedirect = async (router: any) => {
+  try {
+    await checkAuth(router);
+    router.push("/");
+    return true;
+  } catch (error) {
+    return false;
   }
 };

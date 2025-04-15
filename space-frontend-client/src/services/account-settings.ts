@@ -24,7 +24,6 @@ export const getClientData = async (
 
     return null;
   } catch (error) {
-    console.error("Error fetching client data:", error);
     if (axios.isAxiosError(error) && error.response?.status === 401) {
       router.push("/auth/auth1/login");
     }
@@ -76,7 +75,6 @@ export const updateClientData = async (
 
     return response.status === 200;
   } catch (error) {
-    console.error("Error updating client data:", error);
     if (axios.isAxiosError(error) && error.response?.status === 401) {
       router.push("/auth/auth1/login");
     }
