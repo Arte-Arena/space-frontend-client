@@ -65,7 +65,6 @@ export const getUniformById = async (
 
     return null;
   } catch (error) {
-    console.error(`Error fetching uniform ${uniformId}:`, error);
     if (axios.isAxiosError(error) && error.response?.status === 401) {
       const router = useRouter();
       router.push("/auth/auth1/login");
@@ -102,7 +101,6 @@ export const updateUniformPlayers = async (
 
     return null;
   } catch (error) {
-    console.error(`Error updating uniform players ${uniformId}:`, error);
     if (axios.isAxiosError(error) && error.response?.status === 401) {
       const router = useRouter();
       router.push("/auth/auth1/login");
@@ -128,7 +126,6 @@ export const getAllUniforms = async (router: any): Promise<Uniform[]> => {
 
     return [];
   } catch (error) {
-    console.error("Error fetching uniforms:", error);
     if (axios.isAxiosError(error) && error.response?.status === 401) {
       router.push("/auth/auth1/login");
     }

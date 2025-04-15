@@ -4,8 +4,8 @@ import MyApp from "./app";
 import "./global.css";
 
 export const metadata = {
-  title: "Modernize Main Demo",
-  description: "Modernize Main kit",
+  title: "Arte Arena - Space",
+  description: "Espaço destinado aos clientes",
 };
 
 export default function RootLayout({

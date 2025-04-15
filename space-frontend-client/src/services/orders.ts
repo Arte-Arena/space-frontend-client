@@ -39,7 +39,6 @@ export const getOrders = async (router: any): Promise<Order[]> => {
     const uniformOrders = uniforms.map(mapUniformToOrder);
     return uniformOrders;
   } catch (error) {
-    console.error("Error fetching orders:", error);
     if (axios.isAxiosError(error) && error.response?.status === 401) {
       router.push("/auth/auth1/login");
     }
@@ -70,7 +69,6 @@ export const getOrderById = async (
 
     return null;
   } catch (error) {
-    console.error(`Error fetching order ${orderId}:`, error);
     if (axios.isAxiosError(error) && error.response?.status === 401) {
       router.push("/auth/auth1/login");
     }
