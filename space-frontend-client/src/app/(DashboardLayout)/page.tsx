@@ -79,7 +79,7 @@ export default function Dashboard() {
                   <Stack direction="row" spacing={2} mt={2}>
                     <Button
                       component={Link}
-                      href="/uniforms"
+                      href="/orders"
                       variant="contained"
                       color="primary"
                     >
