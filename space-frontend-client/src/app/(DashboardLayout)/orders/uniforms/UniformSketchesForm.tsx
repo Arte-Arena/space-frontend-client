@@ -63,8 +63,6 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
 
     if (!player.shirt_size) return false;
 
-    if (features.canHaveDifferentSizes && !player.shorts_size) return false;
-
     return true;
   };
 
@@ -88,8 +86,6 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
             errorMsg = `Preencha o campo obrigatório de Gênero no esboço ${sketch.id}`;
           } else if (!player.shirt_size) {
             errorMsg = `Preencha o campo obrigatório de Tamanho no esboço ${sketch.id}`;
-          } else if (features.canHaveDifferentSizes && !player.shorts_size) {
-            errorMsg = `Informe o tamanho do calção para o jogador no esboço ${sketch.id}`;
           } else {
             errorMsg = `Dados incompletos para o jogador no esboço ${sketch.id}`;
           }
@@ -137,7 +133,7 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
           const { _index, ...cleanPlayer } = player;
 
           const features = PACKAGE_FEATURES[sketch.package_type];
-          if (!features.canHaveDifferentSizes) {
+          if (!features.canHaveDifferentSizes || !cleanPlayer.shorts_size) {
             cleanPlayer.shorts_size = cleanPlayer.shirt_size;
           }
 

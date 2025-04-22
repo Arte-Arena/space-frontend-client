@@ -1,6 +1,5 @@
 {
-  "/auth/auth1/login/page": "app/auth/auth1/login/page.js",
   "/(DashboardLayout)/page": "app/(DashboardLayout)/page.js",
-  "/(DashboardLayout)/account-settings/page": "app/(DashboardLayout)/account-settings/page.js",
-  "/(DashboardLayout)/orders/page": "app/(DashboardLayout)/orders/page.js"
+  "/(DashboardLayout)/orders/page": "app/(DashboardLayout)/orders/page.js",
+  "/(DashboardLayout)/orders/uniforms/[id]/page": "app/(DashboardLayout)/orders/uniforms/[id]/page.js"
 }

@@ -32,20 +32,20 @@
       "static/chunks/main-app.js",
       "static/chunks/app/not-found.js"
     ],
-    "/auth/auth1/login/page": [
+    "/(DashboardLayout)/orders/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/auth/auth1/login/page.js"
+      "static/chunks/app/(DashboardLayout)/orders/page.js"
+    ],
+    "/(DashboardLayout)/orders/uniforms/[id]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(DashboardLayout)/orders/uniforms/[id]/page.js"
     ],
     "/(DashboardLayout)/account-settings/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/(DashboardLayout)/account-settings/page.js"
-    ],
-    "/(DashboardLayout)/orders/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(DashboardLayout)/orders/page.js"
     ]
   }
 }

@@ -201,7 +201,7 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
 
       {packageFeatures.canHaveDifferentSizes && (
         <Grid item xs={12} md={4}>
-          <FormControl fullWidth size="small" required>
+          <FormControl fullWidth size="small">
             <InputLabel id={`shorts-size-label-${index}`}>
               Tamanho do calção
             </InputLabel>
@@ -212,7 +212,6 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
               onChange={handleShortsSizeChange}
               MenuProps={{ disableScrollLock: true }}
               disabled={disabled}
-              required
             >
               {getAvailableSizes("shorts").map((size) => (
                 <MenuItem key={`shorts-${size}`} value={size}>
