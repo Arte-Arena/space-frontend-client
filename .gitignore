@@ -15,6 +15,7 @@
 
 # next.js
 /.next/
+/space-frontend-client/.next
 /out/
 
 # production
