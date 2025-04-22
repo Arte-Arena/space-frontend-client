@@ -624,6 +624,12 @@ const AccountTab = () => {
                           fullWidth
                           value={formValues.razaoSocial}
                           onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                            setFormValues((prev) => ({
+                              ...prev,
+                              razaoSocial: e.target.value,
+                            }))
+                          }
+                          onBlur={(e: FocusEvent<HTMLInputElement>) =>
                             handleBlur(
                               "razaoSocial",
                               e.target.value,
@@ -672,6 +678,12 @@ const AccountTab = () => {
                           fullWidth
                           value={formValues.inscricaoEstadual}
                           onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                            setFormValues((prev) => ({
+                              ...prev,
+                              inscricaoEstadual: e.target.value,
+                            }))
+                          }
+                          onBlur={(e: FocusEvent<HTMLInputElement>) =>
                             handleBlur(
                               "inscricaoEstadual",
                               e.target.value,
