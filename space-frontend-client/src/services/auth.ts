@@ -67,7 +67,7 @@ export const checkAuth = async (router: any) => {
       {},
       {
         withCredentials: true,
-      }
+      },
     );
     return response.data;
   } catch (error) {

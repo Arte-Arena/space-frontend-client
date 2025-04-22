@@ -7,6 +7,7 @@ import {
   MenuItem,
   TextField,
   SelectChangeEvent,
+  Box,
 } from "@mui/material";
 import {
   Player,
@@ -107,122 +108,139 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
   };
 
   return (
-    <Grid container spacing={2} alignItems="center" mb={2}>
-      {packageFeatures.hasPlayerNumber && (
-        <Grid item xs={12} md={1}>
-          <TextField
-            fullWidth
-            size="small"
-            label="Número"
-            value={player.number}
-            onChange={handleNumberChange}
-            inputProps={{
-              maxLength: 2,
-            }}
-            disabled={disabled}
-          />
-        </Grid>
-      )}
+    <Box
+      sx={{
+        mb: 2,
+        p: 2,
+        border: "1px solid",
+        borderColor: "divider",
+        borderRadius: 1,
+        backgroundColor: "background.paper",
+      }}
+    >
+      <Grid container spacing={2}>
+        {(packageFeatures.hasPlayerNumber || packageFeatures.hasPlayerName) && (
+          <Grid item xs={12}>
+            <Grid container spacing={2}>
+              {packageFeatures.hasPlayerNumber && (
+                <Grid item xs={4} sm={2}>
+                  <TextField
+                    fullWidth
+                    size="small"
+                    label="Número"
+                    value={player.number}
+                    onChange={handleNumberChange}
+                    inputProps={{
+                      maxLength: 2,
+                    }}
+                    disabled={disabled}
+                  />
+                </Grid>
+              )}
 
-      {packageFeatures.hasPlayerName && (
-        <Grid item xs={12} md={packageFeatures.hasPlayerNumber ? 2 : 3}>
-          <TextField
-            fullWidth
-            size="small"
-            label="Nome"
-            value={player.name}
-            onChange={handleNameChange}
-            disabled={disabled}
-          />
-        </Grid>
-      )}
+              {packageFeatures.hasPlayerName && (
+                <Grid
+                  item
+                  xs={packageFeatures.hasPlayerNumber ? 8 : 12}
+                  sm={packageFeatures.hasPlayerNumber ? 10 : 12}
+                >
+                  <TextField
+                    fullWidth
+                    size="small"
+                    label="Nome"
+                    value={player.name}
+                    onChange={handleNameChange}
+                    disabled={disabled}
+                  />
+                </Grid>
+              )}
+            </Grid>
+          </Grid>
+        )}
 
-      <Grid item xs={12} md={3}>
-        <FormControl fullWidth size="small">
-          <InputLabel id={`gender-label-${index}`}>Gênero</InputLabel>
-          <Select
-            labelId={`gender-label-${index}`}
-            value={player.gender}
-            label="Gênero"
-            onChange={handleGenderChange}
-            MenuProps={{ disableScrollLock: true }}
-            disabled={disabled}
-            required
-          >
-            <MenuItem value="masculino">Masculino</MenuItem>
-            <MenuItem value="feminino">Feminino</MenuItem>
-            {packageType !== "Start" && (
-              <MenuItem value="infantil">Infantil</MenuItem>
-            )}
-          </Select>
-        </FormControl>
-      </Grid>
+        <Grid item xs={12}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={4}>
+              <FormControl fullWidth size="small">
+                <InputLabel id={`gender-label-${index}`}>Gênero</InputLabel>
+                <Select
+                  labelId={`gender-label-${index}`}
+                  value={player.gender}
+                  label="Gênero"
+                  onChange={handleGenderChange}
+                  MenuProps={{ disableScrollLock: true }}
+                  disabled={disabled}
+                  required
+                >
+                  <MenuItem value="masculino">Masculino</MenuItem>
+                  <MenuItem value="feminino">Feminino</MenuItem>
+                  {packageType !== "Start" && (
+                    <MenuItem value="infantil">Infantil</MenuItem>
+                  )}
+                </Select>
+              </FormControl>
+            </Grid>
 
-      <Grid
-        item
-        xs={12}
-        md={
-          packageFeatures.canHaveDifferentSizes
-            ? 3
-            : packageFeatures.hasPlayerNumber && packageFeatures.hasPlayerName
-              ? 5
-              : packageFeatures.hasPlayerNumber || packageFeatures.hasPlayerName
-                ? 6
-                : 9
-        }
-      >
-        <FormControl fullWidth size="small" required>
-          <InputLabel id={`jersey-size-label-${index}`}>
-            {packageFeatures.canHaveDifferentSizes
-              ? "Tamanho da camisa"
-              : "Tamanho do uniforme"}
-          </InputLabel>
-          <Select
-            labelId={`jersey-size-label-${index}`}
-            value={player.shirt_size}
-            label={
-              packageFeatures.canHaveDifferentSizes
-                ? "Tamanho da camisa"
-                : "Tamanho do uniforme"
-            }
-            onChange={handleJerseySizeChange}
-            MenuProps={{ disableScrollLock: true }}
-            disabled={disabled}
-            required
-          >
-            {getAvailableSizes("jersey").map((size) => (
-              <MenuItem key={`jersey-${size}`} value={size}>
-                {size}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </Grid>
-
-      {packageFeatures.canHaveDifferentSizes && (
-        <Grid item xs={12} md={4}>
-          <FormControl fullWidth size="small">
-            <InputLabel id={`shorts-size-label-${index}`}>
-              Tamanho do calção
-            </InputLabel>
-            <Select
-              labelId={`shorts-size-label-${index}`}
-              value={player.shorts_size}
-              label="Tamanho do calção"
-              onChange={handleShortsSizeChange}
-              MenuProps={{ disableScrollLock: true }}
-              disabled={disabled}
+            <Grid
+              item
+              xs={12}
+              sm={packageFeatures.canHaveDifferentSizes ? 4 : 8}
             >
-              {getAvailableSizes("shorts").map((size) => (
-                <MenuItem key={`shorts-${size}`} value={size}>
-                  {size}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+              <FormControl fullWidth size="small" required>
+                <InputLabel id={`jersey-size-label-${index}`}>
+                  {packageFeatures.canHaveDifferentSizes
+                    ? "Tamanho da camisa"
+                    : "Tamanho do uniforme"}
+                </InputLabel>
+                <Select
+                  labelId={`jersey-size-label-${index}`}
+                  value={player.shirt_size}
+                  label={
+                    packageFeatures.canHaveDifferentSizes
+                      ? "Tamanho da camisa"
+                      : "Tamanho do uniforme"
+                  }
+                  onChange={handleJerseySizeChange}
+                  MenuProps={{ disableScrollLock: true }}
+                  disabled={disabled}
+                  required
+                >
+                  {getAvailableSizes("jersey").map((size) => (
+                    <MenuItem key={`jersey-${size}`} value={size}>
+                      {size}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+
+            {packageFeatures.canHaveDifferentSizes && (
+              <Grid item xs={12} sm={4}>
+                <FormControl fullWidth size="small">
+                  <InputLabel id={`shorts-size-label-${index}`}>
+                    Tamanho do calção
+                  </InputLabel>
+                  <Select
+                    labelId={`shorts-size-label-${index}`}
+                    value={player.shorts_size}
+                    label="Tamanho do calção"
+                    onChange={handleShortsSizeChange}
+                    MenuProps={{ disableScrollLock: true }}
+                    disabled={disabled}
+                  >
+                    {getAvailableSizes("shorts").map((size) => (
+                      <MenuItem key={`shorts-${size}`} value={size}>
+                        {size}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+            )}
+          </Grid>
         </Grid>
-      )}
-    </Grid>
+      </Grid>
+    </Box>
   );
 };
 
