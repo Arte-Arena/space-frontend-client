@@ -12,6 +12,7 @@ import {
 import { IconChevronDown } from "@tabler/icons-react";
 import { Sketch, Player, createEmptyPlayer, PACKAGE_FEATURES } from "./types";
 import PlayerFormRow from "./PlayerFormRow";
+import SketchArtworkPreview from "./SketchArtworkPreview";
 
 interface SketchFormProps {
   sketch: Sketch;
@@ -130,6 +131,13 @@ const SketchForm: React.FC<SketchFormProps> = ({
               sketch.package_type === "Profissional") &&
               "Pacote avançado: Todos os tamanhos, nome e número individuais, tamanhos de camisa e calção podem ser diferentes."}
           </Typography>
+
+          <Box mt={2}>
+            <SketchArtworkPreview
+              sketchId={sketch.id}
+              packageType={sketch.package_type}
+            />
+          </Box>
         </Box>
 
         <Box mt={3}>
