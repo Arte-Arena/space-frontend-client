@@ -51,6 +51,14 @@ export interface PlayersUpdateRequest {
   updates: SketchPlayersUpdate[];
 }
 
+export interface UniformMeasurement {
+  id: number;
+  largura_camisa: number;
+  altura_camisa: number;
+  largura_calcao: number;
+  altura_calcao: number;
+}
+
 export const getUniformById = async (
   uniformId: string,
 ): Promise<Uniform | null> => {
@@ -130,6 +138,28 @@ export const getAllUniforms = async (router: any): Promise<Uniform[]> => {
       router.push("/auth/auth1/login");
     }
 
+    if (axios.isAxiosError(error) && error.response?.data?.message) {
+      throw new Error(error.response.data.message);
+    }
+
+    throw error;
+  }
+};
+
+export const getUniformMeasurements = async (): Promise<
+  UniformMeasurement[]
+> => {
+  try {
+    const response = await axios.get(
+      `https://www.spacearena.net/apps/produtos/pacotes-uniformes`,
+    );
+
+    if (response.data) {
+      return response.data;
+    }
+
+    return [];
+  } catch (error) {
     if (axios.isAxiosError(error) && error.response?.data?.message) {
       throw new Error(error.response.data.message);
     }
