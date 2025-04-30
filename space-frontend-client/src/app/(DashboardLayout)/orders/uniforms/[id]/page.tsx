@@ -16,12 +16,17 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Alert,
 } from "@mui/material";
 import PageContainer from "@/app/components/container/PageContainer";
 import BlankCard from "@/app/components/shared/BlankCard";
 import { IconArrowLeft, IconShirt, IconChevronDown } from "@tabler/icons-react";
 import Link from "next/link";
-import { getUniformById } from "@/services/uniforms";
+import {
+  getUniformById,
+  getUniformMeasurements,
+  UniformMeasurement,
+} from "@/services/uniforms";
 import UniformSketchesForm from "../UniformSketchesForm";
 import { UniformWithSketches } from "../types";
 
@@ -31,70 +36,88 @@ interface UniformDetailPageProps {
   };
 }
 
-const sizeChartData = {
+interface SizeChartItem {
+  size: string;
+  chest?: string;
+  length: string;
+  waist?: string;
+}
+
+interface SizeChartData {
   masculino: {
-    jersey: [
-      { size: "PP", chest: "49 cm", length: "67 cm" },
-      { size: "P", chest: "51 cm", length: "69 cm" },
-      { size: "M", chest: "53 cm", length: "71 cm" },
-      { size: "G", chest: "55 cm", length: "73 cm" },
-      { size: "GG", chest: "57 cm", length: "75 cm" },
-      { size: "XG", chest: "59 cm", length: "77 cm" },
-      { size: "XXG", chest: "61 cm", length: "79 cm" },
-    ],
-    shorts: [
-      { size: "PP", waist: "34 cm", length: "42 cm" },
-      { size: "P", waist: "36 cm", length: "44 cm" },
-      { size: "M", waist: "38 cm", length: "46 cm" },
-      { size: "G", waist: "40 cm", length: "48 cm" },
-      { size: "GG", waist: "42 cm", length: "50 cm" },
-      { size: "XG", waist: "44 cm", length: "52 cm" },
-      { size: "XXG", waist: "46 cm", length: "54 cm" },
-    ],
-  },
+    jersey: SizeChartItem[];
+    shorts: SizeChartItem[];
+  };
   feminino: {
-    jersey: [
-      { size: "P", chest: "47 cm", length: "64 cm" },
-      { size: "M", chest: "49 cm", length: "66 cm" },
-      { size: "G", chest: "51 cm", length: "68 cm" },
-      { size: "GG", chest: "53 cm", length: "70 cm" },
-      { size: "XG", chest: "55 cm", length: "72 cm" },
-      { size: "XXG", chest: "57 cm", length: "74 cm" },
-    ],
-    shorts: [
-      { size: "P", waist: "32 cm", length: "39 cm" },
-      { size: "M", waist: "34 cm", length: "41 cm" },
-      { size: "G", waist: "36 cm", length: "43 cm" },
-      { size: "GG", waist: "38 cm", length: "45 cm" },
-      { size: "XG", waist: "40 cm", length: "47 cm" },
-      { size: "XXG", waist: "42 cm", length: "49 cm" },
-    ],
-  },
+    jersey: SizeChartItem[];
+    shorts: SizeChartItem[];
+  };
   infantil: {
-    jersey: [
-      { size: "2", chest: "35 cm", length: "45 cm" },
-      { size: "4", chest: "37 cm", length: "47 cm" },
-      { size: "6", chest: "39 cm", length: "49 cm" },
-      { size: "8", chest: "41 cm", length: "51 cm" },
-      { size: "10", chest: "43 cm", length: "53 cm" },
-      { size: "12", chest: "45 cm", length: "55 cm" },
-      { size: "14", chest: "47 cm", length: "57 cm" },
-      { size: "16", chest: "49 cm", length: "59 cm" },
-    ],
-    shorts: [
-      { size: "2", waist: "22 cm", length: "25 cm" },
-      { size: "4", waist: "24 cm", length: "27 cm" },
-      { size: "6", waist: "26 cm", length: "29 cm" },
-      { size: "8", waist: "28 cm", length: "31 cm" },
-      { size: "10", waist: "30 cm", length: "33 cm" },
-      { size: "12", waist: "32 cm", length: "35 cm" },
-      { size: "14", waist: "34 cm", length: "37 cm" },
-      { size: "16", waist: "36 cm", length: "39 cm" },
-    ],
-  },
+    jersey: SizeChartItem[];
+    shorts: SizeChartItem[];
+  };
+}
+
+const formatMeasurementData = (
+  measurements: UniformMeasurement[],
+): SizeChartData => {
+  const sizeMap: Record<number, string> = {
+    1: "PP",
+    2: "P",
+    3: "M",
+    4: "G",
+    5: "GG",
+    6: "XG",
+    7: "XXG",
+    8: "2",
+    9: "4",
+    10: "6",
+    11: "8",
+    12: "10",
+    13: "12",
+    14: "14",
+    15: "16",
+  };
+
+  const jerseyMeasurements = measurements.map((m) => ({
+    size: sizeMap[m.id] || m.id.toString(),
+    chest: `${m.largura_camisa} cm`,
+    length: `${m.altura_camisa} cm`,
+  }));
+
+  const shortsMeasurements = measurements.map((m) => ({
+    size: sizeMap[m.id] || m.id.toString(),
+    waist: `${m.largura_calcao} cm`,
+    length: `${m.altura_calcao} cm`,
+  }));
+
+  const result = {
+    masculino: {
+      jersey: jerseyMeasurements.slice(0, 7),
+      shorts: shortsMeasurements.slice(0, 7),
+    },
+    feminino: {
+      jersey: jerseyMeasurements.slice(1, 7),
+      shorts: shortsMeasurements.slice(1, 7),
+    },
+    infantil: {
+      jersey: jerseyMeasurements.slice(7, 15),
+      shorts: shortsMeasurements.slice(7, 15),
+    },
+  };
+
+  return result;
 };
 
-const SizeChartAccordion = () => (
+const SizeChartAccordion = ({
+  sizeChartData,
+  error,
+  loading,
+}: {
+  sizeChartData: SizeChartData | null;
+  error: string | null;
+  loading: boolean;
+}) => (
   <Accordion sx={{ mb: 3 }}>
     <AccordionSummary
       expandIcon={<IconChevronDown />}
@@ -117,173 +140,199 @@ const SizeChartAccordion = () => (
       </Box>
     </AccordionSummary>
     <AccordionDetails>
-      <Typography variant="subtitle1" gutterBottom>
-        Tamanhos Masculinos
-      </Typography>
-      <Grid container spacing={2} mb={3}>
-        <Grid item xs={12} md={6}>
-          <Typography variant="subtitle2" gutterBottom>
-            Camisas
+      {loading ? (
+        <Box display="flex" justifyContent="center" width="100%" py={3}>
+          <CircularProgress />
+        </Box>
+      ) : error ? (
+        <Alert severity="error" sx={{ mb: 2 }}>
+          {error}
+        </Alert>
+      ) : sizeChartData ? (
+        <>
+          <Typography variant="subtitle1" gutterBottom>
+            Tamanhos Masculinos
           </Typography>
-          <TableContainer>
-            <Table size="small">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Tamanho</TableCell>
-                  <TableCell>Largura (Tórax)</TableCell>
-                  <TableCell>Comprimento</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {sizeChartData.masculino.jersey.map((item) => (
-                  <TableRow key={item.size}>
-                    <TableCell>{item.size}</TableCell>
-                    <TableCell>{item.chest}</TableCell>
-                    <TableCell>{item.length}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Typography variant="subtitle2" gutterBottom>
-            Calções
-          </Typography>
-          <TableContainer>
-            <Table size="small">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Tamanho</TableCell>
-                  <TableCell>Cintura</TableCell>
-                  <TableCell>Comprimento</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {sizeChartData.masculino.shorts.map((item) => (
-                  <TableRow key={item.size}>
-                    <TableCell>{item.size}</TableCell>
-                    <TableCell>{item.waist}</TableCell>
-                    <TableCell>{item.length}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Grid>
-      </Grid>
+          <Grid container spacing={2} mb={3}>
+            <Grid item xs={12} md={6}>
+              <Typography variant="subtitle2" gutterBottom>
+                Camisas
+              </Typography>
+              <TableContainer>
+                <Table size="small">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Tamanho</TableCell>
+                      <TableCell>Largura (Tórax)</TableCell>
+                      <TableCell>Comprimento</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {sizeChartData.masculino.jersey.map(
+                      (item: SizeChartItem) => (
+                        <TableRow key={item.size}>
+                          <TableCell>{item.size}</TableCell>
+                          <TableCell>{item.chest}</TableCell>
+                          <TableCell>{item.length}</TableCell>
+                        </TableRow>
+                      ),
+                    )}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Typography variant="subtitle2" gutterBottom>
+                Calções
+              </Typography>
+              <TableContainer>
+                <Table size="small">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Tamanho</TableCell>
+                      <TableCell>Cintura</TableCell>
+                      <TableCell>Comprimento</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {sizeChartData.masculino.shorts.map(
+                      (item: SizeChartItem) => (
+                        <TableRow key={item.size}>
+                          <TableCell>{item.size}</TableCell>
+                          <TableCell>{item.waist}</TableCell>
+                          <TableCell>{item.length}</TableCell>
+                        </TableRow>
+                      ),
+                    )}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Grid>
+          </Grid>
 
-      <Typography variant="subtitle1" gutterBottom>
-        Tamanhos Femininos
-      </Typography>
-      <Grid container spacing={2} mb={3}>
-        <Grid item xs={12} md={6}>
-          <Typography variant="subtitle2" gutterBottom>
-            Camisas
+          <Typography variant="subtitle1" gutterBottom>
+            Tamanhos Femininos
           </Typography>
-          <TableContainer>
-            <Table size="small">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Tamanho</TableCell>
-                  <TableCell>Largura (Tórax)</TableCell>
-                  <TableCell>Comprimento</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {sizeChartData.feminino.jersey.map((item) => (
-                  <TableRow key={item.size}>
-                    <TableCell>{item.size}</TableCell>
-                    <TableCell>{item.chest}</TableCell>
-                    <TableCell>{item.length}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Typography variant="subtitle2" gutterBottom>
-            Calções
-          </Typography>
-          <TableContainer>
-            <Table size="small">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Tamanho</TableCell>
-                  <TableCell>Cintura</TableCell>
-                  <TableCell>Comprimento</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {sizeChartData.feminino.shorts.map((item) => (
-                  <TableRow key={item.size}>
-                    <TableCell>{item.size}</TableCell>
-                    <TableCell>{item.waist}</TableCell>
-                    <TableCell>{item.length}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Grid>
-      </Grid>
+          <Grid container spacing={2} mb={3}>
+            <Grid item xs={12} md={6}>
+              <Typography variant="subtitle2" gutterBottom>
+                Camisas
+              </Typography>
+              <TableContainer>
+                <Table size="small">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Tamanho</TableCell>
+                      <TableCell>Largura (Tórax)</TableCell>
+                      <TableCell>Comprimento</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {sizeChartData.feminino.jersey.map(
+                      (item: SizeChartItem) => (
+                        <TableRow key={item.size}>
+                          <TableCell>{item.size}</TableCell>
+                          <TableCell>{item.chest}</TableCell>
+                          <TableCell>{item.length}</TableCell>
+                        </TableRow>
+                      ),
+                    )}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Typography variant="subtitle2" gutterBottom>
+                Calções
+              </Typography>
+              <TableContainer>
+                <Table size="small">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Tamanho</TableCell>
+                      <TableCell>Cintura</TableCell>
+                      <TableCell>Comprimento</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {sizeChartData.feminino.shorts.map(
+                      (item: SizeChartItem) => (
+                        <TableRow key={item.size}>
+                          <TableCell>{item.size}</TableCell>
+                          <TableCell>{item.waist}</TableCell>
+                          <TableCell>{item.length}</TableCell>
+                        </TableRow>
+                      ),
+                    )}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Grid>
+          </Grid>
 
-      <Typography variant="subtitle1" gutterBottom>
-        Tamanhos Infantis
-      </Typography>
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
-          <Typography variant="subtitle2" gutterBottom>
-            Camisas
+          <Typography variant="subtitle1" gutterBottom>
+            Tamanhos Infantis
           </Typography>
-          <TableContainer>
-            <Table size="small">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Tamanho</TableCell>
-                  <TableCell>Largura (Tórax)</TableCell>
-                  <TableCell>Comprimento</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {sizeChartData.infantil.jersey.map((item) => (
-                  <TableRow key={item.size}>
-                    <TableCell>{item.size}</TableCell>
-                    <TableCell>{item.chest}</TableCell>
-                    <TableCell>{item.length}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Typography variant="subtitle2" gutterBottom>
-            Calções
-          </Typography>
-          <TableContainer>
-            <Table size="small">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Tamanho</TableCell>
-                  <TableCell>Cintura</TableCell>
-                  <TableCell>Comprimento</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {sizeChartData.infantil.shorts.map((item) => (
-                  <TableRow key={item.size}>
-                    <TableCell>{item.size}</TableCell>
-                    <TableCell>{item.waist}</TableCell>
-                    <TableCell>{item.length}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Grid>
-      </Grid>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={6}>
+              <Typography variant="subtitle2" gutterBottom>
+                Camisas
+              </Typography>
+              <TableContainer>
+                <Table size="small">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Tamanho</TableCell>
+                      <TableCell>Largura (Tórax)</TableCell>
+                      <TableCell>Comprimento</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {sizeChartData.infantil.jersey.map(
+                      (item: SizeChartItem) => (
+                        <TableRow key={item.size}>
+                          <TableCell>{item.size}</TableCell>
+                          <TableCell>{item.chest}</TableCell>
+                          <TableCell>{item.length}</TableCell>
+                        </TableRow>
+                      ),
+                    )}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Typography variant="subtitle2" gutterBottom>
+                Calções
+              </Typography>
+              <TableContainer>
+                <Table size="small">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Tamanho</TableCell>
+                      <TableCell>Cintura</TableCell>
+                      <TableCell>Comprimento</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {sizeChartData.infantil.shorts.map(
+                      (item: SizeChartItem) => (
+                        <TableRow key={item.size}>
+                          <TableCell>{item.size}</TableCell>
+                          <TableCell>{item.waist}</TableCell>
+                          <TableCell>{item.length}</TableCell>
+                        </TableRow>
+                      ),
+                    )}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Grid>
+          </Grid>
+        </>
+      ) : (
+        <Alert severity="warning">Nenhuma medida encontrada.</Alert>
+      )}
     </AccordionDetails>
   </Accordion>
 );
@@ -294,20 +343,11 @@ export default function UniformDetailPage({ params }: UniformDetailPageProps) {
   const [uniformData, setUniformData] = useState<UniformWithSketches | null>(
     null,
   );
-
-  const BCrumb = [
-    {
-      to: "/",
-      title: "Início",
-    },
-    {
-      to: "/orders",
-      title: "Pedidos",
-    },
-    {
-      title: `Configuração de Uniforme - #${id}`,
-    },
-  ];
+  const [sizeChartData, setSizeChartData] = useState<SizeChartData | null>(
+    null,
+  );
+  const [loadingMeasurements, setLoadingMeasurements] = useState(true);
+  const [measurementError, setMeasurementError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -321,7 +361,30 @@ export default function UniformDetailPage({ params }: UniformDetailPageProps) {
       }
     };
 
+    const fetchMeasurements = async () => {
+      try {
+        setLoadingMeasurements(true);
+        setMeasurementError(null);
+        const measurements = await getUniformMeasurements();
+        if (measurements && measurements.length > 0) {
+          const formattedData = formatMeasurementData(measurements);
+          setSizeChartData(formattedData);
+        } else {
+          setSizeChartData(null);
+          setMeasurementError("Nenhuma medida encontrada na API.");
+        }
+      } catch (error) {
+        setSizeChartData(null);
+        setMeasurementError(
+          "Erro ao carregar medidas dos uniformes. Por favor, tente novamente mais tarde.",
+        );
+      } finally {
+        setLoadingMeasurements(false);
+      }
+    };
+
     fetchData();
+    fetchMeasurements();
   }, [id]);
 
   const handleSave = (savedUniform: UniformWithSketches) => {
@@ -371,7 +434,11 @@ export default function UniformDetailPage({ params }: UniformDetailPageProps) {
                   </Box>
                 ) : uniformData ? (
                   <>
-                    <SizeChartAccordion />
+                    <SizeChartAccordion
+                      sizeChartData={sizeChartData}
+                      error={measurementError}
+                      loading={loadingMeasurements}
+                    />
                     <UniformSketchesForm
                       uniform={uniformData}
                       onSave={handleSave}
@@ -379,7 +446,11 @@ export default function UniformDetailPage({ params }: UniformDetailPageProps) {
                   </>
                 ) : (
                   <>
-                    <SizeChartAccordion />
+                    <SizeChartAccordion
+                      sizeChartData={sizeChartData}
+                      error={measurementError}
+                      loading={loadingMeasurements}
+                    />
                     <Box
                       display="flex"
                       justifyContent="center"
