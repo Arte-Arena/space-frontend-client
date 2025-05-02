@@ -6,7 +6,7 @@ import { getOrders } from "@/services/orders";
 import { useRouter } from "next/navigation";
 import { Order } from "@/types/order";
 import OrderList from "./OrderList";
-import OrderFilter, { FilterOptions } from "./OrderFilter";
+// import OrderFilter, { FilterOptions } from "./OrderFilter";
 import { IconPackage, IconRefresh } from "@tabler/icons-react";
 
 export default function OrdersPage() {
@@ -40,9 +40,43 @@ export default function OrdersPage() {
     fetchOrders();
   }, [router]);
 
+  /* Filtro desativado temporariamente
   const handleFilter = (filters: FilterOptions) => {
-    setFilteredOrders([...orders]);
+    let filtered = [...orders];
+    
+    if (filters.status && filters.status !== 'all') {
+      filtered = filtered.filter(order => order.status.toLowerCase() === filters.status.toLowerCase());
+    }
+    
+    if (filters.productType) {
+      filtered = filtered.filter(order => order.product_type.toLowerCase() === filters.productType.toLowerCase());
+    }
+    
+    if (filters.stage) {
+      filtered = filtered.filter(order => 
+        order.estagio_descricao && 
+        order.estagio_descricao.toLowerCase() === filters.stage.toLowerCase()
+      );
+    }
+    
+    if (filters.searchTerm) {
+      const searchLower = filters.searchTerm.toLowerCase();
+      filtered = filtered.filter(order => 
+        (order.order_number && order.order_number.toLowerCase().includes(searchLower)) ||
+        (order.orcamento_id && order.orcamento_id.toString().includes(searchLower))
+      );
+    }
+    
+    if (filters.dateRange && filters.dateRange.start && filters.dateRange.end) {
+      filtered = filtered.filter(order => {
+        const orderDate = new Date(order.created_at);
+        return orderDate >= filters.dateRange!.start! && orderDate <= filters.dateRange!.end!;
+      });
+    }
+    
+    setFilteredOrders(filtered);
   };
+  */
 
   const handleRetryClick = () => {
     fetchOrders();
@@ -60,8 +94,7 @@ export default function OrdersPage() {
               </Typography>
             </Box>
             <Typography variant="body1" color="textSecondary" mb={3}>
-              Acompanhe o status de todos os seus pedidos e configure seus
-              uniformes quando necessário.
+              Acompanhe o status de todos os seus pedidos e veja detalhes como valores, status e datas de entrega.
             </Typography>
 
             {error && (
@@ -83,18 +116,11 @@ export default function OrdersPage() {
               </Alert>
             )}
 
-            <Alert severity="info" sx={{ mb: 3 }}>
-              Atualmente, o sistema exibe pedidos relacionados aos uniformes.
-              Estamos trabalhando para implementar a visualização de todos os
-              tipos de pedidos em breve.
-            </Alert>
-
-            <Box sx={{ opacity: 0.6, pointerEvents: "none", mb: 3 }}>
-              <Alert severity="warning" sx={{ mb: 2 }}>
-                Filtros estarão disponíveis em breve.
-              </Alert>
+            {/* Filtro desativado temporariamente
+            <Box sx={{ mb: 3 }}>
               <OrderFilter onFilter={handleFilter} />
             </Box>
+            */}
 
             <OrderList
               orders={filteredOrders}
