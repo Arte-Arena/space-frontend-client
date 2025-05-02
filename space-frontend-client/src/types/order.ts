@@ -8,6 +8,9 @@ export interface Order {
   product_type: string;
   created_at: string;
   updated_at: string;
+  data_prevista?: string;
+  estagio_descricao?: string;
+  orcamento_id?: number;
   items: OrderItem[];
 }
 
