@@ -1,43 +1,86 @@
 import axios from "axios";
 import { Order, OrderItem } from "../types/order";
-import { getAllUniforms, Uniform, ApiResponse } from "./uniforms";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 
-const mapUniformToOrder = (uniform: Uniform): Order => {
-  const items: OrderItem[] = uniform.sketches.map((sketch, index) => ({
+const mapBackendOrderToFrontend = (orderResult: any): Order => {
+  const produtos = Array.isArray(orderResult.produtos)
+    ? orderResult.produtos
+    : [];
+
+  const items: OrderItem[] = produtos.map((produto: any, index: number) => ({
     id: `item-${index}`,
-    product_name: `Pacote Uniformes - ${sketch.package_type}`,
-    quantity: 1,
-    unit_price: 0,
-    total_price: 0,
+    product_name: produto.nome,
+    quantity: produto.quantidade,
+    unit_price: produto.preco,
+    total_price: produto.preco * produto.quantidade,
     product_details: {
-      pacote: sketch.package_type,
-      quantidade_jogadores: sketch.player_count,
-      uniformId: uniform.id,
-      sketchId: sketch.id,
+      ...produto,
     },
   }));
 
+  let status: string;
+  let productType = "Produtos";
+
+  switch (orderResult.estagio_descricao) {
+    case "Design":
+      status = "processing";
+      productType = "Design";
+      break;
+    case "Impressão":
+      status = "processing";
+      productType = "Impressão";
+      break;
+    case "Sublimação":
+      status = "processing";
+      productType = "Sublimação";
+      break;
+    case "Costura":
+      status = "processing";
+      productType = "Costura";
+      break;
+    case "Corte e Conferência":
+      status = "processing";
+      productType = "Corte e Conferência";
+      break;
+    case "Revisão":
+      status = "completed";
+      break;
+    case "Expedição":
+      status = "shipped";
+      break;
+    default:
+      status = "pending";
+  }
+
   return {
-    id: uniform.id,
-    order_number: `UNIF-${uniform.id.substring(0, 6)}`,
-    status: uniform.editable ? "pending" : "processing",
-    total_amount: 0,
+    id: orderResult.numero_pedido,
+    order_number: orderResult.numero_pedido,
+    status: status,
+    total_amount: orderResult.valor_orcamento || 0,
     payment_status: "paid",
-    shipping_status: uniform.editable ? "pending" : "processing",
-    product_type: "Uniformes",
-    created_at: uniform.created_at,
-    updated_at: uniform.updated_at,
+    shipping_status: status === "shipped" ? "shipped" : "processing",
+    product_type: productType,
+    created_at: orderResult.data_criacao || new Date().toISOString(),
+    updated_at: orderResult.data_criacao || new Date().toISOString(),
+    data_prevista: orderResult.data_prevista,
+    estagio_descricao: orderResult.estagio_descricao,
+    orcamento_id: orderResult.orcamento_id,
     items,
   };
 };
 
 export const getOrders = async (router: any): Promise<Order[]> => {
   try {
-    const uniforms = await getAllUniforms(router);
-    const uniformOrders = uniforms.map(mapUniformToOrder);
-    return uniformOrders;
+    const response = await axios.get(`${API_URL}/v1/orders`, {
+      withCredentials: true,
+    });
+
+    if (response.data && response.data.data && response.data.data.resultados) {
+      return response.data.data.resultados.map(mapBackendOrderToFrontend);
+    }
+
+    return [];
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.status === 401) {
       router.push("/auth/auth1/login");
@@ -56,15 +99,11 @@ export const getOrderById = async (
   router: any,
 ): Promise<Order | null> => {
   try {
-    const response = await axios.get<ApiResponse>(
-      `${API_URL}/v1/uniforms?id=${orderId}`,
-      {
-        withCredentials: true,
-      },
-    );
+    const orders = await getOrders(router);
+    const foundOrder = orders.find((order) => order.id === orderId);
 
-    if (response.data && response.data.data) {
-      return mapUniformToOrder(response.data.data);
+    if (foundOrder) {
+      return foundOrder;
     }
 
     return null;
