@@ -223,7 +223,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
               onClick={handleUniformConfig}
               sx={{ width: { xs: "100%", sm: "auto" } }}
             >
-              Configurar Uniforme
+              Configurar uniforme
             </Button>
           </Box>
         )}
