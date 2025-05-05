@@ -151,7 +151,7 @@ export const getUniformMeasurements = async (): Promise<
 > => {
   try {
     const response = await axios.get(
-      `https://www.spacearena.net/apps/produtos/pacotes-uniformes`,
+      `https://api.spacearena.net/api/orcamento/uniformes-medidas`,
     );
 
     if (response.data) {
