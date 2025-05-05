@@ -94,7 +94,8 @@ export default function OrdersPage() {
               </Typography>
             </Box>
             <Typography variant="body1" color="textSecondary" mb={3}>
-              Acompanhe o status de todos os seus pedidos e veja detalhes como valores, status e datas de entrega.
+              Acompanhe o status de todos os seus pedidos e veja detalhes como
+              valores, status e datas de entrega.
             </Typography>
 
             {error && (

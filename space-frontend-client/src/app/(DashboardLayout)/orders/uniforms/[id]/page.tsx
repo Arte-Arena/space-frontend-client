@@ -29,20 +29,6 @@ export default function UniformDetailPage({ params }: UniformDetailPageProps) {
     null,
   );
 
-  const BCrumb = [
-    {
-      to: "/",
-      title: "Início",
-    },
-    {
-      to: "/orders",
-      title: "Pedidos",
-    },
-    {
-      title: `Configuração de Uniforme - #${id}`,
-    },
-  ];
-
   useEffect(() => {
     const fetchData = async () => {
       try {

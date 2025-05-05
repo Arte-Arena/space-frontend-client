@@ -14,12 +14,12 @@ import {
 import { useRouter } from "next/navigation";
 import { formatCurrency } from "../../../utils/currency";
 import { formatDate } from "../../../utils/date";
-import { 
-  IconCalendarEvent, 
-  IconPackage, 
-  IconClock, 
+import {
+  IconCalendarEvent,
+  IconPackage,
+  IconClock,
   IconReceipt,
-  IconFileDescription
+  IconFileDescription,
 } from "@tabler/icons-react";
 
 interface OrderCardProps {
@@ -74,8 +74,8 @@ const OrderCard = ({ order }: OrderCardProps) => {
   };
 
   const hasUniformPackage = () => {
-    return order.items.some(
-      (item) => item.product_name.includes("Pacote de Uniforme")
+    return order.items.some((item) =>
+      item.product_name.includes("Pacote de Uniforme"),
     );
   };
 
@@ -114,8 +114,8 @@ const OrderCard = ({ order }: OrderCardProps) => {
               Pedido #{order.order_number}
               {order.orcamento_id && (
                 <Tooltip title="ID do Orçamento">
-                  <Chip 
-                    size="small" 
+                  <Chip
+                    size="small"
                     label={`Orçamento #${order.orcamento_id}`}
                     variant="outlined"
                     sx={{ ml: 1 }}
@@ -145,9 +145,14 @@ const OrderCard = ({ order }: OrderCardProps) => {
           <Typography variant="body2" color="textSecondary" gutterBottom>
             Itens:
           </Typography>
-          <Box sx={{ maxHeight: '150px', overflowY: 'auto', pr: 1 }}>
+          <Box sx={{ maxHeight: "150px", overflowY: "auto", pr: 1 }}>
             {order.items.map((item, index) => (
-              <Box key={item.id || index} mb={1} display="flex" justifyContent="space-between">
+              <Box
+                key={item.id || index}
+                mb={1}
+                display="flex"
+                justifyContent="space-between"
+              >
                 <Typography variant="body2">
                   {item.quantity}x {item.product_name}
                 </Typography>
@@ -161,9 +166,9 @@ const OrderCard = ({ order }: OrderCardProps) => {
 
         <Divider sx={{ my: 1 }} />
 
-        <Stack 
-          direction={{ xs: 'column', sm: 'row' }} 
-          spacing={2} 
+        <Stack
+          direction={{ xs: "column", sm: "row" }}
+          spacing={2}
           mb={2}
           justifyContent="space-between"
         >
@@ -175,11 +180,9 @@ const OrderCard = ({ order }: OrderCardProps) => {
                   Total de itens:
                 </Typography>
               </Stack>
-              <Typography variant="body1">
-                {getTotalItems()}
-              </Typography>
+              <Typography variant="body1">{getTotalItems()}</Typography>
             </Box>
-            
+
             <Box>
               <Stack direction="row" spacing={0.5} alignItems="center">
                 <IconClock size={16} />
@@ -192,7 +195,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
               </Typography>
             </Box>
           </Box>
-          
+
           <Box>
             <Stack direction="row" spacing={0.5} alignItems="center">
               <IconReceipt size={16} />
@@ -225,7 +228,6 @@ const OrderCard = ({ order }: OrderCardProps) => {
             </Button>
           </Box>
         )}
-
       </CardContent>
     </Card>
   );

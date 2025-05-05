@@ -102,7 +102,9 @@ const OrderFilter = ({ onFilter }: OrderFilterProps) => {
               <MenuItem value="Impressão">Impressão</MenuItem>
               <MenuItem value="Sublimação">Sublimação</MenuItem>
               <MenuItem value="Costura">Costura</MenuItem>
-              <MenuItem value="Corte e Conferência">Corte e Conferência</MenuItem>
+              <MenuItem value="Corte e Conferência">
+                Corte e Conferência
+              </MenuItem>
               <MenuItem value="Produtos">Produtos</MenuItem>
             </Select>
           </FormControl>
@@ -110,17 +112,15 @@ const OrderFilter = ({ onFilter }: OrderFilterProps) => {
         <Grid item xs={12} md={2}>
           <FormControl fullWidth size="small">
             <InputLabel>Estágio</InputLabel>
-            <Select
-              value={stage}
-              label="Estágio"
-              onChange={handleStageChange}
-            >
+            <Select value={stage} label="Estágio" onChange={handleStageChange}>
               <MenuItem value="">Todos</MenuItem>
               <MenuItem value="Design">Design</MenuItem>
               <MenuItem value="Impressão">Impressão</MenuItem>
               <MenuItem value="Sublimação">Sublimação</MenuItem>
               <MenuItem value="Costura">Costura</MenuItem>
-              <MenuItem value="Corte e Conferência">Corte e Conferência</MenuItem>
+              <MenuItem value="Corte e Conferência">
+                Corte e Conferência
+              </MenuItem>
               <MenuItem value="Revisão">Revisão</MenuItem>
               <MenuItem value="Expedição">Expedição</MenuItem>
             </Select>

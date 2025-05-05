@@ -4,8 +4,10 @@ import { Order, OrderItem } from "../types/order";
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 
 const mapBackendOrderToFrontend = (orderResult: any): Order => {
-  const produtos = Array.isArray(orderResult.produtos) ? orderResult.produtos : [];
-  
+  const produtos = Array.isArray(orderResult.produtos)
+    ? orderResult.produtos
+    : [];
+
   const items: OrderItem[] = produtos.map((produto: any, index: number) => ({
     id: `item-${index}`,
     product_name: produto.nome,
@@ -13,13 +15,13 @@ const mapBackendOrderToFrontend = (orderResult: any): Order => {
     unit_price: produto.preco,
     total_price: produto.preco * produto.quantidade,
     product_details: {
-      ...produto
+      ...produto,
     },
   }));
 
   let status: string;
   let productType = "Produtos";
-  
+
   switch (orderResult.estagio_descricao) {
     case "Design":
       status = "processing";
@@ -70,17 +72,14 @@ const mapBackendOrderToFrontend = (orderResult: any): Order => {
 
 export const getOrders = async (router: any): Promise<Order[]> => {
   try {
-    const response = await axios.get(
-      `${API_URL}/v1/orders`,
-      {
-        withCredentials: true,
-      }
-    );
+    const response = await axios.get(`${API_URL}/v1/orders`, {
+      withCredentials: true,
+    });
 
     if (response.data && response.data.data && response.data.data.resultados) {
       return response.data.data.resultados.map(mapBackendOrderToFrontend);
     }
-    
+
     return [];
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.status === 401) {
@@ -101,8 +100,8 @@ export const getOrderById = async (
 ): Promise<Order | null> => {
   try {
     const orders = await getOrders(router);
-    const foundOrder = orders.find(order => order.id === orderId);
-    
+    const foundOrder = orders.find((order) => order.id === orderId);
+
     if (foundOrder) {
       return foundOrder;
     }
