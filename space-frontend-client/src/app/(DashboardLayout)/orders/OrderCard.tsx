@@ -19,7 +19,6 @@ import {
   IconPackage,
   IconClock,
   IconReceipt,
-  IconFileDescription,
 } from "@tabler/icons-react";
 
 interface OrderCardProps {
