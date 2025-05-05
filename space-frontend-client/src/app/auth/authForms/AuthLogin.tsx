@@ -9,6 +9,8 @@ import {
   Button,
   Stack,
   Divider,
+  IconButton,
+  InputAdornment,
 } from "@mui/material";
 import Link from "next/link";
 import { loginType } from "@/app/(DashboardLayout)/types/auth/auth";
@@ -21,6 +23,8 @@ import * as yup from "yup";
 import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
 import { login } from "@/services/auth";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 const validationSchema = yup.object({
   email: yup
@@ -33,6 +37,9 @@ const validationSchema = yup.object({
 const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const formik = useFormik({
     initialValues: {
@@ -107,7 +114,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
             <CustomTextField
               id="password"
               name="password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               variant="outlined"
               fullWidth
               value={formik.values.password}
@@ -115,6 +122,23 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
               onBlur={formik.handleBlur}
               error={formik.touched.password && Boolean(formik.errors.password)}
               helperText={formik.touched.password && formik.errors.password}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      edge="end"
+                    >
+                      {showPassword ? (
+                        <VisibilityOffIcon />
+                      ) : (
+                        <VisibilityIcon />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
           </Box>
           <Stack
