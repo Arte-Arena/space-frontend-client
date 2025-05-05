@@ -45,9 +45,9 @@ const validationSchema = yup.object({
     .email("Digite um email válido")
     .max(50, "Email deve ter no máximo 50 caracteres")
     .test(
-      'no-uppercase',
-      'Email não pode conter letras maiúsculas',
-      (value) => value === undefined || value === value.toLowerCase()
+      "no-uppercase",
+      "Email não pode conter letras maiúsculas",
+      (value) => value === undefined || value === value.toLowerCase(),
     ),
   password: yup
     .string()
