@@ -102,8 +102,8 @@ export const SIZES_BY_GENDER: Record<
     shorts: ["PP", "P", "M", "G", "GG", "XG", "XXG", "XXXG"],
   },
   feminino: {
-    jersey: ["P", "M", "G", "GG", "XG", "XXG", "XXXG"],
-    shorts: ["P", "M", "G", "GG", "XG", "XXG", "XXXG"],
+    jersey: ["PP", "P", "M", "G", "GG", "XG", "XXG", "XXXG"],
+    shorts: ["PP", "P", "M", "G", "GG", "XG", "XXG", "XXXG"],
   },
   infantil: {
     jersey: ["2", "4", "6", "8", "10", "12", "14", "16"],
