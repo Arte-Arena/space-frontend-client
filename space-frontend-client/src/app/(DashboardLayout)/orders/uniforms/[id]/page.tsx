@@ -97,8 +97,8 @@ const formatMeasurementData = (
       shorts: shortsMeasurements.slice(0, 7),
     },
     feminino: {
-      jersey: jerseyMeasurements.slice(1, 7),
-      shorts: shortsMeasurements.slice(1, 7),
+      jersey: jerseyMeasurements.slice(0, 7),
+      shorts: shortsMeasurements.slice(0, 7),
     },
     infantil: {
       jersey: jerseyMeasurements.slice(7, 15),
