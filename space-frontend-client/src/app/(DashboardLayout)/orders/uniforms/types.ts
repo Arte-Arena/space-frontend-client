@@ -106,15 +106,15 @@ export const SIZES_BY_GENDER: Record<
     shorts: ["PP", "P", "M", "G", "GG", "XG", "XXG", "XXXG"],
   },
   infantil: {
-    jersey: ["2", "4", "6", "8", "10", "12", "14"],
-    shorts: ["2", "4", "6", "8", "10", "12", "14"],
+    jersey: ["2", "4", "6", "8", "10", "12"],
+    shorts: ["2", "4", "6", "8", "10", "12"],
   },
 };
 
 export const LIMITED_SIZES: Record<Gender, string[]> = {
   masculino: ["M", "G"],
   feminino: ["M", "G"],
-  infantil: ["12", "14"],
+  infantil: ["12"],
 };
 
 export const createEmptyPlayer = (): Player => ({
