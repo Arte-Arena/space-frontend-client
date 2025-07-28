@@ -75,7 +75,6 @@ const formatMeasurementData = (
     11: "8",
     12: "10",
     13: "12",
-    14: "14",
   };
 
   const jerseyMeasurements = measurements.map((m) => ({
@@ -100,8 +99,8 @@ const formatMeasurementData = (
       shorts: shortsMeasurements.slice(0, 7),
     },
     infantil: {
-      jersey: jerseyMeasurements.slice(7, 14),
-      shorts: shortsMeasurements.slice(7, 14),
+      jersey: jerseyMeasurements.slice(7, 13),
+      shorts: shortsMeasurements.slice(7, 13),
     },
   };
 
