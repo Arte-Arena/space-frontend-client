@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
 export const formatCelular = (value: string): string => {
-  if (!value) return value;
+  if (!value || typeof value !== 'string') return "";
 
   const numbers = value.replace(/\D/g, "");
 
@@ -17,7 +17,7 @@ export const formatCelular = (value: string): string => {
 };
 
 export const formatCPF = (value: string): string => {
-  if (!value) return value;
+  if (!value || typeof value !== 'string') return "";
 
   const numbers = value.replace(/\D/g, "");
 
@@ -33,7 +33,7 @@ export const formatCPF = (value: string): string => {
 };
 
 export const formatCNPJ = (value: string): string => {
-  if (!value) return value;
+  if (!value || typeof value !== 'string') return "";
 
   const numbers = value.replace(/\D/g, "");
 
@@ -51,7 +51,7 @@ export const formatCNPJ = (value: string): string => {
 };
 
 export const formatRG = (value: string): string => {
-  if (!value) return value;
+  if (!value || typeof value !== 'string') return "";
 
   const numbers = value.replace(/\D/g, "");
 
@@ -67,7 +67,7 @@ export const formatRG = (value: string): string => {
 };
 
 export const formatCEP = (value: string): string => {
-  if (!value) return value;
+  if (!value || typeof value !== 'string') return "";
 
   const numbers = value.replace(/\D/g, "");
 
@@ -162,12 +162,15 @@ export const validateField = async (
   value: any,
 ): Promise<string | null> => {
   try {
-    await validator.validate(value);
+    // Garantir que o valor seja uma string ou vazio se for null/undefined, e aplicar trim
+    const safeValue = value == null ? "" : String(value).trim();
+    await validator.validate(safeValue);
     return null;
   } catch (error) {
     if (error instanceof yup.ValidationError) {
       return error.message;
     }
+    console.error("Erro de validação:", error);
     return "Erro de validação";
   }
 };

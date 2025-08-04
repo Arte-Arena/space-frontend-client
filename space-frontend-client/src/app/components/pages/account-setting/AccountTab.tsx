@@ -156,100 +156,119 @@ const AccountTab = () => {
   };
 
   const handleCelularChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const formatted = formatCelular(e.target.value);
-    setFormValues((prev) => ({ ...prev, celular: formatted }));
+    const value = e.target.value || "";
+    const formatted = formatCelular(value);
+    setFormValues((prev) => ({ ...prev, celular: formatted || "" }));
   };
 
   const handleCpfChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const formatted = formatCPF(e.target.value);
-    setFormValues((prev) => ({ ...prev, cpf: formatted }));
+    const value = e.target.value || "";
+    const formatted = formatCPF(value);
+    setFormValues((prev) => ({ ...prev, cpf: formatted || "" }));
   };
 
   const handleCnpjChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const formatted = formatCNPJ(e.target.value);
-    setFormValues((prev) => ({ ...prev, cnpj: formatted }));
+    const value = e.target.value || "";
+    const formatted = formatCNPJ(value);
+    setFormValues((prev) => ({ ...prev, cnpj: formatted || "" }));
   };
 
   const handleRgChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const formatted = formatRG(e.target.value);
-    setFormValues((prev) => ({ ...prev, rg: formatted }));
+    const value = e.target.value || "";
+    const formatted = formatRG(value);
+    setFormValues((prev) => ({ ...prev, rg: formatted || "" }));
   };
 
   const handleCepChange = (e: ChangeEvent<HTMLInputElement>, field: string) => {
-    const formatted = formatCEP(e.target.value);
-    setFormValues((prev) => ({ ...prev, [field]: formatted }));
+    const value = e.target.value || "";
+    const formatted = formatCEP(value);
+    setFormValues((prev) => ({ ...prev, [field]: formatted || "" }));
   };
 
   const handleBlur = async (field: string, value: string, validator: any) => {
-    const errorMessage = await validateField(validator, value);
-    setErrors((prev) => ({ ...prev, [field]: errorMessage }));
+    try {
+      const safeValue = value || "";
+      const errorMessage = await validateField(validator, safeValue);
+      setErrors((prev) => ({ ...prev, [field]: errorMessage }));
+    } catch (error) {
+      console.error(`Erro na validação do campo ${field}:`, error);
+      setErrors((prev) => ({ ...prev, [field]: "Erro na validação" }));
+    }
   };
 
   const validateForm = async () => {
     const newErrors: { [key: string]: string | null } = {};
     let isValid = true;
 
-    const nomeEl = document.getElementById("text-nome") as HTMLInputElement;
-    const emailEl = document.getElementById("text-email") as HTMLInputElement;
-    const celularEl = document.getElementById(
-      "text-celular",
-    ) as HTMLInputElement;
-
-    if (nomeEl) {
-      const nomeError = await validateField(
-        tipoPessoa === "F" ? nomeValidator : nomeFantasiaValidator,
-        nomeEl.value,
-      );
-      newErrors["nome"] = nomeError;
-      if (nomeError) isValid = false;
-    }
-
-    if (emailEl) {
-      const emailError = await validateField(emailValidator, emailEl.value);
-      newErrors["email"] = emailError;
-      if (emailError) isValid = false;
-    }
-
-    if (celularEl) {
-      const celularError = await validateField(
-        celularValidator,
-        celularEl.value,
-      );
-      newErrors["celular"] = celularError;
-      if (celularError) isValid = false;
-    }
-
-    if (tipoPessoa === "F") {
-      const cpfEl = document.getElementById("text-cpf") as HTMLInputElement;
-      if (cpfEl) {
-        const cpfError = await validateField(cpfValidator, cpfEl.value);
-        newErrors["cpf"] = cpfError;
-        if (cpfError) isValid = false;
-      }
-    } else {
-      const razaoSocialEl = document.getElementById(
-        "text-razao-social",
+    try {
+      const nomeEl = document.getElementById("text-nome") as HTMLInputElement;
+      const emailEl = document.getElementById("text-email") as HTMLInputElement;
+      const celularEl = document.getElementById(
+        "text-celular",
       ) as HTMLInputElement;
-      const cnpjEl = document.getElementById("text-cnpj") as HTMLInputElement;
 
-      if (razaoSocialEl) {
-        const razaoError = await validateField(
-          razaoSocialValidator,
-          razaoSocialEl.value,
+      if (nomeEl && nomeEl.value !== undefined) {
+        const nomeError = await validateField(
+          tipoPessoa === "F" ? nomeValidator : nomeFantasiaValidator,
+          nomeEl.value || "",
         );
-        newErrors["razaoSocial"] = razaoError;
-        if (razaoError) isValid = false;
+        newErrors["nome"] = nomeError;
+        if (nomeError) isValid = false;
       }
 
-      if (cnpjEl) {
-        const cnpjError = await validateField(cnpjValidator, cnpjEl.value);
-        newErrors["cnpj"] = cnpjError;
-        if (cnpjError) isValid = false;
+      if (emailEl && emailEl.value !== undefined) {
+        const emailError = await validateField(emailValidator, emailEl.value || "");
+        newErrors["email"] = emailError;
+        if (emailError) isValid = false;
       }
+
+      if (celularEl && celularEl.value !== undefined) {
+        const celularError = await validateField(
+          celularValidator,
+          celularEl.value || "",
+        );
+        newErrors["celular"] = celularError;
+        if (celularError) isValid = false;
+      }
+
+      if (tipoPessoa === "F") {
+        const cpfEl = document.getElementById("text-cpf") as HTMLInputElement;
+        if (cpfEl && cpfEl.value !== undefined) {
+          const cpfError = await validateField(cpfValidator, cpfEl.value || "");
+          newErrors["cpf"] = cpfError;
+          if (cpfError) isValid = false;
+        }
+      } else {
+        const razaoSocialEl = document.getElementById(
+          "text-razao-social",
+        ) as HTMLInputElement;
+        const cnpjEl = document.getElementById("text-cnpj") as HTMLInputElement;
+
+        if (razaoSocialEl && razaoSocialEl.value !== undefined) {
+          const razaoError = await validateField(
+            razaoSocialValidator,
+            razaoSocialEl.value || "",
+          );
+          newErrors["razaoSocial"] = razaoError;
+          if (razaoError) isValid = false;
+        }
+
+        if (cnpjEl && cnpjEl.value !== undefined) {
+          const cnpjError = await validateField(cnpjValidator, cnpjEl.value || "");
+          newErrors["cnpj"] = cnpjError;
+          if (cnpjError) isValid = false;
+        }
+      }
+
+      setErrors(newErrors);
+      return isValid;
+    } catch (error) {
+      console.error("Erro durante validação:", error);
+      setAlertSeverity("error");
+      setAlertMessage("Erro durante a validação dos dados.");
+      setShowAlert(true);
+      return false;
     }
-
-    setErrors(newErrors);
-    return isValid;
   };
 
   const handleSave = async () => {
@@ -266,39 +285,39 @@ const AccountTab = () => {
 
         // Add personal data based on person type
         if (tipoPessoa === "F") {
-          clientData.name = formValues.nome;
-          clientData.identity_card = formValues.rg;
-          clientData.cpf = formValues.cpf;
+          clientData.name = (formValues.nome || "").trim();
+          clientData.identity_card = (formValues.rg || "").trim();
+          clientData.cpf = (formValues.cpf || "").trim();
         } else {
-          clientData.name = formValues.nomeFantasia;
-          clientData.company_name = formValues.razaoSocial;
-          clientData.cnpj = formValues.cnpj;
-          clientData.state_registration = formValues.inscricaoEstadual;
+          clientData.name = (formValues.nomeFantasia || "").trim();
+          clientData.company_name = (formValues.razaoSocial || "").trim();
+          clientData.cnpj = (formValues.cnpj || "").trim();
+          clientData.state_registration = (formValues.inscricaoEstadual || "").trim();
         }
 
         // Add common fields
-        clientData.email = formValues.email;
-        clientData.cell_phone = formValues.celular;
+        clientData.email = (formValues.email || "").trim();
+        clientData.cell_phone = (formValues.celular || "").trim();
 
         // Add address fields
-        clientData.zip_code = formValues.cep;
-        clientData.address = formValues.endereco;
-        clientData.number = formValues.numero;
-        clientData.complement = formValues.complemento;
-        clientData.neighborhood = formValues.bairro;
-        clientData.city = formValues.cidade;
+        clientData.zip_code = (formValues.cep || "").trim();
+        clientData.address = (formValues.endereco || "").trim();
+        clientData.number = (formValues.numero || "").trim();
+        clientData.complement = (formValues.complemento || "").trim();
+        clientData.neighborhood = (formValues.bairro || "").trim();
+        clientData.city = (formValues.cidade || "").trim();
         clientData.state = uf;
 
         // Add billing address if different
         clientData.different_billing_address = enderecoCobrancaDiferente;
 
         if (enderecoCobrancaDiferente) {
-          clientData.billing_zip_code = formValues.cepCobranca;
-          clientData.billing_address = formValues.enderecoCobranca;
-          clientData.billing_number = formValues.numeroCobranca;
-          clientData.billing_complement = formValues.complementoCobranca;
-          clientData.billing_neighborhood = formValues.bairroCobranca;
-          clientData.billing_city = formValues.cidadeCobranca;
+          clientData.billing_zip_code = (formValues.cepCobranca || "").trim();
+          clientData.billing_address = (formValues.enderecoCobranca || "").trim();
+          clientData.billing_number = (formValues.numeroCobranca || "").trim();
+          clientData.billing_complement = (formValues.complementoCobranca || "").trim();
+          clientData.billing_neighborhood = (formValues.bairroCobranca || "").trim();
+          clientData.billing_city = (formValues.cidadeCobranca || "").trim();
           clientData.billing_state = ufCobranca;
         }
 
@@ -355,36 +374,64 @@ const AccountTab = () => {
         const data = await getClientData(router);
 
         if (data && data.contact) {
-          setTipoPessoa(data.contact.person_type || "F");
-          setUf(data.contact.state || "SP");
-          setUfCobranca(data.contact.billing_state || "SP");
-          setSituacao(data.contact.status || "A");
+          // Garantir que todos os valores sejam strings válidas
+          const contact = data.contact;
+          
+          setTipoPessoa(contact.person_type || "F");
+          setUf(contact.state || "SP");
+          setUfCobranca(contact.billing_state || "SP");
+          setSituacao(contact.status || "A");
           setEnderecoCobrancaDiferente(
-            data.contact.different_billing_address || false,
+            Boolean(contact.different_billing_address),
           );
 
           setFormValues({
-            nome: data.contact.name || "",
-            email: data.contact.email || "",
-            celular: data.contact.cell_phone || "",
-            cpf: data.contact.cpf || "",
-            rg: data.contact.identity_card || "",
-            cnpj: data.contact.cnpj || "",
-            inscricaoEstadual: data.contact.state_registration || "",
-            cep: data.contact.zip_code || "",
-            endereco: data.contact.address || "",
-            numero: data.contact.number || "",
-            complemento: data.contact.complement || "",
-            bairro: data.contact.neighborhood || "",
-            cidade: data.contact.city || "",
-            cepCobranca: data.contact.billing_zip_code || "",
-            enderecoCobranca: data.contact.billing_address || "",
-            numeroCobranca: data.contact.billing_number || "",
-            complementoCobranca: data.contact.billing_complement || "",
-            bairroCobranca: data.contact.billing_neighborhood || "",
-            cidadeCobranca: data.contact.billing_city || "",
-            nomeFantasia: data.contact.name || "",
-            razaoSocial: data.contact.company_name || "",
+            nome: contact.name || "",
+            email: contact.email || "",
+            celular: contact.cell_phone || "",
+            cpf: contact.cpf || "",
+            rg: contact.identity_card || "",
+            cnpj: contact.cnpj || "",
+            inscricaoEstadual: contact.state_registration || "",
+            cep: contact.zip_code || "",
+            endereco: contact.address || "",
+            numero: contact.number || "",
+            complemento: contact.complement || "",
+            bairro: contact.neighborhood || "",
+            cidade: contact.city || "",
+            cepCobranca: contact.billing_zip_code || "",
+            enderecoCobranca: contact.billing_address || "",
+            numeroCobranca: contact.billing_number || "",
+            complementoCobranca: contact.billing_complement || "",
+            bairroCobranca: contact.billing_neighborhood || "",
+            cidadeCobranca: contact.billing_city || "",
+            nomeFantasia: contact.name || "",
+            razaoSocial: contact.company_name || "",
+          });
+        } else {
+          // Se não houver dados, manter valores padrão mas limpar formulário
+          setFormValues({
+            nome: "",
+            email: "",
+            celular: "",
+            cpf: "",
+            rg: "",
+            cnpj: "",
+            inscricaoEstadual: "",
+            cep: "",
+            endereco: "",
+            numero: "",
+            complemento: "",
+            bairro: "",
+            cidade: "",
+            cepCobranca: "",
+            enderecoCobranca: "",
+            numeroCobranca: "",
+            complementoCobranca: "",
+            bairroCobranca: "",
+            cidadeCobranca: "",
+            nomeFantasia: "",
+            razaoSocial: "",
           });
         }
       } catch (error) {
@@ -397,6 +444,31 @@ const AccountTab = () => {
         setTimeout(() => {
           setShowAlert(false);
         }, 6000);
+        
+        // Em caso de erro, garantir que o formulário tenha valores padrão
+        setFormValues({
+          nome: "",
+          email: "",
+          celular: "",
+          cpf: "",
+          rg: "",
+          cnpj: "",
+          inscricaoEstadual: "",
+          cep: "",
+          endereco: "",
+          numero: "",
+          complemento: "",
+          bairro: "",
+          cidade: "",
+          cepCobranca: "",
+          enderecoCobranca: "",
+          numeroCobranca: "",
+          complementoCobranca: "",
+          bairroCobranca: "",
+          cidadeCobranca: "",
+          nomeFantasia: "",
+          razaoSocial: "",
+        });
       } finally {
         setIsLoading(false);
       }
@@ -488,11 +560,11 @@ const AccountTab = () => {
                       }
                       variant="outlined"
                       fullWidth
-                      value={formValues.nome}
+                      value={formValues.nome || ""}
                       onChange={(e: ChangeEvent<HTMLInputElement>) =>
                         setFormValues((prev) => ({
                           ...prev,
-                          nome: e.target.value,
+                          nome: e.target.value || "",
                         }))
                       }
                       onBlur={(e: FocusEvent<HTMLInputElement>) =>
@@ -523,11 +595,11 @@ const AccountTab = () => {
                       variant="outlined"
                       fullWidth
                       type="email"
-                      value={formValues.email}
+                      value={formValues.email || ""}
                       onChange={(e: ChangeEvent<HTMLInputElement>) =>
                         setFormValues((prev) => ({
                           ...prev,
-                          email: e.target.value,
+                          email: e.target.value || "",
                         }))
                       }
                       onBlur={(e: FocusEvent<HTMLInputElement>) =>
@@ -551,7 +623,7 @@ const AccountTab = () => {
                       placeholder="(00) 00000-0000"
                       variant="outlined"
                       fullWidth
-                      value={formValues.celular}
+                      value={formValues.celular || ""}
                       onChange={handleCelularChange}
                       onBlur={(e: FocusEvent<HTMLInputElement>) =>
                         handleBlur("celular", e.target.value, celularValidator)
@@ -576,7 +648,7 @@ const AccountTab = () => {
                           placeholder="000.000.000-00"
                           variant="outlined"
                           fullWidth
-                          value={formValues.cpf}
+                          value={formValues.cpf || ""}
                           onChange={handleCpfChange}
                           onBlur={(e: FocusEvent<HTMLInputElement>) =>
                             handleBlur("cpf", e.target.value, cpfValidator)
@@ -595,7 +667,7 @@ const AccountTab = () => {
                           placeholder="00.000.000-0"
                           variant="outlined"
                           fullWidth
-                          value={formValues.rg}
+                          value={formValues.rg || ""}
                           onChange={handleRgChange}
                           onBlur={(e: FocusEvent<HTMLInputElement>) =>
                             handleBlur("rg", e.target.value, rgValidator)
@@ -622,11 +694,11 @@ const AccountTab = () => {
                           placeholder="Razão social da empresa"
                           variant="outlined"
                           fullWidth
-                          value={formValues.razaoSocial}
+                          value={formValues.razaoSocial || ""}
                           onChange={(e: ChangeEvent<HTMLInputElement>) =>
                             setFormValues((prev) => ({
                               ...prev,
-                              razaoSocial: e.target.value,
+                              razaoSocial: e.target.value || "",
                             }))
                           }
                           onBlur={(e: FocusEvent<HTMLInputElement>) =>
@@ -654,7 +726,7 @@ const AccountTab = () => {
                           placeholder="00.000.000/0000-00"
                           variant="outlined"
                           fullWidth
-                          value={formValues.cnpj}
+                          value={formValues.cnpj || ""}
                           onChange={handleCnpjChange}
                           onBlur={(e: FocusEvent<HTMLInputElement>) =>
                             handleBlur("cnpj", e.target.value, cnpjValidator)
@@ -680,7 +752,7 @@ const AccountTab = () => {
                           onChange={(e: ChangeEvent<HTMLInputElement>) =>
                             setFormValues((prev) => ({
                               ...prev,
-                              inscricaoEstadual: e.target.value,
+                              inscricaoEstadual: e.target.value || "",
                             }))
                           }
                           onBlur={(e: FocusEvent<HTMLInputElement>) =>
@@ -760,7 +832,7 @@ const AccountTab = () => {
                       onChange={(e: ChangeEvent<HTMLInputElement>) =>
                         setFormValues((prev) => ({
                           ...prev,
-                          endereco: e.target.value,
+                          endereco: e.target.value || "",
                         }))
                       }
                       onBlur={(e: FocusEvent<HTMLInputElement>) =>
@@ -788,7 +860,7 @@ const AccountTab = () => {
                       onChange={(e: ChangeEvent<HTMLInputElement>) =>
                         setFormValues((prev) => ({
                           ...prev,
-                          numero: e.target.value,
+                          numero: e.target.value || "",
                         }))
                       }
                       onBlur={(e: FocusEvent<HTMLInputElement>) =>
@@ -812,7 +884,7 @@ const AccountTab = () => {
                       onChange={(e: ChangeEvent<HTMLInputElement>) =>
                         setFormValues((prev) => ({
                           ...prev,
-                          complemento: e.target.value,
+                          complemento: e.target.value || "",
                         }))
                       }
                       onBlur={(e: FocusEvent<HTMLInputElement>) =>
@@ -840,7 +912,7 @@ const AccountTab = () => {
                       onChange={(e: ChangeEvent<HTMLInputElement>) =>
                         setFormValues((prev) => ({
                           ...prev,
-                          bairro: e.target.value,
+                          bairro: e.target.value || "",
                         }))
                       }
                       onBlur={(e: FocusEvent<HTMLInputElement>) =>
@@ -864,7 +936,7 @@ const AccountTab = () => {
                       onChange={(e: ChangeEvent<HTMLInputElement>) =>
                         setFormValues((prev) => ({
                           ...prev,
-                          cidade: e.target.value,
+                          cidade: e.target.value || "",
                         }))
                       }
                       onBlur={(e: FocusEvent<HTMLInputElement>) =>
@@ -968,7 +1040,7 @@ const AccountTab = () => {
                           onChange={(e: ChangeEvent<HTMLInputElement>) =>
                             setFormValues((prev) => ({
                               ...prev,
-                              enderecoCobranca: e.target.value,
+                              enderecoCobranca: e.target.value || "",
                             }))
                           }
                           onBlur={(e: FocusEvent<HTMLInputElement>) =>
@@ -999,7 +1071,7 @@ const AccountTab = () => {
                           onChange={(e: ChangeEvent<HTMLInputElement>) =>
                             setFormValues((prev) => ({
                               ...prev,
-                              numeroCobranca: e.target.value,
+                              numeroCobranca: e.target.value || "",
                             }))
                           }
                           onBlur={(e: FocusEvent<HTMLInputElement>) =>
@@ -1030,7 +1102,7 @@ const AccountTab = () => {
                           onChange={(e: ChangeEvent<HTMLInputElement>) =>
                             setFormValues((prev) => ({
                               ...prev,
-                              complementoCobranca: e.target.value,
+                              complementoCobranca: e.target.value || "",
                             }))
                           }
                           onBlur={(e: FocusEvent<HTMLInputElement>) =>
@@ -1061,7 +1133,7 @@ const AccountTab = () => {
                           onChange={(e: ChangeEvent<HTMLInputElement>) =>
                             setFormValues((prev) => ({
                               ...prev,
-                              bairroCobranca: e.target.value,
+                              bairroCobranca: e.target.value || "",
                             }))
                           }
                           onBlur={(e: FocusEvent<HTMLInputElement>) =>
@@ -1092,7 +1164,7 @@ const AccountTab = () => {
                           onChange={(e: ChangeEvent<HTMLInputElement>) =>
                             setFormValues((prev) => ({
                               ...prev,
-                              cidadeCobranca: e.target.value,
+                              cidadeCobranca: e.target.value || "",
                             }))
                           }
                           onBlur={(e: FocusEvent<HTMLInputElement>) =>

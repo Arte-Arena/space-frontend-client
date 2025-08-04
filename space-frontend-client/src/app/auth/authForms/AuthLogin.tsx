@@ -52,8 +52,8 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
       setIsLoading(true);
       try {
         await login({
-          email: values.email,
-          password: values.password,
+          email: values.email.trim(),
+          password: values.password.trim(),
         });
         window.location.href = "/";
       } catch (err: any) {
