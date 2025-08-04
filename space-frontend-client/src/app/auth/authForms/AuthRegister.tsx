@@ -98,9 +98,9 @@ const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
       setIsLoading(true);
       try {
         await register({
-          name: values.name,
-          email: values.email,
-          password: values.password,
+          name: values.name.trim(),
+          email: values.email.trim(),
+          password: values.password.trim(),
         });
         setSuccess(true);
       } catch (err: any) {
