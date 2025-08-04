@@ -38,13 +38,14 @@ const AuthSuccessMessage = ({
 
         <Box>
           <Typography variant="body2" color="textSecondary" paragraph>
-            Você receberá um e-mail de confirmação em breve. Por favor,
-            verifique sua caixa de entrada e spam.
+            O sistema de confirmação por e-mail está em desenvolvimento.
+            Por enquanto, você já pode fazer login com suas credenciais.
           </Typography>
         </Box>
 
-        <Alert severity="info" sx={{ width: "100%" }}>
-          Para começar a usar sua conta, faça login com suas credenciais.
+        <Alert severity="warning" sx={{ width: "100%" }}>
+          <strong>Nota:</strong> A confirmação por e-mail será implementada em breve. 
+          Sua conta já está ativa e você pode começar a usar o sistema imediatamente.
         </Alert>
 
         <Button
