@@ -2,9 +2,9 @@
 import { useState, useEffect } from "react";
 import { Box, Typography, Paper, Grid, Alert, Button } from "@mui/material";
 import PageContainer from "@/app/components/container/PageContainer";
-import { getOrders } from "@/services/orders";
+import { getUserOrders } from "./services";
 import { useRouter } from "next/navigation";
-import { Order } from "@/types/order";
+import { Order } from "./services";
 import OrderList from "./OrderList";
 // import OrderFilter, { FilterOptions } from "./OrderFilter";
 import { IconPackage, IconRefresh } from "@tabler/icons-react";
@@ -20,7 +20,8 @@ export default function OrdersPage() {
     try {
       setIsLoading(true);
       setError(null);
-      const data = await getOrders(router);
+      const response = await getUserOrders({ page: 1, limit: 100 }, router);
+      const data = response?.orders || [];
       setOrders(data);
       setFilteredOrders(data);
     } catch (err) {

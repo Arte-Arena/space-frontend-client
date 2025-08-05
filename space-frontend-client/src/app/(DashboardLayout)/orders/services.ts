@@ -158,22 +158,53 @@ export const getUserOrders = async (
   params: GetOrdersParams = {},
   router: any
 ): Promise<OrdersResponse> => {
+  const { page = 1, limit = 10 } = params;
+  
   try {
-    const { page = 1, limit = 10 } = params;
     const queryParams = new URLSearchParams({
       page: page.toString(),
       limit: limit.toString(),
     });
 
     const response = await axios.get(
-      `${API_URL}/v1/orders?${queryParams.toString()}`,
+      `${API_URL}/v2/orders?${queryParams.toString()}`,
       {
         withCredentials: true,
       }
     );
 
     if (response.data && response.data.data) {
-      return response.data.data as OrdersResponse;
+      const data = response.data.data as OrdersResponse;
+      
+      // Validação e limpeza dos dados
+      const cleanOrders = (data.orders || []).map((order): Order => ({
+        _id: order._id || "",
+        old_id: order.old_id || 0,
+        created_by: order.created_by || undefined,
+        related_seller: order.related_seller || undefined,
+        related_designer: order.related_designer || undefined,
+        tracking_code: order.tracking_code || undefined,
+        status: order.status || undefined,
+        stage: order.stage || undefined,
+        type: order.type || undefined,
+        url_trello: order.url_trello || undefined,
+        products_list_legacy: order.products_list_legacy || undefined,
+        related_budget: order.related_budget || undefined,
+        expected_date: order.expected_date || undefined,
+        custom_properties: order.custom_properties || undefined,
+        notes: order.notes || undefined,
+        created_at: order.created_at || new Date().toISOString(),
+        updated_at: order.updated_at || new Date().toISOString(),
+        payment_date: order.payment_date || undefined,
+      }));
+
+      return {
+        orders: cleanOrders,
+        total: data.total || 0,
+        page: data.page || page,
+        limit: data.limit || limit,
+        total_pages: data.total_pages || 0,
+      };
     }
 
     // Retorna estrutura padrão se não houver dados
@@ -185,15 +216,29 @@ export const getUserOrders = async (
       total_pages: 0,
     };
   } catch (error) {
-    if (axios.isAxiosError(error) && error.response?.status === 401) {
-      router.push("/auth/auth1/login");
+    try {
+      handleApiError(error, router);
+    } catch (handledError) {
+      // Se a função de tratamento de erro lançar uma exceção,
+      // retornamos dados vazios para evitar quebrar a aplicação
+      console.error("Erro ao buscar pedidos:", handledError);
+      return {
+        orders: [],
+        total: 0,
+        page,
+        limit,
+        total_pages: 0,
+      };
     }
-
-    if (axios.isAxiosError(error) && error.response?.data?.message) {
-      throw new Error(error.response.data.message);
-    }
-
-    throw error;
+    
+    // Este código nunca será alcançado, mas é necessário para o TypeScript
+    return {
+      orders: [],
+      total: 0,
+      page,
+      limit,
+      total_pages: 0,
+    };
   }
 };
 
@@ -203,23 +248,34 @@ export const getOrderById = async (
   router: any
 ): Promise<Order | null> => {
   try {
+    if (!orderId || orderId.trim() === "") {
+      return null;
+    }
+
     // Como não temos endpoint específico para um pedido, buscamos todos e filtramos
     const ordersResponse = await getUserOrders({ limit: 100 }, router);
+    
+    if (!ordersResponse.orders || ordersResponse.orders.length === 0) {
+      return null;
+    }
+
     const foundOrder = ordersResponse.orders.find(
-      (order) => order._id === orderId || order.old_id.toString() === orderId
+      (order) => 
+        order._id === orderId || 
+        order.old_id?.toString() === orderId ||
+        order._id === orderId.toString()
     );
 
     return foundOrder || null;
   } catch (error) {
-    if (axios.isAxiosError(error) && error.response?.status === 401) {
-      router.push("/auth/auth1/login");
+    try {
+      handleApiError(error, router);
+    } catch (handledError) {
+      console.error("Erro ao buscar pedido por ID:", handledError);
+      return null;
     }
-
-    if (axios.isAxiosError(error) && error.response?.data?.message) {
-      throw new Error(error.response.data.message);
-    }
-
-    throw error;
+    
+    return null;
   }
 };
 
@@ -265,4 +321,108 @@ export const isOrderPending = (status?: OrderStatus): boolean => {
     "Em espera"
   ];
   return status ? pendingStatuses.includes(status) : false;
+};
+
+// Função helper para verificar se um pedido foi cancelado
+export const isOrderCancelled = (status?: OrderStatus): boolean => {
+  const cancelledStatuses: OrderStatus[] = [
+    "Devolução"
+  ];
+  return status ? cancelledStatuses.includes(status) : false;
+};
+
+// Função helper para obter cor do status de forma segura
+export const getOrderStatusColor = (status?: OrderStatus): string => {
+  if (!status) return "default";
+  
+  if (isOrderPending(status)) return "warning";
+  if (isOrderInProgress(status)) return "info";
+  if (isOrderDelivered(status)) return "success";
+  if (isOrderCancelled(status)) return "error";
+  
+  return "default";
+};
+
+// Função helper para formatar data de forma segura
+export const formatOrderDate = (dateStr?: string): string => {
+  if (!dateStr) return "Não informada";
+  
+  try {
+    const date = new Date(dateStr);
+    if (isNaN(date.getTime())) return "Data inválida";
+    
+    return date.toLocaleDateString('pt-BR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    });
+  } catch {
+    return "Data inválida";
+  }
+};
+
+// Função helper para obter número do pedido de forma segura
+export const getOrderNumber = (order: Order): string => {
+  return order.old_id?.toString() || order._id || "N/A";
+};
+
+// Função helper para verificar se tem observações
+export const hasOrderNotes = (order: Order): boolean => {
+  return Boolean(order.notes && order.notes.trim().length > 0);
+};
+
+// Função helper para obter status de pagamento
+export const getPaymentStatus = (order: Order): string => {
+  if (order.payment_date) return "Pago";
+  return "Pendente";
+};
+
+// Função helper para verificar se pode configurar uniforme
+export const canConfigureUniform = (order: Order): boolean => {
+  if (!order.status) return false;
+  return isOrderPending(order.status) || isOrderInProgress(order.status);
+};
+
+// Função helper para tratar erros de API de forma padronizada
+export const handleApiError = (error: unknown, router: any): never => {
+  if (axios.isAxiosError(error)) {
+    const status = error.response?.status;
+    
+    if (status === 401) {
+      router.push("/auth/auth1/login");
+      throw new Error("Sessão expirada. Redirecionando para login...");
+    }
+
+    if (error.response?.data?.message) {
+      throw new Error(error.response.data.message);
+    }
+
+    if (status && status >= 500) {
+      throw new Error("Erro interno do servidor. Tente novamente mais tarde.");
+    }
+
+    if (status && status >= 400) {
+      throw new Error("Erro na requisição. Verifique os dados enviados.");
+    }
+  }
+
+  if (error instanceof Error) {
+    throw error;
+  }
+
+  throw new Error("Erro desconhecido. Tente novamente mais tarde.");
+};
+
+// Função helper para validar dados de pedido
+export const validateOrderData = (orderData: any): boolean => {
+  if (!orderData || typeof orderData !== 'object') {
+    return false;
+  }
+
+  // Verifica se tem pelo menos _id ou old_id
+  if (!orderData._id && !orderData.old_id) {
+    return false;
+  }
+
+  return true;
 };

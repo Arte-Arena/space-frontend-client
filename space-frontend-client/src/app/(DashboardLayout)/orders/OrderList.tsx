@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Order } from "@/types/order";
+import { Order } from "./services";
 import { Box, Alert, Skeleton } from "@mui/material";
 import OrderCard from "./OrderCard";
 
@@ -15,9 +15,9 @@ const OrderList = ({ orders, isLoading, error }: OrderListProps) => {
 
   useEffect(() => {
     const sortedOrders = [...orders].sort((a, b) => {
-      return (
-        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-      );
+      const dateA = a.created_at ? new Date(a.created_at).getTime() : 0;
+      const dateB = b.created_at ? new Date(b.created_at).getTime() : 0;
+      return dateB - dateA;
     });
 
     setFilteredOrders(sortedOrders);
@@ -57,7 +57,7 @@ const OrderList = ({ orders, isLoading, error }: OrderListProps) => {
   return (
     <Box>
       {filteredOrders.map((order) => (
-        <OrderCard key={order.id} order={order} />
+        <OrderCard key={order._id || order.old_id || `order-${Date.now()}`} order={order} />
       ))}
     </Box>
   );

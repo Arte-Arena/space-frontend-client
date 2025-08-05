@@ -1,5 +1,16 @@
 "use client";
-import { Order } from "@/types/order";
+import { 
+  Order, 
+  getOrderStatusDisplayName, 
+  getOrderStageDisplayName, 
+  getOrderTypeDisplayName, 
+  getOrderStatusColor,
+  formatOrderDate,
+  getOrderNumber,
+  getPaymentStatus,
+  canConfigureUniform,
+  hasOrderNotes
+} from "./services";
 import {
   Box,
   Card,
@@ -19,83 +30,35 @@ import {
   IconPackage,
   IconClock,
   IconReceipt,
+  IconNote,
 } from "@tabler/icons-react";
 
 interface OrderCardProps {
   order: Order;
 }
 
-const translateStatus = (status: string): string => {
-  switch (status.toLowerCase()) {
-    case "pending":
-      return "Pendente";
-    case "processing":
-      return "Em produção";
-    case "completed":
-      return "Finalizado";
-    case "shipped":
-      return "Enviado";
-    case "delivered":
-      return "Entregue";
-    case "cancelled":
-      return "Cancelado";
-    default:
-      return status;
-  }
-};
-
-const getStatusColor = (status: string) => {
-  switch (status.toLowerCase()) {
-    case "pending":
-      return "warning";
-    case "processing":
-      return "info";
-    case "completed":
-      return "success";
-    case "shipped":
-      return "primary";
-    case "delivered":
-      return "success";
-    case "cancelled":
-      return "error";
-    default:
-      return "default";
-  }
-};
-
 const OrderCard = ({ order }: OrderCardProps) => {
   const router = useRouter();
 
   const handleUniformConfig = () => {
-    if (order.orcamento_id) {
-      router.push(`/orders/uniforms/${order.orcamento_id}`);
+    if (order.related_budget) {
+      router.push(`/orders/uniforms/${order.related_budget}`);
     }
   };
 
   const hasUniformPackage = () => {
-    return order.items.some((item) =>
-      item.product_name.includes("Pacote de Uniforme"),
-    );
+    // Como não temos items na nova estrutura, vamos verificar por outras propriedades
+    // ou assumir que todos os pedidos podem configurar uniformes
+    return true;
   };
 
-  const canConfigureUniform = () => {
-    if (
-      order.status.toLowerCase() !== "pending" &&
-      order.status.toLowerCase() !== "processing"
-    ) {
-      return false;
-    }
-
-    return hasUniformPackage();
-  };
-
-  const formatEstimatedDate = (dateStr: string | undefined) => {
+  const formatEstimatedDate = (dateStr?: string) => {
     if (!dateStr) return "Não definida";
-    return formatDate(dateStr);
-  };
-
-  const getTotalItems = () => {
-    return order.items.reduce((acc, item) => acc + item.quantity, 0);
+    try {
+      return formatDate(dateStr);
+    } catch {
+      return "Data inválida";
+    }
   };
 
   return (
@@ -110,12 +73,12 @@ const OrderCard = ({ order }: OrderCardProps) => {
         >
           <Box>
             <Typography variant="subtitle1" fontWeight="bold">
-              Pedido #{order.order_number}
-              {order.orcamento_id && (
+              Pedido #{getOrderNumber(order)}
+              {order.related_budget && (
                 <Tooltip title="ID do Orçamento">
                   <Chip
                     size="small"
-                    label={`Orçamento #${order.orcamento_id}`}
+                    label={`Orçamento #${order.related_budget}`}
                     variant="outlined"
                     sx={{ ml: 1 }}
                   />
@@ -125,14 +88,14 @@ const OrderCard = ({ order }: OrderCardProps) => {
             <Stack direction="row" spacing={1} alignItems="center" mt={0.5}>
               <IconCalendarEvent size={16} />
               <Typography variant="body2" color="textSecondary">
-                {formatDate(order.created_at)}
+                {formatOrderDate(order.created_at)}
               </Typography>
             </Stack>
           </Box>
           <Box mt={{ xs: 2, sm: 0 }}>
             <Chip
-              label={translateStatus(order.status)}
-              color={getStatusColor(order.status) as any}
+              label={getOrderStatusDisplayName(order.status)}
+              color={getOrderStatusColor(order.status) as any}
               size="small"
             />
           </Box>
@@ -142,24 +105,35 @@ const OrderCard = ({ order }: OrderCardProps) => {
 
         <Box my={2}>
           <Typography variant="body2" color="textSecondary" gutterBottom>
-            Itens:
+            Informações do pedido:
           </Typography>
           <Box sx={{ maxHeight: "150px", overflowY: "auto", pr: 1 }}>
-            {order.items.map((item, index) => (
-              <Box
-                key={item.id || index}
-                mb={1}
-                display="flex"
-                justifyContent="space-between"
-              >
-                <Typography variant="body2">
-                  {item.quantity}x {item.product_name}
-                </Typography>
-                <Typography variant="body2" fontWeight="medium">
-                  {formatCurrency(item.total_price)}
-                </Typography>
-              </Box>
-            ))}
+            <Stack spacing={1}>
+              {order.type && (
+                <Box display="flex" justifyContent="space-between">
+                  <Typography variant="body2">Tipo:</Typography>
+                  <Typography variant="body2" fontWeight="medium">
+                    {getOrderTypeDisplayName(order.type)}
+                  </Typography>
+                </Box>
+              )}
+              {order.stage && (
+                <Box display="flex" justifyContent="space-between">
+                  <Typography variant="body2">Estágio:</Typography>
+                  <Typography variant="body2" fontWeight="medium">
+                    {getOrderStageDisplayName(order.stage)}
+                  </Typography>
+                </Box>
+              )}
+              {order.tracking_code && (
+                <Box display="flex" justifyContent="space-between">
+                  <Typography variant="body2">Código de rastreamento:</Typography>
+                  <Typography variant="body2" fontWeight="medium">
+                    {order.tracking_code}
+                  </Typography>
+                </Box>
+              )}
+            </Stack>
           </Box>
         </Box>
 
@@ -176,10 +150,10 @@ const OrderCard = ({ order }: OrderCardProps) => {
               <Stack direction="row" spacing={0.5} alignItems="center">
                 <IconPackage size={16} />
                 <Typography variant="body2" color="textSecondary">
-                  Total de itens:
+                  ID do Pedido:
                 </Typography>
               </Stack>
-              <Typography variant="body1">{getTotalItems()}</Typography>
+              <Typography variant="body1">{order.old_id || "N/A"}</Typography>
             </Box>
 
             <Box>
@@ -190,7 +164,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
                 </Typography>
               </Stack>
               <Typography variant="body1">
-                {formatEstimatedDate(order.data_prevista)}
+                {formatEstimatedDate(order.expected_date)}
               </Typography>
             </Box>
           </Box>
@@ -199,16 +173,30 @@ const OrderCard = ({ order }: OrderCardProps) => {
             <Stack direction="row" spacing={0.5} alignItems="center">
               <IconReceipt size={16} />
               <Typography variant="body2" color="textSecondary">
-                Valor total:
+                Status do pagamento:
               </Typography>
             </Stack>
             <Typography variant="h6">
-              {formatCurrency(order.total_amount)}
+              {getPaymentStatus(order)}
             </Typography>
           </Box>
         </Stack>
 
-        {hasUniformPackage() && order.orcamento_id && (
+        {hasOrderNotes(order) && (
+          <Box mb={2}>
+            <Stack direction="row" spacing={0.5} alignItems="center" mb={1}>
+              <IconNote size={16} />
+              <Typography variant="body2" color="textSecondary">
+                Observações:
+              </Typography>
+            </Stack>
+            <Typography variant="body2" sx={{ bgcolor: "grey.50", p: 1, borderRadius: 1 }}>
+              {order.notes}
+            </Typography>
+          </Box>
+        )}
+
+        {hasUniformPackage() && canConfigureUniform(order) && order.related_budget && (
           <Box
             display="flex"
             justifyContent="flex-end"
