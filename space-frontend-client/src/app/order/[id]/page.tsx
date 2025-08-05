@@ -41,6 +41,7 @@ import {
   IconCopy,
   IconCheck
 } from "@tabler/icons-react";
+import PublicOrderStepper from "./PublicOrderStepper";
 
 export default function PublicOrderPage() {
   const [order, setOrder] = useState<PublicOrder | null>(null);
@@ -145,12 +146,24 @@ export default function PublicOrderPage() {
 
           {/* Informações Principais */}
           <Grid container spacing={3}>
-            {/* Status */}
+            {/* Status Detalhado com Stepper */}
+            <Grid item xs={12}>
+              <Card variant="outlined" sx={{ borderRadius: 2 }}>
+                <CardContent>
+                  <PublicOrderStepper 
+                    currentStatus={order.status || "Pendente"}
+                    currentStage={order.stage}
+                  />
+                </CardContent>
+              </Card>
+            </Grid>
+
+            {/* Status Resumido */}
             <Grid item xs={12} md={6}>
               <Card variant="outlined" sx={{ height: '100%', borderRadius: 2 }}>
                 <CardContent>
                   <Typography variant="h6" fontWeight="600" mb={2}>
-                    Status do Pedido
+                    Status Atual
                   </Typography>
                   <Chip
                     label={getOrderStatusDisplayName(order.status)}
