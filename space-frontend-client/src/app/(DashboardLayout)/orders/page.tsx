@@ -1,12 +1,18 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Box, Typography, Paper, Grid, Alert, Button } from "@mui/material";
+import { 
+  Box, 
+  Typography, 
+  Alert, 
+  Button,
+  Container,
+  Fade
+} from "@mui/material";
 import PageContainer from "@/app/components/container/PageContainer";
-import { getOrders } from "@/services/orders";
+import { getUserOrders } from "./services";
 import { useRouter } from "next/navigation";
-import { Order } from "@/types/order";
-import OrderList from "./OrderList";
-// import OrderFilter, { FilterOptions } from "./OrderFilter";
+import { Order } from "./services";
+import ModernOrderList from "./ModernOrderList";
 import { IconPackage, IconRefresh } from "@tabler/icons-react";
 
 export default function OrdersPage() {
@@ -14,15 +20,20 @@ export default function OrdersPage() {
   const [filteredOrders, setFilteredOrders] = useState<Order[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const itemsPerPage = 6;
   const router = useRouter();
 
-  const fetchOrders = async () => {
+  const fetchOrders = async (page = 1) => {
     try {
       setIsLoading(true);
       setError(null);
-      const data = await getOrders(router);
+      const response = await getUserOrders({ page, limit: 100 }, router);
+      const data = response?.orders || [];
       setOrders(data);
       setFilteredOrders(data);
+      setTotalPages(Math.ceil(data.length / itemsPerPage));
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);
@@ -40,56 +51,31 @@ export default function OrdersPage() {
     fetchOrders();
   }, [router]);
 
-  /* Filtro desativado temporariamente
-  const handleFilter = (filters: FilterOptions) => {
-    let filtered = [...orders];
-    
-    if (filters.status && filters.status !== 'all') {
-      filtered = filtered.filter(order => order.status.toLowerCase() === filters.status.toLowerCase());
-    }
-    
-    if (filters.productType) {
-      filtered = filtered.filter(order => order.product_type.toLowerCase() === filters.productType.toLowerCase());
-    }
-    
-    if (filters.stage) {
-      filtered = filtered.filter(order => 
-        order.estagio_descricao && 
-        order.estagio_descricao.toLowerCase() === filters.stage.toLowerCase()
-      );
-    }
-    
-    if (filters.searchTerm) {
-      const searchLower = filters.searchTerm.toLowerCase();
-      filtered = filtered.filter(order => 
-        (order.order_number && order.order_number.toLowerCase().includes(searchLower)) ||
-        (order.orcamento_id && order.orcamento_id.toString().includes(searchLower))
-      );
-    }
-    
-    if (filters.dateRange && filters.dateRange.start && filters.dateRange.end) {
-      filtered = filtered.filter(order => {
-        const orderDate = new Date(order.created_at);
-        return orderDate >= filters.dateRange!.start! && orderDate <= filters.dateRange!.end!;
-      });
-    }
-    
-    setFilteredOrders(filtered);
-  };
-  */
-
   const handleRetryClick = () => {
-    fetchOrders();
+    fetchOrders(currentPage);
   };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const getPaginatedOrders = () => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return filteredOrders.slice(startIndex, endIndex);
+  };
+
+
 
   return (
     <PageContainer title="Meus Pedidos" description="Gerenciamento de pedidos">
-      <Paper elevation={0} sx={{ p: 3, mb: 4 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Box display="flex" alignItems="center" mb={3}>
-              <IconPackage size={32} />
-              <Typography variant="h4" ml={1}>
+      <Fade in timeout={800}>
+        <Container maxWidth="lg">
+          {/* Header */}
+          <Box mb={4}>
+            <Box display="flex" alignItems="center" mb={2}>
+              <IconPackage size={36} color="primary" />
+              <Typography variant="h3" ml={2} fontWeight="bold">
                 Meus Pedidos
               </Typography>
             </Box>
@@ -116,21 +102,19 @@ export default function OrdersPage() {
                 {error}
               </Alert>
             )}
+          </Box>
 
-            {/* Filtro desativado temporariamente
-            <Box sx={{ mb: 3 }}>
-              <OrderFilter onFilter={handleFilter} />
-            </Box>
-            */}
-
-            <OrderList
-              orders={filteredOrders}
-              isLoading={isLoading}
-              error={null}
-            />
-          </Grid>
-        </Grid>
-      </Paper>
+          {/* Orders List */}
+          <ModernOrderList
+            orders={getPaginatedOrders()}
+            isLoading={isLoading}
+            error={null}
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        </Container>
+      </Fade>
     </PageContainer>
   );
 }
