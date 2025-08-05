@@ -182,19 +182,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
           </Box>
         </Stack>
 
-        {hasOrderNotes(order) && (
-          <Box mb={2}>
-            <Stack direction="row" spacing={0.5} alignItems="center" mb={1}>
-              <IconNote size={16} />
-              <Typography variant="body2" color="textSecondary">
-                Observações:
-              </Typography>
-            </Stack>
-            <Typography variant="body2" sx={{ bgcolor: "grey.50", p: 1, borderRadius: 1 }}>
-              {order.notes}
-            </Typography>
-          </Box>
-        )}
+        {/* Removido: seção de observações conforme solicitado */}
 
         {hasUniformPackage() && canConfigureUniform(order) && order.related_budget && (
           <Box
