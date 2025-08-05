@@ -22,13 +22,11 @@ import {
   Divider,
   useTheme,
   alpha,
-  Stepper,
-  Step,
-  StepLabel,
   useMediaQuery,
 } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { formatDate } from "../../../utils/date";
+import CustomOrderStepper from "./CustomOrderStepper";
 import {
   IconCalendarEvent,
   IconPackage,
@@ -63,31 +61,6 @@ const ModernOrderCard = ({ order }: ModernOrderCardProps) => {
     if (order.related_budget) {
       router.push(`/orders/uniforms/${order.related_budget}`);
     }
-  };
-
-  // Função para mapear status do pedido em etapas do stepper
-  const getOrderSteps = () => {
-    const allSteps = [
-      { label: 'Pedido', status: ['Pendente'] },
-      { label: 'Aprovação', status: ['Em andamento', 'Arte OK'] },
-      { label: 'Produção', status: ['Processando', 'Em impressão', 'Impresso', 'Cortado', 'Costurado'] },
-      { label: 'Finalização', status: ['Separação', 'Em separação', 'Prensa', 'Calandra', 'Conferido'] },
-      { label: 'Entrega', status: ['Em entrega', 'Retirada', 'Entregue'] }
-    ];
-
-    return allSteps;
-  };
-
-  const getCurrentStep = () => {
-    if (!order.status) return 0;
-    
-    const steps = getOrderSteps();
-    for (let i = 0; i < steps.length; i++) {
-      if (steps[i].status.includes(order.status)) {
-        return i;
-      }
-    }
-    return 0;
   };
 
   const formatEstimatedDate = (dateStr?: string) => {
@@ -154,47 +127,12 @@ const ModernOrderCard = ({ order }: ModernOrderCardProps) => {
           />
         </Box>
 
-        {/* Stepper Minimalista */}
+        {/* Stepper Personalizado */}
         <Box mb={2}>
-          <Typography variant="body2" fontWeight="600" color="textSecondary" mb={1}>
-            Progresso do Pedido
-          </Typography>
-          <Stepper 
-            activeStep={getCurrentStep()} 
-            alternativeLabel={!isMobile}
-            orientation={isMobile ? 'vertical' : 'horizontal'}
-            sx={{
-              '& .MuiStepLabel-label': {
-                fontSize: isMobile ? '0.75rem' : '0.7rem',
-                fontWeight: 500,
-              },
-              '& .MuiStepIcon-root': {
-                fontSize: isMobile ? '1rem' : '0.9rem',
-              },
-              '& .MuiStep-root': {
-                padding: isMobile ? '4px 0' : '0 4px',
-              }
-            }}
-          >
-            {getOrderSteps().map((step, index) => (
-              <Step key={step.label}>
-                <StepLabel
-                  sx={{
-                    '& .MuiStepLabel-label.Mui-active': {
-                      color: theme.palette.primary.main,
-                      fontWeight: 600,
-                    },
-                    '& .MuiStepLabel-label.Mui-completed': {
-                      color: theme.palette.success.main,
-                      fontWeight: 500,
-                    }
-                  }}
-                >
-                  {step.label}
-                </StepLabel>
-              </Step>
-            ))}
-          </Stepper>
+          <CustomOrderStepper 
+            currentStatus={order.status || ''} 
+            currentStage={order.stage} 
+          />
         </Box>
 
         {/* Produtos */}
