@@ -11,6 +11,7 @@ export interface EventType {
   color?: string;
 }
 
+
 const Events: EventType[] = [
   {
     title: "Twice event For two Days",
