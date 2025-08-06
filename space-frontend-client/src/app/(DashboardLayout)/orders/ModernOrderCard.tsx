@@ -23,6 +23,8 @@ import {
   useTheme,
   alpha,
   useMediaQuery,
+  IconButton,
+  Tooltip,
 } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { formatDate } from "../../../utils/date";
@@ -34,6 +36,7 @@ import {
   IconReceipt,
   IconCheck,
   IconClockHour4,
+  IconShare,
 } from "@tabler/icons-react";
 
 interface ProductLegacy {
@@ -60,6 +63,24 @@ const ModernOrderCard = ({ order }: ModernOrderCardProps) => {
   const handleUniformConfig = () => {
     if (order.related_budget) {
       router.push(`/orders/uniforms/${order.related_budget}`);
+    }
+  };
+
+  const handleShareOrder = async () => {
+    const shareUrl = `${window.location.origin}/order/${order._id}`;
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      // Aqui você pode adicionar um toast/snackbar para mostrar que foi copiado
+      console.log('Link copiado para a área de transferência');
+    } catch (err) {
+      console.error('Erro ao copiar link:', err);
+      // Fallback para navegadores mais antigos
+      const textArea = document.createElement('textarea');
+      textArea.value = shareUrl;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
     }
   };
 
@@ -107,6 +128,23 @@ const ModernOrderCard = ({ order }: ModernOrderCardProps) => {
               <Typography variant="h6" fontWeight="600">
                 Pedido #{getOrderNumber(order)}
               </Typography>
+              <Tooltip title="Compartilhar pedido">
+                <IconButton
+                  size="small"
+                  onClick={handleShareOrder}
+                  sx={{
+                    ml: 0.5,
+                    p: 0.5,
+                    color: theme.palette.text.secondary,
+                    '&:hover': {
+                      color: theme.palette.primary.main,
+                      backgroundColor: alpha(theme.palette.primary.main, 0.08),
+                    }
+                  }}
+                >
+                  <IconShare size={16} />
+                </IconButton>
+              </Tooltip>
             </Stack>
             
             {order.related_budget && (

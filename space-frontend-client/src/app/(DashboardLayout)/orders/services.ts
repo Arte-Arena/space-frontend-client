@@ -110,6 +110,23 @@ export interface Budget {
 
 
 
+// Interface para pedido público (sem campos privados)
+export interface PublicOrder {
+  _id: string;
+  old_id: number;
+  related_designer?: string;
+  tracking_code?: string;
+  status?: OrderStatus;
+  stage?: OrderStage;
+  type?: OrderType;
+  products_list_legacy?: string;
+  expected_date?: string;
+  custom_properties?: any;
+  created_at: string;
+  updated_at: string;
+  payment_date?: string;
+}
+
 // Interface principal para pedidos
 export interface Order {
   _id: string;
@@ -239,6 +256,77 @@ export const getUserOrders = async (
       limit,
       total_pages: 0,
     };
+  }
+};
+
+// Função para buscar um pedido público por ID
+export const getPublicOrderById = async (
+  orderId: string
+): Promise<PublicOrder | null> => {
+  try {
+    if (!orderId || orderId.trim() === "") {
+      throw new Error("ID do pedido é obrigatório");
+    }
+
+    const response = await axios.get(
+      `${API_URL}/v2/public/orders/${orderId}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    );
+
+    if (response.data && response.data.data) {
+      const order = response.data.data as PublicOrder;
+      
+      // Validação e limpeza dos dados
+      const cleanOrder: PublicOrder = {
+        _id: order._id || "",
+        old_id: order.old_id || 0,
+        related_designer: order.related_designer || undefined,
+        tracking_code: order.tracking_code || undefined,
+        status: order.status || undefined,
+        stage: order.stage || undefined,
+        type: order.type || undefined,
+        products_list_legacy: order.products_list_legacy || undefined,
+        expected_date: order.expected_date || undefined,
+        custom_properties: order.custom_properties || undefined,
+        created_at: order.created_at || new Date().toISOString(),
+        updated_at: order.updated_at || new Date().toISOString(),
+        payment_date: order.payment_date || undefined,
+      };
+
+      return cleanOrder;
+    }
+
+    return null;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const status = error.response?.status;
+      
+      if (status === 400) {
+        throw new Error("ID do pedido inválido");
+      }
+      
+      if (status === 404) {
+        throw new Error("Pedido não encontrado");
+      }
+
+      if (error.response?.data?.message) {
+        throw new Error(error.response.data.message);
+      }
+
+      if (status && status >= 500) {
+        throw new Error("Erro interno do servidor. Tente novamente mais tarde.");
+      }
+    }
+
+    if (error instanceof Error) {
+      throw error;
+    }
+
+    throw new Error("Erro desconhecido. Tente novamente mais tarde.");
   }
 };
 
