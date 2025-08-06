@@ -1,4 +1,5 @@
 "use client";
+import React, { useState } from "react";
 import { 
   Order, 
   getOrderStatusDisplayName, 
@@ -9,7 +10,12 @@ import {
   getOrderNumber,
   getPaymentStatus,
   canConfigureUniform,
-  hasOrderNotes
+  hasOrderNotes,
+  hasTracking,
+  getTrackingCode,
+  getTrackingService,
+  getTrackingUrl,
+  isTrackingAvailable
 } from "./services";
 import {
   Box,
@@ -25,6 +31,7 @@ import {
   useMediaQuery,
   IconButton,
   Tooltip,
+  Alert,
 } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { formatDate } from "../../../utils/date";
@@ -37,6 +44,9 @@ import {
   IconCheck,
   IconClockHour4,
   IconShare,
+  IconTruck,
+  IconCopy,
+  IconExternalLink,
 } from "@tabler/icons-react";
 
 interface ProductLegacy {
@@ -59,6 +69,7 @@ const ModernOrderCard = ({ order }: ModernOrderCardProps) => {
   const router = useRouter();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const [feedbackMessage, setFeedbackMessage] = useState<string | null>(null);
 
   const handleUniformConfig = () => {
     if (order.related_budget) {
@@ -70,8 +81,8 @@ const ModernOrderCard = ({ order }: ModernOrderCardProps) => {
     const shareUrl = `${window.location.origin}/order/${order._id}`;
     try {
       await navigator.clipboard.writeText(shareUrl);
-      // Aqui você pode adicionar um toast/snackbar para mostrar que foi copiado
-      console.log('Link copiado para a área de transferência');
+      setFeedbackMessage('Link copiado para a área de transferência!');
+      setTimeout(() => setFeedbackMessage(null), 3000);
     } catch (err) {
       console.error('Erro ao copiar link:', err);
       // Fallback para navegadores mais antigos
@@ -81,7 +92,46 @@ const ModernOrderCard = ({ order }: ModernOrderCardProps) => {
       textArea.select();
       document.execCommand('copy');
       document.body.removeChild(textArea);
+      setFeedbackMessage('Link copiado para a área de transferência!');
+      setTimeout(() => setFeedbackMessage(null), 3000);
     }
+  };
+
+  const handleCopyTrackingCode = async () => {
+    const trackingCode = getTrackingCode(order);
+    if (trackingCode === "Não disponível") {
+      setFeedbackMessage('Código de rastreamento ainda não disponível. Tente novamente em alguns momentos.');
+      setTimeout(() => setFeedbackMessage(null), 5000);
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(trackingCode);
+      setFeedbackMessage('Código de rastreamento copiado!');
+      setTimeout(() => setFeedbackMessage(null), 3000);
+    } catch (err) {
+      console.error('Erro ao copiar código de rastreamento:', err);
+      // Fallback para navegadores mais antigos
+      const textArea = document.createElement('textarea');
+      textArea.value = trackingCode;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      setFeedbackMessage('Código de rastreamento copiado!');
+      setTimeout(() => setFeedbackMessage(null), 3000);
+    }
+  };
+
+  const handleOpenTracking = () => {
+    const trackingUrl = getTrackingUrl(order);
+    if (!trackingUrl) {
+      setFeedbackMessage('Rastreamento ainda não disponível. Tente novamente em alguns momentos.');
+      setTimeout(() => setFeedbackMessage(null), 5000);
+      return;
+    }
+
+    window.open(trackingUrl, '_blank', 'noopener,noreferrer');
   };
 
   const formatEstimatedDate = (dateStr?: string) => {
@@ -308,6 +358,106 @@ const ModernOrderCard = ({ order }: ModernOrderCardProps) => {
             </Box>
           )}
         </Stack>
+
+        {/* Informações de Rastreamento */}
+        <>
+          <Divider sx={{ my: 2 }} />
+          <Box>
+            <Typography variant="body2" fontWeight="600" color="textSecondary" mb={1.5}>
+              Rastreamento
+            </Typography>
+            
+            {hasTracking(order) ? (
+              <Box 
+                sx={{
+                  p: 1.5,
+                  backgroundColor: alpha(theme.palette.info.main, 0.04),
+                  borderRadius: 1,
+                  border: `1px solid ${alpha(theme.palette.info.main, 0.08)}`,
+                }}
+              >
+                <Stack spacing={1.5}>
+                  <Box display="flex" justifyContent="space-between" 
+                       flexDirection={isMobile ? 'column' : 'row'} 
+                       alignItems={isMobile ? 'flex-start' : 'center'}>
+                    <Stack direction="row" spacing={0.5} alignItems="center">
+                      <IconTruck size={14} color={theme.palette.info.main} />
+                      <Typography variant="body2" color="textSecondary">
+                        Serviço
+                      </Typography>
+                    </Stack>
+                    <Typography variant="body2" fontWeight="500" sx={{ mt: isMobile ? 0.5 : 0 }}>
+                      {getTrackingService(order)}
+                    </Typography>
+                  </Box>
+
+                  <Box display="flex" justifyContent="space-between" 
+                       flexDirection={isMobile ? 'column' : 'row'} 
+                       alignItems={isMobile ? 'flex-start' : 'center'}>
+                    <Typography variant="body2" color="textSecondary">
+                      Código
+                    </Typography>
+                    <Box display="flex" alignItems="center" gap={1} sx={{ mt: isMobile ? 0.5 : 0 }}>
+                      <Typography variant="body2" fontWeight="500">
+                        {getTrackingCode(order)}
+                      </Typography>
+                      <Tooltip title="Copiar código">
+                        <IconButton
+                          size="small"
+                          onClick={handleCopyTrackingCode}
+                          sx={{
+                            p: 0.5,
+                            color: theme.palette.text.secondary,
+                            '&:hover': {
+                              color: theme.palette.info.main,
+                              backgroundColor: alpha(theme.palette.info.main, 0.08),
+                            }
+                          }}
+                        >
+                          <IconCopy size={14} />
+                        </IconButton>
+                      </Tooltip>
+                    </Box>
+                  </Box>
+
+                  {isTrackingAvailable(order) && (
+                    <Button
+                      variant="outlined"
+                      color="info"
+                      size="small"
+                      fullWidth
+                      startIcon={<IconExternalLink size={16} />}
+                      onClick={handleOpenTracking}
+                      sx={{ 
+                        borderRadius: 1,
+                        textTransform: 'none',
+                        fontWeight: '500'
+                      }}
+                    >
+                      Rastrear pedido
+                    </Button>
+                  )}
+                </Stack>
+              </Box>
+            ) : (
+              <Alert severity="info" sx={{ fontSize: '0.875rem' }}>
+                Código de rastreamento ainda não disponível. O rastreamento estará disponível assim que o pedido for enviado.
+              </Alert>
+            )}
+          </Box>
+        </>
+
+        {/* Feedback para usuário */}
+        {feedbackMessage && (
+          <Box mt={2}>
+            <Alert 
+              severity={feedbackMessage.includes('não disponível') ? 'warning' : 'success'}
+              sx={{ fontSize: '0.875rem' }}
+            >
+              {feedbackMessage}
+            </Alert>
+          </Box>
+        )}
 
         {/* Botão de configurar uniforme */}
         {canConfigureUniform(order) && order.related_budget && (

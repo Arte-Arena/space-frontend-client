@@ -27,7 +27,12 @@ import {
   getOrderStatusColor,
   formatOrderDate,
   getOrderNumber,
-  getPaymentStatus
+  getPaymentStatus,
+  hasTracking,
+  getTrackingCode,
+  getTrackingService,
+  getTrackingUrl,
+  isTrackingAvailable
 } from "../../(DashboardLayout)/orders/services";
 import { 
   IconPackage, 
@@ -39,7 +44,8 @@ import {
   IconCreditCard,
   IconHash,
   IconCopy,
-  IconCheck
+  IconCheck,
+  IconExternalLink
 } from "@tabler/icons-react";
 import PublicOrderStepper from "./PublicOrderStepper";
 
@@ -48,6 +54,7 @@ export default function PublicOrderPage() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState<boolean>(false);
+  const [trackingFeedback, setTrackingFeedback] = useState<string | null>(null);
   const params = useParams();
   const orderId = params.id as string;
 
@@ -92,6 +99,47 @@ export default function PublicOrderPage() {
     } catch (err) {
       console.error('Erro ao copiar:', err);
     }
+  };
+
+  const handleCopyTrackingCode = async () => {
+    if (!order) return;
+    
+    const trackingCode = getTrackingCode(order);
+    if (trackingCode === "Não disponível") {
+      setTrackingFeedback('Código de rastreamento ainda não disponível. Tente novamente em alguns momentos.');
+      setTimeout(() => setTrackingFeedback(null), 5000);
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(trackingCode);
+      setTrackingFeedback('Código de rastreamento copiado!');
+      setTimeout(() => setTrackingFeedback(null), 3000);
+    } catch (err) {
+      console.error('Erro ao copiar código de rastreamento:', err);
+      // Fallback para navegadores mais antigos
+      const textArea = document.createElement('textarea');
+      textArea.value = trackingCode;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      setTrackingFeedback('Código de rastreamento copiado!');
+      setTimeout(() => setTrackingFeedback(null), 3000);
+    }
+  };
+
+  const handleOpenTracking = () => {
+    if (!order) return;
+    
+    const trackingUrl = getTrackingUrl(order);
+    if (!trackingUrl) {
+      setTrackingFeedback('Rastreamento ainda não disponível. Tente novamente em alguns momentos.');
+      setTimeout(() => setTrackingFeedback(null), 5000);
+      return;
+    }
+
+    window.open(trackingUrl, '_blank', 'noopener,noreferrer');
   };
 
   const renderLoadingSkeleton = () => (
@@ -193,19 +241,65 @@ export default function PublicOrderPage() {
                   <Typography variant="h6" fontWeight="600" mb={2}>
                     Rastreamento
                   </Typography>
-                  {order.tracking_code ? (
-                    <Box>
-                      <Typography variant="body2" color="textSecondary" gutterBottom>
-                        Código de rastreamento:
-                      </Typography>
-                      <Typography variant="h6" color="primary" fontWeight="bold">
-                        {order.tracking_code}
-                      </Typography>
-                    </Box>
+                  {hasTracking(order) ? (
+                    <Stack spacing={2}>
+                      <Box>
+                        <Typography variant="body2" color="textSecondary" gutterBottom>
+                          Serviço:
+                        </Typography>
+                        <Typography variant="body1" fontWeight="500">
+                          {getTrackingService(order)}
+                        </Typography>
+                      </Box>
+                      
+                      <Box>
+                        <Typography variant="body2" color="textSecondary" gutterBottom>
+                          Código de rastreamento:
+                        </Typography>
+                        <Box display="flex" alignItems="center" gap={1}>
+                          <Typography variant="h6" color="primary" fontWeight="bold">
+                            {getTrackingCode(order)}
+                          </Typography>
+                          <Tooltip title="Copiar código">
+                            <IconButton
+                              size="small"
+                              onClick={handleCopyTrackingCode}
+                              sx={{
+                                color: 'text.secondary',
+                                '&:hover': {
+                                  color: 'info.main',
+                                  backgroundColor: 'info.light',
+                                }
+                              }}
+                            >
+                              <IconCopy size={16} />
+                            </IconButton>
+                          </Tooltip>
+                        </Box>
+                      </Box>
+
+                      {isTrackingAvailable(order) && (
+                        <Button
+                          variant="contained"
+                          color="info"
+                          size="small"
+                          fullWidth
+                          startIcon={<IconExternalLink size={16} />}
+                          onClick={handleOpenTracking}
+                          sx={{ 
+                            borderRadius: 1.5,
+                            textTransform: 'none',
+                            fontWeight: '600'
+                          }}
+                        >
+                          Rastrear pedido
+                        </Button>
+                      )}
+                    </Stack>
                   ) : (
-                    <Typography variant="body2" color="textSecondary">
-                      Código de rastreamento ainda não disponível
-                    </Typography>
+                    <Alert severity="info" sx={{ fontSize: '0.875rem' }}>
+                      Código de rastreamento ainda não disponível. O rastreamento estará disponível assim que o pedido for enviado.
+                    </Alert>
                   )}
                 </CardContent>
               </Card>
@@ -411,6 +505,15 @@ export default function PublicOrderPage() {
                 }
               >
                 {error}
+              </Alert>
+            )}
+
+            {trackingFeedback && (
+              <Alert 
+                severity={trackingFeedback.includes('não disponível') ? 'warning' : 'success'}
+                sx={{ mb: 3, fontSize: '0.875rem' }}
+              >
+                {trackingFeedback}
               </Alert>
             )}
           </Box>

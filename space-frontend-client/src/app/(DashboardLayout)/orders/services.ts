@@ -83,6 +83,13 @@ export interface Address {
   details: string;
 }
 
+// Interface para rastreamento
+export interface Tracking {
+  service: string;
+  url: string;
+  code: string;
+}
+
 // Interface para orçamento
 export interface Budget {
   id: string;
@@ -116,6 +123,7 @@ export interface PublicOrder {
   old_id: number;
   related_designer?: string;
   tracking_code?: string;
+  tracking?: Tracking;
   status?: OrderStatus;
   stage?: OrderStage;
   type?: OrderType;
@@ -135,6 +143,7 @@ export interface Order {
   related_seller?: string;
   related_designer?: string;
   tracking_code?: string;
+  tracking?: Tracking;
   status?: OrderStatus;
   stage?: OrderStage;
   type?: OrderType;
@@ -201,6 +210,7 @@ export const getUserOrders = async (
         related_seller: order.related_seller || undefined,
         related_designer: order.related_designer || undefined,
         tracking_code: order.tracking_code || undefined,
+        tracking: order.tracking || undefined,
         status: order.status || undefined,
         stage: order.stage || undefined,
         type: order.type || undefined,
@@ -286,6 +296,7 @@ export const getPublicOrderById = async (
         old_id: order.old_id || 0,
         related_designer: order.related_designer || undefined,
         tracking_code: order.tracking_code || undefined,
+        tracking: order.tracking || undefined,
         status: order.status || undefined,
         stage: order.stage || undefined,
         type: order.type || undefined,
@@ -469,6 +480,40 @@ export const getPaymentStatus = (order: Order): string => {
 export const canConfigureUniform = (order: Order): boolean => {
   if (!order.status) return false;
   return isOrderPending(order.status) || isOrderInProgress(order.status);
+};
+
+// Função helper para verificar se o pedido tem rastreamento
+export const hasTracking = (order: Order | PublicOrder): boolean => {
+  return Boolean(
+    order.tracking?.code || 
+    order.tracking_code ||
+    (order.tracking?.service && order.tracking?.url)
+  );
+};
+
+// Função helper para obter o código de rastreamento
+export const getTrackingCode = (order: Order | PublicOrder): string => {
+  return order.tracking?.code || order.tracking_code || "Não disponível";
+};
+
+// Função helper para obter o serviço de rastreamento
+export const getTrackingService = (order: Order | PublicOrder): string => {
+  return order.tracking?.service || "Não informado";
+};
+
+// Função helper para obter a URL de rastreamento
+export const getTrackingUrl = (order: Order | PublicOrder): string | null => {
+  if (!order.tracking?.url || !order.tracking?.code) return null;
+  return order.tracking.url;
+};
+
+// Função helper para verificar se o rastreamento está disponível
+export const isTrackingAvailable = (order: Order | PublicOrder): boolean => {
+  return Boolean(
+    order.tracking?.code && 
+    order.tracking?.url && 
+    order.tracking?.service
+  );
 };
 
 // Função helper para tratar erros de API de forma padronizada
