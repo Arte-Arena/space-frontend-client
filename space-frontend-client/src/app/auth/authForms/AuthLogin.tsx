@@ -55,7 +55,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
           email: values.email.trim(),
           password: values.password.trim(),
         });
-        window.location.href = "/";
+        window.location.href = "/account-settings";
       } catch (err: any) {
         setError(
           err.response?.data?.message || err.message || "Erro ao fazer login",
