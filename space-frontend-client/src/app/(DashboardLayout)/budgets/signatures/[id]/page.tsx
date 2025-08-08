@@ -30,11 +30,25 @@ interface PageProps {
 }
 
 const InfoRow = ({ label, value }: { label: string; value?: React.ReactNode }) => (
-  <Stack direction="row" spacing={1} alignItems="baseline" mb={0.5}>
-    <Typography variant="subtitle2" color="text.secondary" minWidth={200}>
+  <Stack
+    direction={{ xs: "column", sm: "row" }}
+    spacing={{ xs: 0.25, sm: 1 }}
+    alignItems={{ xs: "flex-start", sm: "baseline" }}
+    mb={0.75}
+  >
+    <Typography
+      variant="subtitle2"
+      color="text.secondary"
+      sx={{ minWidth: { sm: 200 }, pr: { sm: 1 } }}
+    >
       {label}
     </Typography>
-    <Typography variant="body1">{value ?? "-"}</Typography>
+    <Typography
+      variant="body1"
+      sx={{ wordBreak: "break-word", overflowWrap: "anywhere" }}
+    >
+      {value ?? "-"}
+    </Typography>
   </Stack>
 );
 
@@ -128,19 +142,35 @@ export default function BudgetSignaturePage({ params }: PageProps) {
   };
 
   const Title = (
-    <Box display="flex" alignItems="center" justifyContent="space-between">
-      <Typography variant="h4">Confirmação de orçamento</Typography>
+    <Box
+      display="flex"
+      justifyContent="space-between"
+      alignItems={{ xs: "flex-start", sm: "center" }}
+      flexDirection={{ xs: "column", sm: "row" }}
+      gap={1}
+    >
+      <Typography sx={{ typography: { xs: "h5", sm: "h4" } }}>
+        Confirmação de orçamento
+      </Typography>
       {alreadySigned ? (
-        <Chip color="success" label="Orçamento já confirmado" />
+        <Chip
+          color="success"
+          label="Orçamento já confirmado"
+          sx={{ alignSelf: { xs: "flex-start", sm: "center" } }}
+        />
       ) : (
-        <Chip color="warning" label="Aguardando confirmação" />
+        <Chip
+          color="warning"
+          label="Aguardando confirmação"
+          sx={{ alignSelf: { xs: "flex-start", sm: "center" } }}
+        />
       )}
     </Box>
   );
 
   return (
     <PageContainer title="Confirmação de Orçamento" description="Confirmar orçamento a partir da assinatura">
-      <Paper elevation={0} sx={{ p: 3 }}>
+      <Paper elevation={0} sx={{ p: { xs: 2, md: 3 } }}>
         <Stack spacing={2}>
           {Title}
           {error && <Alert severity="error">{error}</Alert>}
@@ -150,7 +180,7 @@ export default function BudgetSignaturePage({ params }: PageProps) {
               <CircularProgress />
             </Box>
           ) : (
-            <Grid container spacing={3}>
+            <Grid container spacing={{ xs: 2, md: 3 }}>
               <Grid item xs={12} md={7}>
                 <Typography variant="h6" gutterBottom>
                   Detalhes do Orçamento
