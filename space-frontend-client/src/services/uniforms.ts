@@ -60,10 +60,10 @@ export interface UniformMeasurement {
 }
 
 export const getUniformById = async (
-  uniformId: string,
+  budgetId: string,
 ): Promise<Uniform | null> => {
   try {
-    const response = await axios.get(`${API_URL}/v1/uniforms?id=${uniformId}`, {
+    const response = await axios.get(`${API_URL}/v1/uniforms?id=${budgetId}`, {
       withCredentials: true,
     });
 
@@ -87,7 +87,7 @@ export const getUniformById = async (
 };
 
 export const updateUniformPlayers = async (
-  uniformId: string,
+  budgetId: string,
   updates: SketchPlayersUpdate[],
 ): Promise<Uniform | null> => {
   try {
@@ -96,7 +96,7 @@ export const updateUniformPlayers = async (
     };
 
     const response = await axios.patch(
-      `${API_URL}/v1/uniforms?id=${uniformId}`,
+      `${API_URL}/v1/uniforms?id=${budgetId}`,
       updateData,
       {
         withCredentials: true,
