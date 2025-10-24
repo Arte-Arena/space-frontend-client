@@ -147,7 +147,7 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
       });
 
       const updatedUniform = await updateUniformPlayers(
-        uniform.budget_id.toString(),
+        uniform.id,
         updates,
       );
 
