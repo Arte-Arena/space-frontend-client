@@ -87,7 +87,7 @@ export const getUniformById = async (
 };
 
 export const updateUniformPlayers = async (
-  budgetId: string,
+  uniformId: string,
   updates: SketchPlayersUpdate[],
 ): Promise<Uniform | null> => {
   try {
@@ -96,7 +96,7 @@ export const updateUniformPlayers = async (
     };
 
     const response = await axios.patch(
-      `${API_URL}/v1/uniforms?id=${budgetId}`,
+      `${API_URL}/v1/uniforms?id=${uniformId}`,
       updateData,
       {
         withCredentials: true,
