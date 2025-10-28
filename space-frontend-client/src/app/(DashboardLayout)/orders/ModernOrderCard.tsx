@@ -48,7 +48,6 @@ import {
   IconCopy,
   IconExternalLink,
 } from "@tabler/icons-react";
-import { getBudgetById } from "../budgets/services";
 
 interface ProductLegacy {
   id: number;
@@ -72,20 +71,9 @@ const ModernOrderCard = ({ order }: ModernOrderCardProps) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [feedbackMessage, setFeedbackMessage] = useState<string | null>(null);
 
-  const handleUniformConfig = async () => {
+  const handleUniformConfig = () => {
     if (!order.related_budget) return;
-    try {
-      const budget = await getBudgetById(order.related_budget, router);
-      const budgetOldId = budget?.old_id;
-      if (budgetOldId) {
-        router.push(`/orders/uniforms/${budgetOldId}`);
-        return;
-      }
-
-      router.push(`/orders/uniforms/${order.related_budget}`);
-    } catch (error) {
-      router.push(`/orders/uniforms/${order.related_budget}`);
-    }
+    router.push(`/orders/uniforms/${order.related_budget}`);
   };
 
   const handleShareOrder = async () => {
