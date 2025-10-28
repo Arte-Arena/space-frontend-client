@@ -25,7 +25,6 @@ import {
 import { useRouter } from "next/navigation";
 import { formatCurrency } from "../../../utils/currency";
 import { formatDate } from "../../../utils/date";
-import { getBudgetById } from "../budgets/services";
 import {
   IconCalendarEvent,
   IconPackage,
@@ -41,19 +40,9 @@ interface OrderCardProps {
 const OrderCard = ({ order }: OrderCardProps) => {
   const router = useRouter();
 
-  const handleUniformConfig = async () => {
+  const handleUniformConfig = () => {
     if (!order.related_budget) return;
-    try {
-      const budget = await getBudgetById(order.related_budget, router);
-      const budgetOldId = budget?.old_id;
-      if (budgetOldId) {
-        router.push(`/orders/uniforms/${budgetOldId}`);
-        return;
-      }
-      router.push(`/orders/uniforms/${order.related_budget}`);
-    } catch (error) {
-      router.push(`/orders/uniforms/${order.related_budget}`);
-    }
+    router.push(`/orders/uniforms/${order.related_budget}`);
   };
 
   const hasUniformPackage = () => {
