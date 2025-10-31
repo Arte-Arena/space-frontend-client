@@ -9,6 +9,9 @@ import {
   Alert,
   IconButton,
   InputAdornment,
+  Checkbox,
+  FormControlLabel,
+  FormHelperText,
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -39,6 +42,10 @@ const validationSchema = yup.object({
     .required("Nome é obrigatório")
     .min(3, "Nome deve ter no mínimo 3 caracteres")
     .max(50, "Nome deve ter no máximo 50 caracteres"),
+  birthDate: yup
+    .date()
+    .max(new Date(), "Data de nascimento não pode ser no futuro")
+    .required("Data de nascimento é obrigatória"),
   email: yup
     .string()
     .required("Email é obrigatório")
@@ -68,6 +75,9 @@ const validationSchema = yup.object({
     .string()
     .required("Confirmação de senha é obrigatória")
     .oneOf([yup.ref("password")], "As senhas não coincidem"),
+  isResponsible: yup
+    .boolean()
+    .oneOf([true], "Confirme que você é o responsável pelo cadastro"),
 });
 
 const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
@@ -87,9 +97,11 @@ const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
   const formik = useFormik({
     initialValues: {
       name: "",
+      birthDate: "",
       email: "",
       password: "",
       confirmPassword: "",
+      isResponsible: false,
     },
     validationSchema,
     onSubmit: async (values) => {
@@ -101,6 +113,7 @@ const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
           name: values.name.trim(),
           email: values.email.trim(),
           password: values.password.trim(),
+          birthDate: values.birthDate,
         });
         setSuccess(true);
       } catch (err: any) {
@@ -178,6 +191,24 @@ const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
                 onBlur={formik.handleBlur}
                 error={formik.touched.email && Boolean(formik.errors.email)}
                 helperText={formik.touched.email && formik.errors.email}
+              />
+              <CustomFormLabel htmlFor="birthDate">
+                Data de nascimento
+              </CustomFormLabel>
+              <CustomTextField
+                id="birthDate"
+                name="birthDate"
+                type="date"
+                variant="outlined"
+                fullWidth
+                value={formik.values.birthDate}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={
+                  formik.touched.birthDate && Boolean(formik.errors.birthDate)
+                }
+                helperText={formik.touched.birthDate && formik.errors.birthDate}
+                InputLabelProps={{ shrink: true }}
               />
               <CustomFormLabel htmlFor="password">Senha</CustomFormLabel>
               <CustomTextField
@@ -278,6 +309,35 @@ const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
                 </Box>
               )}
             </Stack>
+
+            <Box mt={2}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    id="isResponsible"
+                    name="isResponsible"
+                    color="primary"
+                    checked={formik.values.isResponsible}
+                    onChange={(event) =>
+                      formik.setFieldValue(
+                        "isResponsible",
+                        event.target.checked,
+                      )
+                    }
+                    onBlur={formik.handleBlur}
+                  />
+                }
+                label="Confirmo que sou o responsável legal pelo cadastro"
+              />
+              {formik.touched.isResponsible && formik.errors.isResponsible && (
+                <FormHelperText error>
+                  {formik.errors.isResponsible}
+                </FormHelperText>
+              )}
+              <Typography variant="caption" color="textSecondary">
+                Marque apenas se você for o responsável; cadastros de menores devem ser feitos pelo responsável legal.
+              </Typography>
+            </Box>
 
             {error && (
               <Box mb={2}>

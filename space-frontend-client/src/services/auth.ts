@@ -4,6 +4,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 
 export interface RegisterData {
   name: string;
+  birthDate: string;
   email: string;
   password: string;
 }
@@ -15,7 +16,13 @@ export interface LoginData {
 
 export const register = async (data: RegisterData): Promise<any> => {
   try {
-    const response = await axios.post(`${API_URL}/v1/auth/signup`, data);
+    const payload = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      birth_date: data.birthDate,
+    };
+    const response = await axios.post(`${API_URL}/v1/auth/signup`, payload);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.data?.message) {
