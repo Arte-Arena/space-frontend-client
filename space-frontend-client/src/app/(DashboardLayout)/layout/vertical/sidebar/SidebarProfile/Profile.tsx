@@ -25,8 +25,12 @@ export const Profile = () => {
 
   useEffect(() => {
     const fetchClientData = async () => {
-      const data = await getClientData(router);
-      setClientData(data);
+      try {
+        const data = await getClientData(router);
+        setClientData(data);
+      } catch (error) {
+        console.error("Erro ao carregar dados do cliente no sidebar:", error);
+      }
     };
 
     fetchClientData();
