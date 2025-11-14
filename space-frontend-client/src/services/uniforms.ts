@@ -1,7 +1,16 @@
 import axios from "axios";
-import { useRouter } from "next/navigation";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+
+type RouterLike = {
+  push: (href: string) => void;
+} | null | undefined;
+
+const redirectToLogin = (router?: RouterLike) => {
+  if (router && typeof router.push === "function") {
+    router.push("/auth/auth1/login");
+  }
+};
 
 export interface ApiResponse {
   message: string;
@@ -61,6 +70,7 @@ export interface UniformMeasurement {
 
 export const getUniformById = async (
   budgetId: string,
+  router?: RouterLike,
 ): Promise<Uniform | null> => {
   try {
     const response = await axios.get(`${API_URL}/v1/uniforms?id=${budgetId}`, {
@@ -73,13 +83,15 @@ export const getUniformById = async (
 
     return null;
   } catch (error) {
-    if (axios.isAxiosError(error) && error.response?.status === 401) {
-      const router = useRouter();
-      router.push("/auth/auth1/login");
-    }
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 401) {
+        redirectToLogin(router);
+        return null;
+      }
 
-    if (axios.isAxiosError(error) && error.response?.data?.message) {
-      throw new Error(error.response.data.message);
+      if (error.response?.data?.message) {
+        throw new Error(error.response.data.message);
+      }
     }
 
     throw error;
@@ -89,6 +101,7 @@ export const getUniformById = async (
 export const updateUniformPlayers = async (
   uniformId: string,
   updates: SketchPlayersUpdate[],
+  router?: RouterLike,
 ): Promise<Uniform | null> => {
   try {
     const updateData: PlayersUpdateRequest = {
@@ -109,13 +122,15 @@ export const updateUniformPlayers = async (
 
     return null;
   } catch (error) {
-    if (axios.isAxiosError(error) && error.response?.status === 401) {
-      const router = useRouter();
-      router.push("/auth/auth1/login");
-    }
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 401) {
+        redirectToLogin(router);
+        return null;
+      }
 
-    if (axios.isAxiosError(error) && error.response?.data?.message) {
-      throw new Error(error.response.data.message);
+      if (error.response?.data?.message) {
+        throw new Error(error.response.data.message);
+      }
     }
 
     throw error;

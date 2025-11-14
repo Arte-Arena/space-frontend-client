@@ -87,6 +87,18 @@ const situacaoOptions = [
   { value: "S", label: "Sem movimento" },
 ];
 
+const toSafeString = (value: unknown): string => {
+  if (typeof value === "string") {
+    return value;
+  }
+  if (value === null || value === undefined) {
+    return "";
+  }
+  return String(value);
+};
+
+const getTrimmedValue = (value: unknown): string => toSafeString(value).trim();
+
 const AccountTab = () => {
   const router = useRouter();
   const [tipoPessoa, setTipoPessoa] = React.useState("F");
@@ -285,39 +297,39 @@ const AccountTab = () => {
 
         // Add personal data based on person type
         if (tipoPessoa === "F") {
-          clientData.name = (formValues.nome || "").trim();
-          clientData.identity_card = (formValues.rg || "").trim();
-          clientData.cpf = (formValues.cpf || "").trim();
+          clientData.name = getTrimmedValue(formValues.nome);
+          clientData.identity_card = getTrimmedValue(formValues.rg);
+          clientData.cpf = getTrimmedValue(formValues.cpf);
         } else {
-          clientData.name = (formValues.nomeFantasia || "").trim();
-          clientData.company_name = (formValues.razaoSocial || "").trim();
-          clientData.cnpj = (formValues.cnpj || "").trim();
-          clientData.state_registration = (formValues.inscricaoEstadual || "").trim();
+          clientData.name = getTrimmedValue(formValues.nomeFantasia);
+          clientData.company_name = getTrimmedValue(formValues.razaoSocial);
+          clientData.cnpj = getTrimmedValue(formValues.cnpj);
+          clientData.state_registration = getTrimmedValue(formValues.inscricaoEstadual);
         }
 
         // Add common fields
-        clientData.email = (formValues.email || "").trim();
-        clientData.cell_phone = (formValues.celular || "").trim();
+        clientData.email = getTrimmedValue(formValues.email);
+        clientData.cell_phone = getTrimmedValue(formValues.celular);
 
         // Add address fields
-        clientData.zip_code = (formValues.cep || "").trim();
-        clientData.address = (formValues.endereco || "").trim();
-        clientData.number = (formValues.numero || "").trim();
-        clientData.complement = (formValues.complemento || "").trim();
-        clientData.neighborhood = (formValues.bairro || "").trim();
-        clientData.city = (formValues.cidade || "").trim();
+        clientData.zip_code = getTrimmedValue(formValues.cep);
+        clientData.address = getTrimmedValue(formValues.endereco);
+        clientData.number = getTrimmedValue(formValues.numero);
+        clientData.complement = getTrimmedValue(formValues.complemento);
+        clientData.neighborhood = getTrimmedValue(formValues.bairro);
+        clientData.city = getTrimmedValue(formValues.cidade);
         clientData.state = uf;
 
         // Add billing address if different
         clientData.different_billing_address = enderecoCobrancaDiferente;
 
         if (enderecoCobrancaDiferente) {
-          clientData.billing_zip_code = (formValues.cepCobranca || "").trim();
-          clientData.billing_address = (formValues.enderecoCobranca || "").trim();
-          clientData.billing_number = (formValues.numeroCobranca || "").trim();
-          clientData.billing_complement = (formValues.complementoCobranca || "").trim();
-          clientData.billing_neighborhood = (formValues.bairroCobranca || "").trim();
-          clientData.billing_city = (formValues.cidadeCobranca || "").trim();
+          clientData.billing_zip_code = getTrimmedValue(formValues.cepCobranca);
+          clientData.billing_address = getTrimmedValue(formValues.enderecoCobranca);
+          clientData.billing_number = getTrimmedValue(formValues.numeroCobranca);
+          clientData.billing_complement = getTrimmedValue(formValues.complementoCobranca);
+          clientData.billing_neighborhood = getTrimmedValue(formValues.bairroCobranca);
+          clientData.billing_city = getTrimmedValue(formValues.cidadeCobranca);
           clientData.billing_state = ufCobranca;
         }
 
@@ -386,27 +398,27 @@ const AccountTab = () => {
           );
 
           setFormValues({
-            nome: contact.name || "",
-            email: contact.email || "",
-            celular: contact.cell_phone || "",
-            cpf: contact.cpf || "",
-            rg: contact.identity_card || "",
-            cnpj: contact.cnpj || "",
-            inscricaoEstadual: contact.state_registration || "",
-            cep: contact.zip_code || "",
-            endereco: contact.address || "",
-            numero: contact.number || "",
-            complemento: contact.complement || "",
-            bairro: contact.neighborhood || "",
-            cidade: contact.city || "",
-            cepCobranca: contact.billing_zip_code || "",
-            enderecoCobranca: contact.billing_address || "",
-            numeroCobranca: contact.billing_number || "",
-            complementoCobranca: contact.billing_complement || "",
-            bairroCobranca: contact.billing_neighborhood || "",
-            cidadeCobranca: contact.billing_city || "",
-            nomeFantasia: contact.name || "",
-            razaoSocial: contact.company_name || "",
+            nome: toSafeString(contact.name),
+            email: toSafeString(contact.email),
+            celular: toSafeString(contact.cell_phone),
+            cpf: toSafeString(contact.cpf),
+            rg: toSafeString(contact.identity_card),
+            cnpj: toSafeString(contact.cnpj),
+            inscricaoEstadual: toSafeString(contact.state_registration),
+            cep: toSafeString(contact.zip_code),
+            endereco: toSafeString(contact.address),
+            numero: toSafeString(contact.number),
+            complemento: toSafeString(contact.complement),
+            bairro: toSafeString(contact.neighborhood),
+            cidade: toSafeString(contact.city),
+            cepCobranca: toSafeString(contact.billing_zip_code),
+            enderecoCobranca: toSafeString(contact.billing_address),
+            numeroCobranca: toSafeString(contact.billing_number),
+            complementoCobranca: toSafeString(contact.billing_complement),
+            bairroCobranca: toSafeString(contact.billing_neighborhood),
+            cidadeCobranca: toSafeString(contact.billing_city),
+            nomeFantasia: toSafeString(contact.name),
+            razaoSocial: toSafeString(contact.company_name),
           });
         } else {
           // Se não houver dados, manter valores padrão mas limpar formulário
