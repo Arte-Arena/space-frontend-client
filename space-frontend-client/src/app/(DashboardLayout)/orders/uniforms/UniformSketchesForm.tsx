@@ -21,6 +21,7 @@ import {
 } from "./types";
 import SketchForm from "./SketchForm";
 import { updateUniformPlayers } from "@/services/uniforms";
+import { useRouter } from "next/navigation";
 
 interface UniformSketchesFormProps {
   uniform: UniformWithSketches;
@@ -31,6 +32,7 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
   uniform,
   onSave,
 }) => {
+  const router = useRouter();
   const [sketches, setSketches] = useState<Sketch[]>(uniform.sketches || []);
   const [saving, setSaving] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -149,6 +151,7 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
       const updatedUniform = await updateUniformPlayers(
         uniform.id,
         updates,
+        router,
       );
 
       if (updatedUniform) {

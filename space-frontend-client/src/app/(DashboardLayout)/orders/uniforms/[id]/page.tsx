@@ -29,6 +29,7 @@ import {
 } from "@/services/uniforms";
 import UniformSketchesForm from "../UniformSketchesForm";
 import { UniformWithSketches } from "../types";
+import { useRouter } from "next/navigation";
 
 interface UniformDetailPageProps {
   params: {
@@ -337,6 +338,7 @@ const SizeChartAccordion = ({
 
 export default function UniformDetailPage({ params }: UniformDetailPageProps) {
   const { id } = params;
+  const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [uniformData, setUniformData] = useState<UniformWithSketches | null>(
     null,
@@ -350,7 +352,7 @@ export default function UniformDetailPage({ params }: UniformDetailPageProps) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getUniformById(id);
+        const data = await getUniformById(id, router);
         setUniformData(data || null);
       } catch (error) {
         console.error("Erro ao carregar detalhes do uniforme:", error);
