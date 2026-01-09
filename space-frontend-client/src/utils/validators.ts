@@ -134,15 +134,18 @@ export const inscricaoEstadualValidator = yup
 
 export const cepValidator = yup
   .string()
+  .required("CEP é obrigatório")
   .max(9, "CEP não pode ter mais de 9 caracteres")
   .matches(/^(\d{5}-\d{3})?$/, "Formato inválido. Use 00000-000");
 
 export const enderecoValidator = yup
   .string()
+  .required("Endereço é obrigatório")
   .max(100, "Endereço não pode ter mais de 100 caracteres");
 
 export const numeroValidator = yup
   .string()
+  .required("Número é obrigatório")
   .max(10, "Número não pode ter mais de 10 caracteres");
 
 export const complementoValidator = yup
@@ -151,10 +154,12 @@ export const complementoValidator = yup
 
 export const bairroValidator = yup
   .string()
+  .required("Bairro é obrigatório")
   .max(50, "Bairro não pode ter mais de 50 caracteres");
 
 export const cidadeValidator = yup
   .string()
+  .required("Cidade é obrigatória")
   .max(50, "Cidade não pode ter mais de 50 caracteres");
 
 export const validateField = async (
