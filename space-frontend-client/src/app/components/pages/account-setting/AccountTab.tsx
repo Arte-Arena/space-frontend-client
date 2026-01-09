@@ -87,6 +87,9 @@ const situacaoOptions = [
   { value: "S", label: "Sem movimento" },
 ];
 
+const toTrimmed = (value: unknown) =>
+  value == null ? "" : String(value).trim();
+
 const AccountTab = () => {
   const router = useRouter();
   const [tipoPessoa, setTipoPessoa] = React.useState("F");
@@ -260,6 +263,146 @@ const AccountTab = () => {
         }
       }
 
+      const cepEl = document.getElementById("text-cep") as HTMLInputElement;
+      const enderecoEl = document.getElementById(
+        "text-endereco",
+      ) as HTMLInputElement;
+      const numeroEl = document.getElementById("text-numero") as HTMLInputElement;
+      const complementoEl = document.getElementById(
+        "text-complemento",
+      ) as HTMLInputElement;
+      const bairroEl = document.getElementById("text-bairro") as HTMLInputElement;
+      const cidadeEl = document.getElementById("text-cidade") as HTMLInputElement;
+
+      if (cepEl && cepEl.value !== undefined) {
+        const cepError = await validateField(cepValidator, cepEl.value || "");
+        newErrors["cep"] = cepError;
+        if (cepError) isValid = false;
+      }
+
+      if (enderecoEl && enderecoEl.value !== undefined) {
+        const enderecoError = await validateField(
+          enderecoValidator,
+          enderecoEl.value || "",
+        );
+        newErrors["endereco"] = enderecoError;
+        if (enderecoError) isValid = false;
+      }
+
+      if (numeroEl && numeroEl.value !== undefined) {
+        const numeroError = await validateField(
+          numeroValidator,
+          numeroEl.value || "",
+        );
+        newErrors["numero"] = numeroError;
+        if (numeroError) isValid = false;
+      }
+
+      if (complementoEl && complementoEl.value !== undefined) {
+        const complementoError = await validateField(
+          complementoValidator,
+          complementoEl.value || "",
+        );
+        newErrors["complemento"] = complementoError;
+        if (complementoError) isValid = false;
+      }
+
+      if (bairroEl && bairroEl.value !== undefined) {
+        const bairroError = await validateField(
+          bairroValidator,
+          bairroEl.value || "",
+        );
+        newErrors["bairro"] = bairroError;
+        if (bairroError) isValid = false;
+      }
+
+      if (cidadeEl && cidadeEl.value !== undefined) {
+        const cidadeError = await validateField(
+          cidadeValidator,
+          cidadeEl.value || "",
+        );
+        newErrors["cidade"] = cidadeError;
+        if (cidadeError) isValid = false;
+      }
+
+      if (enderecoCobrancaDiferente) {
+        const cepCobrancaEl = document.getElementById(
+          "text-cep-cobranca",
+        ) as HTMLInputElement;
+        const enderecoCobrancaEl = document.getElementById(
+          "text-endereco-cobranca",
+        ) as HTMLInputElement;
+        const numeroCobrancaEl = document.getElementById(
+          "text-numero-cobranca",
+        ) as HTMLInputElement;
+        const complementoCobrancaEl = document.getElementById(
+          "text-complemento-cobranca",
+        ) as HTMLInputElement;
+        const bairroCobrancaEl = document.getElementById(
+          "text-bairro-cobranca",
+        ) as HTMLInputElement;
+        const cidadeCobrancaEl = document.getElementById(
+          "text-cidade-cobranca",
+        ) as HTMLInputElement;
+
+        if (cepCobrancaEl && cepCobrancaEl.value !== undefined) {
+          const cepCobrancaError = await validateField(
+            cepValidator,
+            cepCobrancaEl.value || "",
+          );
+          newErrors["cepCobranca"] = cepCobrancaError;
+          if (cepCobrancaError) isValid = false;
+        }
+
+        if (enderecoCobrancaEl && enderecoCobrancaEl.value !== undefined) {
+          const enderecoCobrancaError = await validateField(
+            enderecoValidator,
+            enderecoCobrancaEl.value || "",
+          );
+          newErrors["enderecoCobranca"] = enderecoCobrancaError;
+          if (enderecoCobrancaError) isValid = false;
+        }
+
+        if (numeroCobrancaEl && numeroCobrancaEl.value !== undefined) {
+          const numeroCobrancaError = await validateField(
+            numeroValidator,
+            numeroCobrancaEl.value || "",
+          );
+          newErrors["numeroCobranca"] = numeroCobrancaError;
+          if (numeroCobrancaError) isValid = false;
+        }
+
+        if (
+          complementoCobrancaEl &&
+          complementoCobrancaEl.value !== undefined
+        ) {
+          const complementoCobrancaError = await validateField(
+            complementoValidator,
+            complementoCobrancaEl.value || "",
+          );
+          newErrors["complementoCobranca"] = complementoCobrancaError;
+          if (complementoCobrancaError) isValid = false;
+        }
+
+        if (bairroCobrancaEl && bairroCobrancaEl.value !== undefined) {
+          const bairroCobrancaError = await validateField(
+            bairroValidator,
+            bairroCobrancaEl.value || "",
+          );
+          newErrors["bairroCobranca"] = bairroCobrancaError;
+          if (bairroCobrancaError) isValid = false;
+        }
+
+        if (cidadeCobrancaEl && cidadeCobrancaEl.value !== undefined) {
+          const cidadeCobrancaError = await validateField(
+            cidadeValidator,
+            cidadeCobrancaEl.value || "",
+          );
+          newErrors["cidadeCobranca"] = cidadeCobrancaError;
+          if (cidadeCobrancaError) isValid = false;
+        }
+      }
+
       setErrors(newErrors);
       return isValid;
     } catch (error) {
@@ -285,39 +428,41 @@ const AccountTab = () => {
 
         // Add personal data based on person type
         if (tipoPessoa === "F") {
-          clientData.name = (formValues.nome || "").trim();
-          clientData.identity_card = (formValues.rg || "").trim();
-          clientData.cpf = (formValues.cpf || "").trim();
+          clientData.name = toTrimmed(formValues.nome);
+          clientData.identity_card = toTrimmed(formValues.rg);
+          clientData.cpf = toTrimmed(formValues.cpf);
         } else {
-          clientData.name = (formValues.nomeFantasia || "").trim();
-          clientData.company_name = (formValues.razaoSocial || "").trim();
-          clientData.cnpj = (formValues.cnpj || "").trim();
-          clientData.state_registration = (formValues.inscricaoEstadual || "").trim();
+          clientData.name = toTrimmed(formValues.nomeFantasia);
+          clientData.company_name = toTrimmed(formValues.razaoSocial);
+          clientData.cnpj = toTrimmed(formValues.cnpj);
+          clientData.state_registration = toTrimmed(formValues.inscricaoEstadual);
         }
 
         // Add common fields
-        clientData.email = (formValues.email || "").trim();
-        clientData.cell_phone = (formValues.celular || "").trim();
+        clientData.email = toTrimmed(formValues.email);
+        clientData.cell_phone = toTrimmed(formValues.celular);
 
         // Add address fields
-        clientData.zip_code = (formValues.cep || "").trim();
-        clientData.address = (formValues.endereco || "").trim();
-        clientData.number = (formValues.numero || "").trim();
-        clientData.complement = (formValues.complemento || "").trim();
-        clientData.neighborhood = (formValues.bairro || "").trim();
-        clientData.city = (formValues.cidade || "").trim();
+        clientData.zip_code = toTrimmed(formValues.cep);
+        clientData.address = toTrimmed(formValues.endereco);
+        clientData.number = toTrimmed(formValues.numero);
+        clientData.complement = toTrimmed(formValues.complemento);
+        clientData.neighborhood = toTrimmed(formValues.bairro);
+        clientData.city = toTrimmed(formValues.cidade);
         clientData.state = uf;
 
         // Add billing address if different
         clientData.different_billing_address = enderecoCobrancaDiferente;
 
         if (enderecoCobrancaDiferente) {
-          clientData.billing_zip_code = (formValues.cepCobranca || "").trim();
-          clientData.billing_address = (formValues.enderecoCobranca || "").trim();
-          clientData.billing_number = (formValues.numeroCobranca || "").trim();
-          clientData.billing_complement = (formValues.complementoCobranca || "").trim();
-          clientData.billing_neighborhood = (formValues.bairroCobranca || "").trim();
-          clientData.billing_city = (formValues.cidadeCobranca || "").trim();
+          clientData.billing_zip_code = toTrimmed(formValues.cepCobranca);
+          clientData.billing_address = toTrimmed(formValues.enderecoCobranca);
+          clientData.billing_number = toTrimmed(formValues.numeroCobranca);
+          clientData.billing_complement = toTrimmed(
+            formValues.complementoCobranca,
+          );
+          clientData.billing_neighborhood = toTrimmed(formValues.bairroCobranca);
+          clientData.billing_city = toTrimmed(formValues.cidadeCobranca);
           clientData.billing_state = ufCobranca;
         }
 
@@ -799,7 +944,7 @@ const AccountTab = () => {
 
                 <Grid container spacing={3}>
                   <Grid item xs={12} sm={4}>
-                    <CustomFormLabel sx={{ mt: 0 }} htmlFor="text-cep">
+                    <CustomFormLabel sx={{ mt: 0 }} htmlFor="text-cep" required>
                       CEP
                     </CustomFormLabel>
                     <CustomTextField
@@ -820,7 +965,11 @@ const AccountTab = () => {
                   </Grid>
 
                   <Grid item xs={12} sm={8}>
-                    <CustomFormLabel sx={{ mt: 0 }} htmlFor="text-endereco">
+                    <CustomFormLabel
+                      sx={{ mt: 0 }}
+                      htmlFor="text-endereco"
+                      required
+                    >
                       Endereço
                     </CustomFormLabel>
                     <CustomTextField
@@ -848,7 +997,11 @@ const AccountTab = () => {
                   </Grid>
 
                   <Grid item xs={12} sm={4}>
-                    <CustomFormLabel sx={{ mt: 0 }} htmlFor="text-numero">
+                    <CustomFormLabel
+                      sx={{ mt: 0 }}
+                      htmlFor="text-numero"
+                      required
+                    >
                       Número
                     </CustomFormLabel>
                     <CustomTextField
@@ -872,7 +1025,10 @@ const AccountTab = () => {
                   </Grid>
 
                   <Grid item xs={12} sm={8}>
-                    <CustomFormLabel sx={{ mt: 0 }} htmlFor="text-complemento">
+                    <CustomFormLabel
+                      sx={{ mt: 0 }}
+                      htmlFor="text-complemento"
+                    >
                       Complemento
                     </CustomFormLabel>
                     <CustomTextField
@@ -900,7 +1056,11 @@ const AccountTab = () => {
                   </Grid>
 
                   <Grid item xs={12} sm={4}>
-                    <CustomFormLabel sx={{ mt: 0 }} htmlFor="text-bairro">
+                    <CustomFormLabel
+                      sx={{ mt: 0 }}
+                      htmlFor="text-bairro"
+                      required
+                    >
                       Bairro
                     </CustomFormLabel>
                     <CustomTextField
@@ -924,7 +1084,11 @@ const AccountTab = () => {
                   </Grid>
 
                   <Grid item xs={12} sm={4}>
-                    <CustomFormLabel sx={{ mt: 0 }} htmlFor="text-cidade">
+                    <CustomFormLabel
+                      sx={{ mt: 0 }}
+                      htmlFor="text-cidade"
+                      required
+                    >
                       Cidade
                     </CustomFormLabel>
                     <CustomTextField
@@ -1000,6 +1164,7 @@ const AccountTab = () => {
                         <CustomFormLabel
                           sx={{ mt: 0 }}
                           htmlFor="text-cep-cobranca"
+                          required
                         >
                           CEP
                         </CustomFormLabel>
@@ -1028,6 +1193,7 @@ const AccountTab = () => {
                         <CustomFormLabel
                           sx={{ mt: 0 }}
                           htmlFor="text-endereco-cobranca"
+                          required
                         >
                           Endereço
                         </CustomFormLabel>
@@ -1059,6 +1225,7 @@ const AccountTab = () => {
                         <CustomFormLabel
                           sx={{ mt: 0 }}
                           htmlFor="text-numero-cobranca"
+                          required
                         >
                           Número
                         </CustomFormLabel>
@@ -1121,6 +1288,7 @@ const AccountTab = () => {
                         <CustomFormLabel
                           sx={{ mt: 0 }}
                           htmlFor="text-bairro-cobranca"
+                          required
                         >
                           Bairro
                         </CustomFormLabel>
@@ -1152,6 +1320,7 @@ const AccountTab = () => {
                         <CustomFormLabel
                           sx={{ mt: 0 }}
                           htmlFor="text-cidade-cobranca"
+                          required
                         >
                           Cidade
                         </CustomFormLabel>
@@ -1183,6 +1352,7 @@ const AccountTab = () => {
                         <CustomFormLabel
                           sx={{ mt: 0 }}
                           htmlFor="select-uf-cobranca"
+                          required
                         >
                           UF
                         </CustomFormLabel>
