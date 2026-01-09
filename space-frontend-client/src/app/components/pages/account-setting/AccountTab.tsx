@@ -213,63 +213,102 @@ const AccountTab = () => {
     let isValid = true;
 
     try {
-      const nomeEl = document.getElementById("text-nome") as HTMLInputElement;
-      const emailEl = document.getElementById("text-email") as HTMLInputElement;
-      const celularEl = document.getElementById(
-        "text-celular",
-      ) as HTMLInputElement;
+      const nomeError = await validateField(
+        tipoPessoa === "F" ? nomeValidator : nomeFantasiaValidator,
+        formValues.nome,
+      );
+      newErrors["nome"] = nomeError;
+      if (nomeError) isValid = false;
 
-      if (nomeEl && nomeEl.value !== undefined) {
-        const nomeError = await validateField(
-          tipoPessoa === "F" ? nomeValidator : nomeFantasiaValidator,
-          nomeEl.value || "",
-        );
-        newErrors["nome"] = nomeError;
-        if (nomeError) isValid = false;
-      }
+      const emailError = await validateField(emailValidator, formValues.email);
+      newErrors["email"] = emailError;
+      if (emailError) isValid = false;
 
-      if (emailEl && emailEl.value !== undefined) {
-        const emailError = await validateField(emailValidator, emailEl.value || "");
-        newErrors["email"] = emailError;
-        if (emailError) isValid = false;
-      }
-
-      if (celularEl && celularEl.value !== undefined) {
-        const celularError = await validateField(
-          celularValidator,
-          celularEl.value || "",
-        );
-        newErrors["celular"] = celularError;
-        if (celularError) isValid = false;
-      }
+      const celularError = await validateField(
+        celularValidator,
+        formValues.celular,
+      );
+      newErrors["celular"] = celularError;
+      if (celularError) isValid = false;
 
       if (tipoPessoa === "F") {
-        const cpfEl = document.getElementById("text-cpf") as HTMLInputElement;
-        if (cpfEl && cpfEl.value !== undefined) {
-          const cpfError = await validateField(cpfValidator, cpfEl.value || "");
-          newErrors["cpf"] = cpfError;
-          if (cpfError) isValid = false;
-        }
+        const cpfError = await validateField(cpfValidator, formValues.cpf);
+        newErrors["cpf"] = cpfError;
+        if (cpfError) isValid = false;
       } else {
-        const razaoSocialEl = document.getElementById(
-          "text-razao-social",
-        ) as HTMLInputElement;
-        const cnpjEl = document.getElementById("text-cnpj") as HTMLInputElement;
+        const razaoError = await validateField(
+          razaoSocialValidator,
+          formValues.razaoSocial,
+        );
+        newErrors["razaoSocial"] = razaoError;
+        if (razaoError) isValid = false;
 
-        if (razaoSocialEl && razaoSocialEl.value !== undefined) {
-          const razaoError = await validateField(
-            razaoSocialValidator,
-            razaoSocialEl.value || "",
-          );
-          newErrors["razaoSocial"] = razaoError;
-          if (razaoError) isValid = false;
-        }
+        const cnpjError = await validateField(cnpjValidator, formValues.cnpj);
+        newErrors["cnpj"] = cnpjError;
+        if (cnpjError) isValid = false;
+      }
 
-        if (cnpjEl && cnpjEl.value !== undefined) {
-          const cnpjError = await validateField(cnpjValidator, cnpjEl.value || "");
-          newErrors["cnpj"] = cnpjError;
-          if (cnpjError) isValid = false;
-        }
+      const cepError = await validateField(cepValidator, formValues.cep);
+      newErrors["cep"] = cepError;
+      if (cepError) isValid = false;
+
+      const enderecoError = await validateField(
+        enderecoValidator,
+        formValues.endereco,
+      );
+      newErrors["endereco"] = enderecoError;
+      if (enderecoError) isValid = false;
+
+      const numeroError = await validateField(
+        numeroValidator,
+        formValues.numero,
+      );
+      newErrors["numero"] = numeroError;
+      if (numeroError) isValid = false;
+
+      const bairroError = await validateField(bairroValidator, formValues.bairro);
+      newErrors["bairro"] = bairroError;
+      if (bairroError) isValid = false;
+
+      const cidadeError = await validateField(cidadeValidator, formValues.cidade);
+      newErrors["cidade"] = cidadeError;
+      if (cidadeError) isValid = false;
+
+      if (enderecoCobrancaDiferente) {
+        const cepCobrancaError = await validateField(
+          cepValidator,
+          formValues.cepCobranca,
+        );
+        newErrors["cepCobranca"] = cepCobrancaError;
+        if (cepCobrancaError) isValid = false;
+
+        const enderecoCobrancaError = await validateField(
+          enderecoValidator,
+          formValues.enderecoCobranca,
+        );
+        newErrors["enderecoCobranca"] = enderecoCobrancaError;
+        if (enderecoCobrancaError) isValid = false;
+
+        const numeroCobrancaError = await validateField(
+          numeroValidator,
+          formValues.numeroCobranca,
+        );
+        newErrors["numeroCobranca"] = numeroCobrancaError;
+        if (numeroCobrancaError) isValid = false;
+
+        const bairroCobrancaError = await validateField(
+          bairroValidator,
+          formValues.bairroCobranca,
+        );
+        newErrors["bairroCobranca"] = bairroCobrancaError;
+        if (bairroCobrancaError) isValid = false;
+
+        const cidadeCobrancaError = await validateField(
+          cidadeValidator,
+          formValues.cidadeCobranca,
+        );
+        newErrors["cidadeCobranca"] = cidadeCobrancaError;
+        if (cidadeCobrancaError) isValid = false;
       }
 
       setErrors(newErrors);
@@ -301,7 +340,7 @@ const AccountTab = () => {
           clientData.identity_card = getTrimmedValue(formValues.rg);
           clientData.cpf = getTrimmedValue(formValues.cpf);
         } else {
-          clientData.name = getTrimmedValue(formValues.nomeFantasia);
+          clientData.name = getTrimmedValue(formValues.nome);
           clientData.company_name = getTrimmedValue(formValues.razaoSocial);
           clientData.cnpj = getTrimmedValue(formValues.cnpj);
           clientData.state_registration = getTrimmedValue(formValues.inscricaoEstadual);
@@ -811,7 +850,11 @@ const AccountTab = () => {
 
                 <Grid container spacing={3}>
                   <Grid item xs={12} sm={4}>
-                    <CustomFormLabel sx={{ mt: 0 }} htmlFor="text-cep">
+                    <CustomFormLabel
+                      sx={{ mt: 0 }}
+                      htmlFor="text-cep"
+                      required
+                    >
                       CEP
                     </CustomFormLabel>
                     <CustomTextField
@@ -832,7 +875,11 @@ const AccountTab = () => {
                   </Grid>
 
                   <Grid item xs={12} sm={8}>
-                    <CustomFormLabel sx={{ mt: 0 }} htmlFor="text-endereco">
+                    <CustomFormLabel
+                      sx={{ mt: 0 }}
+                      htmlFor="text-endereco"
+                      required
+                    >
                       Endereço
                     </CustomFormLabel>
                     <CustomTextField
@@ -860,7 +907,11 @@ const AccountTab = () => {
                   </Grid>
 
                   <Grid item xs={12} sm={4}>
-                    <CustomFormLabel sx={{ mt: 0 }} htmlFor="text-numero">
+                    <CustomFormLabel
+                      sx={{ mt: 0 }}
+                      htmlFor="text-numero"
+                      required
+                    >
                       Número
                     </CustomFormLabel>
                     <CustomTextField
@@ -912,7 +963,11 @@ const AccountTab = () => {
                   </Grid>
 
                   <Grid item xs={12} sm={4}>
-                    <CustomFormLabel sx={{ mt: 0 }} htmlFor="text-bairro">
+                    <CustomFormLabel
+                      sx={{ mt: 0 }}
+                      htmlFor="text-bairro"
+                      required
+                    >
                       Bairro
                     </CustomFormLabel>
                     <CustomTextField
@@ -936,7 +991,11 @@ const AccountTab = () => {
                   </Grid>
 
                   <Grid item xs={12} sm={4}>
-                    <CustomFormLabel sx={{ mt: 0 }} htmlFor="text-cidade">
+                    <CustomFormLabel
+                      sx={{ mt: 0 }}
+                      htmlFor="text-cidade"
+                      required
+                    >
                       Cidade
                     </CustomFormLabel>
                     <CustomTextField
@@ -1012,6 +1071,7 @@ const AccountTab = () => {
                         <CustomFormLabel
                           sx={{ mt: 0 }}
                           htmlFor="text-cep-cobranca"
+                          required
                         >
                           CEP
                         </CustomFormLabel>
@@ -1040,6 +1100,7 @@ const AccountTab = () => {
                         <CustomFormLabel
                           sx={{ mt: 0 }}
                           htmlFor="text-endereco-cobranca"
+                          required
                         >
                           Endereço
                         </CustomFormLabel>
@@ -1071,6 +1132,7 @@ const AccountTab = () => {
                         <CustomFormLabel
                           sx={{ mt: 0 }}
                           htmlFor="text-numero-cobranca"
+                          required
                         >
                           Número
                         </CustomFormLabel>
@@ -1133,6 +1195,7 @@ const AccountTab = () => {
                         <CustomFormLabel
                           sx={{ mt: 0 }}
                           htmlFor="text-bairro-cobranca"
+                          required
                         >
                           Bairro
                         </CustomFormLabel>
@@ -1164,6 +1227,7 @@ const AccountTab = () => {
                         <CustomFormLabel
                           sx={{ mt: 0 }}
                           htmlFor="text-cidade-cobranca"
+                          required
                         >
                           Cidade
                         </CustomFormLabel>
@@ -1195,6 +1259,7 @@ const AccountTab = () => {
                         <CustomFormLabel
                           sx={{ mt: 0 }}
                           htmlFor="select-uf-cobranca"
+                          required
                         >
                           UF
                         </CustomFormLabel>
