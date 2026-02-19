@@ -57,15 +57,25 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
     [sketches],
   );
 
-  const validatePlayer = (player: any, packageType: string): boolean => {
-    const features =
-      PACKAGE_FEATURES[packageType as keyof typeof PACKAGE_FEATURES];
+  const validatePlayer = (
+    player: any,
+    packageType: Sketch["package_type"],
+  ): string | null => {
+    if (!player.gender) return "gender_required";
 
-    if (!player.gender) return false;
+    if (!player.shirt_size && !player.shorts_size) return "size_required";
 
-    if (!player.shirt_size) return false;
+    const features = PACKAGE_FEATURES[packageType];
+    if (
+      !features.canHaveDifferentSizes &&
+      player.shirt_size &&
+      player.shorts_size &&
+      player.shirt_size !== player.shorts_size
+    ) {
+      return "sizes_must_match";
+    }
 
-    return true;
+    return null;
   };
 
   const handleOpenConfirmDialog = () => {
@@ -80,14 +90,16 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
       }
 
       for (const player of sketch.players) {
-        if (!validatePlayer(player, sketch.package_type)) {
-          const features = PACKAGE_FEATURES[sketch.package_type];
+        const validationError = validatePlayer(player, sketch.package_type);
+        if (validationError) {
           hasError = true;
 
-          if (!player.gender) {
+          if (validationError === "gender_required") {
             errorMsg = `Preencha o campo obrigatório de Gênero no esboço ${sketch.id}`;
-          } else if (!player.shirt_size) {
-            errorMsg = `Preencha o campo obrigatório de Tamanho no esboço ${sketch.id}`;
+          } else if (validationError === "size_required") {
+            errorMsg = `Preencha pelo menos um tamanho (camisa ou calção) no esboço ${sketch.id}`;
+          } else if (validationError === "sizes_must_match") {
+            errorMsg = `No pacote ${sketch.package_type}, camisa e calção devem ter o mesmo tamanho no esboço ${sketch.id}`;
           } else {
             errorMsg = `Dados incompletos para o jogador no esboço ${sketch.id}`;
           }
@@ -124,7 +136,23 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
         }
 
         for (const player of sketch.players) {
-          if (!validatePlayer(player, sketch.package_type)) {
+          const validationError = validatePlayer(player, sketch.package_type);
+          if (validationError) {
+            if (validationError === "gender_required") {
+              throw new Error(
+                `Preencha o campo obrigatório de Gênero no esboço ${sketch.id}`,
+              );
+            }
+            if (validationError === "size_required") {
+              throw new Error(
+                `Preencha pelo menos um tamanho (camisa ou calção) no esboço ${sketch.id}`,
+              );
+            }
+            if (validationError === "sizes_must_match") {
+              throw new Error(
+                `No pacote ${sketch.package_type}, camisa e calção devem ter o mesmo tamanho no esboço ${sketch.id}`,
+              );
+            }
             throw new Error(
               `Dados incompletos para jogador no esboço ${sketch.id}`,
             );
@@ -133,12 +161,6 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
 
         const cleanPlayers = sketch.players.map((player) => {
           const { _index, ...cleanPlayer } = player;
-
-          const features = PACKAGE_FEATURES[sketch.package_type];
-          if (!features.canHaveDifferentSizes || !cleanPlayer.shorts_size) {
-            cleanPlayer.shorts_size = cleanPlayer.shirt_size;
-          }
-
           return cleanPlayer;
         });
 
@@ -168,7 +190,11 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
         throw new Error("Falha ao atualizar o uniforme");
       }
     } catch (error) {
-      setErrorMessage("Ocorreu um erro ao salvar os dados. Tente novamente.");
+      const message =
+        error instanceof Error && error.message
+          ? error.message
+          : "Ocorreu um erro ao salvar os dados. Tente novamente.";
+      setErrorMessage(message);
       setShowError(true);
 
       setTimeout(() => {
@@ -263,8 +289,9 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
         <DialogContent>
           <DialogContentText>
             Por favor, confirme que você escolheu corretamente todos os números,
-            tamanhos de camisas e calções para os jogadores. Após a confirmação,
-            os uniformes serão enviados para produção com essas informações.
+            tamanhos de camisas e/ou calções para os jogadores. Após a
+            confirmação, os uniformes serão enviados para produção com essas
+            informações.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

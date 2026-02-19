@@ -2,6 +2,7 @@ import React, { useEffect, useCallback } from "react";
 import {
   Grid,
   FormControl,
+  FormHelperText,
   InputLabel,
   Select,
   MenuItem,
@@ -75,19 +76,16 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
 
   const handleJerseySizeChange = (e: SelectChangeEvent) => {
     const newSize = e.target.value;
-    let updatedPlayer = { ...player, shirt_size: newSize };
-
-    if (!packageFeatures.canHaveDifferentSizes) {
-      updatedPlayer.shorts_size = newSize;
-    }
+    const updatedPlayer = { ...player, shirt_size: newSize };
 
     onPlayerUpdate(updatedPlayer);
   };
 
   const handleShortsSizeChange = (e: SelectChangeEvent) => {
+    const newSize = e.target.value;
     const updatedPlayer = {
       ...player,
-      shorts_size: e.target.value,
+      shorts_size: newSize,
     };
 
     onPlayerUpdate(updatedPlayer);
@@ -184,27 +182,23 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
             <Grid
               item
               xs={12}
-              sm={packageFeatures.canHaveDifferentSizes ? 4 : 8}
+              sm={4}
             >
-              <FormControl fullWidth size="small" required>
+              <FormControl fullWidth size="small">
                 <InputLabel id={`jersey-size-label-${index}`}>
-                  {packageFeatures.canHaveDifferentSizes
-                    ? "Tamanho da camisa"
-                    : "Tamanho do uniforme"}
+                  Tamanho da camisa
                 </InputLabel>
                 <Select
                   labelId={`jersey-size-label-${index}`}
                   value={player.shirt_size}
-                  label={
-                    packageFeatures.canHaveDifferentSizes
-                      ? "Tamanho da camisa"
-                      : "Tamanho do uniforme"
-                  }
+                  label="Tamanho da camisa"
                   onChange={handleJerseySizeChange}
                   MenuProps={{ disableScrollLock: true }}
                   disabled={disabled}
-                  required
                 >
+                  <MenuItem value="">
+                    <em>Não informar</em>
+                  </MenuItem>
                   {getAvailableSizes("jersey").map((size) => (
                     <MenuItem key={`jersey-${size}`} value={size}>
                       {size}
@@ -214,29 +208,36 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
               </FormControl>
             </Grid>
 
-            {packageFeatures.canHaveDifferentSizes && (
-              <Grid item xs={12} sm={4}>
-                <FormControl fullWidth size="small">
-                  <InputLabel id={`shorts-size-label-${index}`}>
-                    Tamanho do calção
-                  </InputLabel>
-                  <Select
-                    labelId={`shorts-size-label-${index}`}
-                    value={player.shorts_size}
-                    label="Tamanho do calção"
-                    onChange={handleShortsSizeChange}
-                    MenuProps={{ disableScrollLock: true }}
-                    disabled={disabled}
-                  >
-                    {getAvailableSizes("shorts").map((size) => (
-                      <MenuItem key={`shorts-${size}`} value={size}>
-                        {size}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Grid>
-            )}
+            <Grid item xs={12} sm={4}>
+              <FormControl fullWidth size="small">
+                <InputLabel id={`shorts-size-label-${index}`}>
+                  Tamanho do calção
+                </InputLabel>
+                <Select
+                  labelId={`shorts-size-label-${index}`}
+                  value={player.shorts_size}
+                  label="Tamanho do calção"
+                  onChange={handleShortsSizeChange}
+                  MenuProps={{ disableScrollLock: true }}
+                  disabled={disabled}
+                >
+                  <MenuItem value="">
+                    <em>Não informar</em>
+                  </MenuItem>
+                  {getAvailableSizes("shorts").map((size) => (
+                    <MenuItem key={`shorts-${size}`} value={size}>
+                      {size}
+                    </MenuItem>
+                  ))}
+                </Select>
+                {!packageFeatures.canHaveDifferentSizes && (
+                  <FormHelperText>
+                    Se preencher camisa e calção, ambos devem ter o mesmo
+                    tamanho neste pacote.
+                  </FormHelperText>
+                )}
+              </FormControl>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
