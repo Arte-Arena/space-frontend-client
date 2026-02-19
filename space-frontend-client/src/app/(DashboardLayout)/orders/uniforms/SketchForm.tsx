@@ -121,11 +121,11 @@ const SketchForm: React.FC<SketchFormProps> = ({
           </Typography>
           <Typography variant="body2" color="textSecondary" mt={1}>
             {sketch.package_type === "Start" &&
-              "Pacote Start: Tamanhos limitados (M, G) para adultos apenas, sem tamanhos infantis, sem nome e número individuais."}
+              "Pacote Start: Tamanhos limitados (M, G) para adultos apenas, sem tamanhos infantis, sem nome e número individuais. Se preencher camisa e calção, os dois devem ter o mesmo tamanho."}
             {sketch.package_type === "Prata" &&
-              "Pacote Prata: Todos os tamanhos, sem nome individual, apenas número."}
+              "Pacote Prata: Todos os tamanhos, sem nome individual, apenas número. Se preencher camisa e calção, os dois devem ter o mesmo tamanho."}
             {sketch.package_type === "Ouro" &&
-              "Pacote Ouro: Todos os tamanhos, nome e número individuais."}
+              "Pacote Ouro: Todos os tamanhos, nome e número individuais. Se preencher camisa e calção, os dois devem ter o mesmo tamanho."}
             {(sketch.package_type === "Diamante" ||
               sketch.package_type === "Premium" ||
               sketch.package_type === "Profissional") &&
@@ -157,33 +157,21 @@ const SketchForm: React.FC<SketchFormProps> = ({
                 </Typography>
               </Grid>
             )}
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={packageFeatures.hasPlayerNumber ? 3 : 4}>
               <Typography variant="body2" fontWeight="bold">
                 Gênero
               </Typography>
             </Grid>
-            <Grid
-              item
-              xs={12}
-              md={
-                packageFeatures.canHaveDifferentSizes
-                  ? 3
-                  : packageFeatures.hasPlayerNumber
-                    ? 7
-                    : 8
-              }
-            >
+            <Grid item xs={12} md={4}>
               <Typography variant="body2" fontWeight="bold">
-                {packageFeatures.canHaveDifferentSizes ? "Camisa" : "Tamanho"}
+                Camisa
               </Typography>
             </Grid>
-            {packageFeatures.canHaveDifferentSizes && (
-              <Grid item xs={12} md={4}>
-                <Typography variant="body2" fontWeight="bold">
-                  Calção
-                </Typography>
-              </Grid>
-            )}
+            <Grid item xs={12} md={4}>
+              <Typography variant="body2" fontWeight="bold">
+                Calção
+              </Typography>
+            </Grid>
           </Grid>
 
           <Divider sx={{ mt: 1, mb: 3 }} />
