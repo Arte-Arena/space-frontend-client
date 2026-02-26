@@ -41,7 +41,7 @@ export const PACKAGE_FEATURES: Record<
   },
   Prata: {
     canHaveDifferentSizes: false,
-    hasPlayerName: false,
+    hasPlayerName: true,
     hasPlayerNumber: true,
     availableSizes: "all",
   },
