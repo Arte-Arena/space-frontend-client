@@ -34,19 +34,19 @@ export const PACKAGE_FEATURES: Record<
   }
 > = {
   Start: {
-    canHaveDifferentSizes: false,
+    canHaveDifferentSizes: true,
     hasPlayerName: false,
     hasPlayerNumber: false,
     availableSizes: "limited",
   },
   Prata: {
-    canHaveDifferentSizes: false,
+    canHaveDifferentSizes: true,
     hasPlayerName: true,
     hasPlayerNumber: true,
     availableSizes: "all",
   },
   Ouro: {
-    canHaveDifferentSizes: false,
+    canHaveDifferentSizes: true,
     hasPlayerName: true,
     hasPlayerNumber: true,
     availableSizes: "all",

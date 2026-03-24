@@ -121,11 +121,11 @@ const SketchForm: React.FC<SketchFormProps> = ({
           </Typography>
           <Typography variant="body2" color="textSecondary" mt={1}>
             {sketch.package_type === "Start" &&
-              "Pacote Start: Tamanhos limitados (M, G) para adultos apenas, sem tamanhos infantis, sem nome e número individuais. Se preencher camisa e calção, os dois devem ter o mesmo tamanho."}
+              "Pacote Start: Tamanhos limitados (M, G) para adultos apenas, sem tamanhos infantis, sem nome e número individuais. Tamanhos de camisa e calção podem ser diferentes."}
             {sketch.package_type === "Prata" &&
-              "Pacote Prata: Todos os tamanhos, nome e número individuais. Se preencher camisa e calção, os dois devem ter o mesmo tamanho."}
+              "Pacote Prata: Todos os tamanhos, nome e número individuais. Tamanhos de camisa e calção podem ser diferentes."}
             {sketch.package_type === "Ouro" &&
-              "Pacote Ouro: Todos os tamanhos, nome e número individuais. Se preencher camisa e calção, os dois devem ter o mesmo tamanho."}
+              "Pacote Ouro: Todos os tamanhos, nome e número individuais. Tamanhos de camisa e calção podem ser diferentes."}
             {(sketch.package_type === "Diamante" ||
               sketch.package_type === "Premium" ||
               sketch.package_type === "Profissional") &&
