@@ -25,6 +25,7 @@ import Alert from "@mui/material/Alert";
 import { login } from "@/services/auth";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { useRouter } from "next/navigation";
 
 const validationSchema = yup.object({
   email: yup
@@ -38,6 +39,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
   const [showPassword, setShowPassword] = React.useState(false);
+  const router = useRouter();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -55,7 +57,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
           email: values.email.trim(),
           password: values.password.trim(),
         });
-        window.location.href = "/account-settings";
+        router.replace("/account-settings");
       } catch (err: any) {
         setError(
           err.response?.data?.message || err.message || "Erro ao fazer login",
