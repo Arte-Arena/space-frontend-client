@@ -22,7 +22,9 @@ export interface Player {
   name: string;
   shirt_size: string;
   number: string;
+  shirt_number?: string;
   shorts_size: string;
+  shorts_number?: string;
   observations?: string;
 }
 

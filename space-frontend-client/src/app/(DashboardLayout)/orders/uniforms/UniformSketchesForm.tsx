@@ -18,6 +18,7 @@ import {
   Sketch,
   SketchPlayersUpdate,
   PACKAGE_FEATURES,
+  normalizePlayer,
 } from "./types";
 import SketchForm from "./SketchForm";
 import { updateUniformPlayers } from "@/services/uniforms";
@@ -161,7 +162,16 @@ const UniformSketchesForm: React.FC<UniformSketchesFormProps> = ({
 
         const cleanPlayers = sketch.players.map((player) => {
           const { _index, ...cleanPlayer } = player;
-          return cleanPlayer;
+          const normalizedPlayer = normalizePlayer(cleanPlayer);
+          const shirtNumber = normalizedPlayer.shirt_number?.trim() || "";
+          const shortsNumber = normalizedPlayer.shorts_number?.trim() || "";
+
+          return {
+            ...normalizedPlayer,
+            shirt_number: shirtNumber,
+            shorts_number: shortsNumber,
+            number: shirtNumber || shortsNumber || normalizedPlayer.number || "",
+          };
         });
 
         return {
