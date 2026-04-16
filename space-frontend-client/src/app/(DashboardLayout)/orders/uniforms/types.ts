@@ -5,7 +5,9 @@ export interface Player {
   name: string;
   shirt_size: string;
   number: string;
+  shirt_number?: string;
   shorts_size: string;
+  shorts_number?: string;
   observations?: string;
   _index?: number;
 }
@@ -123,5 +125,19 @@ export const createEmptyPlayer = (): Player => ({
   shirt_size: "",
   shorts_size: "",
   number: "",
+  shirt_number: "",
+  shorts_number: "",
   observations: "",
 });
+
+export const normalizePlayer = (player?: Partial<Player>): Player => {
+  const legacyNumber = player?.number ?? "";
+
+  return {
+    ...createEmptyPlayer(),
+    ...player,
+    number: legacyNumber,
+    shirt_number: player?.shirt_number ?? legacyNumber,
+    shorts_number: player?.shorts_number ?? legacyNumber,
+  };
+};

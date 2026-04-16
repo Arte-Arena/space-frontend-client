@@ -10,7 +10,13 @@ import {
   Chip,
 } from "@mui/material";
 import { IconChevronDown } from "@tabler/icons-react";
-import { Sketch, Player, createEmptyPlayer, PACKAGE_FEATURES } from "./types";
+import {
+  Sketch,
+  Player,
+  createEmptyPlayer,
+  normalizePlayer,
+  PACKAGE_FEATURES,
+} from "./types";
 import PlayerFormRow from "./PlayerFormRow";
 // import SketchArtworkPreview from "./SketchArtworkPreview";
 
@@ -33,19 +39,23 @@ const SketchForm: React.FC<SketchFormProps> = ({
         );
       }
 
-      if (currentSketch.players.length < currentSketch.player_count) {
+      const normalizedPlayers = currentSketch.players.map((player) =>
+        normalizePlayer(player),
+      );
+
+      if (normalizedPlayers.length < currentSketch.player_count) {
         const additionalPlayers = Array.from(
-          { length: currentSketch.player_count - currentSketch.players.length },
+          { length: currentSketch.player_count - normalizedPlayers.length },
           () => createEmptyPlayer(),
         );
-        return [...currentSketch.players, ...additionalPlayers];
+        return [...normalizedPlayers, ...additionalPlayers];
       }
 
-      if (currentSketch.players.length > currentSketch.player_count) {
-        return currentSketch.players.slice(0, currentSketch.player_count);
+      if (normalizedPlayers.length > currentSketch.player_count) {
+        return normalizedPlayers.slice(0, currentSketch.player_count);
       }
 
-      return currentSketch.players;
+      return normalizedPlayers;
     },
     [],
   );

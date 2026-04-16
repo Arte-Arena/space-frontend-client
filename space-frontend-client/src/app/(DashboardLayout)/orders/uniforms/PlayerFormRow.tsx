@@ -66,10 +66,20 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
     onPlayerUpdate(updatedPlayer);
   };
 
-  const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleShirtNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const updatedPlayer = {
       ...player,
-      number: e.target.value,
+      shirt_number: e.target.value,
+    };
+    onPlayerUpdate(updatedPlayer);
+  };
+
+  const handleShortsNumberChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const updatedPlayer = {
+      ...player,
+      shorts_number: e.target.value,
     };
     onPlayerUpdate(updatedPlayer);
   };
@@ -121,13 +131,29 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
           <Grid item xs={12}>
             <Grid container spacing={2}>
               {packageFeatures.hasPlayerNumber && (
-                <Grid item xs={4} sm={2}>
+                <Grid item xs={12} sm={3}>
                   <TextField
                     fullWidth
                     size="small"
-                    label="Número"
-                    value={player.number}
-                    onChange={handleNumberChange}
+                    label="Número da camisa"
+                    value={player.shirt_number || ""}
+                    onChange={handleShirtNumberChange}
+                    inputProps={{
+                      maxLength: 2,
+                    }}
+                    disabled={disabled}
+                  />
+                </Grid>
+              )}
+
+              {packageFeatures.hasPlayerNumber && (
+                <Grid item xs={12} sm={3}>
+                  <TextField
+                    fullWidth
+                    size="small"
+                    label="Número do calção"
+                    value={player.shorts_number || ""}
+                    onChange={handleShortsNumberChange}
                     inputProps={{
                       maxLength: 2,
                     }}
@@ -139,8 +165,8 @@ const PlayerFormRow: React.FC<PlayerFormRowProps> = ({
               {packageFeatures.hasPlayerName && (
                 <Grid
                   item
-                  xs={packageFeatures.hasPlayerNumber ? 8 : 12}
-                  sm={packageFeatures.hasPlayerNumber ? 10 : 12}
+                  xs={12}
+                  sm={packageFeatures.hasPlayerNumber ? 6 : 12}
                 >
                   <TextField
                     fullWidth
