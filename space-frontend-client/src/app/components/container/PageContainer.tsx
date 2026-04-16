@@ -1,15 +1,20 @@
+import Head from "next/head";
+import type { ReactNode } from "react";
+
 type Props = {
   description?: string;
-  children: JSX.Element | JSX.Element[];
+  children: ReactNode;
   title?: string;
 };
 
 const PageContainer = ({ title, description, children }: Props) => (
-  <div>
-    <title>{title}</title>
-    <meta name="description" content={description} />
+  <>
+    <Head>
+      {title ? <title>{title}</title> : null}
+      {description ? <meta name="description" content={description} /> : null}
+    </Head>
     {children}
-  </div>
+  </>
 );
 
 export default PageContainer;

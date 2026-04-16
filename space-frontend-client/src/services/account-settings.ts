@@ -18,18 +18,27 @@ export const getClientData = async (
       withCredentials: true,
     });
 
-    if (response.data && response.data.data) {
-      return response.data.data;
+    const payload = response.data?.data ?? response.data;
+
+    if (payload && typeof payload === "object") {
+      return payload as ClientData;
     }
 
     return null;
   } catch (error) {
-    if (axios.isAxiosError(error) && error.response?.status === 401) {
-      router.push("/auth/auth1/login");
-    }
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 401) {
+        router?.replace?.("/auth/auth1/login");
+        throw new Error("UNAUTHORIZED");
+      }
 
-    if (axios.isAxiosError(error) && error.response?.data?.message) {
-      throw new Error(error.response.data.message);
+      if (error.response?.status === 404) {
+        return null;
+      }
+
+      if (error.response?.data?.message) {
+        throw new Error(error.response.data.message);
+      }
     }
 
     throw error;
@@ -73,14 +82,17 @@ export const updateClientData = async (
       withCredentials: true,
     });
 
-    return response.status === 200;
+    return response.status >= 200 && response.status < 300;
   } catch (error) {
-    if (axios.isAxiosError(error) && error.response?.status === 401) {
-      router.push("/auth/auth1/login");
-    }
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 401) {
+        router?.replace?.("/auth/auth1/login");
+        throw new Error("UNAUTHORIZED");
+      }
 
-    if (axios.isAxiosError(error) && error.response?.data?.message) {
-      throw new Error(error.response.data.message);
+      if (error.response?.data?.message) {
+        throw new Error(error.response.data.message);
+      }
     }
 
     throw error;

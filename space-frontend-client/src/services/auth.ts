@@ -57,13 +57,13 @@ export const logout = async (router: any): Promise<void> => {
         withCredentials: true,
       },
     );
-    router.push("/auth/auth1/login");
+    router.replace("/auth/auth1/login");
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.data?.message) {
       throw new Error(error.response.data.message);
     }
 
-    router.push("/auth/auth1/login");
+    router.replace("/auth/auth1/login");
   }
 };
 
@@ -88,7 +88,7 @@ export const checkAuth = async (router: any) => {
 export const checkAuthAndRedirect = async (router: any) => {
   try {
     await checkAuth(router);
-    router.push("/");
+    router.replace("/");
     return true;
   } catch (error) {
     return false;

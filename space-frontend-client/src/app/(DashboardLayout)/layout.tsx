@@ -11,7 +11,7 @@ import Navigation from "./layout/horizontal/navbar/Navigation";
 import HorizontalHeader from "./layout/horizontal/header/Header";
 import { useSelector } from "@/store/hooks";
 import { AppState } from "@/store/store";
-import { getClientData } from "@/services/account-settings";
+import { checkAuth } from "@/services/auth";
 import Loading from "@/app/loading";
 
 const MainWrapper = styled("div")(() => ({
@@ -42,24 +42,39 @@ export default function RootLayout({
   const router = useRouter();
 
   useEffect(() => {
-    const checkAuth = async () => {
+    let isMounted = true;
+
+    const validateSession = async () => {
       try {
-        const result = await getClientData(router);
-        if (result) {
+        await checkAuth(router);
+
+        if (isMounted) {
           setIsAuthenticated(true);
         }
-        if (result) {
+      } catch (error) {
+        if (isMounted) {
+          setIsAuthenticated(false);
+          router.replace("/auth/auth1/login");
+        }
+      } finally {
+        if (isMounted) {
           setIsAuthChecking(false);
         }
-      } catch (error) {
-        //TODO
       }
     };
 
-    checkAuth();
+    validateSession();
+
+    return () => {
+      isMounted = false;
+    };
   }, [router]);
 
-  if (isAuthChecking || !isAuthenticated) {
+  if (isAuthChecking) {
+    return <Loading />;
+  }
+
+  if (!isAuthenticated) {
     return <Loading />;
   }
 
@@ -69,7 +84,6 @@ export default function RootLayout({
         customizer.activeMode === "dark" ? "darkbg mainwrapper" : "mainwrapper"
       }
     >
-      <title>Modernize NextJs</title>
       {/* ------------------------------------------- */}
       {/* Sidebar */}
       {/* ------------------------------------------- */}
